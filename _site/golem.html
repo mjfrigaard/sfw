@@ -161,12 +161,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#golem" id="toc-golem" class="nav-link active" data-scroll-target="#golem"><code>golem</code></a>
+  <li><a href="#gap" id="toc-gap" class="nav-link active" data-scroll-target="#gap"><code>gap</code></a></li>
+  <li><a href="#golem-dependencies" id="toc-golem-dependencies" class="nav-link" data-scroll-target="#golem-dependencies"><code>golem</code> dependencies</a>
+  <ul>
+  <li><a href="#gap-dependencies" id="toc-gap-dependencies" class="nav-link" data-scroll-target="#gap-dependencies"><code>gap</code> dependencies</a>
   <ul>
   <li><a href="#namespace" id="toc-namespace" class="nav-link" data-scroll-target="#namespace">NAMESPACE</a></li>
   <li><a href="#imports" id="toc-imports" class="nav-link" data-scroll-target="#imports">Imports</a></li>
   </ul></li>
-  <li><a href="#golem-dependencies" id="toc-golem-dependencies" class="nav-link" data-scroll-target="#golem-dependencies"><code>golem</code> dependencies</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/mjfrigaard/sfw/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -190,35 +193,444 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="golem" class="level2">
-<h2 class="anchored" data-anchor-id="golem"><code>golem</code></h2>
+<section id="gap" class="level2">
+<h2 class="anchored" data-anchor-id="gap"><code>gap</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="st">"_apps/gap"</span>, <span class="at">recurse =</span> <span class="dv">0</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>     _apps<span class="sc">/</span>gap</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>     ├── CODE_OF_CONDUCT.md</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>     ├── DESCRIPTION</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>     ├── LICENSE</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>     ├── LICENSE.md</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>     ├── NAMESPACE</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>     ├── R</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>     ├── README.Rmd</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>     ├── README.md</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>     ├── app.R</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>     ├── codecov.yml</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>     ├── data</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>     ├── data<span class="sc">-</span>raw</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>     ├── dev</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>     ├── gap.Rproj</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>     ├── inst</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>     ├── man</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>     ├── tests</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>     └── vignettes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>The <code>golem</code> is an ‘opinionated’ Shiny framework that provides many options for users who are experienced with package development, but who are looking to streamline application development.</p>
+</section>
+<section id="golem-dependencies" class="level2">
+<h2 class="anchored" data-anchor-id="golem-dependencies"><code>golem</code> dependencies</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(golem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(golem)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_deps_tree</span>(<span class="at">pkg =</span> <span class="st">"golem"</span>, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>     golem <span class="dv">0</span>.<span class="fl">4.1</span> ✨</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>     ├─covr <span class="dv">3</span>.<span class="fl">6.2</span> ✨</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>     │ ├─digest <span class="dv">0</span>.<span class="fl">6.33</span> ✨</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>     │ ├─jsonlite <span class="dv">1</span>.<span class="fl">8.7</span> ✨</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>     │ ├─rex <span class="dv">1</span>.<span class="fl">2.1</span> ✨</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>     │ │ └─lazyeval <span class="dv">0</span>.<span class="fl">2.2</span> ✨</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>     │ ├─httr <span class="dv">1</span>.<span class="fl">4.7</span> ✨</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>     │ │ ├─curl <span class="dv">5</span>.<span class="fl">0.2</span> ✨</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>     │ │ ├─jsonlite</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>     │ │ ├─mime <span class="fl">0.12</span> ✨</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>     │ │ ├─openssl <span class="dv">2</span>.<span class="fl">1.0</span> ✨</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─askpass <span class="dv">1</span>.<span class="fl">2.0</span> ✨</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>     │ │ │   └─sys <span class="dv">3</span>.<span class="fl">4.2</span> ✨</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>     │ │ └─R6 <span class="dv">2</span>.<span class="fl">5.1</span> ✨</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>     │ ├─crayon <span class="dv">1</span>.<span class="fl">5.2</span> ✨</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>     │ ├─withr <span class="dv">2</span>.<span class="fl">5.0</span> ✨</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>     │ └─yaml <span class="dv">2</span>.<span class="fl">3.7</span> ✨</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>     ├─cli <span class="dv">3</span>.<span class="fl">6.1</span> ✨</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>     ├─crayon</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>     ├─devtools <span class="dv">2</span>.<span class="fl">4.5</span> ✨</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>     │ ├─usethis <span class="dv">2</span>.<span class="fl">2.2</span> ✨</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>     │ │ ├─cli</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>     │ │ ├─clipr <span class="dv">0</span>.<span class="fl">8.0</span> ✨</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>     │ │ ├─crayon</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>     │ │ ├─curl</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>     │ │ ├─desc <span class="dv">1</span>.<span class="fl">4.2</span> ✨</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─cli</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─R6</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─rprojroot <span class="dv">2</span>.<span class="fl">0.3</span> ✨</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>     │ │ ├─fs <span class="dv">1</span>.<span class="fl">6.3</span> ✨</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>     │ │ ├─gert <span class="dv">1</span>.<span class="fl">9.3</span> ✨</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─askpass</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─credentials <span class="dv">2</span>.<span class="fl">0.1</span> ✨</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─openssl</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─sys</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─curl</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─jsonlite</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ └─askpass</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─openssl</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─rstudioapi <span class="dv">0</span>.<span class="fl">15.0</span> ✨</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─sys</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─zip <span class="dv">2</span>.<span class="fl">3.0</span> ✨</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>     │ │ ├─gh <span class="dv">1</span>.<span class="fl">4.0</span> ✨</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─cli</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─gitcreds <span class="dv">0</span>.<span class="fl">1.2</span> ✨</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─httr2 <span class="dv">0</span>.<span class="fl">2.3</span> ✨</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─cli</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─curl</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─glue <span class="dv">1</span>.<span class="fl">6.2</span> ✨</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─magrittr <span class="dv">2</span>.<span class="fl">0.3</span> ✨</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─openssl</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─R6</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─rappdirs <span class="dv">0</span>.<span class="fl">3.3</span> ✨</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─rlang <span class="dv">1</span>.<span class="fl">1.1</span> ✨</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ └─withr</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─ini <span class="dv">0</span>.<span class="fl">3.1</span> ✨</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─jsonlite</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─rlang</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>     │ │ ├─glue</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>     │ │ ├─jsonlite</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>     │ │ ├─lifecycle <span class="dv">1</span>.<span class="fl">0.3</span> ✨</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─cli</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─glue</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─rlang</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>     │ │ ├─purrr <span class="dv">1</span>.<span class="fl">0.2</span> ✨</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─cli</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─lifecycle</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─magrittr</span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─rlang</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─vctrs <span class="dv">0</span>.<span class="fl">6.3</span> ✨</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>     │ │ │   ├─cli</span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>     │ │ │   ├─glue</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>     │ │ │   ├─lifecycle</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>     │ │ │   └─rlang</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rappdirs</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rlang</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rprojroot</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rstudioapi</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>     │ │ ├─whisker <span class="dv">0</span>.<span class="fl">4.1</span> ✨</span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>     │ │ ├─withr</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>     │ │ └─yaml</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>     │ ├─cli</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>     │ ├─desc</span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>     │ ├─ellipsis <span class="dv">0</span>.<span class="fl">3.2</span> ✨</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>     │ │ └─rlang</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>     │ ├─fs</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>     │ ├─lifecycle</span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>     │ ├─memoise <span class="dv">2</span>.<span class="fl">0.1</span> ✨</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rlang</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>     │ │ └─cachem <span class="dv">1</span>.<span class="fl">0.8</span> ✨</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>     │ │   ├─rlang</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>     │ │   └─fastmap <span class="dv">1</span>.<span class="fl">1.1</span> ✨</span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>     │ ├─miniUI <span class="dv">0</span>.<span class="dv">1</span>.<span class="fl">1.1</span> ✨</span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>     │ │ ├─shiny <span class="dv">1</span>.<span class="fl">7.5</span> ✨</span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─httpuv <span class="dv">1</span>.<span class="fl">6.11</span> ✨</span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─Rcpp <span class="dv">1</span>.<span class="fl">0.11</span> ✨</span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─R6</span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─promises <span class="dv">1</span>.<span class="fl">2.1</span> ✨</span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ │ ├─fastmap</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ │ ├─later <span class="dv">1</span>.<span class="fl">3.1</span> ✨</span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ │ │ ├─Rcpp</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ │ │ └─rlang</span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ │ ├─magrittr</span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ │ ├─R6</span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ │ ├─Rcpp</span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ │ └─rlang</span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ └─later</span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─mime</span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─jsonlite</span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─xtable <span class="fl">1.8</span><span class="dv">-4</span> ✨</span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─fontawesome <span class="dv">0</span>.<span class="fl">5.2</span> ✨</span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─rlang</span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ └─htmltools <span class="dv">0</span>.<span class="fl">5.6</span> ✨</span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>     │ │ │ │   ├─digest</span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>     │ │ │ │   ├─base64enc <span class="fl">0.1</span><span class="dv">-3</span> ✨</span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>     │ │ │ │   ├─rlang</span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a>     │ │ │ │   ├─fastmap</span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>     │ │ │ │   └─ellipsis</span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─htmltools</span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─R6</span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─sourcetools <span class="dv">0</span>.<span class="fl">1.7</span><span class="dv">-1</span> ✨</span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─later</span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─promises</span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─crayon</span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─rlang</span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─fastmap</span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─withr</span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─commonmark <span class="dv">1</span>.<span class="fl">9.0</span> ✨</span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─glue</span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─bslib <span class="dv">0</span>.<span class="fl">5.1</span> ✨</span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─base64enc</span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─cachem</span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─htmltools</span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─jquerylib <span class="dv">0</span>.<span class="fl">1.4</span> ✨</span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ │ └─htmltools</span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─jsonlite</span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─memoise</span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─mime</span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─rlang</span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ └─sass <span class="dv">0</span>.<span class="fl">4.7</span> ✨</span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a>     │ │ │ │   ├─fs</span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a>     │ │ │ │   ├─rlang</span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a>     │ │ │ │   ├─htmltools</span>
+<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a>     │ │ │ │   ├─R6</span>
+<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a>     │ │ │ │   └─rappdirs</span>
+<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─cachem</span>
+<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─ellipsis</span>
+<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─lifecycle</span>
+<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a>     │ │ └─htmltools</span>
+<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a>     │ ├─pkgbuild <span class="dv">1</span>.<span class="fl">4.2</span> ✨</span>
+<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a>     │ │ ├─callr <span class="dv">3</span>.<span class="fl">7.3</span> ✨</span>
+<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─processx <span class="dv">3</span>.<span class="fl">8.2</span> ✨</span>
+<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─ps <span class="dv">1</span>.<span class="fl">7.5</span> ✨</span>
+<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ └─R6</span>
+<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─R6</span>
+<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a>     │ │ ├─cli</span>
+<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a>     │ │ ├─crayon</span>
+<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a>     │ │ ├─desc</span>
+<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a>     │ │ ├─prettyunits <span class="dv">1</span>.<span class="fl">1.1</span> ✨</span>
+<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a>     │ │ ├─processx</span>
+<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a>     │ │ ├─R6</span>
+<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a>     │ │ └─rprojroot</span>
+<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a>     │ ├─pkgdown <span class="dv">2</span>.<span class="fl">0.7</span> ✨</span>
+<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a>     │ │ ├─bslib</span>
+<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a>     │ │ ├─callr</span>
+<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a>     │ │ ├─cli</span>
+<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a>     │ │ ├─desc</span>
+<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a>     │ │ ├─digest</span>
+<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a>     │ │ ├─downlit <span class="dv">0</span>.<span class="fl">4.3</span> ✨</span>
+<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─brio <span class="dv">1</span>.<span class="fl">1.3</span> ✨</span>
+<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─desc</span>
+<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─digest</span>
+<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─evaluate <span class="fl">0.21</span> ✨</span>
+<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─fansi <span class="dv">1</span>.<span class="fl">0.4</span> ✨</span>
+<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─memoise</span>
+<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─rlang</span>
+<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─vctrs</span>
+<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─withr</span>
+<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─yaml</span>
+<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a>     │ │ ├─fs</span>
+<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a>     │ │ ├─httr</span>
+<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a>     │ │ ├─jsonlite</span>
+<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a>     │ │ ├─magrittr</span>
+<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a>     │ │ ├─memoise</span>
+<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a>     │ │ ├─purrr</span>
+<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a>     │ │ ├─ragg <span class="dv">1</span>.<span class="fl">2.5</span> ✨</span>
+<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─systemfonts <span class="dv">1</span>.<span class="fl">0.4</span> ✨</span>
+<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─textshaping <span class="dv">0</span>.<span class="fl">3.6</span> ✨</span>
+<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a>     │ │ │   └─systemfonts</span>
+<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rlang</span>
+<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rmarkdown <span class="fl">2.25</span> ✨</span>
+<span id="cb2-194"><a href="#cb2-194" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─bslib</span>
+<span id="cb2-195"><a href="#cb2-195" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─evaluate</span>
+<span id="cb2-196"><a href="#cb2-196" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─fontawesome</span>
+<span id="cb2-197"><a href="#cb2-197" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─htmltools</span>
+<span id="cb2-198"><a href="#cb2-198" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─jquerylib</span>
+<span id="cb2-199"><a href="#cb2-199" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─jsonlite</span>
+<span id="cb2-200"><a href="#cb2-200" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─knitr <span class="fl">1.44</span> ✨</span>
+<span id="cb2-201"><a href="#cb2-201" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─evaluate</span>
+<span id="cb2-202"><a href="#cb2-202" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─highr <span class="fl">0.10</span> ✨</span>
+<span id="cb2-203"><a href="#cb2-203" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ │ └─xfun <span class="fl">0.40</span> ✨</span>
+<span id="cb2-204"><a href="#cb2-204" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─xfun</span>
+<span id="cb2-205"><a href="#cb2-205" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ └─yaml</span>
+<span id="cb2-206"><a href="#cb2-206" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─stringr <span class="dv">1</span>.<span class="fl">5.0</span> ✨</span>
+<span id="cb2-207"><a href="#cb2-207" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─cli</span>
+<span id="cb2-208"><a href="#cb2-208" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─glue</span>
+<span id="cb2-209"><a href="#cb2-209" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─lifecycle</span>
+<span id="cb2-210"><a href="#cb2-210" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─magrittr</span>
+<span id="cb2-211"><a href="#cb2-211" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─rlang</span>
+<span id="cb2-212"><a href="#cb2-212" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─stringi <span class="dv">1</span>.<span class="fl">7.12</span> ✨</span>
+<span id="cb2-213"><a href="#cb2-213" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ └─vctrs</span>
+<span id="cb2-214"><a href="#cb2-214" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─tinytex <span class="fl">0.46</span> ✨</span>
+<span id="cb2-215"><a href="#cb2-215" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ └─xfun</span>
+<span id="cb2-216"><a href="#cb2-216" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─xfun</span>
+<span id="cb2-217"><a href="#cb2-217" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─yaml</span>
+<span id="cb2-218"><a href="#cb2-218" aria-hidden="true" tabindex="-1"></a>     │ │ ├─tibble <span class="dv">3</span>.<span class="fl">2.1</span> ✨</span>
+<span id="cb2-219"><a href="#cb2-219" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─fansi</span>
+<span id="cb2-220"><a href="#cb2-220" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─lifecycle</span>
+<span id="cb2-221"><a href="#cb2-221" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─magrittr</span>
+<span id="cb2-222"><a href="#cb2-222" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─pillar <span class="dv">1</span>.<span class="fl">9.0</span> ✨</span>
+<span id="cb2-223"><a href="#cb2-223" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─cli</span>
+<span id="cb2-224"><a href="#cb2-224" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─fansi</span>
+<span id="cb2-225"><a href="#cb2-225" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─glue</span>
+<span id="cb2-226"><a href="#cb2-226" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─lifecycle</span>
+<span id="cb2-227"><a href="#cb2-227" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─rlang</span>
+<span id="cb2-228"><a href="#cb2-228" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─utf8 <span class="dv">1</span>.<span class="fl">2.3</span> ✨</span>
+<span id="cb2-229"><a href="#cb2-229" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ └─vctrs</span>
+<span id="cb2-230"><a href="#cb2-230" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─pkgconfig <span class="dv">2</span>.<span class="fl">0.3</span> ✨</span>
+<span id="cb2-231"><a href="#cb2-231" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─rlang</span>
+<span id="cb2-232"><a href="#cb2-232" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─vctrs</span>
+<span id="cb2-233"><a href="#cb2-233" aria-hidden="true" tabindex="-1"></a>     │ │ ├─whisker</span>
+<span id="cb2-234"><a href="#cb2-234" aria-hidden="true" tabindex="-1"></a>     │ │ ├─withr</span>
+<span id="cb2-235"><a href="#cb2-235" aria-hidden="true" tabindex="-1"></a>     │ │ ├─xml2 <span class="dv">1</span>.<span class="fl">3.5</span> ✨</span>
+<span id="cb2-236"><a href="#cb2-236" aria-hidden="true" tabindex="-1"></a>     │ │ └─yaml</span>
+<span id="cb2-237"><a href="#cb2-237" aria-hidden="true" tabindex="-1"></a>     │ ├─pkgload <span class="dv">1</span>.<span class="dv">3</span>.<span class="fl">2.1</span> ✨</span>
+<span id="cb2-238"><a href="#cb2-238" aria-hidden="true" tabindex="-1"></a>     │ │ ├─cli</span>
+<span id="cb2-239"><a href="#cb2-239" aria-hidden="true" tabindex="-1"></a>     │ │ ├─crayon</span>
+<span id="cb2-240"><a href="#cb2-240" aria-hidden="true" tabindex="-1"></a>     │ │ ├─desc</span>
+<span id="cb2-241"><a href="#cb2-241" aria-hidden="true" tabindex="-1"></a>     │ │ ├─fs</span>
+<span id="cb2-242"><a href="#cb2-242" aria-hidden="true" tabindex="-1"></a>     │ │ ├─glue</span>
+<span id="cb2-243"><a href="#cb2-243" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rlang</span>
+<span id="cb2-244"><a href="#cb2-244" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rprojroot</span>
+<span id="cb2-245"><a href="#cb2-245" aria-hidden="true" tabindex="-1"></a>     │ │ └─withr</span>
+<span id="cb2-246"><a href="#cb2-246" aria-hidden="true" tabindex="-1"></a>     │ ├─profvis <span class="dv">0</span>.<span class="fl">3.8</span> ✨</span>
+<span id="cb2-247"><a href="#cb2-247" aria-hidden="true" tabindex="-1"></a>     │ │ ├─htmlwidgets <span class="dv">1</span>.<span class="fl">6.2</span> ✨</span>
+<span id="cb2-248"><a href="#cb2-248" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─htmltools</span>
+<span id="cb2-249"><a href="#cb2-249" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─jsonlite</span>
+<span id="cb2-250"><a href="#cb2-250" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─yaml</span>
+<span id="cb2-251"><a href="#cb2-251" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─knitr</span>
+<span id="cb2-252"><a href="#cb2-252" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─rmarkdown</span>
+<span id="cb2-253"><a href="#cb2-253" aria-hidden="true" tabindex="-1"></a>     │ │ ├─purrr</span>
+<span id="cb2-254"><a href="#cb2-254" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rlang</span>
+<span id="cb2-255"><a href="#cb2-255" aria-hidden="true" tabindex="-1"></a>     │ │ ├─stringr</span>
+<span id="cb2-256"><a href="#cb2-256" aria-hidden="true" tabindex="-1"></a>     │ │ └─vctrs</span>
+<span id="cb2-257"><a href="#cb2-257" aria-hidden="true" tabindex="-1"></a>     │ ├─rcmdcheck <span class="dv">1</span>.<span class="fl">4.0</span> ✨</span>
+<span id="cb2-258"><a href="#cb2-258" aria-hidden="true" tabindex="-1"></a>     │ │ ├─callr</span>
+<span id="cb2-259"><a href="#cb2-259" aria-hidden="true" tabindex="-1"></a>     │ │ ├─cli</span>
+<span id="cb2-260"><a href="#cb2-260" aria-hidden="true" tabindex="-1"></a>     │ │ ├─curl</span>
+<span id="cb2-261"><a href="#cb2-261" aria-hidden="true" tabindex="-1"></a>     │ │ ├─desc</span>
+<span id="cb2-262"><a href="#cb2-262" aria-hidden="true" tabindex="-1"></a>     │ │ ├─digest</span>
+<span id="cb2-263"><a href="#cb2-263" aria-hidden="true" tabindex="-1"></a>     │ │ ├─pkgbuild</span>
+<span id="cb2-264"><a href="#cb2-264" aria-hidden="true" tabindex="-1"></a>     │ │ ├─prettyunits</span>
+<span id="cb2-265"><a href="#cb2-265" aria-hidden="true" tabindex="-1"></a>     │ │ ├─R6</span>
+<span id="cb2-266"><a href="#cb2-266" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rprojroot</span>
+<span id="cb2-267"><a href="#cb2-267" aria-hidden="true" tabindex="-1"></a>     │ │ ├─sessioninfo <span class="dv">1</span>.<span class="fl">2.2</span> ✨</span>
+<span id="cb2-268"><a href="#cb2-268" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─cli</span>
+<span id="cb2-269"><a href="#cb2-269" aria-hidden="true" tabindex="-1"></a>     │ │ ├─withr</span>
+<span id="cb2-270"><a href="#cb2-270" aria-hidden="true" tabindex="-1"></a>     │ │ └─xopen <span class="dv">1</span>.<span class="fl">0.0</span> ✨</span>
+<span id="cb2-271"><a href="#cb2-271" aria-hidden="true" tabindex="-1"></a>     │ │   └─processx</span>
+<span id="cb2-272"><a href="#cb2-272" aria-hidden="true" tabindex="-1"></a>     │ ├─remotes <span class="dv">2</span>.<span class="dv">4</span>.<span class="fl">2.1</span> ✨</span>
+<span id="cb2-273"><a href="#cb2-273" aria-hidden="true" tabindex="-1"></a>     │ ├─rlang</span>
+<span id="cb2-274"><a href="#cb2-274" aria-hidden="true" tabindex="-1"></a>     │ ├─roxygen2 <span class="dv">7</span>.<span class="fl">2.3</span> ✨</span>
+<span id="cb2-275"><a href="#cb2-275" aria-hidden="true" tabindex="-1"></a>     │ │ ├─brew <span class="fl">1.0</span><span class="dv">-8</span> ✨</span>
+<span id="cb2-276"><a href="#cb2-276" aria-hidden="true" tabindex="-1"></a>     │ │ ├─cli</span>
+<span id="cb2-277"><a href="#cb2-277" aria-hidden="true" tabindex="-1"></a>     │ │ ├─commonmark</span>
+<span id="cb2-278"><a href="#cb2-278" aria-hidden="true" tabindex="-1"></a>     │ │ ├─desc</span>
+<span id="cb2-279"><a href="#cb2-279" aria-hidden="true" tabindex="-1"></a>     │ │ ├─knitr</span>
+<span id="cb2-280"><a href="#cb2-280" aria-hidden="true" tabindex="-1"></a>     │ │ ├─pkgload</span>
+<span id="cb2-281"><a href="#cb2-281" aria-hidden="true" tabindex="-1"></a>     │ │ ├─purrr</span>
+<span id="cb2-282"><a href="#cb2-282" aria-hidden="true" tabindex="-1"></a>     │ │ ├─R6</span>
+<span id="cb2-283"><a href="#cb2-283" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rlang</span>
+<span id="cb2-284"><a href="#cb2-284" aria-hidden="true" tabindex="-1"></a>     │ │ ├─stringi</span>
+<span id="cb2-285"><a href="#cb2-285" aria-hidden="true" tabindex="-1"></a>     │ │ ├─stringr</span>
+<span id="cb2-286"><a href="#cb2-286" aria-hidden="true" tabindex="-1"></a>     │ │ ├─withr</span>
+<span id="cb2-287"><a href="#cb2-287" aria-hidden="true" tabindex="-1"></a>     │ │ └─xml2</span>
+<span id="cb2-288"><a href="#cb2-288" aria-hidden="true" tabindex="-1"></a>     │ ├─rversions <span class="dv">2</span>.<span class="fl">1.2</span> ✨</span>
+<span id="cb2-289"><a href="#cb2-289" aria-hidden="true" tabindex="-1"></a>     │ │ ├─curl</span>
+<span id="cb2-290"><a href="#cb2-290" aria-hidden="true" tabindex="-1"></a>     │ │ └─xml2</span>
+<span id="cb2-291"><a href="#cb2-291" aria-hidden="true" tabindex="-1"></a>     │ ├─sessioninfo</span>
+<span id="cb2-292"><a href="#cb2-292" aria-hidden="true" tabindex="-1"></a>     │ ├─testthat <span class="dv">3</span>.<span class="fl">1.10</span> ✨</span>
+<span id="cb2-293"><a href="#cb2-293" aria-hidden="true" tabindex="-1"></a>     │ │ ├─brio</span>
+<span id="cb2-294"><a href="#cb2-294" aria-hidden="true" tabindex="-1"></a>     │ │ ├─callr</span>
+<span id="cb2-295"><a href="#cb2-295" aria-hidden="true" tabindex="-1"></a>     │ │ ├─cli</span>
+<span id="cb2-296"><a href="#cb2-296" aria-hidden="true" tabindex="-1"></a>     │ │ ├─desc</span>
+<span id="cb2-297"><a href="#cb2-297" aria-hidden="true" tabindex="-1"></a>     │ │ ├─digest</span>
+<span id="cb2-298"><a href="#cb2-298" aria-hidden="true" tabindex="-1"></a>     │ │ ├─ellipsis</span>
+<span id="cb2-299"><a href="#cb2-299" aria-hidden="true" tabindex="-1"></a>     │ │ ├─evaluate</span>
+<span id="cb2-300"><a href="#cb2-300" aria-hidden="true" tabindex="-1"></a>     │ │ ├─jsonlite</span>
+<span id="cb2-301"><a href="#cb2-301" aria-hidden="true" tabindex="-1"></a>     │ │ ├─lifecycle</span>
+<span id="cb2-302"><a href="#cb2-302" aria-hidden="true" tabindex="-1"></a>     │ │ ├─magrittr</span>
+<span id="cb2-303"><a href="#cb2-303" aria-hidden="true" tabindex="-1"></a>     │ │ ├─pkgload</span>
+<span id="cb2-304"><a href="#cb2-304" aria-hidden="true" tabindex="-1"></a>     │ │ ├─praise <span class="dv">1</span>.<span class="fl">0.0</span> ✨</span>
+<span id="cb2-305"><a href="#cb2-305" aria-hidden="true" tabindex="-1"></a>     │ │ ├─processx</span>
+<span id="cb2-306"><a href="#cb2-306" aria-hidden="true" tabindex="-1"></a>     │ │ ├─ps</span>
+<span id="cb2-307"><a href="#cb2-307" aria-hidden="true" tabindex="-1"></a>     │ │ ├─R6</span>
+<span id="cb2-308"><a href="#cb2-308" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rlang</span>
+<span id="cb2-309"><a href="#cb2-309" aria-hidden="true" tabindex="-1"></a>     │ │ ├─waldo <span class="dv">0</span>.<span class="fl">5.1</span> ✨</span>
+<span id="cb2-310"><a href="#cb2-310" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─cli</span>
+<span id="cb2-311"><a href="#cb2-311" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─diffobj <span class="dv">0</span>.<span class="fl">3.5</span> ✨</span>
+<span id="cb2-312"><a href="#cb2-312" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ └─crayon</span>
+<span id="cb2-313"><a href="#cb2-313" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─fansi</span>
+<span id="cb2-314"><a href="#cb2-314" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─glue</span>
+<span id="cb2-315"><a href="#cb2-315" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─rematch2 <span class="dv">2</span>.<span class="fl">1.2</span> ✨</span>
+<span id="cb2-316"><a href="#cb2-316" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ └─tibble</span>
+<span id="cb2-317"><a href="#cb2-317" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─rlang</span>
+<span id="cb2-318"><a href="#cb2-318" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─tibble</span>
+<span id="cb2-319"><a href="#cb2-319" aria-hidden="true" tabindex="-1"></a>     │ │ └─withr</span>
+<span id="cb2-320"><a href="#cb2-320" aria-hidden="true" tabindex="-1"></a>     │ ├─urlchecker <span class="dv">1</span>.<span class="fl">0.1</span> ✨</span>
+<span id="cb2-321"><a href="#cb2-321" aria-hidden="true" tabindex="-1"></a>     │ │ ├─cli</span>
+<span id="cb2-322"><a href="#cb2-322" aria-hidden="true" tabindex="-1"></a>     │ │ ├─curl</span>
+<span id="cb2-323"><a href="#cb2-323" aria-hidden="true" tabindex="-1"></a>     │ │ └─xml2</span>
+<span id="cb2-324"><a href="#cb2-324" aria-hidden="true" tabindex="-1"></a>     │ └─withr</span>
+<span id="cb2-325"><a href="#cb2-325" aria-hidden="true" tabindex="-1"></a>     ├─dockerfiler <span class="dv">0</span>.<span class="fl">2.1</span> ✨</span>
+<span id="cb2-326"><a href="#cb2-326" aria-hidden="true" tabindex="-1"></a>     │ ├─attempt <span class="dv">0</span>.<span class="fl">3.1</span> ✨</span>
+<span id="cb2-327"><a href="#cb2-327" aria-hidden="true" tabindex="-1"></a>     │ │ └─rlang</span>
+<span id="cb2-328"><a href="#cb2-328" aria-hidden="true" tabindex="-1"></a>     │ ├─cli</span>
+<span id="cb2-329"><a href="#cb2-329" aria-hidden="true" tabindex="-1"></a>     │ ├─desc</span>
+<span id="cb2-330"><a href="#cb2-330" aria-hidden="true" tabindex="-1"></a>     │ ├─fs</span>
+<span id="cb2-331"><a href="#cb2-331" aria-hidden="true" tabindex="-1"></a>     │ ├─glue</span>
+<span id="cb2-332"><a href="#cb2-332" aria-hidden="true" tabindex="-1"></a>     │ ├─jsonlite</span>
+<span id="cb2-333"><a href="#cb2-333" aria-hidden="true" tabindex="-1"></a>     │ ├─pak <span class="dv">0</span>.<span class="fl">6.0</span> ✨</span>
+<span id="cb2-334"><a href="#cb2-334" aria-hidden="true" tabindex="-1"></a>     │ ├─pkgbuild</span>
+<span id="cb2-335"><a href="#cb2-335" aria-hidden="true" tabindex="-1"></a>     │ ├─R6</span>
+<span id="cb2-336"><a href="#cb2-336" aria-hidden="true" tabindex="-1"></a>     │ ├─remotes</span>
+<span id="cb2-337"><a href="#cb2-337" aria-hidden="true" tabindex="-1"></a>     │ ├─renv <span class="dv">1</span>.<span class="fl">0.3</span> ✨</span>
+<span id="cb2-338"><a href="#cb2-338" aria-hidden="true" tabindex="-1"></a>     │ └─usethis</span>
+<span id="cb2-339"><a href="#cb2-339" aria-hidden="true" tabindex="-1"></a>     ├─knitr</span>
+<span id="cb2-340"><a href="#cb2-340" aria-hidden="true" tabindex="-1"></a>     ├─pkgload</span>
+<span id="cb2-341"><a href="#cb2-341" aria-hidden="true" tabindex="-1"></a>     ├─pkgbuild</span>
+<span id="cb2-342"><a href="#cb2-342" aria-hidden="true" tabindex="-1"></a>     ├─pkgdown</span>
+<span id="cb2-343"><a href="#cb2-343" aria-hidden="true" tabindex="-1"></a>     ├─processx</span>
+<span id="cb2-344"><a href="#cb2-344" aria-hidden="true" tabindex="-1"></a>     ├─purrr</span>
+<span id="cb2-345"><a href="#cb2-345" aria-hidden="true" tabindex="-1"></a>     ├─rcmdcheck</span>
+<span id="cb2-346"><a href="#cb2-346" aria-hidden="true" tabindex="-1"></a>     ├─roxygen2</span>
+<span id="cb2-347"><a href="#cb2-347" aria-hidden="true" tabindex="-1"></a>     ├─rmarkdown</span>
+<span id="cb2-348"><a href="#cb2-348" aria-hidden="true" tabindex="-1"></a>     ├─rsconnect <span class="dv">1</span>.<span class="fl">1.0</span> ✨</span>
+<span id="cb2-349"><a href="#cb2-349" aria-hidden="true" tabindex="-1"></a>     │ ├─cli</span>
+<span id="cb2-350"><a href="#cb2-350" aria-hidden="true" tabindex="-1"></a>     │ ├─curl</span>
+<span id="cb2-351"><a href="#cb2-351" aria-hidden="true" tabindex="-1"></a>     │ ├─digest</span>
+<span id="cb2-352"><a href="#cb2-352" aria-hidden="true" tabindex="-1"></a>     │ ├─jsonlite</span>
+<span id="cb2-353"><a href="#cb2-353" aria-hidden="true" tabindex="-1"></a>     │ ├─lifecycle</span>
+<span id="cb2-354"><a href="#cb2-354" aria-hidden="true" tabindex="-1"></a>     │ ├─openssl</span>
+<span id="cb2-355"><a href="#cb2-355" aria-hidden="true" tabindex="-1"></a>     │ ├─packrat <span class="dv">0</span>.<span class="fl">9.2</span> ✨</span>
+<span id="cb2-356"><a href="#cb2-356" aria-hidden="true" tabindex="-1"></a>     │ ├─renv</span>
+<span id="cb2-357"><a href="#cb2-357" aria-hidden="true" tabindex="-1"></a>     │ ├─rlang</span>
+<span id="cb2-358"><a href="#cb2-358" aria-hidden="true" tabindex="-1"></a>     │ ├─rstudioapi</span>
+<span id="cb2-359"><a href="#cb2-359" aria-hidden="true" tabindex="-1"></a>     │ └─yaml</span>
+<span id="cb2-360"><a href="#cb2-360" aria-hidden="true" tabindex="-1"></a>     ├─spelling <span class="dv">2</span>.<span class="fl">2.1</span> ✨</span>
+<span id="cb2-361"><a href="#cb2-361" aria-hidden="true" tabindex="-1"></a>     │ ├─commonmark</span>
+<span id="cb2-362"><a href="#cb2-362" aria-hidden="true" tabindex="-1"></a>     │ ├─xml2</span>
+<span id="cb2-363"><a href="#cb2-363" aria-hidden="true" tabindex="-1"></a>     │ ├─hunspell <span class="dv">3</span>.<span class="fl">0.2</span> ✨</span>
+<span id="cb2-364"><a href="#cb2-364" aria-hidden="true" tabindex="-1"></a>     │ │ ├─Rcpp</span>
+<span id="cb2-365"><a href="#cb2-365" aria-hidden="true" tabindex="-1"></a>     │ │ └─digest</span>
+<span id="cb2-366"><a href="#cb2-366" aria-hidden="true" tabindex="-1"></a>     │ └─knitr</span>
+<span id="cb2-367"><a href="#cb2-367" aria-hidden="true" tabindex="-1"></a>     ├─stringr</span>
+<span id="cb2-368"><a href="#cb2-368" aria-hidden="true" tabindex="-1"></a>     ├─testthat</span>
+<span id="cb2-369"><a href="#cb2-369" aria-hidden="true" tabindex="-1"></a>     ├─withr</span>
+<span id="cb2-370"><a href="#cb2-370" aria-hidden="true" tabindex="-1"></a>     ├─attachment <span class="dv">0</span>.<span class="fl">4.0</span> ✨</span>
+<span id="cb2-371"><a href="#cb2-371" aria-hidden="true" tabindex="-1"></a>     │ ├─cli</span>
+<span id="cb2-372"><a href="#cb2-372" aria-hidden="true" tabindex="-1"></a>     │ ├─desc</span>
+<span id="cb2-373"><a href="#cb2-373" aria-hidden="true" tabindex="-1"></a>     │ ├─glue</span>
+<span id="cb2-374"><a href="#cb2-374" aria-hidden="true" tabindex="-1"></a>     │ ├─knitr</span>
+<span id="cb2-375"><a href="#cb2-375" aria-hidden="true" tabindex="-1"></a>     │ ├─magrittr</span>
+<span id="cb2-376"><a href="#cb2-376" aria-hidden="true" tabindex="-1"></a>     │ ├─rmarkdown</span>
+<span id="cb2-377"><a href="#cb2-377" aria-hidden="true" tabindex="-1"></a>     │ ├─roxygen2</span>
+<span id="cb2-378"><a href="#cb2-378" aria-hidden="true" tabindex="-1"></a>     │ ├─stringr</span>
+<span id="cb2-379"><a href="#cb2-379" aria-hidden="true" tabindex="-1"></a>     │ ├─withr</span>
+<span id="cb2-380"><a href="#cb2-380" aria-hidden="true" tabindex="-1"></a>     │ └─yaml</span>
+<span id="cb2-381"><a href="#cb2-381" aria-hidden="true" tabindex="-1"></a>     ├─renv</span>
+<span id="cb2-382"><a href="#cb2-382" aria-hidden="true" tabindex="-1"></a>     ├─usethis</span>
+<span id="cb2-383"><a href="#cb2-383" aria-hidden="true" tabindex="-1"></a>     ├─fs</span>
+<span id="cb2-384"><a href="#cb2-384" aria-hidden="true" tabindex="-1"></a>     ├─rstudioapi</span>
+<span id="cb2-385"><a href="#cb2-385" aria-hidden="true" tabindex="-1"></a>     ├─desc</span>
+<span id="cb2-386"><a href="#cb2-386" aria-hidden="true" tabindex="-1"></a>     ├─attempt</span>
+<span id="cb2-387"><a href="#cb2-387" aria-hidden="true" tabindex="-1"></a>     ├─config <span class="dv">0</span>.<span class="fl">3.2</span> ✨</span>
+<span id="cb2-388"><a href="#cb2-388" aria-hidden="true" tabindex="-1"></a>     │ └─yaml</span>
+<span id="cb2-389"><a href="#cb2-389" aria-hidden="true" tabindex="-1"></a>     ├─here <span class="dv">1</span>.<span class="fl">0.1</span> ✨</span>
+<span id="cb2-390"><a href="#cb2-390" aria-hidden="true" tabindex="-1"></a>     │ └─rprojroot</span>
+<span id="cb2-391"><a href="#cb2-391" aria-hidden="true" tabindex="-1"></a>     ├─htmltools</span>
+<span id="cb2-392"><a href="#cb2-392" aria-hidden="true" tabindex="-1"></a>     ├─rlang</span>
+<span id="cb2-393"><a href="#cb2-393" aria-hidden="true" tabindex="-1"></a>     ├─shiny</span>
+<span id="cb2-394"><a href="#cb2-394" aria-hidden="true" tabindex="-1"></a>     └─yaml</span>
+<span id="cb2-395"><a href="#cb2-395" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb2-396"><a href="#cb2-396" aria-hidden="true" tabindex="-1"></a>     Key<span class="sc">:</span>  ✨ new</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>_apps/gap
-├── CODE_OF_CONDUCT.md
-├── DESCRIPTION
-├── LICENSE
-├── LICENSE.md
-├── NAMESPACE
-├── R
-├── README.Rmd
-├── README.md
-├── app.R
-├── codecov.yml
-├── data
-├── data-raw
-├── dev
-├── gap.Rproj
-├── inst
-├── man
-├── tests
-└── vignettes</code></pre>
-</div>
-</div>
+<!--
+
+
+
+
+1. non-`devtools` packages 
+2. `devtools` (and `usethis`) dependencies for package development
+3. more non-`devtools` packages 
+
+-->
+<section id="gap-dependencies" class="level3">
+<h3 class="anchored" data-anchor-id="gap-dependencies"><code>gap</code> dependencies</h3>
 <section id="namespace" class="level4">
 <h4 class="anchored" data-anchor-id="namespace">NAMESPACE</h4>
 <p>Below is the namespace file for <code>gap</code>.</p>
@@ -241,650 +653,152 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    stringr,</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    tools</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The graph in the application uses <code>ggplot2</code>, <code>rlang</code>, and <code>tools</code>. <code>golem</code> is importing <code>config</code> (and itself).</p>
-</section>
-</section>
-<section id="golem-dependencies" class="level2">
-<h2 class="anchored" data-anchor-id="golem-dependencies"><code>golem</code> dependencies</h2>
-<p>The <code>pak::pkg_deps_tree()</code> can show us <code>golem</code>‘s dependencies. This is informative because we can see how many possible additional’<em>areas of possible breakage</em>’ exist when <code>golem</code> is included in the <code>Imports</code> field of the <code>DESCRIPTION</code> file.</p>
+<p>The <code>pak::local_deps_tree()</code> function can tell us what the dependencies look like for an application built with <code>golem</code>:</p>
 <div class="cell">
 <details>
-<summary>show/hide golem dependency tree</summary>
-<div class="sourceCode cell-code" id="annotated-cell-4"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><span id="annotated-cell-4-1"><a href="#annotated-cell-4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">golem</span> 0.4.1 ✨</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="1">1</button><span id="annotated-cell-4-2" class="code-annotation-target"><a href="#annotated-cell-4-2" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─covr</span> 3.6.2 ✨</span>
-<span id="annotated-cell-4-3"><a href="#annotated-cell-4-3" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─digest 0.6.33 ✨</span>
-<span id="annotated-cell-4-4"><a href="#annotated-cell-4-4" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─jsonlite 1.8.7 ✨</span>
-<span id="annotated-cell-4-5"><a href="#annotated-cell-4-5" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─rex 1.2.1 ✨</span>
-<span id="annotated-cell-4-6"><a href="#annotated-cell-4-6" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ └─lazyeval 0.2.2 ✨</span>
-<span id="annotated-cell-4-7"><a href="#annotated-cell-4-7" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─httr 1.4.7 ✨</span>
-<span id="annotated-cell-4-8"><a href="#annotated-cell-4-8" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─curl 5.0.2 ✨</span>
-<span id="annotated-cell-4-9"><a href="#annotated-cell-4-9" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─jsonlite</span>
-<span id="annotated-cell-4-10"><a href="#annotated-cell-4-10" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─mime 0.12 ✨</span>
-<span id="annotated-cell-4-11"><a href="#annotated-cell-4-11" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─openssl 2.1.0 ✨</span>
-<span id="annotated-cell-4-12"><a href="#annotated-cell-4-12" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ └─askpass 1.2.0 ✨</span>
-<span id="annotated-cell-4-13"><a href="#annotated-cell-4-13" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │   └─sys 3.4.2 ✨</span>
-<span id="annotated-cell-4-14"><a href="#annotated-cell-4-14" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ └─R6 2.5.1 ✨</span>
-<span id="annotated-cell-4-15"><a href="#annotated-cell-4-15" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─crayon 1.5.2 ✨</span>
-<span id="annotated-cell-4-16"><a href="#annotated-cell-4-16" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─withr 2.5.0 ✨</span>
-<span id="annotated-cell-4-17"><a href="#annotated-cell-4-17" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> └─yaml 2.3.7 ✨</span>
-<span id="annotated-cell-4-18"><a href="#annotated-cell-4-18" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─cli</span> 3.6.1 ✨</span>
-<span id="annotated-cell-4-19"><a href="#annotated-cell-4-19" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─crayon</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="2">2</button><span id="annotated-cell-4-20" class="code-annotation-target"><a href="#annotated-cell-4-20" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─devtools</span> 2.4.5 ✨</span>
-<span id="annotated-cell-4-21"><a href="#annotated-cell-4-21" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─usethis 2.2.2 ✨</span>
-<span id="annotated-cell-4-22"><a href="#annotated-cell-4-22" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─cli</span>
-<span id="annotated-cell-4-23"><a href="#annotated-cell-4-23" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─clipr 0.8.0 ✨</span>
-<span id="annotated-cell-4-24"><a href="#annotated-cell-4-24" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─crayon</span>
-<span id="annotated-cell-4-25"><a href="#annotated-cell-4-25" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─curl</span>
-<span id="annotated-cell-4-26"><a href="#annotated-cell-4-26" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─desc 1.4.2 ✨</span>
-<span id="annotated-cell-4-27"><a href="#annotated-cell-4-27" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─cli</span>
-<span id="annotated-cell-4-28"><a href="#annotated-cell-4-28" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─R6</span>
-<span id="annotated-cell-4-29"><a href="#annotated-cell-4-29" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ └─rprojroot 2.0.3 ✨</span>
-<span id="annotated-cell-4-30"><a href="#annotated-cell-4-30" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─fs 1.6.3 ✨</span>
-<span id="annotated-cell-4-31"><a href="#annotated-cell-4-31" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─gert 1.9.3 ✨</span>
-<span id="annotated-cell-4-32"><a href="#annotated-cell-4-32" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─askpass</span>
-<span id="annotated-cell-4-33"><a href="#annotated-cell-4-33" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─credentials 2.0.1 ✨</span>
-<span id="annotated-cell-4-34"><a href="#annotated-cell-4-34" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─openssl</span>
-<span id="annotated-cell-4-35"><a href="#annotated-cell-4-35" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─sys</span>
-<span id="annotated-cell-4-36"><a href="#annotated-cell-4-36" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─curl</span>
-<span id="annotated-cell-4-37"><a href="#annotated-cell-4-37" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─jsonlite</span>
-<span id="annotated-cell-4-38"><a href="#annotated-cell-4-38" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ └─askpass</span>
-<span id="annotated-cell-4-39"><a href="#annotated-cell-4-39" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─openssl</span>
-<span id="annotated-cell-4-40"><a href="#annotated-cell-4-40" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─rstudioapi 0.15.0 ✨</span>
-<span id="annotated-cell-4-41"><a href="#annotated-cell-4-41" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─sys</span>
-<span id="annotated-cell-4-42"><a href="#annotated-cell-4-42" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ └─zip 2.3.0 ✨</span>
-<span id="annotated-cell-4-43"><a href="#annotated-cell-4-43" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─gh 1.4.0 ✨</span>
-<span id="annotated-cell-4-44"><a href="#annotated-cell-4-44" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─cli</span>
-<span id="annotated-cell-4-45"><a href="#annotated-cell-4-45" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─gitcreds 0.1.2 ✨</span>
-<span id="annotated-cell-4-46"><a href="#annotated-cell-4-46" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─httr2 0.2.3 ✨</span>
-<span id="annotated-cell-4-47"><a href="#annotated-cell-4-47" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─cli</span>
-<span id="annotated-cell-4-48"><a href="#annotated-cell-4-48" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─curl</span>
-<span id="annotated-cell-4-49"><a href="#annotated-cell-4-49" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─glue 1.6.2 ✨</span>
-<span id="annotated-cell-4-50"><a href="#annotated-cell-4-50" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─magrittr 2.0.3 ✨</span>
-<span id="annotated-cell-4-51"><a href="#annotated-cell-4-51" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─openssl</span>
-<span id="annotated-cell-4-52"><a href="#annotated-cell-4-52" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─R6</span>
-<span id="annotated-cell-4-53"><a href="#annotated-cell-4-53" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─rappdirs 0.3.3 ✨</span>
-<span id="annotated-cell-4-54"><a href="#annotated-cell-4-54" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─rlang 1.1.1 ✨</span>
-<span id="annotated-cell-4-55"><a href="#annotated-cell-4-55" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ └─withr</span>
-<span id="annotated-cell-4-56"><a href="#annotated-cell-4-56" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─ini 0.3.1 ✨</span>
-<span id="annotated-cell-4-57"><a href="#annotated-cell-4-57" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─jsonlite</span>
-<span id="annotated-cell-4-58"><a href="#annotated-cell-4-58" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ └─rlang</span>
-<span id="annotated-cell-4-59"><a href="#annotated-cell-4-59" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─glue</span>
-<span id="annotated-cell-4-60"><a href="#annotated-cell-4-60" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─jsonlite</span>
-<span id="annotated-cell-4-61"><a href="#annotated-cell-4-61" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─lifecycle 1.0.3 ✨</span>
-<span id="annotated-cell-4-62"><a href="#annotated-cell-4-62" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─cli</span>
-<span id="annotated-cell-4-63"><a href="#annotated-cell-4-63" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─glue</span>
-<span id="annotated-cell-4-64"><a href="#annotated-cell-4-64" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ └─rlang</span>
-<span id="annotated-cell-4-65"><a href="#annotated-cell-4-65" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─purrr 1.0.2 ✨</span>
-<span id="annotated-cell-4-66"><a href="#annotated-cell-4-66" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─cli</span>
-<span id="annotated-cell-4-67"><a href="#annotated-cell-4-67" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─lifecycle</span>
-<span id="annotated-cell-4-68"><a href="#annotated-cell-4-68" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─magrittr</span>
-<span id="annotated-cell-4-69"><a href="#annotated-cell-4-69" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─rlang</span>
-<span id="annotated-cell-4-70"><a href="#annotated-cell-4-70" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ └─vctrs 0.6.3 ✨</span>
-<span id="annotated-cell-4-71"><a href="#annotated-cell-4-71" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │   ├─cli</span>
-<span id="annotated-cell-4-72"><a href="#annotated-cell-4-72" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │   ├─glue</span>
-<span id="annotated-cell-4-73"><a href="#annotated-cell-4-73" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │   ├─lifecycle</span>
-<span id="annotated-cell-4-74"><a href="#annotated-cell-4-74" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │   └─rlang</span>
-<span id="annotated-cell-4-75"><a href="#annotated-cell-4-75" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─rappdirs</span>
-<span id="annotated-cell-4-76"><a href="#annotated-cell-4-76" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─rlang</span>
-<span id="annotated-cell-4-77"><a href="#annotated-cell-4-77" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─rprojroot</span>
-<span id="annotated-cell-4-78"><a href="#annotated-cell-4-78" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─rstudioapi</span>
-<span id="annotated-cell-4-79"><a href="#annotated-cell-4-79" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─whisker 0.4.1 ✨</span>
-<span id="annotated-cell-4-80"><a href="#annotated-cell-4-80" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─withr</span>
-<span id="annotated-cell-4-81"><a href="#annotated-cell-4-81" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ └─yaml</span>
-<span id="annotated-cell-4-82"><a href="#annotated-cell-4-82" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─cli</span>
-<span id="annotated-cell-4-83"><a href="#annotated-cell-4-83" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─desc</span>
-<span id="annotated-cell-4-84"><a href="#annotated-cell-4-84" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─ellipsis 0.3.2 ✨</span>
-<span id="annotated-cell-4-85"><a href="#annotated-cell-4-85" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ └─rlang</span>
-<span id="annotated-cell-4-86"><a href="#annotated-cell-4-86" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─fs</span>
-<span id="annotated-cell-4-87"><a href="#annotated-cell-4-87" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─lifecycle</span>
-<span id="annotated-cell-4-88"><a href="#annotated-cell-4-88" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─memoise 2.0.1 ✨</span>
-<span id="annotated-cell-4-89"><a href="#annotated-cell-4-89" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─rlang</span>
-<span id="annotated-cell-4-90"><a href="#annotated-cell-4-90" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ └─cachem 1.0.8 ✨</span>
-<span id="annotated-cell-4-91"><a href="#annotated-cell-4-91" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │   ├─rlang</span>
-<span id="annotated-cell-4-92"><a href="#annotated-cell-4-92" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │   └─fastmap 1.1.1 ✨</span>
-<span id="annotated-cell-4-93"><a href="#annotated-cell-4-93" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─miniUI 0.1.1.1 ✨</span>
-<span id="annotated-cell-4-94"><a href="#annotated-cell-4-94" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─shiny 1.7.5 ✨</span>
-<span id="annotated-cell-4-95"><a href="#annotated-cell-4-95" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─httpuv 1.6.11 ✨</span>
-<span id="annotated-cell-4-96"><a href="#annotated-cell-4-96" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─Rcpp 1.0.11 ✨</span>
-<span id="annotated-cell-4-97"><a href="#annotated-cell-4-97" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─R6</span>
-<span id="annotated-cell-4-98"><a href="#annotated-cell-4-98" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─promises 1.2.1 ✨</span>
-<span id="annotated-cell-4-99"><a href="#annotated-cell-4-99" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ │ ├─fastmap</span>
-<span id="annotated-cell-4-100"><a href="#annotated-cell-4-100" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ │ ├─later 1.3.1 ✨</span>
-<span id="annotated-cell-4-101"><a href="#annotated-cell-4-101" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ │ │ ├─Rcpp</span>
-<span id="annotated-cell-4-102"><a href="#annotated-cell-4-102" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ │ │ └─rlang</span>
-<span id="annotated-cell-4-103"><a href="#annotated-cell-4-103" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ │ ├─magrittr</span>
-<span id="annotated-cell-4-104"><a href="#annotated-cell-4-104" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ │ ├─R6</span>
-<span id="annotated-cell-4-105"><a href="#annotated-cell-4-105" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ │ ├─Rcpp</span>
-<span id="annotated-cell-4-106"><a href="#annotated-cell-4-106" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ │ └─rlang</span>
-<span id="annotated-cell-4-107"><a href="#annotated-cell-4-107" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ └─later</span>
-<span id="annotated-cell-4-108"><a href="#annotated-cell-4-108" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─mime</span>
-<span id="annotated-cell-4-109"><a href="#annotated-cell-4-109" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─jsonlite</span>
-<span id="annotated-cell-4-110"><a href="#annotated-cell-4-110" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─xtable 1.8-4 ✨</span>
-<span id="annotated-cell-4-111"><a href="#annotated-cell-4-111" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─fontawesome 0.5.2 ✨</span>
-<span id="annotated-cell-4-112"><a href="#annotated-cell-4-112" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─rlang</span>
-<span id="annotated-cell-4-113"><a href="#annotated-cell-4-113" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ └─htmltools 0.5.6 ✨</span>
-<span id="annotated-cell-4-114"><a href="#annotated-cell-4-114" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │   ├─digest</span>
-<span id="annotated-cell-4-115"><a href="#annotated-cell-4-115" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │   ├─base64enc 0.1-3 ✨</span>
-<span id="annotated-cell-4-116"><a href="#annotated-cell-4-116" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │   ├─rlang</span>
-<span id="annotated-cell-4-117"><a href="#annotated-cell-4-117" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │   ├─fastmap</span>
-<span id="annotated-cell-4-118"><a href="#annotated-cell-4-118" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │   └─ellipsis</span>
-<span id="annotated-cell-4-119"><a href="#annotated-cell-4-119" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─htmltools</span>
-<span id="annotated-cell-4-120"><a href="#annotated-cell-4-120" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─R6</span>
-<span id="annotated-cell-4-121"><a href="#annotated-cell-4-121" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─sourcetools 0.1.7-1 ✨</span>
-<span id="annotated-cell-4-122"><a href="#annotated-cell-4-122" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─later</span>
-<span id="annotated-cell-4-123"><a href="#annotated-cell-4-123" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─promises</span>
-<span id="annotated-cell-4-124"><a href="#annotated-cell-4-124" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─crayon</span>
-<span id="annotated-cell-4-125"><a href="#annotated-cell-4-125" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─rlang</span>
-<span id="annotated-cell-4-126"><a href="#annotated-cell-4-126" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─fastmap</span>
-<span id="annotated-cell-4-127"><a href="#annotated-cell-4-127" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─withr</span>
-<span id="annotated-cell-4-128"><a href="#annotated-cell-4-128" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─commonmark 1.9.0 ✨</span>
-<span id="annotated-cell-4-129"><a href="#annotated-cell-4-129" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─glue</span>
-<span id="annotated-cell-4-130"><a href="#annotated-cell-4-130" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─bslib 0.5.1 ✨</span>
-<span id="annotated-cell-4-131"><a href="#annotated-cell-4-131" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─base64enc</span>
-<span id="annotated-cell-4-132"><a href="#annotated-cell-4-132" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─cachem</span>
-<span id="annotated-cell-4-133"><a href="#annotated-cell-4-133" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─htmltools</span>
-<span id="annotated-cell-4-134"><a href="#annotated-cell-4-134" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─jquerylib 0.1.4 ✨</span>
-<span id="annotated-cell-4-135"><a href="#annotated-cell-4-135" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ │ └─htmltools</span>
-<span id="annotated-cell-4-136"><a href="#annotated-cell-4-136" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─jsonlite</span>
-<span id="annotated-cell-4-137"><a href="#annotated-cell-4-137" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─memoise</span>
-<span id="annotated-cell-4-138"><a href="#annotated-cell-4-138" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─mime</span>
-<span id="annotated-cell-4-139"><a href="#annotated-cell-4-139" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─rlang</span>
-<span id="annotated-cell-4-140"><a href="#annotated-cell-4-140" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ └─sass 0.4.7 ✨</span>
-<span id="annotated-cell-4-141"><a href="#annotated-cell-4-141" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │   ├─fs</span>
-<span id="annotated-cell-4-142"><a href="#annotated-cell-4-142" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │   ├─rlang</span>
-<span id="annotated-cell-4-143"><a href="#annotated-cell-4-143" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │   ├─htmltools</span>
-<span id="annotated-cell-4-144"><a href="#annotated-cell-4-144" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │   ├─R6</span>
-<span id="annotated-cell-4-145"><a href="#annotated-cell-4-145" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │   └─rappdirs</span>
-<span id="annotated-cell-4-146"><a href="#annotated-cell-4-146" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─cachem</span>
-<span id="annotated-cell-4-147"><a href="#annotated-cell-4-147" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─ellipsis</span>
-<span id="annotated-cell-4-148"><a href="#annotated-cell-4-148" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ └─lifecycle</span>
-<span id="annotated-cell-4-149"><a href="#annotated-cell-4-149" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ └─htmltools</span>
-<span id="annotated-cell-4-150"><a href="#annotated-cell-4-150" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─pkgbuild 1.4.2 ✨</span>
-<span id="annotated-cell-4-151"><a href="#annotated-cell-4-151" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─callr 3.7.3 ✨</span>
-<span id="annotated-cell-4-152"><a href="#annotated-cell-4-152" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─processx 3.8.2 ✨</span>
-<span id="annotated-cell-4-153"><a href="#annotated-cell-4-153" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─ps 1.7.5 ✨</span>
-<span id="annotated-cell-4-154"><a href="#annotated-cell-4-154" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ └─R6</span>
-<span id="annotated-cell-4-155"><a href="#annotated-cell-4-155" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ └─R6</span>
-<span id="annotated-cell-4-156"><a href="#annotated-cell-4-156" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─cli</span>
-<span id="annotated-cell-4-157"><a href="#annotated-cell-4-157" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─crayon</span>
-<span id="annotated-cell-4-158"><a href="#annotated-cell-4-158" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─desc</span>
-<span id="annotated-cell-4-159"><a href="#annotated-cell-4-159" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─prettyunits 1.1.1 ✨</span>
-<span id="annotated-cell-4-160"><a href="#annotated-cell-4-160" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─processx</span>
-<span id="annotated-cell-4-161"><a href="#annotated-cell-4-161" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─R6</span>
-<span id="annotated-cell-4-162"><a href="#annotated-cell-4-162" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ └─rprojroot</span>
-<span id="annotated-cell-4-163"><a href="#annotated-cell-4-163" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─pkgdown 2.0.7 ✨</span>
-<span id="annotated-cell-4-164"><a href="#annotated-cell-4-164" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─bslib</span>
-<span id="annotated-cell-4-165"><a href="#annotated-cell-4-165" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─callr</span>
-<span id="annotated-cell-4-166"><a href="#annotated-cell-4-166" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─cli</span>
-<span id="annotated-cell-4-167"><a href="#annotated-cell-4-167" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─desc</span>
-<span id="annotated-cell-4-168"><a href="#annotated-cell-4-168" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─digest</span>
-<span id="annotated-cell-4-169"><a href="#annotated-cell-4-169" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─downlit 0.4.3 ✨</span>
-<span id="annotated-cell-4-170"><a href="#annotated-cell-4-170" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─brio 1.1.3 ✨</span>
-<span id="annotated-cell-4-171"><a href="#annotated-cell-4-171" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─desc</span>
-<span id="annotated-cell-4-172"><a href="#annotated-cell-4-172" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─digest</span>
-<span id="annotated-cell-4-173"><a href="#annotated-cell-4-173" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─evaluate 0.21 ✨</span>
-<span id="annotated-cell-4-174"><a href="#annotated-cell-4-174" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─fansi 1.0.4 ✨</span>
-<span id="annotated-cell-4-175"><a href="#annotated-cell-4-175" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─memoise</span>
-<span id="annotated-cell-4-176"><a href="#annotated-cell-4-176" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─rlang</span>
-<span id="annotated-cell-4-177"><a href="#annotated-cell-4-177" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─vctrs</span>
-<span id="annotated-cell-4-178"><a href="#annotated-cell-4-178" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─withr</span>
-<span id="annotated-cell-4-179"><a href="#annotated-cell-4-179" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ └─yaml</span>
-<span id="annotated-cell-4-180"><a href="#annotated-cell-4-180" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─fs</span>
-<span id="annotated-cell-4-181"><a href="#annotated-cell-4-181" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─httr</span>
-<span id="annotated-cell-4-182"><a href="#annotated-cell-4-182" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─jsonlite</span>
-<span id="annotated-cell-4-183"><a href="#annotated-cell-4-183" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─magrittr</span>
-<span id="annotated-cell-4-184"><a href="#annotated-cell-4-184" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─memoise</span>
-<span id="annotated-cell-4-185"><a href="#annotated-cell-4-185" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─purrr</span>
-<span id="annotated-cell-4-186"><a href="#annotated-cell-4-186" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─ragg 1.2.5 ✨</span>
-<span id="annotated-cell-4-187"><a href="#annotated-cell-4-187" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─systemfonts 1.0.4 ✨</span>
-<span id="annotated-cell-4-188"><a href="#annotated-cell-4-188" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ └─textshaping 0.3.6 ✨</span>
-<span id="annotated-cell-4-189"><a href="#annotated-cell-4-189" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │   └─systemfonts</span>
-<span id="annotated-cell-4-190"><a href="#annotated-cell-4-190" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─rlang</span>
-<span id="annotated-cell-4-191"><a href="#annotated-cell-4-191" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─rmarkdown 2.25 ✨</span>
-<span id="annotated-cell-4-192"><a href="#annotated-cell-4-192" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─bslib</span>
-<span id="annotated-cell-4-193"><a href="#annotated-cell-4-193" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─evaluate</span>
-<span id="annotated-cell-4-194"><a href="#annotated-cell-4-194" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─fontawesome</span>
-<span id="annotated-cell-4-195"><a href="#annotated-cell-4-195" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─htmltools</span>
-<span id="annotated-cell-4-196"><a href="#annotated-cell-4-196" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─jquerylib</span>
-<span id="annotated-cell-4-197"><a href="#annotated-cell-4-197" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─jsonlite</span>
-<span id="annotated-cell-4-198"><a href="#annotated-cell-4-198" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─knitr 1.44 ✨</span>
-<span id="annotated-cell-4-199"><a href="#annotated-cell-4-199" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─evaluate</span>
-<span id="annotated-cell-4-200"><a href="#annotated-cell-4-200" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─highr 0.10 ✨</span>
-<span id="annotated-cell-4-201"><a href="#annotated-cell-4-201" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ │ └─xfun 0.40 ✨</span>
-<span id="annotated-cell-4-202"><a href="#annotated-cell-4-202" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─xfun</span>
-<span id="annotated-cell-4-203"><a href="#annotated-cell-4-203" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ └─yaml</span>
-<span id="annotated-cell-4-204"><a href="#annotated-cell-4-204" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─stringr 1.5.0 ✨</span>
-<span id="annotated-cell-4-205"><a href="#annotated-cell-4-205" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─cli</span>
-<span id="annotated-cell-4-206"><a href="#annotated-cell-4-206" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─glue</span>
-<span id="annotated-cell-4-207"><a href="#annotated-cell-4-207" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─lifecycle</span>
-<span id="annotated-cell-4-208"><a href="#annotated-cell-4-208" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─magrittr</span>
-<span id="annotated-cell-4-209"><a href="#annotated-cell-4-209" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─rlang</span>
-<span id="annotated-cell-4-210"><a href="#annotated-cell-4-210" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─stringi 1.7.12 ✨</span>
-<span id="annotated-cell-4-211"><a href="#annotated-cell-4-211" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ └─vctrs</span>
-<span id="annotated-cell-4-212"><a href="#annotated-cell-4-212" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─tinytex 0.46 ✨</span>
-<span id="annotated-cell-4-213"><a href="#annotated-cell-4-213" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ └─xfun</span>
-<span id="annotated-cell-4-214"><a href="#annotated-cell-4-214" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─xfun</span>
-<span id="annotated-cell-4-215"><a href="#annotated-cell-4-215" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ └─yaml</span>
-<span id="annotated-cell-4-216"><a href="#annotated-cell-4-216" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─tibble 3.2.1 ✨</span>
-<span id="annotated-cell-4-217"><a href="#annotated-cell-4-217" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─fansi</span>
-<span id="annotated-cell-4-218"><a href="#annotated-cell-4-218" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─lifecycle</span>
-<span id="annotated-cell-4-219"><a href="#annotated-cell-4-219" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─magrittr</span>
-<span id="annotated-cell-4-220"><a href="#annotated-cell-4-220" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─pillar 1.9.0 ✨</span>
-<span id="annotated-cell-4-221"><a href="#annotated-cell-4-221" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─cli</span>
-<span id="annotated-cell-4-222"><a href="#annotated-cell-4-222" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─fansi</span>
-<span id="annotated-cell-4-223"><a href="#annotated-cell-4-223" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─glue</span>
-<span id="annotated-cell-4-224"><a href="#annotated-cell-4-224" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─lifecycle</span>
-<span id="annotated-cell-4-225"><a href="#annotated-cell-4-225" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─rlang</span>
-<span id="annotated-cell-4-226"><a href="#annotated-cell-4-226" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ ├─utf8 1.2.3 ✨</span>
-<span id="annotated-cell-4-227"><a href="#annotated-cell-4-227" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ └─vctrs</span>
-<span id="annotated-cell-4-228"><a href="#annotated-cell-4-228" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─pkgconfig 2.0.3 ✨</span>
-<span id="annotated-cell-4-229"><a href="#annotated-cell-4-229" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─rlang</span>
-<span id="annotated-cell-4-230"><a href="#annotated-cell-4-230" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ └─vctrs</span>
-<span id="annotated-cell-4-231"><a href="#annotated-cell-4-231" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─whisker</span>
-<span id="annotated-cell-4-232"><a href="#annotated-cell-4-232" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─withr</span>
-<span id="annotated-cell-4-233"><a href="#annotated-cell-4-233" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─xml2 1.3.5 ✨</span>
-<span id="annotated-cell-4-234"><a href="#annotated-cell-4-234" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ └─yaml</span>
-<span id="annotated-cell-4-235"><a href="#annotated-cell-4-235" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─pkgload 1.3.2.1 ✨</span>
-<span id="annotated-cell-4-236"><a href="#annotated-cell-4-236" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─cli</span>
-<span id="annotated-cell-4-237"><a href="#annotated-cell-4-237" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─crayon</span>
-<span id="annotated-cell-4-238"><a href="#annotated-cell-4-238" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─desc</span>
-<span id="annotated-cell-4-239"><a href="#annotated-cell-4-239" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─fs</span>
-<span id="annotated-cell-4-240"><a href="#annotated-cell-4-240" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─glue</span>
-<span id="annotated-cell-4-241"><a href="#annotated-cell-4-241" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─rlang</span>
-<span id="annotated-cell-4-242"><a href="#annotated-cell-4-242" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─rprojroot</span>
-<span id="annotated-cell-4-243"><a href="#annotated-cell-4-243" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ └─withr</span>
-<span id="annotated-cell-4-244"><a href="#annotated-cell-4-244" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─profvis 0.3.8 ✨</span>
-<span id="annotated-cell-4-245"><a href="#annotated-cell-4-245" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─htmlwidgets 1.6.2 ✨</span>
-<span id="annotated-cell-4-246"><a href="#annotated-cell-4-246" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─htmltools</span>
-<span id="annotated-cell-4-247"><a href="#annotated-cell-4-247" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─jsonlite</span>
-<span id="annotated-cell-4-248"><a href="#annotated-cell-4-248" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─yaml</span>
-<span id="annotated-cell-4-249"><a href="#annotated-cell-4-249" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─knitr</span>
-<span id="annotated-cell-4-250"><a href="#annotated-cell-4-250" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ └─rmarkdown</span>
-<span id="annotated-cell-4-251"><a href="#annotated-cell-4-251" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─purrr</span>
-<span id="annotated-cell-4-252"><a href="#annotated-cell-4-252" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─rlang</span>
-<span id="annotated-cell-4-253"><a href="#annotated-cell-4-253" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─stringr</span>
-<span id="annotated-cell-4-254"><a href="#annotated-cell-4-254" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ └─vctrs</span>
-<span id="annotated-cell-4-255"><a href="#annotated-cell-4-255" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─rcmdcheck 1.4.0 ✨</span>
-<span id="annotated-cell-4-256"><a href="#annotated-cell-4-256" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─callr</span>
-<span id="annotated-cell-4-257"><a href="#annotated-cell-4-257" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─cli</span>
-<span id="annotated-cell-4-258"><a href="#annotated-cell-4-258" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─curl</span>
-<span id="annotated-cell-4-259"><a href="#annotated-cell-4-259" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─desc</span>
-<span id="annotated-cell-4-260"><a href="#annotated-cell-4-260" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─digest</span>
-<span id="annotated-cell-4-261"><a href="#annotated-cell-4-261" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─pkgbuild</span>
-<span id="annotated-cell-4-262"><a href="#annotated-cell-4-262" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─prettyunits</span>
-<span id="annotated-cell-4-263"><a href="#annotated-cell-4-263" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─R6</span>
-<span id="annotated-cell-4-264"><a href="#annotated-cell-4-264" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─rprojroot</span>
-<span id="annotated-cell-4-265"><a href="#annotated-cell-4-265" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─sessioninfo 1.2.2 ✨</span>
-<span id="annotated-cell-4-266"><a href="#annotated-cell-4-266" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ └─cli</span>
-<span id="annotated-cell-4-267"><a href="#annotated-cell-4-267" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─withr</span>
-<span id="annotated-cell-4-268"><a href="#annotated-cell-4-268" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ └─xopen 1.0.0 ✨</span>
-<span id="annotated-cell-4-269"><a href="#annotated-cell-4-269" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │   └─processx</span>
-<span id="annotated-cell-4-270"><a href="#annotated-cell-4-270" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─remotes 2.4.2.1 ✨</span>
-<span id="annotated-cell-4-271"><a href="#annotated-cell-4-271" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─rlang</span>
-<span id="annotated-cell-4-272"><a href="#annotated-cell-4-272" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─roxygen2 7.2.3 ✨</span>
-<span id="annotated-cell-4-273"><a href="#annotated-cell-4-273" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─brew 1.0-8 ✨</span>
-<span id="annotated-cell-4-274"><a href="#annotated-cell-4-274" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─cli</span>
-<span id="annotated-cell-4-275"><a href="#annotated-cell-4-275" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─commonmark</span>
-<span id="annotated-cell-4-276"><a href="#annotated-cell-4-276" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─desc</span>
-<span id="annotated-cell-4-277"><a href="#annotated-cell-4-277" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─knitr</span>
-<span id="annotated-cell-4-278"><a href="#annotated-cell-4-278" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─pkgload</span>
-<span id="annotated-cell-4-279"><a href="#annotated-cell-4-279" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─purrr</span>
-<span id="annotated-cell-4-280"><a href="#annotated-cell-4-280" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─R6</span>
-<span id="annotated-cell-4-281"><a href="#annotated-cell-4-281" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─rlang</span>
-<span id="annotated-cell-4-282"><a href="#annotated-cell-4-282" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─stringi</span>
-<span id="annotated-cell-4-283"><a href="#annotated-cell-4-283" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─stringr</span>
-<span id="annotated-cell-4-284"><a href="#annotated-cell-4-284" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─withr</span>
-<span id="annotated-cell-4-285"><a href="#annotated-cell-4-285" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ └─xml2</span>
-<span id="annotated-cell-4-286"><a href="#annotated-cell-4-286" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─rversions 2.1.2 ✨</span>
-<span id="annotated-cell-4-287"><a href="#annotated-cell-4-287" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─curl</span>
-<span id="annotated-cell-4-288"><a href="#annotated-cell-4-288" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ └─xml2</span>
-<span id="annotated-cell-4-289"><a href="#annotated-cell-4-289" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─sessioninfo</span>
-<span id="annotated-cell-4-290"><a href="#annotated-cell-4-290" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─testthat 3.1.10 ✨</span>
-<span id="annotated-cell-4-291"><a href="#annotated-cell-4-291" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─brio</span>
-<span id="annotated-cell-4-292"><a href="#annotated-cell-4-292" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─callr</span>
-<span id="annotated-cell-4-293"><a href="#annotated-cell-4-293" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─cli</span>
-<span id="annotated-cell-4-294"><a href="#annotated-cell-4-294" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─desc</span>
-<span id="annotated-cell-4-295"><a href="#annotated-cell-4-295" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─digest</span>
-<span id="annotated-cell-4-296"><a href="#annotated-cell-4-296" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─ellipsis</span>
-<span id="annotated-cell-4-297"><a href="#annotated-cell-4-297" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─evaluate</span>
-<span id="annotated-cell-4-298"><a href="#annotated-cell-4-298" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─jsonlite</span>
-<span id="annotated-cell-4-299"><a href="#annotated-cell-4-299" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─lifecycle</span>
-<span id="annotated-cell-4-300"><a href="#annotated-cell-4-300" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─magrittr</span>
-<span id="annotated-cell-4-301"><a href="#annotated-cell-4-301" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─pkgload</span>
-<span id="annotated-cell-4-302"><a href="#annotated-cell-4-302" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─praise 1.0.0 ✨</span>
-<span id="annotated-cell-4-303"><a href="#annotated-cell-4-303" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─processx</span>
-<span id="annotated-cell-4-304"><a href="#annotated-cell-4-304" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─ps</span>
-<span id="annotated-cell-4-305"><a href="#annotated-cell-4-305" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─R6</span>
-<span id="annotated-cell-4-306"><a href="#annotated-cell-4-306" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─rlang</span>
-<span id="annotated-cell-4-307"><a href="#annotated-cell-4-307" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─waldo 0.5.1 ✨</span>
-<span id="annotated-cell-4-308"><a href="#annotated-cell-4-308" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─cli</span>
-<span id="annotated-cell-4-309"><a href="#annotated-cell-4-309" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─diffobj 0.3.5 ✨</span>
-<span id="annotated-cell-4-310"><a href="#annotated-cell-4-310" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ └─crayon</span>
-<span id="annotated-cell-4-311"><a href="#annotated-cell-4-311" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─fansi</span>
-<span id="annotated-cell-4-312"><a href="#annotated-cell-4-312" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─glue</span>
-<span id="annotated-cell-4-313"><a href="#annotated-cell-4-313" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─rematch2 2.1.2 ✨</span>
-<span id="annotated-cell-4-314"><a href="#annotated-cell-4-314" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ │ └─tibble</span>
-<span id="annotated-cell-4-315"><a href="#annotated-cell-4-315" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ ├─rlang</span>
-<span id="annotated-cell-4-316"><a href="#annotated-cell-4-316" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ │ └─tibble</span>
-<span id="annotated-cell-4-317"><a href="#annotated-cell-4-317" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ └─withr</span>
-<span id="annotated-cell-4-318"><a href="#annotated-cell-4-318" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─urlchecker 1.0.1 ✨</span>
-<span id="annotated-cell-4-319"><a href="#annotated-cell-4-319" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─cli</span>
-<span id="annotated-cell-4-320"><a href="#annotated-cell-4-320" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─curl</span>
-<span id="annotated-cell-4-321"><a href="#annotated-cell-4-321" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ └─xml2</span>
-<span id="annotated-cell-4-322"><a href="#annotated-cell-4-322" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> └─withr</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="3">3</button><span id="annotated-cell-4-323" class="code-annotation-target"><a href="#annotated-cell-4-323" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─dockerfiler</span> 0.2.1 ✨</span>
-<span id="annotated-cell-4-324"><a href="#annotated-cell-4-324" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─attempt 0.3.1 ✨</span>
-<span id="annotated-cell-4-325"><a href="#annotated-cell-4-325" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ └─rlang</span>
-<span id="annotated-cell-4-326"><a href="#annotated-cell-4-326" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─cli</span>
-<span id="annotated-cell-4-327"><a href="#annotated-cell-4-327" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─desc</span>
-<span id="annotated-cell-4-328"><a href="#annotated-cell-4-328" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─fs</span>
-<span id="annotated-cell-4-329"><a href="#annotated-cell-4-329" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─glue</span>
-<span id="annotated-cell-4-330"><a href="#annotated-cell-4-330" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─jsonlite</span>
-<span id="annotated-cell-4-331"><a href="#annotated-cell-4-331" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─pak 0.6.0 ✨</span>
-<span id="annotated-cell-4-332"><a href="#annotated-cell-4-332" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─pkgbuild</span>
-<span id="annotated-cell-4-333"><a href="#annotated-cell-4-333" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─R6</span>
-<span id="annotated-cell-4-334"><a href="#annotated-cell-4-334" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─remotes</span>
-<span id="annotated-cell-4-335"><a href="#annotated-cell-4-335" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─renv 1.0.3 ✨👷</span>
-<span id="annotated-cell-4-336"><a href="#annotated-cell-4-336" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> └─usethis</span>
-<span id="annotated-cell-4-337"><a href="#annotated-cell-4-337" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─knitr</span></span>
-<span id="annotated-cell-4-338"><a href="#annotated-cell-4-338" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─pkgload</span></span>
-<span id="annotated-cell-4-339"><a href="#annotated-cell-4-339" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─pkgbuild</span></span>
-<span id="annotated-cell-4-340"><a href="#annotated-cell-4-340" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─pkgdown</span></span>
-<span id="annotated-cell-4-341"><a href="#annotated-cell-4-341" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─processx</span></span>
-<span id="annotated-cell-4-342"><a href="#annotated-cell-4-342" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─purrr</span></span>
-<span id="annotated-cell-4-343"><a href="#annotated-cell-4-343" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─rcmdcheck</span></span>
-<span id="annotated-cell-4-344"><a href="#annotated-cell-4-344" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─roxygen2</span></span>
-<span id="annotated-cell-4-345"><a href="#annotated-cell-4-345" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─rmarkdown</span></span>
-<span id="annotated-cell-4-346"><a href="#annotated-cell-4-346" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─rsconnect</span> 1.1.0 ✨</span>
-<span id="annotated-cell-4-347"><a href="#annotated-cell-4-347" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─cli</span>
-<span id="annotated-cell-4-348"><a href="#annotated-cell-4-348" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─curl</span>
-<span id="annotated-cell-4-349"><a href="#annotated-cell-4-349" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─digest</span>
-<span id="annotated-cell-4-350"><a href="#annotated-cell-4-350" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─jsonlite</span>
-<span id="annotated-cell-4-351"><a href="#annotated-cell-4-351" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─lifecycle</span>
-<span id="annotated-cell-4-352"><a href="#annotated-cell-4-352" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─openssl</span>
-<span id="annotated-cell-4-353"><a href="#annotated-cell-4-353" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─packrat 0.9.2 ✨</span>
-<span id="annotated-cell-4-354"><a href="#annotated-cell-4-354" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─renv</span>
-<span id="annotated-cell-4-355"><a href="#annotated-cell-4-355" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─rlang</span>
-<span id="annotated-cell-4-356"><a href="#annotated-cell-4-356" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─rstudioapi</span>
-<span id="annotated-cell-4-357"><a href="#annotated-cell-4-357" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> └─yaml</span>
-<span id="annotated-cell-4-358"><a href="#annotated-cell-4-358" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─spelling</span> 2.2.1 ✨</span>
-<span id="annotated-cell-4-359"><a href="#annotated-cell-4-359" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─commonmark</span>
-<span id="annotated-cell-4-360"><a href="#annotated-cell-4-360" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─xml2</span>
-<span id="annotated-cell-4-361"><a href="#annotated-cell-4-361" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─hunspell 3.0.2 ✨</span>
-<span id="annotated-cell-4-362"><a href="#annotated-cell-4-362" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ ├─Rcpp</span>
-<span id="annotated-cell-4-363"><a href="#annotated-cell-4-363" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> │ └─digest</span>
-<span id="annotated-cell-4-364"><a href="#annotated-cell-4-364" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> └─knitr</span>
-<span id="annotated-cell-4-365"><a href="#annotated-cell-4-365" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─stringr</span></span>
-<span id="annotated-cell-4-366"><a href="#annotated-cell-4-366" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─testthat</span></span>
-<span id="annotated-cell-4-367"><a href="#annotated-cell-4-367" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─withr</span></span>
-<span id="annotated-cell-4-368"><a href="#annotated-cell-4-368" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─attachment</span> 0.4.0 ✨</span>
-<span id="annotated-cell-4-369"><a href="#annotated-cell-4-369" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─cli</span>
-<span id="annotated-cell-4-370"><a href="#annotated-cell-4-370" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─desc</span>
-<span id="annotated-cell-4-371"><a href="#annotated-cell-4-371" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─glue</span>
-<span id="annotated-cell-4-372"><a href="#annotated-cell-4-372" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─knitr</span>
-<span id="annotated-cell-4-373"><a href="#annotated-cell-4-373" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─magrittr</span>
-<span id="annotated-cell-4-374"><a href="#annotated-cell-4-374" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─rmarkdown</span>
-<span id="annotated-cell-4-375"><a href="#annotated-cell-4-375" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─roxygen2</span>
-<span id="annotated-cell-4-376"><a href="#annotated-cell-4-376" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─stringr</span>
-<span id="annotated-cell-4-377"><a href="#annotated-cell-4-377" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> ├─withr</span>
-<span id="annotated-cell-4-378"><a href="#annotated-cell-4-378" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> └─yaml</span>
-<span id="annotated-cell-4-379"><a href="#annotated-cell-4-379" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─renv</span></span>
-<span id="annotated-cell-4-380"><a href="#annotated-cell-4-380" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─usethis</span></span>
-<span id="annotated-cell-4-381"><a href="#annotated-cell-4-381" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─fs</span></span>
-<span id="annotated-cell-4-382"><a href="#annotated-cell-4-382" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─rstudioapi</span></span>
-<span id="annotated-cell-4-383"><a href="#annotated-cell-4-383" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─desc</span></span>
-<span id="annotated-cell-4-384"><a href="#annotated-cell-4-384" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─attempt</span></span>
-<span id="annotated-cell-4-385"><a href="#annotated-cell-4-385" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─config</span> 0.3.2 ✨</span>
-<span id="annotated-cell-4-386"><a href="#annotated-cell-4-386" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> └─yaml</span>
-<span id="annotated-cell-4-387"><a href="#annotated-cell-4-387" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─here</span> 1.0.1 ✨</span>
-<span id="annotated-cell-4-388"><a href="#annotated-cell-4-388" aria-hidden="true" tabindex="-1"></a>     <span class="ex">│</span> └─rprojroot</span>
-<span id="annotated-cell-4-389"><a href="#annotated-cell-4-389" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─htmltools</span></span>
-<span id="annotated-cell-4-390"><a href="#annotated-cell-4-390" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─rlang</span></span>
-<span id="annotated-cell-4-391"><a href="#annotated-cell-4-391" aria-hidden="true" tabindex="-1"></a>     <span class="ex">├─shiny</span></span>
-<span id="annotated-cell-4-392"><a href="#annotated-cell-4-392" aria-hidden="true" tabindex="-1"></a>     <span class="ex">└─yaml</span></span>
-<span id="annotated-cell-4-393"><a href="#annotated-cell-4-393" aria-hidden="true" tabindex="-1"></a>     </span>
-<span id="annotated-cell-4-394"><a href="#annotated-cell-4-394" aria-hidden="true" tabindex="-1"></a> <span class="ex">Key:</span>  ✨ new <span class="kw">|</span> <span class="ex">👷</span> build</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<summary>show/hide gap dependency tree</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">local_deps_tree</span>(<span class="at">root =</span> <span class="st">"_apps/gap"</span>, <span class="at">dependencies =</span> <span class="cn">NA</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>     local<span class="sc">::</span>_apps<span class="sc">/</span>gap <span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">0.9000</span> ✨👷🏾‍♀️</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>     ├─config <span class="dv">0</span>.<span class="fl">3.2</span> ✨</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>     │ └─yaml <span class="dv">2</span>.<span class="fl">3.7</span> ✨</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>     ├─ggplot2 <span class="dv">3</span>.<span class="fl">4.3</span> ✨</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>     │ ├─cli <span class="dv">3</span>.<span class="fl">6.1</span> ✨</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>     │ ├─glue <span class="dv">1</span>.<span class="fl">6.2</span> ✨</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>     │ ├─gtable <span class="dv">0</span>.<span class="fl">3.4</span> ✨</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>     │ │ ├─cli</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>     │ │ ├─glue</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>     │ │ ├─lifecycle <span class="dv">1</span>.<span class="fl">0.3</span> ✨</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─cli</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─glue</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─rlang <span class="dv">1</span>.<span class="fl">1.1</span> ✨</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>     │ │ └─rlang</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>     │ ├─isoband <span class="dv">0</span>.<span class="fl">2.7</span> ✨</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>     │ ├─lifecycle</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>     │ ├─MASS <span class="fl">7.3</span><span class="dv">-60</span> <span class="sc">&lt;</span> <span class="fl">7.3-60.1</span> ✋</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>     │ ├─mgcv <span class="fl">1.9</span><span class="dv">-0</span> </span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>     │ │ ├─nlme <span class="fl">3.1</span><span class="dv">-163</span> </span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─lattice <span class="fl">0.21</span><span class="dv">-8</span> </span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>     │ │ └─Matrix <span class="fl">1.5</span><span class="dv">-3</span> <span class="ot">-&gt;</span> <span class="fl">1.6-1.1</span> 🚀👷🏾‍♀️🔧 ⬇ (<span class="fl">2.07</span> MB)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>     │ │   └─lattice</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>     │ ├─rlang</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>     │ ├─scales <span class="dv">1</span>.<span class="fl">2.1</span> ✨</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>     │ │ ├─farver <span class="dv">2</span>.<span class="fl">1.1</span> ✨</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>     │ │ ├─labeling <span class="dv">0</span>.<span class="fl">4.3</span> ✨</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>     │ │ ├─lifecycle</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>     │ │ ├─munsell <span class="dv">0</span>.<span class="fl">5.0</span> ✨</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─colorspace <span class="fl">2.1</span><span class="dv">-0</span> ✨</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>     │ │ ├─R6 <span class="dv">2</span>.<span class="fl">5.1</span> ✨</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>     │ │ ├─RColorBrewer <span class="fl">1.1</span><span class="dv">-3</span> ✨</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rlang</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>     │ │ └─viridisLite <span class="dv">0</span>.<span class="fl">4.2</span> ✨</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>     │ ├─tibble <span class="dv">3</span>.<span class="fl">2.1</span> ✨</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>     │ │ ├─fansi <span class="dv">1</span>.<span class="fl">0.4</span> ✨</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>     │ │ ├─lifecycle</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>     │ │ ├─magrittr <span class="dv">2</span>.<span class="fl">0.3</span> ✨</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>     │ │ ├─pillar <span class="dv">1</span>.<span class="fl">9.0</span> ✨</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─cli</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─fansi</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─glue</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─lifecycle</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─rlang</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─utf8 <span class="dv">1</span>.<span class="fl">2.3</span> ✨</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─vctrs <span class="dv">0</span>.<span class="fl">6.3</span> ✨</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>     │ │ │   ├─cli</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>     │ │ │   ├─glue</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>     │ │ │   ├─lifecycle</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>     │ │ │   └─rlang</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>     │ │ ├─pkgconfig <span class="dv">2</span>.<span class="fl">0.3</span> ✨</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rlang</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>     │ │ └─vctrs</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>     │ ├─vctrs</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>     │ └─withr <span class="dv">2</span>.<span class="fl">5.0</span> ✨</span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>     ├─golem <span class="dv">0</span>.<span class="fl">4.1</span> ✨</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>     │ ├─attempt <span class="dv">0</span>.<span class="fl">3.1</span> ✨</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>     │ │ └─rlang</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>     │ ├─config</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>     │ ├─here <span class="dv">1</span>.<span class="fl">0.1</span> ✨</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>     │ │ └─rprojroot <span class="dv">2</span>.<span class="fl">0.3</span> ✨</span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>     │ ├─htmltools <span class="dv">0</span>.<span class="fl">5.6</span> ✨</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>     │ │ ├─digest <span class="dv">0</span>.<span class="fl">6.33</span> ✨</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>     │ │ ├─base64enc <span class="fl">0.1</span><span class="dv">-3</span> ✨</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rlang</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>     │ │ ├─fastmap <span class="dv">1</span>.<span class="fl">1.1</span> ✨</span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>     │ │ └─ellipsis <span class="dv">0</span>.<span class="fl">3.2</span> ✨</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>     │ │   └─rlang</span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>     │ ├─rlang</span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>     │ ├─shiny <span class="dv">1</span>.<span class="fl">7.5</span> ✨</span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>     │ │ ├─httpuv <span class="dv">1</span>.<span class="fl">6.11</span> ✨</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─Rcpp <span class="dv">1</span>.<span class="fl">0.11</span> ✨</span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─R6</span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─promises <span class="dv">1</span>.<span class="fl">2.1</span> ✨</span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─fastmap</span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─later <span class="dv">1</span>.<span class="fl">3.1</span> ✨</span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ │ ├─Rcpp</span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ │ └─rlang</span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─magrittr</span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─R6</span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─Rcpp</span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ └─rlang</span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─later</span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>     │ │ ├─mime <span class="fl">0.12</span> ✨</span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>     │ │ ├─jsonlite <span class="dv">1</span>.<span class="fl">8.7</span> ✨</span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>     │ │ ├─xtable <span class="fl">1.8</span><span class="dv">-4</span> ✨</span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>     │ │ ├─fontawesome <span class="dv">0</span>.<span class="fl">5.2</span> ✨</span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─rlang</span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─htmltools</span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>     │ │ ├─htmltools</span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>     │ │ ├─R6</span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>     │ │ ├─sourcetools <span class="dv">0</span>.<span class="fl">1.7</span><span class="dv">-1</span> ✨</span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a>     │ │ ├─later</span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>     │ │ ├─promises</span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>     │ │ ├─crayon <span class="dv">1</span>.<span class="fl">5.2</span> ✨</span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rlang</span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a>     │ │ ├─fastmap</span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a>     │ │ ├─withr</span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>     │ │ ├─commonmark <span class="dv">1</span>.<span class="fl">9.0</span> ✨</span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a>     │ │ ├─glue</span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a>     │ │ ├─bslib <span class="dv">0</span>.<span class="fl">5.1</span> ✨</span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─base64enc</span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─cachem <span class="dv">1</span>.<span class="fl">0.8</span> ✨</span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─rlang</span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ └─fastmap</span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─htmltools</span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─jquerylib <span class="dv">0</span>.<span class="fl">1.4</span> ✨</span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ └─htmltools</span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─jsonlite</span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─memoise <span class="dv">2</span>.<span class="fl">0.1</span> ✨</span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─rlang</span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ └─cachem</span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─mime</span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─rlang</span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─sass <span class="dv">0</span>.<span class="fl">4.7</span> ✨</span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>     │ │ │   ├─fs <span class="dv">1</span>.<span class="fl">6.3</span> ✨</span>
+<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a>     │ │ │   ├─rlang</span>
+<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a>     │ │ │   ├─htmltools</span>
+<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a>     │ │ │   ├─R6</span>
+<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a>     │ │ │   └─rappdirs <span class="dv">0</span>.<span class="fl">3.3</span> ✨</span>
+<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>     │ │ ├─cachem</span>
+<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a>     │ │ ├─ellipsis</span>
+<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a>     │ │ └─lifecycle</span>
+<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a>     │ └─yaml</span>
+<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a>     ├─rlang</span>
+<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a>     ├─shiny</span>
+<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a>     └─stringr <span class="dv">1</span>.<span class="fl">5.0</span> ✨</span>
+<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a>       ├─cli</span>
+<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a>       ├─glue</span>
+<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a>       ├─lifecycle</span>
+<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a>       ├─magrittr</span>
+<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a>       ├─rlang</span>
+<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a>       ├─stringi <span class="dv">1</span>.<span class="fl">7.12</span> ✨</span>
+<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a>       └─vctrs</span>
+<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a>     Key<span class="sc">:</span>  ✨ new <span class="sc">|</span> 🚀 update <span class="sc">|</span> ✋ outdated <span class="sc">|</span>  ⬇ download <span class="sc">|</span> 👷🏾‍♀️ build <span class="sc">|</span> 🔧 compile</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-annotation">
-<dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
-<dd>
-<span data-code-cell="annotated-cell-4" data-code-annotation="1" data-code-lines="2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19">non-<code>devtools</code> packages</span>
-</dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="2">2</dt>
-<dd>
-<span data-code-cell="annotated-cell-4" data-code-annotation="2" data-code-lines="20,21,22,23,24,25,26,27,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306,307,308,309,310,311,312,313,314,315,316,317,318,319,320,321,322"><code>devtools</code> (and <code>usethis</code>) dependencies for package development<br>
-</span>
-</dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="3">3</dt>
-<dd>
-<span data-code-cell="annotated-cell-4" data-code-annotation="3" data-code-lines="323">more non-<code>devtools</code> packages</span>
-</dd>
-</dl>
-</div>
 </div>
 
-<!--
-The `pak::local_deps_tree()` function can tell us what the dependencies look like for an application built with `golem`:
 
-
-::: {.cell}
-
-```{.r .cell-code  code-fold="true" code-summary="show/hide gap dependency tree"}
-pak::local_deps_tree(root = "_apps/gap", dependencies = TRUE)
-     ℹ Loading metadata database
-     ✔ Loading metadata database ... done
-     
-     local::_apps/gap 0.0.0.9000 ✨👷🏽‍♀️
-     ├─config 0.3.2 ✨
-     │ └─yaml 2.3.7 ✨
-     ├─ggplot2 3.4.3 ✨
-     │ ├─cli 3.6.1 ✨
-     │ ├─glue 1.6.2 ✨
-     │ ├─gtable 0.3.4 ✨
-     │ │ ├─cli
-     │ │ ├─glue
-     │ │ ├─lifecycle 1.0.3 ✨
-     │ │ │ ├─cli
-     │ │ │ ├─glue
-     │ │ │ └─rlang 1.1.1 ✨
-     │ │ └─rlang
-     │ ├─isoband 0.2.7 ✨
-     │ ├─lifecycle
-     │ ├─MASS 7.3-60 < 7.3-60.1 ✋
-     │ ├─mgcv 1.9-0 
-     │ │ ├─nlme 3.1-163 
-     │ │ │ └─lattice 0.21-8 
-     │ │ └─Matrix 1.5-3 -> 1.6-1.1 🚀👷🏽‍♀️🔧 ⬇ (2.07 MB)
-     │ │   └─lattice
-     │ ├─rlang
-     │ ├─scales 1.2.1 ✨
-     │ │ ├─farver 2.1.1 ✨
-     │ │ ├─labeling 0.4.3 ✨
-     │ │ ├─lifecycle
-     │ │ ├─munsell 0.5.0 ✨
-     │ │ │ └─colorspace 2.1-0 ✨
-     │ │ ├─R6 2.5.1 ✨
-     │ │ ├─RColorBrewer 1.1-3 ✨
-     │ │ ├─rlang
-     │ │ └─viridisLite 0.4.2 ✨
-     │ ├─tibble 3.2.1 ✨
-     │ │ ├─fansi 1.0.4 ✨
-     │ │ ├─lifecycle
-     │ │ ├─magrittr 2.0.3 ✨
-     │ │ ├─pillar 1.9.0 ✨
-     │ │ │ ├─cli
-     │ │ │ ├─fansi
-     │ │ │ ├─glue
-     │ │ │ ├─lifecycle
-     │ │ │ ├─rlang
-     │ │ │ ├─utf8 1.2.3 ✨
-     │ │ │ └─vctrs 0.6.3 ✨
-     │ │ │   ├─cli
-     │ │ │   ├─glue
-     │ │ │   ├─lifecycle
-     │ │ │   └─rlang
-     │ │ ├─pkgconfig 2.0.3 ✨
-     │ │ ├─rlang
-     │ │ └─vctrs
-     │ ├─vctrs
-     │ └─withr 2.5.0 ✨
-     ├─golem 0.4.1 ✨
-     │ ├─attempt 0.3.1 ✨
-     │ │ └─rlang
-     │ ├─config
-     │ ├─here 1.0.1 ✨
-     │ │ └─rprojroot 2.0.3 ✨
-     │ ├─htmltools 0.5.6 ✨
-     │ │ ├─digest 0.6.33 ✨
-     │ │ ├─base64enc 0.1-3 ✨
-     │ │ ├─rlang
-     │ │ ├─fastmap 1.1.1 ✨
-     │ │ └─ellipsis 0.3.2 ✨
-     │ │   └─rlang
-     │ ├─rlang
-     │ ├─shiny 1.7.5 ✨
-     │ │ ├─httpuv 1.6.11 ✨
-     │ │ │ ├─Rcpp 1.0.11 ✨
-     │ │ │ ├─R6
-     │ │ │ ├─promises 1.2.1 ✨
-     │ │ │ │ ├─fastmap
-     │ │ │ │ ├─later 1.3.1 ✨
-     │ │ │ │ │ ├─Rcpp
-     │ │ │ │ │ └─rlang
-     │ │ │ │ ├─magrittr
-     │ │ │ │ ├─R6
-     │ │ │ │ ├─Rcpp
-     │ │ │ │ └─rlang
-     │ │ │ └─later
-     │ │ ├─mime 0.12 ✨
-     │ │ ├─jsonlite 1.8.7 ✨
-     │ │ ├─xtable 1.8-4 ✨
-     │ │ ├─fontawesome 0.5.2 ✨
-     │ │ │ ├─rlang
-     │ │ │ └─htmltools
-     │ │ ├─htmltools
-     │ │ ├─R6
-     │ │ ├─sourcetools 0.1.7-1 ✨
-     │ │ ├─later
-     │ │ ├─promises
-     │ │ ├─crayon 1.5.2 ✨
-     │ │ ├─rlang
-     │ │ ├─fastmap
-     │ │ ├─withr
-     │ │ ├─commonmark 1.9.0 ✨
-     │ │ ├─glue
-     │ │ ├─bslib 0.5.1 ✨
-     │ │ │ ├─base64enc
-     │ │ │ ├─cachem 1.0.8 ✨
-     │ │ │ │ ├─rlang
-     │ │ │ │ └─fastmap
-     │ │ │ ├─htmltools
-     │ │ │ ├─jquerylib 0.1.4 ✨
-     │ │ │ │ └─htmltools
-     │ │ │ ├─jsonlite
-     │ │ │ ├─memoise 2.0.1 ✨
-     │ │ │ │ ├─rlang
-     │ │ │ │ └─cachem
-     │ │ │ ├─mime
-     │ │ │ ├─rlang
-     │ │ │ └─sass 0.4.7 ✨
-     │ │ │   ├─fs 1.6.3 ✨
-     │ │ │   ├─rlang
-     │ │ │   ├─htmltools
-     │ │ │   ├─R6
-     │ │ │   └─rappdirs 0.3.3 ✨
-     │ │ ├─cachem
-     │ │ ├─ellipsis
-     │ │ └─lifecycle
-     │ └─yaml
-     ├─rlang
-     ├─shiny
-     ├─stringr 1.5.0 ✨
-     │ ├─cli
-     │ ├─glue
-     │ ├─lifecycle
-     │ ├─magrittr
-     │ ├─rlang
-     │ ├─stringi 1.7.12 ✨
-     │ └─vctrs
-     ├─knitr 1.44 ✨
-     │ ├─evaluate 0.21 ✨
-     │ ├─highr 0.10 ✨
-     │ │ └─xfun 0.40 ✨
-     │ ├─xfun
-     │ └─yaml
-     ├─rmarkdown 2.25 ✨
-     │ ├─bslib
-     │ ├─evaluate
-     │ ├─fontawesome
-     │ ├─htmltools
-     │ ├─jquerylib
-     │ ├─jsonlite
-     │ ├─knitr
-     │ ├─stringr
-     │ ├─tinytex 0.46 ✨
-     │ │ └─xfun
-     │ ├─xfun
-     │ └─yaml
-     ├─spelling 2.2.1 ✨
-     │ ├─commonmark
-     │ ├─xml2 1.3.5 ✨
-     │ ├─hunspell 3.0.2 ✨
-     │ │ ├─Rcpp
-     │ │ └─digest
-     │ └─knitr
-     └─testthat 3.1.10 ✨
-       ├─brio 1.1.3 ✨
-       ├─callr 3.7.3 ✨
-       │ ├─processx 3.8.2 ✨
-       │ │ ├─ps 1.7.5 ✨
-       │ │ └─R6
-       │ └─R6
-       ├─cli
-       ├─desc 1.4.2 ✨
-       │ ├─cli
-       │ ├─R6
-       │ └─rprojroot
-       ├─digest
-       ├─ellipsis
-       ├─evaluate
-       ├─jsonlite
-       ├─lifecycle
-       ├─magrittr
-       ├─pkgload 1.3.2.1 ✨
-       │ ├─cli
-       │ ├─crayon
-       │ ├─desc
-       │ ├─fs
-       │ ├─glue
-       │ ├─rlang
-       │ ├─rprojroot
-       │ └─withr
-       ├─praise 1.0.0 ✨
-       ├─processx
-       ├─ps
-       ├─R6
-       ├─rlang
-       ├─waldo 0.5.1 ✨
-       │ ├─cli
-       │ ├─diffobj 0.3.5 ✨
-       │ │ └─crayon
-       │ ├─fansi
-       │ ├─glue
-       │ ├─rematch2 2.1.2 ✨
-       │ │ └─tibble
-       │ ├─rlang
-       │ └─tibble
-       └─withr
-     
-     Key:  ✨ new | 🚀 update | ✋ outdated |  ⬇ download | 👷🏽‍♀️ build | 🔧 compile
-```
-:::
-
-
--->
-
-
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->

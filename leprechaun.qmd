@@ -1,31 +1,38 @@
 ---
 title: "The `leprechaun` framework"
+knitr:
+  opts_chunk: 
+    collapse: true
+    comment: "\t"
 ---
 
+
+## `lap`
+
+```{r}
+#| eval: true
+#| echo: true  
+fs::dir_tree("_apps/lap", recurse = 0)
+```
 
 ## `leprechaun` dependencies 
 
 ```{r}
+#| eval: true 
+#| include: true
 #| code-fold: show 
-#| code-summary: 'show/hide leprechaun dependencies'
-#| eval: true
-#| echo: true 
+#| code-summary: 'show/hide leprechaun dependency tree'
 library(leprechaun)
 pak::pkg_deps_tree(pkg = "leprechaun", dependencies = TRUE)
 ```
 
-```{r}
-#| eval: true
-#| echo: false 
-fs::dir_tree("_apps/lap", recurse = 0)
-```
+### `lap` dependencies 
 
 ```{r}
-#| eval: false
-#| include: false
+#| eval: true
 #| code-fold: true 
 #| code-summary: 'show/hide lap dependency tree'
 #| collapse: true 
 #| comment: "\t"
-pak::local_deps_tree(root = "_apps/lap", dependencies = TRUE)
+pak::local_deps_tree(root = "_apps/lap", dependencies = NA)
 ```

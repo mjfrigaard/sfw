@@ -10,7 +10,7 @@ format:
   
 knitr:
   opts_chunk: 
-    collapse: false
+    collapse: true
     comment: "\t"
 ---
 
@@ -32,7 +32,7 @@ This repo contains the following shiny applications:
 
 3. [`duap`](https://github.com/mjfrigaard/sfw/tree/main/_apps/duap): a `devtools`/`usethis` app-package
 
-The original data and code for each application comes from [Building Web Applications With Shiny](https://rstudio-education.github.io/shiny-course/)[^bwas], but has been adapted to provide a basic (but realistic) example (modules, utility function, tests, etc.)
+The original data and code for each application comes from [Building Web Applications With Shiny](https://rstudio-education.github.io/shiny-course/)[^bwas], but has been adapted to provide a basic (but realistic) example with modules, utility function, tests, etc.
 
 [^bwas]: This was a popular course among colleagues and covers (in my opinion) what a developer should know before considering a framework.
 
@@ -50,7 +50,7 @@ if ("pak" %in% loadedNamespaces()) {
 
 All shiny app-packages will inherently depend on `shiny`, so including more dependencies can make developers justifiably uneasy.
 
-Below is a dependency tree for `shiny`:
+The `pak::pkg_deps_tree()` can show us `shiny`'s dependencies.
 
 ```{r}
 #| code-fold: show 
@@ -77,6 +77,6 @@ As we can see from the dependency tree below, the [conscious uncoupling](https:/
 #| eval: true
 #| echo: true 
 #| collapse: true
-pak::pkg_deps_tree(pkg = "shiny")
+pak::pkg_deps_tree(pkg = "devtools")
 ```
 

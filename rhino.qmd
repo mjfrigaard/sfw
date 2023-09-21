@@ -1,33 +1,42 @@
 ---
-title: "shiny-app-frameworks"
-format:
-  html: 
-    toc: true
-    toc-depth: 5
-    toc-location: right
-    toc-title: Contents
+title: "the rhino framework"
+knitr:
+  opts_chunk: 
+    collapse: true
+    comment: "\t"
 ---
+
+## `rap`
+
+```{r}
+#| eval: true
+#| echo: true 
+fs::dir_tree("_apps/rap", recurse = 0)
+```
 
 ## `rhino` dependencies 
 
 ```{r}
+#| eval: true 
+#| include: true
+#| code-fold: show 
+#| code-summary: 'show/hide rhino dependency tree'
 library(rhino)
-pak::pkg_deps_tree(pkg = "rhino", dependencies = TRUE)
+pak::pkg_deps_tree(pkg = "rhino")
 ```
+
+### `rap` dependencies 
+
+`rhino` apps aren't packages, so the dependencies are stored in `rap/dependencies.R`
 
 ```{r}
 #| eval: true
-#| echo: false 
-fs::dir_tree("_apps/rap", recurse = 0)
-```
-
-```{r}
-#| eval: false 
-#| include: false
 #| code-fold: true 
-#| code-summary: 'show/hide lap dependency tree'
+#| code-summary: 'show/hide rap dependency tree'
 #| collapse: true 
 #| comment: "\t"
-pak::pkg_deps_tree(pkg = "rhino", dependencies = TRUE)
+readLines(con = "_apps/rap/dependencies.R")
 ```
+
+
 
