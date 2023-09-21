@@ -1,0 +1,30 @@
+Package: gap
+Title: An example goelm app
+Version: 0.0.0.9000
+Author: person("Martin", "Frigaard", , "mjfrigaard@pm.me", role = c("cre",
+    "aut"))
+Description: A working example of the golem package.
+License: MIT + file LICENSE
+Depends: 
+    R (>= 3.5.0)
+Imports: 
+    config (>= 0.3.1),
+    ggplot2,
+    golem (>= 0.3.5),
+    rlang,
+    shiny (>= 1.7.4),
+    stringr,
+    tools
+Suggests: 
+    knitr,
+    rmarkdown,
+    spelling,
+    testthat (>= 3.0.0)
+VignetteBuilder: 
+    knitr
+Config/testthat/edition: 3
+Encoding: UTF-8
+Language: en-US
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3

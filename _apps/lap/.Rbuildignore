@@ -1,0 +1,12 @@
+^lap\.Rproj$
+^\.Rproj\.user$
+^\.leprechaun$
+^data-raw$
+^srcjs$
+^node_modules$
+^package\.json$
+^package-lock\.json$
+^webpack\.dev\.js$
+^webpack\.prod\.js$
+^webpack\.common\.js$
+^scss$

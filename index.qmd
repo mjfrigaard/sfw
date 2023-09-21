@@ -1,0 +1,57 @@
+---
+title: "shiny-app-frameworks"
+format:
+  html: 
+    toc: true
+    toc-depth: 5
+    toc-location: right
+    toc-title: Contents
+    
+  
+knitr:
+  opts_chunk: 
+    collapse: false
+    comment: "\t"
+---
+
+<!-- https://gist.github.com/jthomasmock/11acebd4448f171f786e01397df34116 -->
+
+## Motivation
+
+This repo contains the following shiny applications: 
+
+1. `gap`: a `golem` app-package
+
+2. `lap`: a `leprechaun` app-package
+
+3. `rap`: a `rhino` app (pseudo-package)
+
+3. `duap`: a `devtools`/`usethis` app-package
+
+```{r}
+#| eval: false
+#| echo: false
+if ("pak" %in% loadedNamespaces()) {
+  pak_update(stream = "devel")
+} else {
+  install.packages("pak", quiet = TRUE)
+}
+```
+
+### Dependencies 
+
+One of the constant concerns for developers is relying on an experimental or 'new' add-on package, that code changing, and something we built that used to work is now breaking.
+
+All shiny app-packages depend on `shiny` and `devtools`, so adding more dependencies can make developers uneasy. 
+
+## `devtools` dependencies 
+
+```{r}
+#| code-fold: show 
+#| code-summary: 'show/hide devtools dependencies'
+#| eval: true
+#| echo: true 
+#| collapse: true
+pak::pkg_deps_tree(pkg = "devtools", dependencies = TRUE)
+```
+

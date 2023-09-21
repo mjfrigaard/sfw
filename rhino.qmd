@@ -1,0 +1,33 @@
+---
+title: "shiny-app-frameworks"
+format:
+  html: 
+    toc: true
+    toc-depth: 5
+    toc-location: right
+    toc-title: Contents
+---
+
+## `rhino` dependencies 
+
+```{r}
+library(rhino)
+pak::pkg_deps_tree(pkg = "rhino", dependencies = TRUE)
+```
+
+```{r}
+#| eval: true
+#| echo: false 
+fs::dir_tree("_apps/rap", recurse = 0)
+```
+
+```{r}
+#| eval: false 
+#| include: false
+#| code-fold: true 
+#| code-summary: 'show/hide lap dependency tree'
+#| collapse: true 
+#| comment: "\t"
+pak::pkg_deps_tree(pkg = "rhino", dependencies = TRUE)
+```
+
