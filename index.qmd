@@ -20,13 +20,13 @@ knitr:
 
 This repo contains the following shiny applications: 
 
-1. `gap`: a `golem` app-package
+1. [`gap`](https://github.com/mjfrigaard/sfw/tree/main/_apps/gap): a `golem` app-package
 
-2. `lap`: a `leprechaun` app-package
+2. [`lap`](https://github.com/mjfrigaard/sfw/tree/main/_apps/lap): a `leprechaun` app-package
 
-3. `rap`: a `rhino` app (pseudo-package)
+3. [`rap`](https://github.com/mjfrigaard/sfw/tree/main/_apps/rap): a `rhino` app (pseudo-package)
 
-3. `duap`: a `devtools`/`usethis` app-package
+3. [`duap`](https://github.com/mjfrigaard/sfw/tree/main/_apps/duap): a `devtools`/`usethis` app-package
 
 ```{r}
 #| eval: false
@@ -44,7 +44,7 @@ One of the constant concerns for developers is relying on an experimental or 'ne
 
 All shiny app-packages depend on `shiny` and `devtools`, so adding more dependencies can make developers uneasy. 
 
-## `devtools` dependencies 
+### `devtools` dependencies 
 
 ```{r}
 #| code-fold: show 

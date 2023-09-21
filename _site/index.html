@@ -97,7 +97,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -132,6 +132,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
 </ul>
             <div class="quarto-navbar-tools ms-auto">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools ms-auto-item" href="https://github.com/mjfrigaard/sfw">
+            Source Code
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools ms-auto-item" href="https://github.com/mjfrigaard/sfw/issues">
+            Report an issue
+            </a>
+          </li>
+      </ul>
+    </div>
 </div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
@@ -141,7 +156,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation">Motivation</a>
+  <ul>
+  <li><a href="#dependencies" id="toc-dependencies" class="nav-link" data-scroll-target="#dependencies">Dependencies</a></li>
+  <li><a href="#devtools-dependencies" id="toc-devtools-dependencies" class="nav-link" data-scroll-target="#devtools-dependencies"><code>devtools</code> dependencies</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/mjfrigaard/sfw/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -152,19 +179,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
 <p>This repo contains the following shiny applications:</p>
 <ol type="1">
-<li><p><code>gap</code>: a <code>golem</code> app-package</p></li>
-<li><p><code>lap</code>: a <code>leprechaun</code> app-package</p></li>
-<li><p><code>rap</code>: a <code>rhino</code> app (pseudo-package)</p></li>
-<li><p><code>duap</code>: a <code>devtools</code>/<code>usethis</code> app-package</p></li>
+<li><p><a href="https://github.com/mjfrigaard/sfw/tree/main/_apps/gap"><code>gap</code></a>: a <code>golem</code> app-package</p></li>
+<li><p><a href="https://github.com/mjfrigaard/sfw/tree/main/_apps/lap"><code>lap</code></a>: a <code>leprechaun</code> app-package</p></li>
+<li><p><a href="https://github.com/mjfrigaard/sfw/tree/main/_apps/rap"><code>rap</code></a>: a <code>rhino</code> app (pseudo-package)</p></li>
+<li><p><a href="https://github.com/mjfrigaard/sfw/tree/main/_apps/duap"><code>duap</code></a>: a <code>devtools</code>/<code>usethis</code> app-package</p></li>
 </ol>
 <section id="dependencies" class="level3">
 <h3 class="anchored" data-anchor-id="dependencies">Dependencies</h3>
 <p>One of the constant concerns for developers is relying on an experimental or ‘new’ add-on package, that code changing, and something we built that used to work is now breaking.</p>
 <p>All shiny app-packages depend on <code>shiny</code> and <code>devtools</code>, so adding more dependencies can make developers uneasy.</p>
 </section>
-</section>
-<section id="devtools-dependencies" class="level2">
-<h2 class="anchored" data-anchor-id="devtools-dependencies"><code>devtools</code> dependencies</h2>
+<section id="devtools-dependencies" class="level3">
+<h3 class="anchored" data-anchor-id="devtools-dependencies"><code>devtools</code> dependencies</h3>
 <div class="cell">
 <details open="">
 <summary>show/hide devtools dependencies</summary>
@@ -614,6 +640,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 </section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -918,4 +945,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/mjfrigaard/shinyap/issues/new" class="toc-action">Report an issue</a></p></div></div></div></div></footer></body></html>
+</body></html>

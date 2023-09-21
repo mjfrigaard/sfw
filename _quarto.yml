@@ -4,10 +4,17 @@ project:
 
 website:
   title: "Shiny Frameworks"
-  repo-url: https://github.com/mjfrigaard/shinyap
+  repo-url: https://github.com/mjfrigaard/sfw
   repo-branch: main
   repo-actions: [issue]
   navbar:
+    tools:
+      - icon: github
+        menu:
+          - text: Source Code
+            url:  https://github.com/mjfrigaard/sfw
+          - text: Report an issue
+            url:  https://github.com/mjfrigaard/sfw/issues
     left:
       - href: index.qmd
         text: Home
@@ -22,7 +29,6 @@ format:
   html:
     #code-fold: show
     #code-summary: 'show/hide'
-    code-annotations: hover
     #code-overflow: wrap
     #code-link: false
     #code-overflow: wrap
@@ -32,7 +38,11 @@ format:
     #code-annotations: true
     #code-block-bg: "#f8f8f8"
     #code-block-border-left: "#99bbc9"
-    df-print: tibble
+    toc: true
+    toc-depth: 5
+    toc-location: right
+    toc-title: Contents
+    code-annotations: hover
     dpi: 320
     fig-format: retina
     fig-asp: 0.618

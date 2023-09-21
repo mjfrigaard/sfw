@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Shiny Frameworks - shiny-app-frameworks</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Shiny Frameworks</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./golem.html" rel="" target="">
+ <span class="menu-text">golem</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./leprechaun.html" rel="" target="">
+ <span class="menu-text">leprechaun</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./rhino.html" rel="" target="" aria-current="page">
+ <span class="menu-text">rhino</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools ms-auto-item" href="https://github.com/mjfrigaard/sfw">
+            Source Code
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools ms-auto-item" href="https://github.com/mjfrigaard/sfw/issues">
+            Report an issue
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#rhino-dependencies" id="toc-rhino-dependencies" class="nav-link active" data-scroll-target="#rhino-dependencies"><code>rhino</code> dependencies</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/mjfrigaard/sfw/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">shiny-app-frameworks</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="rhino-dependencies" class="level2">
+<h2 class="anchored" data-anchor-id="rhino-dependencies"><code>rhino</code> dependencies</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rhino)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_deps_tree</span>(<span class="at">pkg =</span> <span class="st">"rhino"</span>, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ Loading metadata database</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>✔ Loading metadata database ... done</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>rhino 1.5.0 ✨
+├─covr 3.6.2 ✨
+│ ├─digest 0.6.33 ✨
+│ ├─jsonlite 1.8.7 ✨
+│ ├─rex 1.2.1 ✨
+│ │ └─lazyeval 0.2.2 ✨
+│ ├─httr 1.4.7 ✨
+│ │ ├─curl 5.0.2 ✨
+│ │ ├─jsonlite
+│ │ ├─mime 0.12 ✨
+│ │ ├─openssl 2.1.0 ✨
+│ │ │ └─askpass 1.2.0 ✨
+│ │ │   └─sys 3.4.2 ✨
+│ │ └─R6 2.5.1 ✨
+│ ├─crayon 1.5.2 ✨
+│ ├─withr 2.5.0 ✨
+│ └─yaml 2.3.7 ✨
+├─knitr 1.44 ✨
+│ ├─evaluate 0.21 ✨
+│ ├─highr 0.10 ✨
+│ │ └─xfun 0.40 ✨
+│ ├─xfun
+│ └─yaml
+├─mockery 0.4.3 ✨
+│ └─testthat 3.1.10 ✨
+│   ├─brio 1.1.3 ✨
+│   ├─callr 3.7.3 ✨
+│   │ ├─processx 3.8.2 ✨
+│   │ │ ├─ps 1.7.5 ✨
+│   │ │ └─R6
+│   │ └─R6
+│   ├─cli 3.6.1 ✨
+│   ├─desc 1.4.2 ✨
+│   │ ├─cli
+│   │ ├─R6
+│   │ └─rprojroot 2.0.3 ✨
+│   ├─digest
+│   ├─ellipsis 0.3.2 ✨
+│   │ └─rlang 1.1.1 ✨
+│   ├─evaluate
+│   ├─jsonlite
+│   ├─lifecycle 1.0.3 ✨
+│   │ ├─cli
+│   │ ├─glue 1.6.2 ✨
+│   │ └─rlang
+│   ├─magrittr 2.0.3 ✨
+│   ├─pkgload 1.3.2.1 ✨
+│   │ ├─cli
+│   │ ├─crayon
+│   │ ├─desc
+│   │ ├─fs 1.6.3 ✨
+│   │ ├─glue
+│   │ ├─rlang
+│   │ ├─rprojroot
+│   │ └─withr
+│   ├─praise 1.0.0 ✨
+│   ├─processx
+│   ├─ps
+│   ├─R6
+│   ├─rlang
+│   ├─waldo 0.5.1 ✨
+│   │ ├─cli
+│   │ ├─diffobj 0.3.5 ✨
+│   │ │ └─crayon
+│   │ ├─fansi 1.0.4 ✨
+│   │ ├─glue
+│   │ ├─rematch2 2.1.2 ✨
+│   │ │ └─tibble 3.2.1 ✨
+│   │ │   ├─fansi
+│   │ │   ├─lifecycle
+│   │ │   ├─magrittr
+│   │ │   ├─pillar 1.9.0 ✨
+│   │ │   │ ├─cli
+│   │ │   │ ├─fansi
+│   │ │   │ ├─glue
+│   │ │   │ ├─lifecycle
+│   │ │   │ ├─rlang
+│   │ │   │ ├─utf8 1.2.3 ✨
+│   │ │   │ └─vctrs 0.6.3 ✨
+│   │ │   │   ├─cli
+│   │ │   │   ├─glue
+│   │ │   │   ├─lifecycle
+│   │ │   │   └─rlang
+│   │ │   ├─pkgconfig 2.0.3 ✨
+│   │ │   ├─rlang
+│   │ │   └─vctrs
+│   │ ├─rlang
+│   │ └─tibble
+│   └─withr
+├─rcmdcheck 1.4.0 ✨
+│ ├─callr
+│ ├─cli
+│ ├─curl
+│ ├─desc
+│ ├─digest
+│ ├─pkgbuild 1.4.2 ✨
+│ │ ├─callr
+│ │ ├─cli
+│ │ ├─crayon
+│ │ ├─desc
+│ │ ├─prettyunits 1.1.1 ✨
+│ │ ├─processx
+│ │ ├─R6
+│ │ └─rprojroot
+│ ├─prettyunits
+│ ├─R6
+│ ├─rprojroot
+│ ├─sessioninfo 1.2.2 ✨
+│ │ └─cli
+│ ├─withr
+│ └─xopen 1.0.0 ✨
+│   └─processx
+├─rmarkdown 2.25 ✨
+│ ├─bslib 0.5.1 ✨
+│ │ ├─base64enc 0.1-3 ✨
+│ │ ├─cachem 1.0.8 ✨
+│ │ │ ├─rlang
+│ │ │ └─fastmap 1.1.1 ✨
+│ │ ├─htmltools 0.5.6 ✨
+│ │ │ ├─digest
+│ │ │ ├─base64enc
+│ │ │ ├─rlang
+│ │ │ ├─fastmap
+│ │ │ └─ellipsis
+│ │ ├─jquerylib 0.1.4 ✨
+│ │ │ └─htmltools
+│ │ ├─jsonlite
+│ │ ├─memoise 2.0.1 ✨
+│ │ │ ├─rlang
+│ │ │ └─cachem
+│ │ ├─mime
+│ │ ├─rlang
+│ │ └─sass 0.4.7 ✨
+│ │   ├─fs
+│ │   ├─rlang
+│ │   ├─htmltools
+│ │   ├─R6
+│ │   └─rappdirs 0.3.3 ✨
+│ ├─evaluate
+│ ├─fontawesome 0.5.2 ✨
+│ │ ├─rlang
+│ │ └─htmltools
+│ ├─htmltools
+│ ├─jquerylib
+│ ├─jsonlite
+│ ├─knitr
+│ ├─stringr 1.5.0 ✨
+│ │ ├─cli
+│ │ ├─glue
+│ │ ├─lifecycle
+│ │ ├─magrittr
+│ │ ├─rlang
+│ │ ├─stringi 1.7.12 ✨
+│ │ └─vctrs
+│ ├─tinytex 0.46 ✨
+│ │ └─xfun
+│ ├─xfun
+│ └─yaml
+├─shiny.react 0.3.0 ✨
+│ ├─glue
+│ ├─htmltools
+│ ├─jsonlite
+│ ├─logger 0.2.2 ✨
+│ ├─purrr 1.0.2 ✨
+│ │ ├─cli
+│ │ ├─lifecycle
+│ │ ├─magrittr
+│ │ ├─rlang
+│ │ └─vctrs
+│ ├─rlang
+│ └─shiny 1.7.5 ✨
+│   ├─httpuv 1.6.11 ✨
+│   │ ├─Rcpp 1.0.11 ✨
+│   │ ├─R6
+│   │ ├─promises 1.2.1 ✨
+│   │ │ ├─fastmap
+│   │ │ ├─later 1.3.1 ✨
+│   │ │ │ ├─Rcpp
+│   │ │ │ └─rlang
+│   │ │ ├─magrittr
+│   │ │ ├─R6
+│   │ │ ├─Rcpp
+│   │ │ └─rlang
+│   │ └─later
+│   ├─mime
+│   ├─jsonlite
+│   ├─xtable 1.8-4 ✨
+│   ├─fontawesome
+│   ├─htmltools
+│   ├─R6
+│   ├─sourcetools 0.1.7-1 ✨
+│   ├─later
+│   ├─promises
+│   ├─crayon
+│   ├─rlang
+│   ├─fastmap
+│   ├─withr
+│   ├─commonmark 1.9.0 ✨
+│   ├─glue
+│   ├─bslib
+│   ├─cachem
+│   ├─ellipsis
+│   └─lifecycle
+├─spelling 2.2.1 ✨
+│ ├─commonmark
+│ ├─xml2 1.3.5 ✨
+│ ├─hunspell 3.0.2 ✨
+│ │ ├─Rcpp
+│ │ └─digest
+│ └─knitr
+├─box 1.1.3 ✨
+├─cli
+├─config 0.3.2 ✨
+│ └─yaml
+├─fs
+├─glue
+├─lintr 3.1.0 ✨
+│ ├─backports 1.4.1 ✨
+│ ├─codetools 0.2-19 
+│ ├─cyclocomp 1.1.1 ✨
+│ │ ├─callr
+│ │ ├─crayon
+│ │ ├─desc
+│ │ ├─remotes 2.4.2.1 ✨
+│ │ └─withr
+│ ├─digest
+│ ├─glue
+│ ├─knitr
+│ ├─rex
+│ ├─xml2
+│ └─xmlparsedata 1.0.5 ✨
+├─logger
+├─purrr
+├─renv 1.0.3 ✨👷🏾
+├─rstudioapi 0.15.0 ✨
+├─sass
+├─shiny
+├─styler 1.10.2 ✨
+│ ├─cli
+│ ├─magrittr
+│ ├─purrr
+│ ├─R.cache 0.16.0 ✨
+│ │ ├─R.methodsS3 1.8.2 ✨
+│ │ ├─R.oo 1.25.0 ✨
+│ │ │ └─R.methodsS3
+│ │ ├─R.utils 2.12.2 ✨
+│ │ │ ├─R.oo
+│ │ │ └─R.methodsS3
+│ │ └─digest
+│ ├─rlang
+│ ├─rprojroot
+│ ├─vctrs
+│ └─withr
+├─testthat
+├─withr
+└─yaml
+
+Key:  ✨ new | 👷🏾 build</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>_apps/rap
+├── README.md
+├── app
+├── app.R
+├── config.yml
+├── dependencies.R
+├── rap.Rproj
+├── renv
+├── renv.lock
+├── rhino.yml
+└── tests</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Handle positioning of the toggle
+      window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+      const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+      for (let i=0; i<annoteTargets.length; i++) {
+        const annoteTarget = annoteTargets[i];
+        const targetCell = annoteTarget.getAttribute("data-target-cell");
+        const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+        const contentFn = () => {
+          const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          if (content) {
+            const tipContent = content.cloneNode(true);
+            tipContent.classList.add("code-annotation-tip-content");
+            return tipContent.outerHTML;
+          }
+        }
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          onShow: (instance) => {
+            selectCodeLines(instance.reference);
+            instance.reference.classList.add('code-annotation-active');
+            window.tippy.hideAll();
+          },
+          onHide: (instance) => {
+            unselectCodeLines();
+            instance.reference.classList.remove('code-annotation-active');
+          },
+          maxWidth: 300,
+          delay: [50, 0],
+          duration: [200, 0],
+          offset: [5, 10],
+          arrow: true,
+          appendTo: function(el) {
+            return el.parentElement.parentElement.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto',
+          placement: 'right',
+          popperOptions: {
+            modifiers: [
+            {
+              name: 'flip',
+              options: {
+                flipVariations: false, // true by default
+                allowedAutoPlacements: ['right'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end'],
+              },
+            },
+            {
+              name: 'preventOverflow',
+              options: {
+                mainAxis: false,
+                altAxis: false
+              }
+            }
+            ]        
+          }      
+        };
+        window.tippy(annoteTarget, config); 
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
