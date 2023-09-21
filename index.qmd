@@ -18,6 +18,10 @@ knitr:
 
 ## Motivation
 
+One of the constant concerns for developers is relying on an experimental or 'new' add-on package, the package source code changing, and those changes breaking something they've built.
+
+This website is a resource for developers who are curious about the relative pros and cons of using a shiny framework to build their apps.
+
 This repo contains the following shiny applications: 
 
 1. [`gap`](https://github.com/mjfrigaard/sfw/tree/main/_apps/gap): a `golem` app-package
@@ -27,6 +31,10 @@ This repo contains the following shiny applications:
 3. [`rap`](https://github.com/mjfrigaard/sfw/tree/main/_apps/rap): a `rhino` app (pseudo-package)
 
 3. [`duap`](https://github.com/mjfrigaard/sfw/tree/main/_apps/duap): a `devtools`/`usethis` app-package
+
+The original data and code for each application comes from [Building Web Applications With Shiny](https://rstudio-education.github.io/shiny-course/)[^bwas], but has been adapted to provide a basic (but realistic) example (modules, utility function, tests, etc.)
+
+[^bwas]: This was a popular course among colleagues and covers (in my opinion) what a developer should know before considering a framework.
 
 ```{r}
 #| eval: false
@@ -38,13 +46,30 @@ if ("pak" %in% loadedNamespaces()) {
 }
 ```
 
-### Dependencies 
+### `shiny` 
 
-One of the constant concerns for developers is relying on an experimental or 'new' add-on package, that code changing, and something we built that used to work is now breaking.
+All shiny app-packages will inherently depend on `shiny`, so including more dependencies can make developers justifiably uneasy.
 
-All shiny app-packages depend on `shiny` and `devtools`, so adding more dependencies can make developers uneasy. 
+Below is a dependency tree for `shiny`:
 
-### `devtools` dependencies 
+```{r}
+#| code-fold: show 
+#| code-summary: 'show/hide shiny dependencies'
+#| eval: true
+#| echo: true 
+#| collapse: true
+pak::pkg_deps_tree(pkg = "shiny")
+```
+
+For comparison, we'll also look at the dependency tree for `devtools`.
+
+### `devtools`
+
+As we can see from the dependency tree below, the [conscious uncoupling](https://github.com/r-lib/devtools#conscious-uncoupling) of `devtools` split package development across multiple packages (most notably `usethis`). [^devtools-1] [^devtools-2]
+
+[^devtools-1]: `usethis` is automatically loaded with `devtools`]. 
+
+[^devtools-2]: For a full list, view [`DESCRIPTION`](https://github.com/r-lib/devtools/blob/main/DESCRIPTION) file.
 
 ```{r}
 #| code-fold: show 
@@ -52,6 +77,6 @@ All shiny app-packages depend on `shiny` and `devtools`, so adding more dependen
 #| eval: true
 #| echo: true 
 #| collapse: true
-pak::pkg_deps_tree(pkg = "devtools", dependencies = TRUE)
+pak::pkg_deps_tree(pkg = "shiny")
 ```
 
