@@ -1,5 +1,5 @@
 ---
-title: "the rhino framework"
+title: "the `rhino` framework"
 knitr:
   opts_chunk: 
     collapse: true
@@ -8,13 +8,17 @@ knitr:
 
 ## `rap`
 
+The files for the `rhino` app are below:
+
 ```{r}
 #| eval: true
 #| echo: true 
 fs::dir_tree("_apps/rap", recurse = 0)
 ```
 
-## `rhino` dependencies 
+## `rhino` package dependencies 
+
+`rhino` uses [`box`](https://klmr.me/box/), which has the explicit goal of '*completely replac[ing] the base R `library` and `require` functions.*'
 
 ```{r}
 #| eval: true 

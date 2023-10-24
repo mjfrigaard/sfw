@@ -9,13 +9,19 @@ knitr:
 
 ## `lap`
 
+[`leprechaun`](https://leprechaun.opifex.org/#/) is a 'lightweight' version of `golem`:
+
+*it generates code and does not make itself a dependency of the application you build; this means applications are leaner, and smaller*
+
+The lap app file are below: 
+
 ```{r}
 #| eval: true
 #| echo: true  
 fs::dir_tree("_apps/lap", recurse = 0)
 ```
 
-## `leprechaun` dependencies 
+## `leprechaun` package dependencies 
 
 ```{r}
 #| eval: true 

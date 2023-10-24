@@ -30,7 +30,7 @@ This repo contains the following shiny applications:
 
 3. [`rap`](https://github.com/mjfrigaard/sfw/tree/main/_apps/rap): a `rhino` app (pseudo-package)
 
-3. [`duap`](https://github.com/mjfrigaard/sfw/tree/main/_apps/duap): a `devtools`/`usethis` app-package
+<!-- 3. [`duap`](https://github.com/mjfrigaard/sfw/tree/main/_apps/duap): a `devtools`/`usethis` app-package -->
 
 The original data and code for each application comes from [Building Web Applications With Shiny](https://rstudio-education.github.io/shiny-course/)[^bwas], but has been adapted to provide a basic (but realistic) example with modules, utility function, tests, etc.
 
