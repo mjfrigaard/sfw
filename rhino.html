@@ -162,7 +162,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#rap" id="toc-rap" class="nav-link active" data-scroll-target="#rap"><code>rap</code></a></li>
-  <li><a href="#rhino-dependencies" id="toc-rhino-dependencies" class="nav-link" data-scroll-target="#rhino-dependencies"><code>rhino</code> dependencies</a>
+  <li><a href="#rhino-package-dependencies" id="toc-rhino-package-dependencies" class="nav-link" data-scroll-target="#rhino-package-dependencies"><code>rhino</code> package dependencies</a>
   <ul>
   <li><a href="#rap-dependencies" id="toc-rap-dependencies" class="nav-link" data-scroll-target="#rap-dependencies"><code>rap</code> dependencies</a></li>
   </ul></li>
@@ -174,7 +174,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">the rhino framework</h1>
+<h1 class="title">the <code>rhino</code> framework</h1>
 </div>
 
 
@@ -191,6 +191,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="rap" class="level2">
 <h2 class="anchored" data-anchor-id="rap"><code>rap</code></h2>
+<p>The files for the <code>rhino</code> app are below:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="st">"_apps/rap"</span>, <span class="at">recurse =</span> <span class="dv">0</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>     _apps<span class="sc">/</span>rap</span>
@@ -206,8 +207,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>     └── tests</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="rhino-dependencies" class="level2">
-<h2 class="anchored" data-anchor-id="rhino-dependencies"><code>rhino</code> dependencies</h2>
+<section id="rhino-package-dependencies" class="level2">
+<h2 class="anchored" data-anchor-id="rhino-package-dependencies"><code>rhino</code> package dependencies</h2>
+<p><code>rhino</code> uses <a href="https://klmr.me/box/"><code>box</code></a>, which has the explicit goal of ‘<em>completely replac[ing] the base R <code>library</code> and <code>require</code> functions.</em>’</p>
 <div class="cell">
 <details open="">
 <summary>show/hide rhino dependency tree</summary>
@@ -216,110 +218,110 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>     ℹ Loading metadata database</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>     ✔ Loading metadata database ... done</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>     </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>     rhino <span class="dv">1</span>.<span class="fl">5.0</span> ✨</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>     ├─box <span class="dv">1</span>.<span class="fl">1.3</span> ✨</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>     ├─cli <span class="dv">3</span>.<span class="fl">6.1</span> ✨</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>     ├─config <span class="dv">0</span>.<span class="fl">3.2</span> ✨</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>     │ └─yaml <span class="dv">2</span>.<span class="fl">3.7</span> ✨</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>     ├─fs <span class="dv">1</span>.<span class="fl">6.3</span> ✨</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>     ├─glue <span class="dv">1</span>.<span class="fl">6.2</span> ✨</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>     ├─lintr <span class="dv">3</span>.<span class="fl">1.0</span> ✨</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>     │ ├─backports <span class="dv">1</span>.<span class="fl">4.1</span> ✨</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>     rhino <span class="dv">1</span>.<span class="fl">5.0</span> ✨ ⬇ (<span class="fl">535.73</span> kB)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>     ├─box <span class="dv">1</span>.<span class="fl">1.3</span> ✨ ⬇ (<span class="fl">495.87</span> kB)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>     ├─cli <span class="dv">3</span>.<span class="fl">6.1</span> ✨ ⬇ (<span class="fl">1.38</span> MB)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>     ├─config <span class="dv">0</span>.<span class="fl">3.2</span> ✨ ⬇ (<span class="fl">99.78</span> kB)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>     │ └─yaml <span class="dv">2</span>.<span class="fl">3.7</span> ✨ ⬇ (<span class="fl">228.15</span> kB)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>     ├─fs <span class="dv">1</span>.<span class="fl">6.3</span> ✨ ⬇ (<span class="fl">625.41</span> kB)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>     ├─glue <span class="dv">1</span>.<span class="fl">6.2</span> ✨ ⬇ (<span class="fl">156.74</span> kB)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>     ├─lintr <span class="dv">3</span>.<span class="fl">1.0</span> ✨ ⬇ (<span class="fl">1.20</span> MB)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>     │ ├─backports <span class="dv">1</span>.<span class="fl">4.1</span> ✨ ⬇ (<span class="fl">102.61</span> kB)</span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>     │ ├─codetools <span class="fl">0.2</span><span class="dv">-19</span> </span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>     │ ├─cyclocomp <span class="dv">1</span>.<span class="fl">1.1</span> ✨</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>     │ │ ├─callr <span class="dv">3</span>.<span class="fl">7.3</span> ✨</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─processx <span class="dv">3</span>.<span class="fl">8.2</span> ✨</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─ps <span class="dv">1</span>.<span class="fl">7.5</span> ✨</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ └─R6 <span class="dv">2</span>.<span class="fl">5.1</span> ✨</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>     │ ├─cyclocomp <span class="dv">1</span>.<span class="fl">1.1</span> ✨ ⬇ (<span class="fl">31.36</span> kB)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>     │ │ ├─callr <span class="dv">3</span>.<span class="fl">7.3</span> ✨ ⬇ (<span class="fl">431.09</span> kB)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─processx <span class="dv">3</span>.<span class="fl">8.2</span> ✨ ⬇ (<span class="fl">316.26</span> kB)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─ps <span class="dv">1</span>.<span class="fl">7.5</span> ✨ ⬇ (<span class="fl">314.49</span> kB)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ └─R6 <span class="dv">2</span>.<span class="fl">5.1</span> ✨ ⬇ (<span class="fl">83.05</span> kB)</span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─R6</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>     │ │ ├─crayon <span class="dv">1</span>.<span class="fl">5.2</span> ✨</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>     │ │ ├─desc <span class="dv">1</span>.<span class="fl">4.2</span> ✨</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>     │ │ ├─crayon <span class="dv">1</span>.<span class="fl">5.2</span> ✨ ⬇ (<span class="fl">162.31</span> kB)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>     │ │ ├─desc <span class="dv">1</span>.<span class="fl">4.2</span> ✨ ⬇ (<span class="fl">329.76</span> kB)</span>
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─cli</span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─R6</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─rprojroot <span class="dv">2</span>.<span class="fl">0.3</span> ✨</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>     │ │ ├─remotes <span class="dv">2</span>.<span class="dv">4</span>.<span class="fl">2.1</span> ✨</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>     │ │ └─withr <span class="dv">2</span>.<span class="fl">5.0</span> ✨</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>     │ ├─digest <span class="dv">0</span>.<span class="fl">6.33</span> ✨</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─rprojroot <span class="dv">2</span>.<span class="fl">0.3</span> ✨ ⬇ (<span class="fl">100.78</span> kB)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>     │ │ ├─remotes <span class="dv">2</span>.<span class="dv">4</span>.<span class="fl">2.1</span> ✨ ⬇ (<span class="fl">397.07</span> kB)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>     │ │ └─withr <span class="dv">2</span>.<span class="fl">5.1</span> ✨ ⬇ (<span class="fl">230.94</span> kB)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>     │ ├─digest <span class="dv">0</span>.<span class="fl">6.33</span> ✨ ⬇ (<span class="fl">297.88</span> kB)</span>
 <span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>     │ ├─glue</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>     │ ├─knitr <span class="fl">1.44</span> ✨</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>     │ │ ├─evaluate <span class="fl">0.21</span> ✨</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>     │ │ ├─highr <span class="fl">0.10</span> ✨</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─xfun <span class="fl">0.40</span> ✨</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>     │ ├─knitr <span class="fl">1.44</span> ✨ ⬇ (<span class="fl">1.48</span> MB)</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>     │ │ ├─evaluate <span class="fl">0.22</span> ✨ ⬇ (<span class="fl">81.96</span> kB)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>     │ │ ├─highr <span class="fl">0.10</span> ✨ ⬇ (<span class="fl">38.98</span> kB)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─xfun <span class="fl">0.40</span> ✨ ⬇ (<span class="fl">439.12</span> kB)</span>
 <span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>     │ │ ├─xfun</span>
 <span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>     │ │ └─yaml</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>     │ ├─rex <span class="dv">1</span>.<span class="fl">2.1</span> ✨</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>     │ │ └─lazyeval <span class="dv">0</span>.<span class="fl">2.2</span> ✨</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>     │ ├─xml2 <span class="dv">1</span>.<span class="fl">3.5</span> ✨</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>     │ └─xmlparsedata <span class="dv">1</span>.<span class="fl">0.5</span> ✨</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>     ├─logger <span class="dv">0</span>.<span class="fl">2.2</span> ✨</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>     ├─purrr <span class="dv">1</span>.<span class="fl">0.2</span> ✨</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>     │ ├─rex <span class="dv">1</span>.<span class="fl">2.1</span> ✨ ⬇ (<span class="fl">123.61</span> kB)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>     │ │ └─lazyeval <span class="dv">0</span>.<span class="fl">2.2</span> ✨ ⬇ (<span class="fl">161.84</span> kB)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>     │ ├─xml2 <span class="dv">1</span>.<span class="fl">3.5</span> ✨ ⬇ (<span class="fl">478.13</span> kB)</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>     │ └─xmlparsedata <span class="dv">1</span>.<span class="fl">0.5</span> ✨ ⬇ (<span class="fl">18.84</span> kB)</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>     ├─logger <span class="dv">0</span>.<span class="fl">2.2</span> ✨ ⬇ (<span class="fl">782.25</span> kB)</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>     ├─purrr <span class="dv">1</span>.<span class="fl">0.2</span> ✨ ⬇ (<span class="fl">524.51</span> kB)</span>
 <span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>     │ ├─cli</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>     │ ├─lifecycle <span class="dv">1</span>.<span class="fl">0.3</span> ✨</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>     │ ├─lifecycle <span class="dv">1</span>.<span class="fl">0.3</span> ✨ ⬇ (<span class="fl">123.60</span> kB)</span>
 <span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>     │ │ ├─cli</span>
 <span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>     │ │ ├─glue</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>     │ │ └─rlang <span class="dv">1</span>.<span class="fl">1.1</span> ✨</span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>     │ ├─magrittr <span class="dv">2</span>.<span class="fl">0.3</span> ✨</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>     │ │ └─rlang <span class="dv">1</span>.<span class="fl">1.1</span> ✨ ⬇ (<span class="fl">1.89</span> MB)</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>     │ ├─magrittr <span class="dv">2</span>.<span class="fl">0.3</span> ✨ ⬇ (<span class="fl">232.37</span> kB)</span>
 <span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>     │ ├─rlang</span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>     │ └─vctrs <span class="dv">0</span>.<span class="fl">6.3</span> ✨</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>     │ └─vctrs <span class="dv">0</span>.<span class="fl">6.4</span> ✨ ⬇ (<span class="fl">1.97</span> MB)</span>
 <span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>     │   ├─cli</span>
 <span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>     │   ├─glue</span>
 <span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>     │   ├─lifecycle</span>
 <span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>     │   └─rlang</span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>     ├─renv <span class="dv">1</span>.<span class="fl">0.3</span> ✨</span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>     ├─rstudioapi <span class="dv">0</span>.<span class="fl">15.0</span> ✨</span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>     ├─sass <span class="dv">0</span>.<span class="fl">4.7</span> ✨</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>     ├─renv <span class="dv">1</span>.<span class="fl">0.3</span> ✨ ⬇ (<span class="fl">2.08</span> MB)</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>     ├─rstudioapi <span class="dv">0</span>.<span class="fl">15.0</span> ✨ ⬇ (<span class="fl">299.49</span> kB)</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>     ├─sass <span class="dv">0</span>.<span class="fl">4.7</span> ✨ ⬇ (<span class="fl">2.41</span> MB)</span>
 <span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>     │ ├─fs</span>
 <span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>     │ ├─rlang</span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>     │ ├─htmltools <span class="dv">0</span>.<span class="fl">5.6</span> ✨</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>     │ ├─htmltools <span class="dv">0</span>.<span class="dv">5</span>.<span class="fl">6.1</span> ✨ ⬇ (<span class="fl">355.95</span> kB)</span>
 <span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>     │ │ ├─digest</span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>     │ │ ├─base64enc <span class="fl">0.1</span><span class="dv">-3</span> ✨</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>     │ │ ├─base64enc <span class="fl">0.1</span><span class="dv">-3</span> ✨ ⬇ (<span class="fl">34.81</span> kB)</span>
 <span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rlang</span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>     │ │ ├─fastmap <span class="dv">1</span>.<span class="fl">1.1</span> ✨</span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>     │ │ └─ellipsis <span class="dv">0</span>.<span class="fl">3.2</span> ✨</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>     │ │ ├─fastmap <span class="dv">1</span>.<span class="fl">1.1</span> ✨ ⬇ (<span class="fl">201.10</span> kB)</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>     │ │ └─ellipsis <span class="dv">0</span>.<span class="fl">3.2</span> ✨ ⬇ (<span class="fl">39.03</span> kB)</span>
 <span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>     │ │   └─rlang</span>
 <span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>     │ ├─R6</span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>     │ └─rappdirs <span class="dv">0</span>.<span class="fl">3.3</span> ✨</span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>     ├─shiny <span class="dv">1</span>.<span class="fl">7.5</span> ✨</span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>     │ ├─httpuv <span class="dv">1</span>.<span class="fl">6.11</span> ✨</span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>     │ │ ├─Rcpp <span class="dv">1</span>.<span class="fl">0.11</span> ✨</span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>     │ │ ├─R6</span>
-<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>     │ │ ├─promises <span class="dv">1</span>.<span class="fl">2.1</span> ✨</span>
-<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─fastmap</span>
-<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─later <span class="dv">1</span>.<span class="fl">3.1</span> ✨</span>
-<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ ├─Rcpp</span>
-<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>     │ │ │ │ └─rlang</span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─magrittr</span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─R6</span>
-<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─Rcpp</span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─rlang</span>
-<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>     │ │ └─later</span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>     │ ├─mime <span class="fl">0.12</span> ✨</span>
-<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>     │ ├─jsonlite <span class="dv">1</span>.<span class="fl">8.7</span> ✨</span>
-<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>     │ ├─xtable <span class="fl">1.8</span><span class="dv">-4</span> ✨</span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>     │ ├─fontawesome <span class="dv">0</span>.<span class="fl">5.2</span> ✨</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>     │ └─rappdirs <span class="dv">0</span>.<span class="fl">3.3</span> ✨ ⬇ (<span class="fl">47.30</span> kB)</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>     ├─shiny <span class="dv">1</span>.<span class="dv">7</span>.<span class="fl">5.1</span> ✨ ⬇ (<span class="fl">4.35</span> MB)</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>     │ ├─httpuv <span class="dv">1</span>.<span class="fl">6.12</span> ✨ ⬇ (<span class="fl">2.66</span> MB)</span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>     │ │ ├─later <span class="dv">1</span>.<span class="fl">3.1</span> ✨ ⬇ (<span class="fl">607.27</span> kB)</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─Rcpp <span class="dv">1</span>.<span class="fl">0.11</span> ✨ ⬇ (<span class="fl">3.31</span> MB)</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─rlang</span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>     │ │ ├─promises <span class="dv">1</span>.<span class="fl">2.1</span> ✨ ⬇ (<span class="fl">1.82</span> MB)</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─fastmap</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─later</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─magrittr</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─R6</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─Rcpp</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─rlang</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>     │ │ ├─R6</span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>     │ │ └─Rcpp</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>     │ ├─mime <span class="fl">0.12</span> ✨ ⬇ (<span class="fl">36.62</span> kB)</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>     │ ├─jsonlite <span class="dv">1</span>.<span class="fl">8.7</span> ✨ ⬇ (<span class="fl">1.13</span> MB)</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>     │ ├─xtable <span class="fl">1.8</span><span class="dv">-4</span> ✨ ⬇ (<span class="fl">701.99</span> kB)</span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>     │ ├─fontawesome <span class="dv">0</span>.<span class="fl">5.2</span> ✨ ⬇ (<span class="fl">1.36</span> MB)</span>
 <span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rlang</span>
 <span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>     │ │ └─htmltools</span>
 <span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>     │ ├─htmltools</span>
 <span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>     │ ├─R6</span>
-<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>     │ ├─sourcetools <span class="dv">0</span>.<span class="fl">1.7</span><span class="dv">-1</span> ✨</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>     │ ├─sourcetools <span class="dv">0</span>.<span class="fl">1.7</span><span class="dv">-1</span> ✨ ⬇ (<span class="fl">137.44</span> kB)</span>
 <span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>     │ ├─later</span>
 <span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>     │ ├─promises</span>
 <span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>     │ ├─crayon</span>
 <span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>     │ ├─rlang</span>
 <span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>     │ ├─fastmap</span>
 <span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>     │ ├─withr</span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>     │ ├─commonmark <span class="dv">1</span>.<span class="fl">9.0</span> ✨</span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>     │ ├─commonmark <span class="dv">1</span>.<span class="fl">9.0</span> ✨ ⬇ (<span class="fl">357.18</span> kB)</span>
 <span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>     │ ├─glue</span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>     │ ├─bslib <span class="dv">0</span>.<span class="fl">5.1</span> ✨</span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>     │ ├─bslib <span class="dv">0</span>.<span class="fl">5.1</span> ✨ ⬇ (<span class="fl">5.90</span> MB)</span>
 <span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>     │ │ ├─base64enc</span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>     │ │ ├─cachem <span class="dv">1</span>.<span class="fl">0.8</span> ✨</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>     │ │ ├─cachem <span class="dv">1</span>.<span class="fl">0.8</span> ✨ ⬇ (<span class="fl">69.43</span> kB)</span>
 <span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─rlang</span>
 <span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─fastmap</span>
 <span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>     │ │ ├─htmltools</span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>     │ │ ├─jquerylib <span class="dv">0</span>.<span class="fl">1.4</span> ✨</span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>     │ │ ├─jquerylib <span class="dv">0</span>.<span class="fl">1.4</span> ✨ ⬇ (<span class="fl">526.36</span> kB)</span>
 <span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─htmltools</span>
 <span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>     │ │ ├─jsonlite</span>
-<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>     │ │ ├─memoise <span class="dv">2</span>.<span class="fl">0.1</span> ✨</span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>     │ │ ├─memoise <span class="dv">2</span>.<span class="fl">0.1</span> ✨ ⬇ (<span class="fl">47.96</span> kB)</span>
 <span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─rlang</span>
 <span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─cachem</span>
 <span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>     │ │ ├─mime</span>
@@ -328,15 +330,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>     │ ├─cachem</span>
 <span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>     │ ├─ellipsis</span>
 <span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>     │ └─lifecycle</span>
-<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>     ├─styler <span class="dv">1</span>.<span class="fl">10.2</span> ✨</span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>     ├─styler <span class="dv">1</span>.<span class="fl">10.2</span> ✨ ⬇ (<span class="fl">725.88</span> kB)</span>
 <span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a>     │ ├─cli</span>
 <span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>     │ ├─magrittr</span>
 <span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>     │ ├─purrr</span>
-<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>     │ ├─R.cache <span class="dv">0</span>.<span class="fl">16.0</span> ✨</span>
-<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a>     │ │ ├─R.methodsS3 <span class="dv">1</span>.<span class="fl">8.2</span> ✨</span>
-<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>     │ │ ├─R.oo <span class="dv">1</span>.<span class="fl">25.0</span> ✨</span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>     │ ├─R.cache <span class="dv">0</span>.<span class="fl">16.0</span> ✨ ⬇ (<span class="fl">110.13</span> kB)</span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a>     │ │ ├─R.methodsS3 <span class="dv">1</span>.<span class="fl">8.2</span> ✨ ⬇ (<span class="fl">81.62</span> kB)</span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>     │ │ ├─R.oo <span class="dv">1</span>.<span class="fl">25.0</span> ✨ ⬇ (<span class="fl">974.66</span> kB)</span>
 <span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─R.methodsS3</span>
-<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a>     │ │ ├─R.utils <span class="dv">2</span>.<span class="fl">12.2</span> ✨</span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a>     │ │ ├─R.utils <span class="dv">2</span>.<span class="fl">12.2</span> ✨ ⬇ (<span class="fl">1.42</span> MB)</span>
 <span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─R.oo</span>
 <span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─R.methodsS3</span>
 <span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a>     │ │ └─digest</span>
@@ -344,8 +346,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a>     │ ├─rprojroot</span>
 <span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>     │ ├─vctrs</span>
 <span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a>     │ └─withr</span>
-<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>     ├─testthat <span class="dv">3</span>.<span class="fl">1.10</span> ✨</span>
-<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>     │ ├─brio <span class="dv">1</span>.<span class="fl">1.3</span> ✨</span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>     ├─testthat <span class="dv">3</span>.<span class="fl">2.0</span> ✨ ⬇ (<span class="fl">3.07</span> MB)</span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>     │ ├─brio <span class="dv">1</span>.<span class="fl">1.3</span> ✨ ⬇ (<span class="fl">44.28</span> kB)</span>
 <span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>     │ ├─callr</span>
 <span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>     │ ├─cli</span>
 <span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>     │ ├─desc</span>
@@ -355,49 +357,58 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>     │ ├─jsonlite</span>
 <span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a>     │ ├─lifecycle</span>
 <span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a>     │ ├─magrittr</span>
-<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a>     │ ├─pkgload <span class="dv">1</span>.<span class="dv">3</span>.<span class="fl">2.1</span> ✨</span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a>     │ ├─pkgload <span class="dv">1</span>.<span class="fl">3.3</span> ✨ ⬇ (<span class="fl">179.92</span> kB)</span>
 <span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a>     │ │ ├─cli</span>
 <span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a>     │ │ ├─crayon</span>
 <span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a>     │ │ ├─desc</span>
 <span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a>     │ │ ├─fs</span>
 <span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a>     │ │ ├─glue</span>
-<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rlang</span>
-<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rprojroot</span>
-<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a>     │ │ └─withr</span>
-<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a>     │ ├─praise <span class="dv">1</span>.<span class="fl">0.0</span> ✨</span>
-<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a>     │ ├─processx</span>
-<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a>     │ ├─ps</span>
-<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a>     │ ├─R6</span>
-<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a>     │ ├─rlang</span>
-<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a>     │ ├─waldo <span class="dv">0</span>.<span class="fl">5.1</span> ✨</span>
-<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a>     │ │ ├─cli</span>
-<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a>     │ │ ├─diffobj <span class="dv">0</span>.<span class="fl">3.5</span> ✨</span>
-<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─crayon</span>
-<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a>     │ │ ├─fansi <span class="dv">1</span>.<span class="fl">0.4</span> ✨</span>
-<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a>     │ │ ├─glue</span>
-<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rematch2 <span class="dv">2</span>.<span class="fl">1.2</span> ✨</span>
-<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─tibble <span class="dv">3</span>.<span class="fl">2.1</span> ✨</span>
-<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a>     │ │ │   ├─fansi</span>
-<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a>     │ │ │   ├─lifecycle</span>
-<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a>     │ │ │   ├─magrittr</span>
-<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a>     │ │ │   ├─pillar <span class="dv">1</span>.<span class="fl">9.0</span> ✨</span>
-<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a>     │ │ │   │ ├─cli</span>
-<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a>     │ │ │   │ ├─fansi</span>
-<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a>     │ │ │   │ ├─glue</span>
-<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a>     │ │ │   │ ├─lifecycle</span>
-<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a>     │ │ │   │ ├─rlang</span>
-<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a>     │ │ │   │ ├─utf8 <span class="dv">1</span>.<span class="fl">2.3</span> ✨</span>
-<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a>     │ │ │   │ └─vctrs</span>
-<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a>     │ │ │   ├─pkgconfig <span class="dv">2</span>.<span class="fl">0.3</span> ✨</span>
-<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a>     │ │ │   ├─rlang</span>
-<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a>     │ │ │   └─vctrs</span>
-<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rlang</span>
-<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a>     │ │ └─tibble</span>
-<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a>     │ └─withr</span>
-<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a>     ├─withr</span>
-<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a>     └─yaml</span>
-<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a>     </span>
-<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a>     Key<span class="sc">:</span>  ✨ new</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a>     │ │ ├─pkgbuild <span class="dv">1</span>.<span class="fl">4.2</span> ✨ ⬇ (<span class="fl">191.78</span> kB)</span>
+<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─callr</span>
+<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─cli</span>
+<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─crayon</span>
+<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─desc</span>
+<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─prettyunits <span class="dv">1</span>.<span class="fl">2.0</span> ✨ ⬇ (<span class="fl">155.80</span> kB)</span>
+<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─processx</span>
+<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a>     │ │ │ ├─R6</span>
+<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─rprojroot</span>
+<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rlang</span>
+<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rprojroot</span>
+<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a>     │ │ └─withr</span>
+<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a>     │ ├─praise <span class="dv">1</span>.<span class="fl">0.0</span> ✨ ⬇ (<span class="fl">16.54</span> kB)</span>
+<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a>     │ ├─processx</span>
+<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a>     │ ├─ps</span>
+<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a>     │ ├─R6</span>
+<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a>     │ ├─rlang</span>
+<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a>     │ ├─waldo <span class="dv">0</span>.<span class="fl">5.1</span> ✨ ⬇ (<span class="fl">102.96</span> kB)</span>
+<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a>     │ │ ├─cli</span>
+<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a>     │ │ ├─diffobj <span class="dv">0</span>.<span class="fl">3.5</span> ✨ ⬇ (<span class="fl">1.02</span> MB)</span>
+<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─crayon</span>
+<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a>     │ │ ├─fansi <span class="dv">1</span>.<span class="fl">0.5</span> ✨ ⬇ (<span class="fl">388.99</span> kB)</span>
+<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a>     │ │ ├─glue</span>
+<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rematch2 <span class="dv">2</span>.<span class="fl">1.2</span> ✨ ⬇ (<span class="fl">45.50</span> kB)</span>
+<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a>     │ │ │ └─tibble <span class="dv">3</span>.<span class="fl">2.1</span> ✨ ⬇ (<span class="fl">682.28</span> kB)</span>
+<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a>     │ │ │   ├─fansi</span>
+<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a>     │ │ │   ├─lifecycle</span>
+<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a>     │ │ │   ├─magrittr</span>
+<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a>     │ │ │   ├─pillar <span class="dv">1</span>.<span class="fl">9.0</span> ✨ ⬇ (<span class="fl">648.66</span> kB)</span>
+<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a>     │ │ │   │ ├─cli</span>
+<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a>     │ │ │   │ ├─fansi</span>
+<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a>     │ │ │   │ ├─glue</span>
+<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a>     │ │ │   │ ├─lifecycle</span>
+<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a>     │ │ │   │ ├─rlang</span>
+<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a>     │ │ │   │ ├─utf8 <span class="dv">1</span>.<span class="fl">2.4</span> ✨ ⬇ (<span class="fl">210.04</span> kB)</span>
+<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a>     │ │ │   │ └─vctrs</span>
+<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a>     │ │ │   ├─pkgconfig <span class="dv">2</span>.<span class="fl">0.3</span> ✨ ⬇ (<span class="fl">18.18</span> kB)</span>
+<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a>     │ │ │   ├─rlang</span>
+<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a>     │ │ │   └─vctrs</span>
+<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a>     │ │ ├─rlang</span>
+<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a>     │ │ └─tibble</span>
+<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a>     │ └─withr</span>
+<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a>     ├─withr</span>
+<span id="cb2-194"><a href="#cb2-194" aria-hidden="true" tabindex="-1"></a>     └─yaml</span>
+<span id="cb2-195"><a href="#cb2-195" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb2-196"><a href="#cb2-196" aria-hidden="true" tabindex="-1"></a>     Key<span class="sc">:</span>  ✨ new <span class="sc">|</span>  ⬇ download</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <section id="rap-dependencies" class="level3">
