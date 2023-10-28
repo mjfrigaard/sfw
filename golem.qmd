@@ -8,27 +8,15 @@ knitr:
 
 ## `gap`
 
+The `golem` package is an 'opinionated' Shiny framework that provides many options for users experienced with creating R packages, but who are looking to streamline their application development.
+
+### `gap` package files
+
 ```{r}
 #| eval: true
 #| echo: true 
 fs::dir_tree("_apps/gap", recurse = 0)
 ```
-
-The `golem` is an 'opinionated' Shiny framework that provides many options for users who are experienced with package development, but who are looking to streamline application development.
-
-## `golem` package dependencies 
-
-```{r}
-#| eval: true
-#| echo: true 
-#| message: false 
-#| warning: false
-#| code-summary: 'show/hide golem dependency tree'
-library(golem)
-pak::pkg_deps_tree(pkg = "golem", dependencies = TRUE)
-```
-
-### `gap` package files 
 
 #### NAMESPACE
 
@@ -71,9 +59,21 @@ The `pak::local_deps_tree()` function can tell us what the dependencies look lik
 
 ```{r}
 #| eval: true
-#| code-fold: true 
 #| code-summary: 'show/hide gap dependency tree'
 #| collapse: true 
 #| comment: "\t"
 pak::local_deps_tree(root = "_apps/gap", dependencies = NA)
+```
+
+## `golem` package dependencies 
+
+```{r}
+#| eval: true
+#| echo: true 
+#| code-fold: true 
+#| message: false 
+#| warning: false
+#| code-summary: 'show/hide golem dependency tree'
+library(golem)
+pak::pkg_deps_tree(pkg = "golem", dependencies = TRUE)
 ```

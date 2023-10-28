@@ -1,10 +1,13 @@
 Package: gap
-Title: An example goelm app
+Title: golem app-package 
 Version: 0.0.0.9000
-Author: person("Martin", "Frigaard", , "mjfrigaard@pm.me", role = c("cre",
-    "aut"))
-Description: A working example of the golem package.
+Author: John Smith <John.Smith@email.io> [aut, cre]
+Maintainer: John Smith <John.Smith@email.io>
+Description: A movie-review golem shiny application.
 License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
 Depends: 
     R (>= 3.5.0)
 Imports: 
@@ -23,8 +26,5 @@ Suggests:
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
-Encoding: UTF-8
 Language: en-US
 LazyData: true
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3

@@ -14,7 +14,7 @@ app_ui <- function(request) {
         sidebarPanel(
           mod_var_ui("vars"),
           h6(
-            img(src = "www/shiny.png", width = "15%"),
+            img(src = "www/images/shiny.png", width = "15%"),
             em(
               "The data for this application comes from the ",
               a("Building web applications with Shiny",
@@ -26,8 +26,8 @@ app_ui <- function(request) {
         ),
         mainPanel(
           fluidRow(
-            p(
-              em("Brought to you by: "),
+            br(),
+            p(em("Brought to you by: "),
               # add golem hex (in www/images/)
               img(src = "www/images/golem-hex.png", width = "5%")
             )

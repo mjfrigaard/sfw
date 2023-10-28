@@ -46,7 +46,7 @@ if ("pak" %in% loadedNamespaces()) {
 }
 ```
 
-### `shiny` 
+## Dependencies 
 
 All shiny app-packages will inherently depend on `shiny`, so including more dependencies can make developers justifiably uneasy.
 
