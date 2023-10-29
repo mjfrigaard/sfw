@@ -48,6 +48,8 @@ if ("pak" %in% loadedNamespaces()) {
 
 ## Dependencies 
 
+I'll explore the package dependencies. 
+
 All shiny app-packages will inherently depend on `shiny`, so including more dependencies can make developers justifiably uneasy.
 
 The `pak::pkg_deps_tree()` can show us `shiny`'s dependencies.
