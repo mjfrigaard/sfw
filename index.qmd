@@ -16,10 +16,6 @@ knitr:
 
 <!-- https://gist.github.com/jthomasmock/11acebd4448f171f786e01397df34116 -->
 
-## Motivation
-
-One of the constant concerns for developers is relying on an experimental or 'new' add-on dependency, the dependency introducing backward incompatible changes, and those changes breaking something they've built.
-
 ```{r}
 #| label: setup 
 #| warning: false 
@@ -29,11 +25,11 @@ One of the constant concerns for developers is relying on an experimental or 'ne
 options(repos = "http://cran.us.r-project.org")
 ```
 
-
 ```{r}
 #| label: pak_setup
 #| warning: false 
 #| message: false
+#| echo: false
 # see if pak is on the names of the loaded namespaces
 if (isFALSE("pak" %in% loadedNamespaces())) {
   install.packages("pak", quiet = TRUE)

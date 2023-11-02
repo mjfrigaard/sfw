@@ -44,45 +44,7 @@ box_use_df <- data.frame(
 
 ## `rap`
 
-The files for the `rhino` app are below:
-
-```{bash}
-#| eval: false
-#| code-fold: false 
-├── .Rbuildignore
-├── .Rhistory
-├── .Rprofile
-├── .Rproj.user
-├── .github
-│   └── workflows
-├── .lintr
-├── .renvignore
-├── .rscignore
-├── README.md
-├── app
-│   ├── js
-│   ├── logic
-│   ├── main.R
-│   ├── static
-│   ├── styles
-│   └── view
-├── app.R
-├── config.yml
-├── dependencies.R
-├── rap.Rproj
-├── renv
-│   ├── .gitignore
-│   ├── activate.R
-│   ├── library
-│   ├── settings.json
-│   └── staging
-├── renv.lock
-├── rhino.yml
-└── tests
-    ├── cypress
-    ├── cypress.json
-    └── testthat
-```
+`rhino` apps aren't packages. Instead, they use the [`box`](https://klmr.me/box/) package to build modules, which '*completely replaces the base R `library` and `require` functions.*'
 
 ## Start
 
@@ -1136,6 +1098,46 @@ Adding `.js` to `app/js/index.js` 'on click'
 ## `rap` dependencies
 
 `rhino` uses [`box`](https://klmr.me/box/), which '*completely replaces the base R `library` and `require` functions.*'
+
+The files for the `rhino` app are below:
+
+```{bash}
+#| eval: false
+#| code-fold: false 
+├── .Rbuildignore
+├── .Rhistory
+├── .Rprofile
+├── .Rproj.user
+├── .github
+│   └── workflows
+├── .lintr
+├── .renvignore
+├── .rscignore
+├── README.md
+├── app
+│   ├── js
+│   ├── logic
+│   ├── main.R
+│   ├── static
+│   ├── styles
+│   └── view
+├── app.R
+├── config.yml
+├── dependencies.R
+├── rap.Rproj
+├── renv
+│   ├── .gitignore
+│   ├── activate.R
+│   ├── library
+│   ├── settings.json
+│   └── staging
+├── renv.lock
+├── rhino.yml
+└── tests
+    ├── cypress
+    ├── cypress.json
+    └── testthat
+```
 
 `rhino` apps aren't packages, so the dependencies are stored in `rap/dependencies.R`
 

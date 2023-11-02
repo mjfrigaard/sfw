@@ -47,11 +47,9 @@ box_use_df <- data.frame(
 
 The [`golem` package](https://thinkr-open.github.io/golem/) is an 'opinionated Shiny framework' that provides many options for users experienced with creating R packages, but who are looking to streamline their application development.
 
-
 ## Start
 
 To create a new `golem` app from the console, enter the following:
-
 
 ```{r}
 #| label: golem-console

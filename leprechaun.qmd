@@ -19,67 +19,11 @@ execute:
 source("_common.R")
 ```
 
+## `lap` 
+
 [`leprechaun`](https://leprechaun.opifex.org/#/) apps are built much like R packages (with `devtools` and `usethis`), but they are designed with the intention of being a 'leaner and smaller' version of `golem`:
 
 > *"it generates code and does not make itself a dependency of the application you build; this means applications are leaner, and smaller"*
-
-## `lap` 
-
-The final folder tree for `lap` (a `leprechaun` app-package) are below: 
-
-```{bash}
-#| eval: false
-#| code-fold: false 
-├── DESCRIPTION
-├── NAMESPACE
-├── R
-│   ├── _disable_autoload.R
-│   ├── assets.R
-│   ├── input-handlers.R
-│   ├── leprechaun-utils.R
-│   ├── module_plot_display.R
-│   ├── module_var_input.R
-│   ├── run.R
-│   ├── server.R
-│   ├── ui.R
-│   ├── utils_scatter_plot.R
-│   └── zzz.R
-├── app.R
-├── data
-│   └── movies.rda
-├── data-raw
-│   └── movies.R
-├── inst
-│   ├── assets
-│   │   ├── index.js
-│   │   └── style.min.css
-│   ├── dev
-│   │   ├── packer.R
-│   │   └── sass.R
-│   ├── extdata
-│   │   └── movies.RData
-│   ├── img
-│   │   └── leprechaun.jpg
-│   └── run
-│       └── app.R
-├── lap.Rproj
-├── man
-│   ├── assets.Rd
-│   ├── js-modules.Rd
-│   ├── leprechaun_handler_df.Rd
-│   ├── leprechaun_handler_list.Rd
-│   ├── plot_displayUI.Rd
-│   ├── plot_display_server.Rd
-│   ├── run.Rd
-│   ├── scatter_plot.Rd
-│   ├── serveAssets.Rd
-│   ├── ui.Rd
-│   ├── var_inputUI.Rd
-│   └── var_input_server.Rd
-└── tests
-
-12 directories, 36 files
-```
 
 ## Start
 
@@ -1038,6 +982,62 @@ co_box(
 `leprechaun` doesn't add itself as a dependency (i.e., no need to add `leprechaun` to the list of `Imports` in the `DESCRIPTION` or `NAMESPACE`). 
   
 The section titled, 'the `golem` in the room' on the [package website](https://leprechaun.opifex.org/#/#the-golem-in-the-room) is worth reading because it covers the differences between the two packages (and why you might choose one over the other).")
+```
+
+The final folder tree for `lap` (a `leprechaun` app-package) are below: 
+
+```{bash}
+#| eval: false
+#| code-fold: false 
+├── DESCRIPTION
+├── NAMESPACE
+├── R
+│   ├── _disable_autoload.R
+│   ├── assets.R
+│   ├── input-handlers.R
+│   ├── leprechaun-utils.R
+│   ├── module_plot_display.R
+│   ├── module_var_input.R
+│   ├── run.R
+│   ├── server.R
+│   ├── ui.R
+│   ├── utils_scatter_plot.R
+│   └── zzz.R
+├── app.R
+├── data
+│   └── movies.rda
+├── data-raw
+│   └── movies.R
+├── inst
+│   ├── assets
+│   │   ├── index.js
+│   │   └── style.min.css
+│   ├── dev
+│   │   ├── packer.R
+│   │   └── sass.R
+│   ├── extdata
+│   │   └── movies.RData
+│   ├── img
+│   │   └── leprechaun.jpg
+│   └── run
+│       └── app.R
+├── lap.Rproj
+├── man
+│   ├── assets.Rd
+│   ├── js-modules.Rd
+│   ├── leprechaun_handler_df.Rd
+│   ├── leprechaun_handler_list.Rd
+│   ├── plot_displayUI.Rd
+│   ├── plot_display_server.Rd
+│   ├── run.Rd
+│   ├── scatter_plot.Rd
+│   ├── serveAssets.Rd
+│   ├── ui.Rd
+│   ├── var_inputUI.Rd
+│   └── var_input_server.Rd
+└── tests
+
+12 directories, 36 files
 ```
 
 `lap` depends on `shiny`, but not `leprechaun`. 
