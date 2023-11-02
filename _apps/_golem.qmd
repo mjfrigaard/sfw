@@ -202,7 +202,7 @@ The [`dev/`](https://github.com/mjfrigaard/shiny-app-setups/tree/main/myGolemApp
     
     - `dev/run_dev.R` is for running the 'development version' of the application. 
     
-If you've been following along with the post in this series, you should recognize most of the items in the `dev/` scripts. Even if you are familiar with R package developement, you can think of these scripts as a 'shiny app development checklist.' 
+If you've been following along with the post in this series, you should recognize most of the items in the `dev/` scripts. Even if you are familiar with R package development, you can think of these scripts as a 'shiny app development checklist.' 
 
 ### DESCRIPTION
 
@@ -732,7 +732,7 @@ New modules and utility functions can be created with [`golem::add_module()`](ht
         })
 
         output$scatterplot <- shiny::renderPlot({
-          plot <- point_plot(
+          plot <- scatter_plot(
             df = movies,
             x_var = inputs()$x,
             y_var = inputs()$y,

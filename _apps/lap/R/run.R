@@ -2,9 +2,9 @@
 #'
 #' Run application
 #'
-#' @param ... Additional parameters to pass to [shiny::shinyApp].
+#' @param ... Additional parameters to pass to [shinyApp].
 #'
-#' @importFrom shiny shinyApp
+#' @import shiny
 #'
 #' @export
 run <- function(...){
@@ -24,5 +24,5 @@ run <- function(...){
 #' @noRd
 run_dev <- function() {
 	file <- system.file("run/app.R", package = "lap")
-	shiny::shinyAppFile(file)
+	shinyAppFile(file)
 }

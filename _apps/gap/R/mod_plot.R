@@ -37,7 +37,7 @@ mod_plot_server <- function(id, var_inputs) {
     })
 
     output$scatterplot <- renderPlot({
-      plot <- point_plot(
+      plot <- scatter_plot(
         df = movies,
         x_var = inputs()$x,
         y_var = inputs()$y,

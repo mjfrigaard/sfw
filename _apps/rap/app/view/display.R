@@ -60,8 +60,8 @@ box::use(
       })
 
     output$scatterplot <- renderPlot({
-      # use plot$point_plot() ----
-      plot <- plot$point_plot(
+      # use plot$scatter_plot() ----
+      plot <- plot$scatter_plot(
         df = movies,
         x_var = inputs()$x,
         y_var = inputs()$y,

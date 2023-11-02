@@ -1,7 +1,8 @@
-^lap\.Rproj$
+^.*\.Rproj$
 ^\.Rproj\.user$
-^\.leprechaun$
-^data-raw$
+^moviesApp\.Rcheck$
+^moviesApp.*\.tar\.gz$
+^moviesApp.*\.tgz$
 ^srcjs$
 ^node_modules$
 ^package\.json$

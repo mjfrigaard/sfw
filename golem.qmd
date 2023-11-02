@@ -3,19 +3,887 @@ title: "The `golem` framework"
 knitr:
   opts_chunk: 
     collapse: true
-    comment: "\t"
+    comment: ""
+    
+execute: 
+  eval: false
 ---
+
+
+```{r}
+#| label: utils
+#| eval: true 
+#| echo: false 
+#| include: false
+source("_common.R")
+library(kableExtra)
+# box_use_df -----
+box_use_df <- data.frame(
+  check.names = FALSE,
+  `Inside box::use()` = c(
+    "box::use(
+      pkg
+    )",
+    "box::use(
+      p = pkg
+      )",
+    "box::use(
+      pkg = pkg[foo, bar]
+      )",
+    "box::use(
+      pkg[my_foo = foo, ...]
+      )"
+  ),
+  Action = c(
+    "imports 'pkg', does not attach any function names",
+    "imports 'pkg' with alias ('p'), does not attach any function names",
+    "imports 'pkg' and attaches the function names 'pkg::foo()' and 'pkg::bar()'",
+    "imports 'pkg' with alias for 'foo' ('my_foo') and attaches all exported function names"
+  )
+)
+```
 
 ## `gap`
 
-The `golem` package is an 'opinionated' Shiny framework that provides many options for users experienced with creating R packages, but who are looking to streamline their application development.
+The [`golem` package](https://thinkr-open.github.io/golem/) is an 'opinionated Shiny framework' that provides many options for users experienced with creating R packages, but who are looking to streamline their application development.
 
-### `gap` package files
+
+## Start
+
+To create a new `golem` app from the console, enter the following:
+
+
+```{r}
+#| label: golem-console
+#| eval: false
+install.packages("golem")
+library(golem)
+golem::create_golem(path = "gap")
+```
+
+If creating a `golem` app from RStudio's **New Project Wizard**, the following defaults are available:
+
+::: {#fig-golem-setup .column}
+![](img/golem-setup.png){height="100%" width="100%" fig-align="center"}
+
+Creating a new `golem` shiny app
+:::
+
+The initial folder structure for a new `golem` application is below:
+
+
+```{bash}
+#| label: golem-tree-initial
+#| code-fold: false
+gap
+    ├── DESCRIPTION
+    ├── NAMESPACE
+    ├── R
+    │   ├── app_config.R
+    │   ├── app_server.R
+    │   ├── app_ui.R
+    │   └── run_app.R
+    ├── dev
+    │   ├── 01_start.R
+    │   ├── 02_dev.R
+    │   ├── 03_deploy.R
+    │   └── run_dev.R
+    ├── inst
+    │   ├── app
+    │   │   └── www
+    │   │       └── favicon.ico
+    │   └── golem-config.yml
+    ├── man
+    │   └── run_app.Rd
+    ├── gap.Rproj
+    ├── renv
+    │   ├── activate.R
+    │   ├── sandbox
+    │   │   └── R-4.2
+    │   └── settings.dcf
+    └── renv.lock
+
+12 directories, 17 files
+```
+
+## `dev/` scripts
+
+The [`dev/`](https://github.com/mjfrigaard/sfw/tree/main/_apps/gap/dev) folder contains `golem`'s 'guided tour' scripts and `dev/run_dev.R`:
+
+Below are the scripts to guide you through developing your `golem` app and the `dev/run_dev.R` code.
+
+- [x] `dev/01_start.R` opens automatically
+    
+```{bash}
+#| label: gap-dev
+#| code-fold: false
+gap/dev/
+            ├── 01_start.R
+            ├── 02_dev.R
+            ├── 03_deploy.R
+            └── run_dev.R
+
+1 directory, 4 files
+```
+    
+- `dev/run_dev.R` is for running the 'development version' of the application. 
+
+If you are familiar with R package development, you can think of these scripts as a 'shiny app development checklist.' 
+
+### DESCRIPTION
+
+In the `dev/01_start.R` script, users build a `DESCRIPTION` file with [`golem::fill_desc()`](https://thinkr-open.github.io/golem/reference/fill_desc.html)
+
+-  [x] `fill_desc()` uses the [`desc` package](https://r-lib.github.io/desc/) and the sections are entered in a `key = "value"` format
+    
+```{r}
+#| label: golem-fill_desc
+#| code-fold: false
+#| eval: false
+golem::fill_desc(
+  pkg_name = "gap",
+  pkg_title = "An example goelm app",
+  pkg_description = "A working example of the golem package.",
+  author_first_name = "Martin",
+  author_last_name = "Frigaard",
+  author_email = "mjfrigaard@pm.me",
+  repo_url = NULL # The URL of the GitHub Repo (optional)
+)
+```
+    
+-   In `dev/02_dev.R`, the `attachment::att_amend_desc()` will "*Amend `DESCRIPTION` with dependencies read from package code parsing*". If `attachment` is not installed, use  `install.package('attachment')`
+
+### Package files
+
+`dev/01_start.R` contains the `usethis` functions for for creating common package development files:
+
+- [x] LICENSE: `usethis::use_mit_license()`  
+
+- [x] README: `usethis::use_readme_rmd()`   
+
+- [x] Code of Conduct: `usethis::use_code_of_conduct()`
+
+- [x] Lifecycle badge: `usethis::use_lifecycle_badge("Experimental")`
+
+- [x] `NEWS.md`: `usethis::use_news_md(open = FALSE)`
+
+- [x] Git: `usethis::use_git()`
+
+### `golem` files
+
+The `golem` functions in `dev/01_start.R` are for setting the `golem` options and using recommended tests. 
+
+- [x] Options: `golem::set_golem_options()`
+    
+- [x] Tests (with `testthat`): `golem::use_recommended_tests()`
+    
+- [x] Favicon: `golem::use_favicon()`
+    
+- [x] Helper functions:   [`golem::use_utils_ui()`](https://thinkr-open.github.io/golem/reference/utils_files.html) and [`golem::use_utils_server()`](https://thinkr-open.github.io/golem/reference/utils_files.html) create `golem`'s UI (`R/golem_utils_ui.R`) and server (`R/golem_utils_server.R`) utility functions in the `R/` folder
+
+```{r}
+#| label: free_code
+#| results: asis
+#| eval: true
+#| echo: false
+co_box(color = "b", 
+  header = "`golem` gives away lots of free code!", contents = "
+
+_Both `R/golem_utils_ui.R` and `R/golem_utils_server.R` contain a lot of helper functions that come in handy if you're tired of writing out particular function names (like `reactiveValuesToList()` or `column(width = 6)`/`column(width = 12)`)_ 
+  
+Check them out here: 
+  
+- [`golem_utils_ui.R`](https://github.com/mjfrigaard/sfw/blob/main/_apps/gap/R/golem_utils_ui.R)
+  
+- [`golem_utils_server.R`](https://github.com/mjfrigaard/sfw/blob/main/_apps/gap/R/golem_utils_server.R)
+  
+")
+```
+
+
+### App files
+
+The `dev/02_dev.R` file covers developing a golem app-package. Most of the `golem` functions are for creating files in the `R/` and `inst/` folders::
+    
+```bash
+R/
+├── app_config.R
+├── app_server.R
+├── app_ui.R
+└── run_app.R
+
+1 directory, 4 files
+```
+
+- [x] `R/app_ui.R` and `R/app_server.R` are `golem`'s version of `ui.R` and `server.R`  
+    
+```{r}
+#| label: golem_r_app_ui
+#| code-fold: false
+#' The application User-Interface
+#'
+#' @param request Internal parameter for `{shiny}`.
+#'     DO NOT REMOVE.
+#' @noRd
+app_ui <- function(request) {
+  tagList(
+    # Leave this function for adding external resources
+    golem_add_external_resources(),
+    # Your application UI logic
+    fluidPage(
+      h1("gap")
+    )
+  )
+}
+```
+
+- [x] `golem_add_external_resources()` is a wrapper for `shiny::addResourcePath()`, `htmltools::htmlDependency()`, and `app_sys()` (which is a wrapper for `system.file()`):
+
+```{r}
+#| label: golem_add_external_resources
+#| code-fold: false
+#' Add external Resources to the Application
+#'
+#' This function is internally used to add external
+#' resources inside the Shiny application.
+#'
+golem_add_external_resources <- function() {
+  add_resource_path(
+    "www",
+    app_sys("app/www")
+  )
+
+  tags$head(
+    favicon(),
+    bundle_resources(
+      path = app_sys("app/www"),
+      app_title = "gap"
+    )
+    # Add here other external resources
+    # for example, you can add shinyalert::useShinyalert()
+  )
+}
+```
+
+```{r}
+#| label: golem_r_app_server
+#| code-fold: false
+#' The application server-side
+#'
+#' @param input,output,session Internal parameters for {shiny}.
+#'     DO NOT REMOVE.
+#' @import shiny
+#' @noRd
+app_server <- function(input, output, session) {
+  # Your application server logic
+}
+```
+
+- [x] `run_app.R` is an exported function that is available for me to run my app after I've installed the package: 
+    
+```{r}
+#| label: golem_run_app
+#| code-fold: false
+library(gap)
+gap::run_app()
+```
+    
+### Code file wrapper functions
+    
+- [x] `golem` has wrappers for creating modules and helper functions in the `R/` folder: 
+
+```{r}
+#| label: golem_modules_utilities
+#| code-fold: false
+## Add modules ----
+## Create a module infrastructure in R/
+golem::add_module(name = "name_of_module1", with_test = TRUE) 
+golem::add_module(name = "name_of_module2", with_test = TRUE) 
+
+## Add helper functions ----
+## Creates fct_* and utils_*
+golem::add_fct("helpers", with_test = TRUE)
+golem::add_utils("helpers", with_test = TRUE)
+```
+    
+-   `with_test = TRUE` ensures these functions will also create test files in `tests/`
+    
+### Configure
+
+- [x] The [`R/app_config.R` file](https://github.com/mjfrigaard/moviesApp/blob/main/gap/R/app_config.R) contains two functions: `app_sys()` (covered above) and `get_golem_config()`, which reads the `inst/golem-config.yml` configuration file
+
+```{bash}
+#| label: golem_config-yml
+#| code-fold: false
+default:
+  golem_name: gap
+  golem_version: 0.0.0.9000
+  app_prod: no
+production:
+  app_prod: yes
+dev:
+  golem_wd: !expr here::here()
+```
+    
+- [x] [`golem-config.yml`](https://engineering-shiny.org/golem.html#manipulating-golem-config.yml) gives access to the app version, name, and (development) working directory, so it can be used to add "production-only elements" and is "shareable across golem projects"\
+    
+- [x] `golem` uses `app_sys()` (a wrapper around `system.file()`) to add external resources to the application (`app_sys()` is included in the `R/app_config.R` file)
+    
+```{r}
+#| label: app_config.R-golem
+#| code-fold: false
+# Access files in the current app
+app_sys <- function(...) {
+  system.file(..., package = "gap")
+}
+```
+    
+- [x] `get_golem_config()` is also included in the `R/app_config.R` file
+
+```{r}
+#| label: get_golem_config-golem
+#| code-fold: false
+# Read App Config
+get_golem_config <- function(
+  value,
+  config = Sys.getenv(
+    "GOLEM_CONFIG_ACTIVE",
+    Sys.getenv(
+      "R_CONFIG_ACTIVE",
+      "default"
+    )
+  ),
+  use_parent = TRUE,
+  # Modify this if your config file is somewhere else
+  file = app_sys("golem-config.yml")
+) {
+  config::get(
+    value = value,
+    config = config,
+    file = file,
+    use_parent = use_parent
+  )
+}
+```
+
+### Testing
+
+The `tests/` folder is created in `dev/01_start.R` with [`golem::use_recommended_tests()`](https://thinkr-open.github.io/golem/reference/use_recommended.html), which is a wrapper around `usethis::use_testthat()`
+
+- [x] `golem::use_recommended_tests()` adds the `spelling` package to our `DESCRIPTION` and updates the `WORDLIST`[^golem-tests]
+
+[^golem-tests]: The tests `golem` creates in the `tests/testthat/` folder can serve as a nice guide for users new to `testthat`
+
+- [x] The `tests` folder uses the [`testthat` framework](https://testthat.r-lib.org/)
+    
+```{bash}
+#| label: tests-utils
+#| code-fold: false
+tests/testthat/
+            ├── _snaps
+            ├── test-golem-recommended.R
+            ├── test-golem_utils_server.R
+            └── test-golem_utils_ui.R
+
+2 directories, 4 files
+```
+
+### External 
+
+The `inst/` file initially has the following contents/structure:
+
+```bash
+inst/
+  ├── WORDLIST
+  ├── app/
+  │   └── www/
+  │       └── favicon.ico
+  └── golem-config.yml 
+```
+
+The `golem-config.yml` file is covered above, but the `inst/app/` folder works just like the `inst/extdata` folder (it is loaded when the package is installed and makes these files available to the application).
+
+`dev/02_dev.R` includes golem wrappers for including CSS, JavaScript, and SASS files to the `inst/app/www/` folder:
+
+- [x] [`golem::add_js_file("script")`](https://thinkr-open.github.io/golem/reference/add_files.html)
+
+- [x] [`golem::add_js_handler("handlers")`](https://thinkr-open.github.io/golem/reference/add_files.html)
+
+- [x] [`golem::add_css_file("custom")`](https://thinkr-open.github.io/golem/reference/add_files.html)
+
+- [x] [`golem::add_sass_file("custom")`](https://thinkr-open.github.io/golem/reference/add_files.html)
+
+    
+### Deploy
+
+The final script in the guided tour contains functions for deploying a new application to Posit Connect or Docker (it opens automatically after completing the `dev/02_dev.R`)
+
+RStudio (Posit) Connect
+<br>
+
+-   [x] [`golem::add_rstudioconnect_file()`](https://thinkr-open.github.io/golem/reference/rstudio_deploy.html), [`golem::add_shinyappsio_file()`](https://thinkr-open.github.io/golem/reference/rstudio_deploy.html), and [`golem::add_shinyserver_file()`](https://thinkr-open.github.io/golem/reference/rstudio_deploy.html)
+
+Docker
+<br>
+
+-   [x] [`golem::add_dockerfile_with_renv()`](https://thinkr-open.github.io/golem/reference/dockerfiles.html) and [`golem::add_dockerfile_with_renv_shinyproxy()`](https://thinkr-open.github.io/golem/reference/dockerfiles.html)
+    
+I'll deploy my app using shinyapps.io, so after running `golem::add_shinyappsio_file()` I will see the following output and a new `app.R` file. 
+    
+```{r, eval=FALSE}
+#| label: add_shinyappsio_file
+#| code-fold: false
+#| eval: false
+golem::add_shinyappsio_file()
+── Creating _disable_autoload.R ──────────────────────────────────────────────────────
+✔ Created
+✔ Setting active project to '/Users/mjfrigaard/projects/gap'
+✔ Adding '^app\\.R$' to '.Rbuildignore'
+✔ Adding '^rsconnect$' to '.Rbuildignore'
+✔ Adding 'pkgload' to Imports field in DESCRIPTION
+• Refer to functions with `pkgload::fun()`
+✔ File created at /Users/mjfrigaard/projects/gap/app.R
+To deploy, run:
+• rsconnect::deployApp()
+
+• Note that you'll need to upload the whole package to ShinyApps.io
+```
+    
+-   `app.R` contents
+    
+    
+```{r}
+#| label: app-dot-r
+#| code-fold: false
+#| eval: false
+# Launch the ShinyApp (Do not remove this comment)
+# To deploy, run: rsconnect::deployApp()
+# Or use the blue button on top of this file
+
+pkgload::load_all(export_all = FALSE, helpers = FALSE, attach_testthat = FALSE)
+options( "golem.app.prod" = TRUE)
+gap::run_app() # add parameters here (if any)
+```
+
+
+## Writing code
+
+Building an application with `golem` is very similar to developing an R package. However, some of the app development processes have been streamlined into wrapper functions. I'll cover creating modules and utility functions using these helpers in the following sections.
+
+### Modules & utility functions
+
+New modules and utility functions can be created with [`golem::add_module()`](https://thinkr-open.github.io/golem/reference/add_module.html) or [`golem::add_utils()`/`golem::add_fct()`](https://thinkr-open.github.io/golem/reference/file_creation.html).[^golem-remove-nord]
+
+The code below creates the following files: 
+
+```r
+add_module(name = 'name', 
+           fct = 'fun', 
+           utils = 'fun', 
+           with_test = TRUE, 
+           export = TRUE)
+```
+
+- [x] `R/mod_name.R`: a boilerplate Shiny module (ui and server functions)
+
+```{r}
+#| code-fold: false
+#| eval: false
+#' name UI Function
+#'
+#' @description A shiny Module.
+#'
+#' @param id,input,output,session Internal parameters for {shiny}.
+#'
+#' @rdname mod_name
+#' @export 
+#'
+#' @importFrom shiny NS tagList 
+mod_name_ui <- function(id){
+  ns <- NS(id)
+  tagList(
+ 
+  )
+}
+    
+#' name Server Functions
+#'
+#' @rdname mod_name
+#' @export 
+mod_name_server <- function(id){
+  moduleServer( id, function(input, output, session){
+    ns <- session$ns
+ 
+  })
+}
+    
+## To be copied in the UI
+# mod_name_ui("name_1")
+    
+## To be copied in the server
+# mod_name_server("name_1")
+```
+
+- [x] `R/mod_name_fct_fun.R` and `R/mod_name_utils_fun.R`: empty R files in the R/ folder (with the same prefix as the module).
+
+- [x] `tests/testthat/test-mod_name.R`: a test file for the module (with some boilerplate tests)
+
+```{r}
+#| code-fold: false
+#| eval: false
+testServer(mod_name_server,
+  # Add here your module params
+  args = list(), {
+    ns <- session$ns
+    expect_true(
+      inherits(ns, "function")
+    )
+    expect_true(
+      grepl(id, ns(""))
+    )
+    expect_true(
+      grepl("test", ns("test"))
+    )
+    # Here are some examples of tests you can
+    # run on your module
+    # - Testing the setting of inputs
+    # session$setInputs(x = 1)
+    # expect_true(input$x == 1)
+    # - If ever your input updates a reactiveValues
+    # - Note that this reactiveValues must be passed
+    # - to the testServer function via args = list()
+    # expect_true(r$x == 1)
+    # - Testing output
+    # expect_true(inherits(output$tbl$html, "html"))
+})
+ 
+test_that("module ui works", {
+  ui <- mod_name_ui(id = "test")
+  golem::expect_shinytaglist(ui)
+  # Check that formals have not been removed
+  fmls <- formals(mod_name_ui)
+  for (i in c("id")) {
+    expect_true(i %in% names(fmls))
+  }
+})
+```
+
+[^golem-remove-nord]: New functions are added to the `R/` folder and include [`@noRd`](https://style.tidyverse.org/documentation.html#internal-functions) by default (which must be removed create the `.Rd` files in the `man/` folder)
+
+- [x] Below is the `mod_var` module:
+
+```{r}
+#| label: mod_var
+#| code-fold: false
+mod_var_ui <- function(id) {
+  ns <- NS(id)
+  tagList(
+    selectInput(
+      inputId = ns("y"),
+      label = "Y-axis:",
+      choices = c(
+        "IMDB rating" = "imdb_rating",
+        "IMDB number of votes" = "imdb_num_votes",
+        "Critics Score" = "critics_score",
+        "Audience Score" = "audience_score",
+        "Runtime" = "runtime"
+      ),
+      selected = "audience_score"
+    ),
+    selectInput(
+      inputId = ns("x"),
+      label = "X-axis:",
+      choices = c(
+        "IMDB rating" = "imdb_rating",
+        "IMDB number of votes" = "imdb_num_votes",
+        "Critics Score" = "critics_score",
+        "Audience Score" = "audience_score",
+        "Runtime" = "runtime"
+      ),
+      selected = "imdb_rating"
+    ),
+    selectInput(
+      inputId = ns("z"),
+      label = "Color by:",
+      choices = c(
+        "Title Type" = "title_type",
+        "Genre" = "genre",
+        "MPAA Rating" = "mpaa_rating",
+        "Critics Rating" = "critics_rating",
+        "Audience Rating" = "audience_rating"
+      ),
+      selected = "mpaa_rating"
+    ),
+    sliderInput(
+      inputId = ns("alpha"),
+      label = "Alpha:",
+      min = 0, max = 1, step = 0.1,
+      value = 0.5
+    ),
+    sliderInput(
+      inputId = ns("size"),
+      label = "Size:",
+      min = 0, max = 5,
+      value = 2
+    ),
+    textInput(
+      inputId = ns("plot_title"),
+      label = "Plot title",
+      placeholder = "Enter plot title"
+    )
+  )
+}
+mod_var_server <- function(id) {
+
+  moduleServer(id, function(input, output, session) {
+    return(
+      reactive({
+        list(
+          "y" = input$y,
+          "x" = input$x,
+          "z" = input$z,
+          "alpha" = input$alpha,
+          "size" = input$size,
+          "plot_title" = input$plot_title
+        )
+      })
+    )
+  })
+}
+```
+
+View the modules I use in the `gap` application [here on GitHub](https://github.com/mjfrigaard/sfw/blob/main/gap/R).
+
+- [x] The `scatter_plot()` utility function file end with a `_utils` suffix:
+    
+```{r}
+#| label: mod_plot-server
+#| code-fold: false
+scatter_plot <- function(df, x_var, y_var, col_var, alpha_var, size_var) {
+    ggplot2::ggplot(data = df,
+      ggplot2::aes(x = .data[[x_var]],
+          y = .data[[y_var]],
+          color = .data[[col_var]])) +
+      ggplot2::geom_point(alpha = alpha_var, size = size_var)
+
+}
+```
+
+ 
+```{r}
+#| label: co_box_module_names
+#| eval: true 
+#| results: asis
+#| echo: false
+co_box(color = "b", 
+  header = "Module names", 
+  contents = "Including `mod` in the name of module scripts and functions makes it easier to separate them from other functions in my package namespace, if I'm using tab-completion, or if I'm searching for a particular file using `Ctrl` + `.`:
+
+::: {#fig-go-to .column}
+![](img/go-to-file.png){width='70%' fig-align='center'}
+
+**Go to File/Function** in RStudio
+:::"
+)
+```
+
+### Adding tests 
+
+- [x] Include tests for new modules and functions using the `with_test = TRUE` argument
+    
+```{bash}
+#| label: tests-modules
+#| code-fold: false
+tests/testthat/
+            ├── _snaps
+            ├── test-golem-recommended.R
+            ├── test-golem_utils_server.R
+            ├── test-golem_utils_ui.R
+            ├── test-mod_plot.R
+            ├── test-mod_plot_utils.R
+            └── test-mod_var_input.R
+
+2 directories, 6 files
+```
+
+### Adding resources
+
+- [x] To include other files (like images), add the image file to `inst/app/www/`, then add the `www/` to the path (see example UI code below)
+    
+```{r}
+#| label: add-external-img-golem
+#| code-fold: false
+# add icon
+shiny::tags$img(src = "www/shiny.png")
+```
+    
+If I wanted to include images in their own folder (like `images/`), I can use `golem::addResourcePath()` to add the name of the sub-folder to `inst/app/`
+    
+```{r}
+#| label: addResourcePath-images
+#| code-fold: false
+# add icon
+golem::add_resource_path(
+          prefix = 'images', 
+          directoryPath = system.file('app/images', 
+                                      package = 'gap'))
+```
+    
+Now I can add the image file to the `inst/app/www/images/` folder and include the following code in the UI: 
+    
+```{r}
+#| label: addResourcePath-images-ui
+#| code-fold: false
+# add icon
+shiny::tags$img(src = "www/images/golem-hex.png")
+```
+
+- [x] In `R/app_ui.R`, the `app_ui()` function contains the UI layout functions (`fluidPage()`, `sidebarLayout()`, etc.), and a call to `golem_add_external_resources()`:
+
+```{r}
+#| label: app_ui-golem
+#| code-fold: false
+#' The application User-Interface
+#'
+#' @param request Internal parameter for `{shiny}`.
+#'     DO NOT REMOVE.
+#' @import shiny
+#' @noRd
+app_ui <- function(request) {
+  tagList(
+    # Leave this function for adding external resources
+    golem_add_external_resources(),
+    # Your application UI logic
+    fluidPage(
+      sidebarLayout(
+        sidebarPanel(
+          mod_var_ui("vars"),
+          h6(
+            img(src = "www/images/shiny.png", width = "15%"),
+            em(
+              "The data for this application comes from the ",
+              a("Building web applications with Shiny",
+                href = "https://rstudio-education.github.io/shiny-course/"
+              ),
+              "tutorial"
+            )
+          )
+        ),
+        mainPanel(
+          fluidRow(
+            br(),
+            p(em("Brought to you by: "),
+              # add golem hex (in www/images/)
+              img(src = "www/images/golem-hex.png", width = "5%")
+            )
+          ),
+          mod_plot_ui("plot")
+        )
+      )
+    )
+  )
+}
+```
+
+Now when I run `devtools::load_all()`, `devtools::document()`, install/restart, and load the package, I see the images properly rendered with the application:
+
+::: {#fig-run_app_gap .column}
+![`gap::run_app()`](img/run_app_gap.png){#fig-run_app_gap width="100%" fig-align="center"}
+
+Images in `gap`
+:::
+
+```{r}
+#| label: inst_co_box
+#| eval: true 
+#| echo: false 
+#| results: asis
+co_box(color = "g", fold = TRUE, header = "Using the `inst/` folder", contents = "`golem` takes advantage of the `inst/` folder and R package structure to allow users to provide additional 'assets' to the application. 
+
+For example, if we use `system.file()` on the local directory (`'.'`), we see all the folders available to the application *at runtime*
+  
+\`\`\` r
+fs::dir_tree(path = system.file('', package = 'gap'))
+/Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/library/gap/.
+├── DESCRIPTION
+├── INDEX
+├── LICENSE
+├── Meta
+│   ├── Rd.rds
+│   ├── data.rds
+│   ├── features.rds
+│   ├── hsearch.rds
+│   ├── links.rds
+│   ├── nsInfo.rds
+│   └── package.rds
+├── NAMESPACE
+├── R
+│   ├── gap
+│   ├── gap.rdb
+│   └── gap.rdx
+├── WORDLIST
+├── app
+│   └── www
+│       ├── favicon.ico
+│       └── images
+│           ├── golem-hex.png
+│           └── shiny.png
+├── data
+│   ├── Rdata.rdb
+│   ├── Rdata.rds
+│   └── Rdata.rdx
+├── extdata
+│   └── movies.RData
+├── golem-config.yml
+├── help
+│   ├── AnIndex
+│   ├── aliases.rds
+│   ├── gap.rdb
+│   ├── gap.rdx
+│   └── paths.rds
+└── html
+    ├── 00Index.html
+    └── R.css
+\`\`\`
+  
+")
+```
+
+
+## `gap` features
+
+If you typically build shiny apps in a single `app.R` file (or in `ui.R` and `server.R` files), the `golem` framework might seem overwhelming. I'll give a quick overview of some areas I found confusing when I started using `goelm`:
+
+1. `golem` apps are run using the `gap::run_app()` function (included in the `R/` folder)
+
+2. While developing, `golem` also comes with a [`run_dev`](https://github.com/ThinkR-open/golem/blob/HEAD/R/run_dev.R) function that reads the `R/run_dev.R` file and evaluates the code.
+
+3. [`dev/`](https://github.com/mjfrigaard/sfw/tree/main/_apps/gap/dev) contains `golem`'s 'guided tour' scripts (`01_start.R`, `02_dev.R`, `03_deploy.R`) and [`run_dev.R`](https://github.com/ThinkR-open/golem/blob/HEAD/R/run_dev.R) (covered above)
+
+4. [`R/`](https://github.com/mjfrigaard/sfw/tree/main/_apps/gap/R): the primary app files for the UI and server are stored in the `R/` folder (`R/app_ui.R`, `R/app_server.R`, `R/run_app.R`), as well as the configuration function (`R/app_config.R`):
+    
+5. [`inst/`](https://github.com/mjfrigaard/sfw/tree/main/_apps/gap/inst): the `inst/` folder holds the `golem-config.yml` and location of any external app files.
+
+6. Deploying the application can be done with a single function: `rsconnect::deployApp()`
+
+## Recap
+
+Generally speaking, `golem`'s start-up scripts save time and serve as a gentle introduction to some of the functions used in R package development. 
+
+The `add_` functions are an area where `golem` really separates itself from standard R package development. Having dedicated Shiny development functions (and the `app/inst/www` folder) reduces the cognitive overhead of mapping the standard R package development functions (i.e., those from `usethis` and `devtools`) into Shiny app-package development.
+
+`golem` is a popular framework for a reason--it's designed to allow developers to build a shiny application and R package simultaneously. Added bonuses include taking advantage of RStudio's build tools, great [documentation](https://engineering-shiny.org/index.html), and [user-guides.](https://thinkr-open.github.io/golem/index.html).
+
+## `gap` package dependencies
+
+`golem` apps add `golem` as a dependency.
 
 ```{r}
 #| eval: true
 #| echo: true 
-fs::dir_tree("_apps/gap", recurse = 0)
+pak::local_deps_explain(
+  deps = 'golem', 
+  root = "_apps/gap")
 ```
 
 #### NAMESPACE
@@ -61,19 +929,28 @@ The `pak::local_deps_tree()` function can tell us what the dependencies look lik
 #| eval: true
 #| code-summary: 'show/hide gap dependency tree'
 #| collapse: true 
-#| comment: "\t"
-pak::local_deps_tree(root = "_apps/gap", dependencies = NA)
+#| comment: ""
+pak::local_deps_tree(root = "_apps/gap")
 ```
 
-## `golem` package dependencies 
 
-```{r}
-#| eval: true
-#| echo: true 
-#| code-fold: true 
-#| message: false 
-#| warning: false
-#| code-summary: 'show/hide golem dependency tree'
-library(golem)
-pak::pkg_deps_tree(pkg = "golem", dependencies = TRUE)
-```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

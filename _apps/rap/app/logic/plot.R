@@ -2,7 +2,7 @@
 
 #' point plot function
 #' @export
-point_plot <- function(df, x_var, y_var, col_var, alpha_var, size_var) {
+scatter_plot <- function(df, x_var, y_var, col_var, alpha_var, size_var) {
 
 box::use(
   ggplot2 = ggplot2[...]

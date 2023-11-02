@@ -3,44 +3,1159 @@ title: "the `rhino` framework"
 knitr:
   opts_chunk: 
     collapse: true
-    comment: "\t"
+    comment: "# "
+    
+execute: 
+  eval: false
 ---
+
+```{r}
+#| label: utils
+#| eval: true 
+#| echo: false 
+#| include: false
+source("_common.R")
+library(kableExtra)
+# box_use_df -----
+box_use_df <- data.frame(
+  check.names = FALSE,
+  `Inside box::use()` = c(
+    "box::use(
+      pkg
+    )",
+    "box::use(
+      p = pkg
+      )",
+    "box::use(
+      pkg = pkg[foo, bar]
+      )",
+    "box::use(
+      pkg[my_foo = foo, ...]
+      )"
+  ),
+  Action = c(
+    "imports 'pkg', does not attach any function names",
+    "imports 'pkg' with alias ('p'), does not attach any function names",
+    "imports 'pkg' and attaches the function names 'pkg::foo()' and 'pkg::bar()'",
+    "imports 'pkg' with alias for 'foo' ('my_foo') and attaches all exported function names"
+  )
+)
+```
 
 ## `rap`
 
 The files for the `rhino` app are below:
 
+```{bash}
+#| eval: false
+#| code-fold: false 
+├── .Rbuildignore
+├── .Rhistory
+├── .Rprofile
+├── .Rproj.user
+├── .github
+│   └── workflows
+├── .lintr
+├── .renvignore
+├── .rscignore
+├── README.md
+├── app
+│   ├── js
+│   ├── logic
+│   ├── main.R
+│   ├── static
+│   ├── styles
+│   └── view
+├── app.R
+├── config.yml
+├── dependencies.R
+├── rap.Rproj
+├── renv
+│   ├── .gitignore
+│   ├── activate.R
+│   ├── library
+│   ├── settings.json
+│   └── staging
+├── renv.lock
+├── rhino.yml
+└── tests
+    ├── cypress
+    ├── cypress.json
+    └── testthat
+```
+
+## Start
+
+To create a new rhino application:
+
+-   [x] Select **Project** \> **New Project** \> **New Directory**, and **Shiny Application using rhino**
+
+The **New Project Wizard** will require a *Directory name* and *subdirectory*. I've also left *Github Actions CI* selected (the default)
+
+```{bash}
+#| label: startup-rhino
+#| code-fold: false
+The following package(s) will be updated in the lockfile:
+
+# CRAN ------------------------------------------------------
+- renv           [* -> 1.0.3]
+
+# GitHub ----------------------------------------------------
+- testthat       [* -> r-lib/testthat@HEAD]
+
+# RSPM ------------------------------------------------------
+  < < < < < < < OMITTED > > > > > > > >
+The version of R recorded in the lockfile will be updated:
+- R              [* -> 4.3.1]
+
+- Lockfile written to "~/projects/dev/brap/renv.lock".
+- Project '~/projects/dev/brap' loaded. [renv 1.0.3]
+✔ Initialized renv.
+✔ Application structure created.
+✔ Unit tests structure created.
+✔ E2E tests structure created.
+✔ Github Actions CI added.
+```
+
+This initializes the new `rhino` app by opening the `.Rproj` file in RStudio.
+
+If I wanted to create the `rap` application from the console, I would use the following:
+
 ```{r}
+#| label: init-rhino
+#| code-fold: false
+install.packages("rhino")
+rhino::init("/Users/mjfrigaard/projects/rap")
+```
+
+The initial folder structure for a new `rhino` app is below:
+
+```{bash}
+#| label: rhino-initial-tree
+#| code-fold: false
+rap/
+├── app
+│   ├── js
+│   ├── logic
+│   ├── main.R
+│   ├── static
+│   ├── styles
+│   └── view
+├── app.R
+├── brap.Rproj
+├── config.yml
+├── dependencies.R
+├── renv
+│   ├── activate.R
+│   ├── library
+│   └── settings.json
+├── renv.lock
+├── rhino.yml
+└── tests
+    ├── cypress
+    ├── cypress.json
+    └── testthat
+
+12 directories, 10 files
+```
+
+The `rhino` package website has [excellent documentation on their app structure philosophy](https://appsilon.github.io/rhino/articles/explanation/application-structure.html), and it's worth reading through this before getting started. I'll do my best to summarize the application's files below:
+
+### `app/`
+
+The `app/` folder contains the primary folder and files:
+
+```{bash}
+#| label: rhino-initial-app
+#| code-fold: false
+app/
+  ├── js/
+  │   └── index.js
+  ├── logic/
+  │   └── __init__.R
+  ├── main.R
+  ├── static/
+  │   └── favicon.ico
+  ├── styles/
+  │   └── main.scss
+  └── view/
+      └── __init__.R
+
+6 directories, 6 files
+```
+
+<br>
+
+-   [x]   `js/`: the `js` folder initially contains a blank `index.js` script\
+    <br>
+-   [x]   `logic/`: the `logic` folder contains [*code independent from Shiny*](https://appsilon.github.io/rhino/articles/explanation/application-structure.html#logic) 
+<br><br>
+    -   `logic/__init__.R` is originally blank, but provides a link to the website section on project structure
+
+```{r}
+#| label: rhino-initial-logic-init
+#| code-fold: false
+# Logic: application code independent from Shiny.
+# https://go.appsilon.com/rhino-project-structure
+```
+
+<br>
+
+-   [x]   `static/`: the `static/` folder will contain external resources (like JavaScript files) and is similar to the sub-folders in `inst/` from `golem` and `leprechaun`
+
+-   [x]   `styles/`: the `styles/` folder will hold custom styles (CSS and HTML) in the `styles/main.css` file (which is initially blank)
+
+-   [x]   `view/`: the `view/` folder holds the [*code which describes the user interface of your application and relies upon the reactive capabilities of Shiny.*](https://appsilon.github.io/rhino/articles/explanation/application-structure.html#view)
+<br>
+    -   `view/__init__.R` is also initially blank, but provides a link to the website section on project structure
+
+```{r}
+#| label: rhino-initial-view-init
+#| code-fold: false
+# View: Shiny modules and related code.
+# https://go.appsilon.com/rhino-project-structure
+```
+
+<br>
+
+-   [x]   `main.R`: the `main.R` file contains the `ui` and `server` application code
+<br><br>
+    -   `app/main.R` contains the code for the application I see when I run `rhino::app()`
+
+```{r}
+#| label: rhino-initial-main
+#| code-fold: false
+box::use(
+  shiny[bootstrapPage, moduleServer, NS, renderText, tags, textOutput],
+)
+
+#' @export
+ui <- function(id) {
+  ns <- NS(id)
+  bootstrapPage(
+    tags$h3(
+      textOutput(ns("message"))
+    )
+  )
+}
+
+#' @export
+server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    output$message <- renderText("Hello!")
+  })
+}
+```
+
+<br>
+
+```{r}
+#| label: box_co_box
+#| echo: false
 #| eval: true
-#| echo: true 
-fs::dir_tree("_apps/rap", recurse = 0)
+#| results: asis
+co_box(color = "r", 
+  header = "`box::use()`?", 
+  contents = "If `box`'s syntax looks strange--don't worry! It looked strange to me too at first. But it's actually something special with those `roxygen2` tags. I'll cover it more in the **Build** section below.")
 ```
 
-## `rhino` package dependencies 
+### `app.R`
 
-`rhino` uses [`box`](https://klmr.me/box/), which has the explicit goal of '*completely replac[ing] the base R `library` and `require` functions.*'
+-   [x]   `app.R` is the file that will run my application and contains the `rhino::app()` function:
 
 ```{r}
-#| eval: true 
-#| include: true
-#| code-fold: show 
-#| code-summary: 'show/hide rhino dependency tree'
-library(rhino)
-pak::pkg_deps_tree(pkg = "rhino")
+#| label: rhino-app-initial
+#| code-fold: false
+# Rhino / shinyApp entrypoint. Do not edit.
+rhino::app()
 ```
 
-### `rap` dependencies 
+`rhino` has a 'minimal `app.R`' [philosophy](https://appsilon.github.io/rhino/articles/explanation/application-structure.html#minimal-app-r), and the call to `rhino::app()` [performs multiple operations](https://appsilon.github.io/rhino/reference/app.html) beyond `shiny::runApp()`
+
+### `config.yml`
+
+-   [x]   `config.yml` is a YAML file that follows the [`config` package](https://rstudio.github.io/config/) format. This file initially contains two calls to `Sys.getenv()`:
+
+``` yaml
+default:
+  rhino_log_level: !expr Sys.getenv("RHINO_LOG_LEVEL", "INFO")
+  rhino_log_file: !expr Sys.getenv("RHINO_LOG_FILE", NA)
+```
+
+-   Read more about how to use `config.yml` in the **Environments** section of the [How to: Manage secrets and environments](https://appsilon.github.io/rhino/articles/how-to/manage-secrets-and-environments.html?#environments) vignette.
+
+### `dependencies.R`
+
+-   [x]   `dependencies.R` is an `.R` script that contains any other packages used by the application. Using this file is covered in the [Manage Dependencies vignette](https://appsilon.github.io/rhino/articles/how-to/manage-r-dependencies.html) on the package website.
+
+As I can see from the note in the comments, the dependencies will be tracked using `packrat` in `rsconnect`.
+
+```{r}
+#| label: rhino-depends
+#| code-fold: false
+# This file allows packrat (used by rsconnect during deployment)
+# to pick up dependencies.
+library(rhino)
+```
+
+-   [x]   I know I'll be using `ggplot2`, `stringr`, `rlang`, and `bslib` in this application, so I'll load those there.
+
+```{r}
+#| label: snapshot-renv-depends
+#| code-fold: false
+rhino::pkg_install(c("ggplot2", "stringr", "rlang", "bslib"))
+```
+
+-   This will automatically update `dependencies.R` and `renv`
+
+### `renv/`
+
+-   [x]   The `renv/` folder contains the R version and packages used to build the application:
+
+```{bash}
+#| label: rhino-renv
+#| code-fold: false
+rap/
+  ├── renv/
+  │    ├── activate.R
+  │    ├── library/
+  │    │   └── R-4.2
+  │    │       └── x86_64-apple-darwin17.0
+  │    ├── sandbox/
+  │    │   └── R-4.2
+  │    │       └── x86_64-apple-darwin17.0
+  │    └── settings.dcf
+  └── renv.lock
+```
+
+-   `renv.lock` contains the packages and R version used in the application. Read more about [getting started with `renv`](https://rstudio.github.io/renv/articles/renv.html).
+
+### `rhino.yml`
+
+-   `rhino.yml` is the configuration file and contains options for setting how Sass is built or for importing from another application structure to `rhino`.
+
+    -   the code below showcases the optional arguments (and is not included in the application)
+
+    ``` yaml
+    sass: string               # required | one of: "node", "r"
+    legacy_entrypoint: string  # optional | one of: "app_dir", "source", "box_top_level"
+    ```
+
+    -   Read more about `rhino.yml` in the [Explanation: Configuring Rhino - rhino.yml](https://appsilon.github.io/rhino/articles/explanation/rhino-yml.html) vignette.
+
+### `tests/`
+
+-   `tests/` contains two sub-folders, `cypress/` and `testthat/`:
+
+    ```{bash}
+    tests/
+        ├── cypress/
+        │   └── integration/
+        │       └── app.spec.js
+        ├── cypress.json
+        └── testthat/
+            └── test-main.R
+    ```
+
+#### `cypress/`
+
+-   `tests/cypress/` holds folders for using the [Cypress web and component testing framework](https://www.cypress.io/).
+
+    -   This is also covered in the ['Use `shinttest2` vignette'](https://appsilon.github.io/rhino/articles/how-to/use-shinytest2.html).
+
+    ``` bash
+    tests/
+        ├── cypress/
+        │    └── integration/
+        │        └── app.spec.js
+        └── cypress.json
+    ```
+
+#### `testthat/`
+
+-   `tests/testthat/` contains the architecture for writing tests with [testthat](https://testthat.r-lib.org/)
+
+    -   `rhino` also has a helper function for running all tests in the `testthat/` folder ([`rhino::test_r()`](https://appsilon.github.io/rhino/reference/test_r.html))
+
+    ``` bash
+    tests/
+        └── testthat/
+                └── test-main.R
+    ```
+
+## Build
+
+Unlike the previous applications in this series, `rhino` applications don't use the `NAMESPACE` and `DESCRIPTION` to manage dependencies. Instead, they use the `box` modules to explicitly import packages and functions
+
+### `box`
+
+::: {layout-ncol="1"}
+![](img/box-logo.png){width="1in" fig-align="right"}
+:::
+
+`rhino` apps use [`box`](https://klmr.me/box/index.html) to create modules, which is handy, because it's specifically designed for writing "*reusable, composable and modular R code*"
+
+**Quick refresher:** if I'm building a shiny app,
+
+-   I'll install packages using `install.packages('<package>')`
+
+-   When I want to use an installed package, I run `library(<package>)`, which loads the package namespace '*and attach\[es\] it on the search list*'
+
+-   If the application gets converted into an R package, I track dependencies in the `DESCRIPTION` and use `pkg::fun()` (or add `roxygen2` tags `@importFrom` or `@import`, which are converted into `NAMESPACE` directives)
+
+So, I run `library(<package>)` to load the *entire* package namespace when I want to use a function, but when developing R packages, it's recommended I use `pkg::fun()` to *specify* the package and function.
+
+Put another way,
+
+*"If I only need one or two items from a package, why am I loading* **everything** *in the namespace with `library()`?"*
+
+This is where [`box`](https://klmr.me/box/index.html) comes in--it's designed to *'completely replace the base R `library` and `require` functions'*.
+
+A `box` module is essentially just an R script in a folder. However, in `box::use()`, instead of loading packages and functions using `library()` or `::`, I can **encapsulate and explicitly import packages and functions** in these R scripts using the syntax `package[function]`.
+
+-   The module below imports the `foo()` and `bar()` functions from the `pkg` package in the `mod.R` file (in the `box/` folder)
+
+``` r
+# contents of box/mod.R
+#' @export
+box::use(
+  pkg[foo, bar]
+)
+```
+
+-   I can now access `foo()` and `bar()` from `mod.R` using `box::use(box/mod)`:
+
+``` r
+# using contents of box/mod.R
+box::use(
+  box/mod
+)
+```
+
+This has been a very brief overview of `box`, so I **highly recommend** consulting the [`box` website](https://klmr.me/box/index.html) and vignettes (especially ["the hierarchy of module environments"](https://klmr.me/box/articles/mod-env-hierarchy.html)). The `rhino` website also has a great overview on using [`box` with shiny apps](https://appsilon.github.io/rhino/articles/explanation/box-modules.html) (I also have a collection of `box` module examples in this [repo](https://github.com/mjfrigaard/rbox/blob/main/boxes.md).)
+
+### Modules
+
+Now that I've covered a bit on how `box` modules work, I am going to create the *application* modules. New modules should be created in the `app/view/` folder.
+
+The first module we'll create is the `app/view/inputs.R` module for collecting the user inputs
+
+-   The code below is placed in `app/view/inputs.R`
+
+    *Click **Code** to see `app/view/inputs.R`*
+
+    ```{r}
+    #| label: inputs_module
+    #| eval: false
+    #| code-fold: false
+    # app/view/inputs.R
+
+    # define module functions
+    box::use(
+      shiny[
+        NS, tagList, selectInput, h3,
+        sliderInput, textInput, moduleServer, reactive
+      ],
+    )
+
+    #' input values UI
+    #' @export
+    ui <- function(id) {
+      ns <- NS(id)
+      tagList(
+        selectInput(
+          inputId = ns("y"),
+          label = "Y-axis:",
+          choices = c(
+            "IMDB rating" = "imdb_rating",
+            "IMDB number of votes" = "imdb_num_votes",
+            "Critics Score" = "critics_score",
+            "Audience Score" = "audience_score",
+            "Runtime" = "runtime"
+          ),
+          selected = "audience_score"
+        ),
+        selectInput(
+          inputId = ns("x"),
+          label = "X-axis:",
+          choices = c(
+            "IMDB rating" = "imdb_rating",
+            "IMDB number of votes" = "imdb_num_votes",
+            "Critics Score" = "critics_score",
+            "Audience Score" = "audience_score",
+            "Runtime" = "runtime"
+          ),
+          selected = "imdb_rating"
+        ),
+        selectInput(
+          inputId = ns("z"),
+          label = "Color by:",
+          choices = c(
+            "Title Type" = "title_type",
+            "Genre" = "genre",
+            "MPAA Rating" = "mpaa_rating",
+            "Critics Rating" = "critics_rating",
+            "Audience Rating" = "audience_rating"
+          ),
+          selected = "mpaa_rating"
+        ),
+        sliderInput(
+          inputId = ns("alpha"),
+          label = "Alpha:",
+          min = 0, max = 1, step = 0.1,
+          value = 0.5
+        ),
+        sliderInput(
+          inputId = ns("size"),
+          label = "Size:",
+          min = 0, max = 5,
+          value = 2
+        ),
+        textInput(
+          inputId = ns("plot_title"),
+          label = "Plot title",
+          placeholder = "Enter plot title"
+        )
+      )
+    }
+
+    #' input values server
+    #' @export
+    server <- function(id) {
+      moduleServer(id, function(input, output, session) {
+        return(
+          list(
+            "x" = reactive({
+              input$x
+            }),
+            "y" = reactive({
+              input$y
+            }),
+            "z" = reactive({
+              input$z
+            }),
+            "alpha" = reactive({
+              input$alpha
+            }),
+            "size" = reactive({
+              input$size
+            }),
+            "plot_title" = reactive({
+              input$plot_title
+            })
+          )
+        )
+      })
+    }
+    ```
+
+#### Init files
+
+Back in the `app/view/` folder, I want to use the `app/view/inputs.R` function in the `app/main.R`. I can do this by adding a `__init__.R` file in the `app/view/` folder with the following contents:
+
+-   The `__init__.R` files are covered [on the `rhino` website](https://appsilon.github.io/rhino/articles/explanation/box-modules.html#init-files):
+
+    ```{r}
+    #| label: init_file
+    #| eval: false
+    #| code-fold: false
+    # View: Shiny modules and related code.
+    # https://go.appsilon.com/rhino-project-structure
+    #' @export
+    box::use(
+      app/view/inputs)
+    ```
+
+-   After composing the module in `app/view/input.R`, I add the `input` module to the `app/main.R` file just like the examples above:
+
+    -   Note that I've added the necessary functions for using a `fluidPage()` layout (instead of the default `bootstrapPage()`)
+
+    *Click **Code** to see `app/main.R`*
+
+    ```{r}
+    #| label: inputs_module_in_main
+    #| eval: false
+    #| code-fold: false
+    # app/main.R
+    box::use(
+      shiny[
+        NS, fluidPage, sidebarLayout, sidebarPanel, mainPanel,
+        tags, textOutput, moduleServer, renderText
+      ],
+    )
+    # load inputs module ----
+    box::use(
+      app/view/inputs,
+    )
+
+    #' @export
+    ui <- function(id) {
+      ns <- NS(id)
+      fluidPage(
+        sidebarLayout(
+          sidebarPanel(
+            # use inputs module UI ----
+            inputs$ui(ns("vals"))
+          ),
+          mainPanel(
+            tags$h3("rap"),
+            tags$h3(textOutput(ns("message")))
+          )
+        )
+      )
+    }
+
+    #' @export
+    server <- function(id) {
+      moduleServer(id, function(input, output, session) {
+        # use inputs module server ----
+        inputs$server("vals")
+        output$message <- renderText("Hello!")
+      })
+    }
+    ```
+
+After saving both `app/view/inputs.R` and `app/main.R`, I can click **Run App** in `app.R` and check the output:
+
+::: {#fig-input-module .column}
+![](img/input_module.png){height="100%" width="100%" fig-align="center"}
+
+`inputs.R` module
+:::
+
+The `display.R` module will show the graph output, but I know this module will require adding the `movies` data *and* the `scatter_plot()` function (both of which I'll cover below).
+
+#### Logic
+
+`rhino` apps come with an `app/logic/` folder, which is used to store code for [*"data manipulation, generating non-interactive plots and graphs, or connecting to an external data source, but outside of definable inputs, it doesn't interact with or rely on shiny in any way."*](https://appsilon.github.io/rhino/articles/explanation/application-structure.html#logic)
+
+-   The `scatter_plot()` function definitely meets the definition above, so I will write two modules in `app/logic`: `data` for importing the `movies` data, and `plot` for creating a scatter plot with `scatter_plot()`
+
+    -   `app/logic/data.R`: imports `movies` from my [GitHub repo](https://github.com/mjfrigaard/shiny-app-setups/blob/main/data/movies.csv) with all the shiny frameworks. Using data in `box()` modules is tricky (and its a [known](https://appsilon.github.io/rhino/articles/explanation/box-modules.html#known-issues), [issue](https://github.com/klmr/box/issues/219)), but this method works for my application.
+
+    *Click **Code** to see `app/logic/data.R`*
+
+    ```{r}
+    #| label: logic_data_module
+    #| eval: false
+    #| code-fold: false
+    # contents of app/logic/data.R
+    #' @export
+    box::use(
+      readr[get_csv = read_csv, cols]
+    )
+
+    #' @export
+    movies_data <- function() {
+      raw_csv_url <- "https://bit.ly/3Jds4g1"
+      # use alias for read_csv()
+      get_csv(raw_csv_url, col_types = cols())
+    }
+    ```
+
+    -   The second module, `app/logic/plot.R`, holds the `scatter_plot()` function:
+
+    ```{r}
+    #| label: logic_scatter_plot_module
+    #| eval: false
+    #| code-fold: false
+    # contents of app/logic/plot.R
+    #' point plot function
+    #' @export
+    scatter_plot <- function(df, x_var, y_var, col_var, alpha_var, size_var) {
+
+    box::use(
+      ggplot2 = ggplot2[...]
+    )
+
+      ggplot(
+        data = df,
+        aes(
+          x = .data[[x_var]],
+          y = .data[[y_var]],
+          color = .data[[col_var]]
+        )
+      ) +
+        geom_point(alpha = alpha_var, size = size_var)
+    }
+    ```
+
+    -   The `__init__.R` file in `app/logic` contains the following:
+
+    ```{r}
+    #| label: logic_init
+    #| eval: false
+    #| code-fold: false
+    # Logic: application code independent from Shiny.
+    # https://go.appsilon.com/rhino-project-structure
+    #' @export
+    box::use(
+      app/logic/data,
+      app/logic/plot)
+    ```
+
+    -   To make sure everything is working, I'll also include a `app/logic/check-scatter_plot.R` file that contains the following:
+
+    ```{r}
+    #| label: check-logic_scatter_plot_module
+    #| eval: false
+    #| code-fold: false
+    # contents of app/logic/check-scatter_plot.R
+    # contents for app/logic/check-scatter_plot.R
+
+    # load modules from logic folder
+    box::use(
+      app/logic/data,
+      app/logic/plot
+    )
+
+    # import movies data
+    movies <- data$movies_data()
+
+    # check point plot
+    plot$scatter_plot(
+      df = movies,
+      x_var = 'critics_score', # as string
+      y_var = 'imdb_rating', # as string
+      col_var = 'mpaa_rating', # as string
+      alpha_var = 2 / 3,
+      size_var = 2
+    )
+    ```
+
+    -   `check-scatter_plot.R` imports the two logic modules (`data` and `plot`), creates the movies data, and checks to see if the data and plotting function work:
+
+-   After saving `app/logic/data.R` and `app/logic/plot.R`, I can run the code in `check-scatter_plot.R`
+
+::: {#fig-check-point-plot .column}
+![](img/check-point-plot.png){height="100%" width="100%" fig-align="center"}
+
+`app/logic/check-scatter_plot.R` module
+:::
+
+The `app/view/display.R` module can now call `box::use()` to import the `app/logic/data` and `app/logic/plot`.
+
+-   The `app/view/display.R` module contains the`ui` and the `server` functions:
+
+    ```{r}
+    #| label: display_module
+    #| eval: false
+    #| code-fold: false
+    # app/view/display.R
+    # import data and plot modules ----
+    box::use(
+      app/logic/data,
+      app/logic/plot
+    )
+
+    #' display values ui ----
+    #' @export
+    ui <- function(id) {
+    box::use(
+      shiny[NS, tagList, tags, plotOutput]
+    )
+      ns <- NS(id)
+      tagList(
+        tags$br(),
+        tags$blockquote(
+          tags$em(
+            tags$h6(
+              "The code for this application comes from the ",
+              tags$a("Building web applications with Shiny",
+                href = "https://rstudio-education.github.io/shiny-course/"
+              ),
+              "tutorial"
+            )
+          )
+        ),
+        plotOutput(outputId = ns("scatterplot"))
+      )
+    }
+
+    #' display values server ----
+    #' @export
+    server <- function(id, var_inputs) {
+
+    # load plotting, shiny, tools, and stringr functions
+    box::use(
+      ggplot2 = ggplot2[...],
+      shiny[NS, moduleServer, plotOutput, reactive, renderPlot],
+      tools[toTitleCase],
+      stringr[str_replace_all]
+    )
+
+      moduleServer(id, function(input, output, session) {
+
+        # use data$movies_data() ----
+        movies <- data$movies_data()
+
+          inputs <- reactive({
+            plot_title <- toTitleCase(var_inputs$plot_title())
+            list(
+              x = var_inputs$x(),
+              y = var_inputs$y(),
+              z = var_inputs$z(),
+              alpha = var_inputs$alpha(),
+              size = var_inputs$size(),
+              plot_title = plot_title
+            )
+          })
+
+        output$scatterplot <- renderPlot({
+          # use plot$scatter_plot() ----
+          plot <- plot$scatter_plot(
+            df = movies,
+            x_var = inputs()$x,
+            y_var = inputs()$y,
+            col_var = inputs()$z,
+            alpha_var = inputs()$alpha,
+            size_var = inputs()$size
+          )
+          plot +
+            labs(
+              title = inputs()$plot_title,
+              x = str_replace_all(
+                toTitleCase(
+                  inputs()$x
+                ),
+                "_",
+                " "
+              ),
+              y = str_replace_all(
+                toTitleCase(
+                  inputs()$y
+                ),
+                "_",
+                " "
+              )
+            ) +
+            theme_minimal() +
+            theme(legend.position = "bottom")
+        })
+      })
+    }
+    ```
+
+In `app/main.R`, I can place the `display` module in call to `box::use()`, then:
+
+-   Add `display$ui()` to the `mainPanel()`
+
+-   In the `server`, the output from `inputs$server()` is assigned to `selected_vars`, which becomes the `var_inputs` input for `display$server()`:
+
+    ```{r}
+    #| label: display_module_in_main
+    #| eval: false
+    #| code-fold: false
+    # app/view/main.R
+
+    # shiny functions
+    box::use(
+      shiny[NS, fluidPage, sidebarLayout, sidebarPanel,
+            mainPanel, tags, textOutput, moduleServer,
+            renderText]
+    )
+
+    # import modules
+    box::use(
+      # load inputs module ----
+      app/view/inputs,
+      # load display module ----
+      app/view/display
+    )
+
+    #' rap ui
+    #' @export
+    ui <- function(id) {
+      ns <- NS(id)
+      fluidPage(
+        sidebarLayout(
+          sidebarPanel(
+            # use inputs module UI ----
+            inputs$ui(ns("vals"))
+          ),
+          mainPanel(
+            tags$h3("rap"),
+            tags$h3(textOutput(ns("message"))),
+            # use display module UI ----
+            display$ui(ns("disp"))
+          )
+        )
+      )
+    }
+
+    #' rap server
+    #' @export
+    server <- function(id) {
+      moduleServer(id, function(input, output, session) {
+        # use inputs module server ----
+        selected_vars <- inputs$server(id = "vals")
+        # use display module server ----
+        display$server(id = "disp",
+                       var_inputs = selected_vars)
+      })
+    }
+    ```
+
+After saving `app/view/data.R` and `app/view/display.R` files, the `app/view/` and `app/logic/` folders contain the following modules:
+
+-   `app/logic/`:
+
+    ```{bash}
+    #| label: tree-app-logic
+    #| eval: false
+    #| code-fold: false
+    app/logic/
+          ├── __init__.R
+          ├── check-scatter_plot.R
+          ├── data.R
+          └── plot.R
+
+    1 directory, 4 files
+    ```
+
+-   `app/view/`:
+
+    ```{bash}
+    #| label: tree-app-view
+    #| eval: false
+    #| code-fold: false
+    app/view/
+          ├── __init__.R
+          ├── display.R
+          └── inputs.R
+
+    1 directory, 3 files
+    ```
+
+When I click **Run App** in `app.R` I should see the following output:
+
+::: {#fig-complete-rhino .column}
+![](img/complete-rhino.png){height="100%" width="100%" fig-align="center"}
+
+`rap`
+:::
+
+### External scripts
+
+It's fairly straightforward to add external resources (i.e., JavaScript, CSS, Sass, etc.) to `rhino` apps. I'll use the [example from the website](https://appsilon.github.io/rhino/articles/tutorial/create-your-first-rhino-app.html#add-javascript-code) to demonstrate because it adds *both* CSS and JavaScript to the codebase.
+
+-   The first place to add code is the UI in `app/main.R`:
+
+    -   Update the call to `box::use()` and include the layout functions (`fluidRow`, `column`, `icon`)
+
+    ```{r}
+    #| label: js-main-box
+    #| eval: false
+    #| code-fold: false
+    # app/view/main.R
+
+    # shiny functions
+    box::use(
+      shiny[
+        NS, fluidPage, sidebarLayout, sidebarPanel,
+        mainPanel, fluidRow, column, tags, icon,
+        textOutput, moduleServer, renderText
+      ]
+    )
+    ```
+
+    -   Update the `mainPanel()` to include the title, info button, and display module:
+
+    ```{r}
+    #| label: js-main-ui
+    #| eval: false
+    #| code-fold: false
+      mainPanel(
+        fluidRow(
+          column(
+            width = 12,
+            tags$h3("rap")
+          )
+        ),
+        fluidRow(
+          column(
+            width = 1,
+            offset = 11,
+            # example info button ---
+            tags$button(
+              id = "help-button",
+              icon("info")
+            )
+          )
+        ),
+        fluidRow(
+          column(
+            width = 12,
+            # use display module UI ----
+            display$ui(ns("disp"))
+          )
+        )
+      )
+    ```
+
+    -   The CSS added to `app/styles/main.css` is the `container` for the button.
+
+    ``` css
+    // app/styles/main.scss
+
+    .components-container {
+      display: inline-grid;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+
+      .component-box {
+        padding: 10px;
+        margin: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
+    }
+
+    h1 {
+      text-align: center;
+      font-weight: 900;
+    }
+
+    #help-button {
+      position: fixed;
+      top: 0;
+      right: 0;
+      margin: 10px;
+    }
+    ```
+
+    -   Run `rhino::build_sass()` to create the `app/static/css/app.min.css` file (**requires [node.js](https://nodejs.org/en/)**)
+
+    ```{r}
+    #| label: rhino_build_sass
+    #| eval: false
+    #| code-fold: false
+    rhino::build_sass()
+    ```
+
+    ``` bash
+    added 748 packages in 49s
+    build-sass
+    sass --no-source-map --style=compressed 
+      ../app/styles/main.scss:../app/static/css/app.min.css
+    ```
+
+    -   This tells me `app.min.css` has been added to in `app/static/css/`
+
+    ``` bash
+    app/static/
+          └── css
+               └── app.min.css
+    ```
+
+    -   Add the following to `app/js/index.js`:
+
+    ``` js
+    export function showHelp() {
+    alert('Learn more about shiny frameworks: https://mjfrigaard.github.io/posts/my-rhino-app/');
+    }
+    ```
+
+    -   Run `rhino::build_js()` to build the `app/static/js/app.min.js` (**requires [node.js](https://nodejs.org/en/)**)
+
+    ```{r}
+    #| label: rhino_build_js
+    #| eval: false
+    #| code-fold: false
+    rhino::build_js()
+    ```
+
+    ``` bash
+    build-js
+    webpack
+
+    asset app.min.js 502 bytes [emitted] [minimized] (name: main)
+    runtime modules 670 bytes 3 modules
+    ../app/js/index.js 126 bytes [built] [code generated]
+    webpack 5.69.0 compiled successfully in 1300 ms
+    ```
+
+    -   The output tells me the `app.min.js` has been created in `app/static/js`
+
+    ``` bash
+    app/static/
+          └── js
+              └── app.min.js
+    ```
+
+    -   Back in `app/main.R`, I add the `onclick` to the `mainPanel()`
+
+    ```{r}
+    #| label: rhino_main_onclick
+    #| eval: false
+    #| code-fold: false
+      mainPanel(
+        fluidRow(
+          column(
+            width = 12,
+            tags$h3("rap")
+          )
+        ),
+        fluidRow(
+          column(
+            width = 1,
+            offset = 11,
+            # example info button ---
+            tags$button(
+              id = "help-button",
+              icon("info"),
+              # add 'onclick' after rhino::build_sass()
+              # and rhino::build_js()
+              onclick = "App.showHelp()"
+            )
+          )
+        ),
+        fluidRow(
+          column(
+            width = 12,
+            # use display module UI ----
+            display$ui(ns("disp"))
+          )
+        )
+      )
+    ```
+
+-   Now when I save everything and click '**Run App**' in `app.R` I should see the info button (and message):
+
+::: {#fig-js-button .column}
+![](img/js-button.png){height="100%" width="100%" fig-align="center"}
+
+Adding `.js` to `app/js/index.js`
+:::
+
+::: {#fig-js-button-onclick .column}
+![](img/js-button-onclick.png){height="100%" width="100%" fig-align="center"}
+
+Adding `.js` to `app/js/index.js` 'on click'
+:::
+
+## `rap` dependencies
+
+`rhino` uses [`box`](https://klmr.me/box/), which '*completely replaces the base R `library` and `require` functions.*'
 
 `rhino` apps aren't packages, so the dependencies are stored in `rap/dependencies.R`
 
 ```{r}
 #| eval: true
-#| code-fold: true 
-#| code-summary: 'show/hide rap dependency tree'
+#| code-fold: false 
 #| collapse: true 
-#| comment: "\t"
 readLines(con = "_apps/rap/dependencies.R")
 ```
 
+## Use
 
+-   To run a `rhino` application, use `rhino::app()` in the `app.R` file.
 
+-   Most of the development takes place in `app/logic` and `app/view` (using `box` modules). The separation of the 'business logic' workflow from the 'app view' code is similar to the `dev` folder in `golem` and `leprechaun`, but the modules make it easy to move code and functions back and forth between the two folders.
+
+-   The `app/js/index.js` and `app/styles/main.css` are used to include any custom CSS or JavaScript code, but you won't create any new files (other than `index.js` and `main.css`).
+
+    -   New JavaScript or CSS code is placed in `app/js/index.js` or `app/styles/main.css` and then the corresponding `rhino` function is run (`rhino::build_js()` or `rhino::build_sass()`). This **requires installing [node.js](https://nodejs.org/en/)**.
+
+    -   These functions create output files in `app/static/js/app.min.js` and `app/static/css/app.min.css` that are used in the application.
+
+-   `tests/` functions like any `testthat` folder (and can be [used with `shinytest2`](https://appsilon.github.io/rhino/articles/how-to/use-shinytest2.html)) and comes with a helper function, [`rhino::test_r()`](https://appsilon.github.io/rhino/reference/test_r.html)

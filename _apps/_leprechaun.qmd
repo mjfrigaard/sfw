@@ -1017,7 +1017,7 @@ The code for the `var_input` and `plot_display` modules are below.
 
 -   The `R/module_plot_display.R` file:
 
-    -   My `plot_dispay` module collects the data from var_input and creates the plot with the custom `point_plot()` function: 
+    -   My `plot_dispay` module collects the data from var_input and creates the plot with the custom `scatter_plot()` function: 
     
     ::: {style="font-size: 0.80em; ; color: #696969;"}
     *Click on Code to view code in `R/module_plot_display.R`*
@@ -1091,7 +1091,7 @@ The code for the `var_input` and `plot_display` modules are below.
         })
     
         output$scatterplot <- shiny::renderPlot({
-          plot <- point_plot(
+          plot <- scatter_plot(
             df = movies,
             x_var = inputs()$x,
             y_var = inputs()$y,
@@ -1233,7 +1233,7 @@ usethis::use_data(movies, overwrite = TRUE)
 
 
 
--   `usethis::use_r()` created `R/utils_plot_display.R` to hold the `point_plot()` function  
+-   `usethis::use_r()` created `R/utils_plot_display.R` to hold the `scatter_plot()` function  
   
     ::: {style="font-size: 0.80em; ; color: #696969;"}
     *Click on Code to view code in `R/utils_plot_display.R`*
@@ -1253,7 +1253,7 @@ usethis::use_data(movies, overwrite = TRUE)
     #' @param size_var size value
     #'
     #' @return plot object
-    #' @export point_plot
+    #' @export scatter_plot
     #'
     #' @importFrom ggplot2 ggplot aes geom_point
     #'
@@ -1265,14 +1265,14 @@ usethis::use_data(movies, overwrite = TRUE)
     #'    pattern = "movies",
     #'    full.names = TRUE)
     #'    )
-    #' point_plot(df = movies,
+    #' scatter_plot(df = movies,
     #'   x_var = "critics_score",
     #'   y_var = "imdb_rating",
     #'   col_var = "critics_rating",
     #'   alpha_var = 1/3,
     #'   size_var = 2)
     #' }
-    point_plot <- function(df, x_var, y_var, col_var, alpha_var, size_var) {
+    scatter_plot <- function(df, x_var, y_var, col_var, alpha_var, size_var) {
         ggplot2::ggplot(data = df,
           ggplot2::aes(x = .data[[x_var]],
               y = .data[[y_var]],

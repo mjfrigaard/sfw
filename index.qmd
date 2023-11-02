@@ -18,9 +18,32 @@ knitr:
 
 ## Motivation
 
-One of the constant concerns for developers is relying on an experimental or 'new' add-on package, the package source code changing, and those changes breaking something they've built.
+One of the constant concerns for developers is relying on an experimental or 'new' add-on dependency, the dependency introducing backward incompatible changes, and those changes breaking something they've built.
 
-This website is a resource for developers who are curious about the relative pros and cons of using a shiny framework to build their apps.
+```{r}
+#| label: setup 
+#| warning: false 
+#| message: false
+#| echo: false 
+#| include: false
+options(repos = "http://cran.us.r-project.org")
+```
+
+
+```{r}
+#| label: pak_setup
+#| warning: false 
+#| message: false
+# see if pak is on the names of the loaded namespaces
+if (isFALSE("pak" %in% loadedNamespaces())) {
+  install.packages("pak", quiet = TRUE)
+} 
+library(pak)
+```
+
+### Shiny frameworks
+
+This website is a resource for developers who are curious about the relative pros and cons of using a Shiny framework to build their apps.
 
 This repo contains the following shiny applications: 
 
@@ -28,57 +51,12 @@ This repo contains the following shiny applications:
 
 2. [`lap`](https://github.com/mjfrigaard/sfw/tree/main/_apps/lap): a `leprechaun` app-package
 
-3. [`rap`](https://github.com/mjfrigaard/sfw/tree/main/_apps/rap): a `rhino` app (pseudo-package)
+3. [`rap`](https://github.com/mjfrigaard/sfw/tree/main/_apps/rap): a `rhino` app (pseudo-package)[^rhino-non-pkg]
 
-<!-- 3. [`duap`](https://github.com/mjfrigaard/sfw/tree/main/_apps/duap): a `devtools`/`usethis` app-package -->
+[^rhino-non-pkg]: `rhino` apps aren't R packages--they're dependencies are managed with a `dependencies.R` file and [`box`](https://klmr.me/box/) modules.
+
+### The application
 
 The original data and code for each application comes from [Building Web Applications With Shiny](https://rstudio-education.github.io/shiny-course/)[^bwas], but has been adapted to provide a basic (but realistic) example with modules, utility function, tests, etc.
 
 [^bwas]: This was a popular course among colleagues and covers (in my opinion) what a developer should know before considering a framework.
-
-```{r}
-#| eval: false
-#| echo: false
-if ("pak" %in% loadedNamespaces()) {
-  pak_update(stream = "devel")
-} else {
-  install.packages("pak", quiet = TRUE)
-}
-```
-
-## Dependencies 
-
-I'll explore the package dependencies. 
-
-All shiny app-packages will inherently depend on `shiny`, so including more dependencies can make developers justifiably uneasy.
-
-The `pak::pkg_deps_tree()` can show us `shiny`'s dependencies.
-
-```{r}
-#| code-fold: show 
-#| code-summary: 'show/hide shiny dependencies'
-#| eval: true
-#| echo: true 
-#| collapse: true
-pak::pkg_deps_tree(pkg = "shiny")
-```
-
-For comparison, we'll also look at the dependency tree for `devtools`.
-
-### `devtools`
-
-As we can see from the dependency tree below, the [conscious uncoupling](https://github.com/r-lib/devtools#conscious-uncoupling) of `devtools` split package development across multiple packages (most notably `usethis`). [^devtools-1] [^devtools-2]
-
-[^devtools-1]: `usethis` is automatically loaded with `devtools`]. 
-
-[^devtools-2]: For a full list, view [`DESCRIPTION`](https://github.com/r-lib/devtools/blob/main/DESCRIPTION) file.
-
-```{r}
-#| code-fold: show 
-#| code-summary: 'show/hide devtools dependencies'
-#| eval: true
-#| echo: true 
-#| collapse: true
-pak::pkg_deps_tree(pkg = "devtools")
-```
-

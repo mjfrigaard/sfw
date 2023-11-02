@@ -39,6 +39,7 @@ format:
     #code-block-bg: "#f8f8f8"
     #code-block-border-left: "#99bbc9"
     toc: true
+    df-print: paged
     toc-depth: 5
     toc-location: right
     toc-title: Contents

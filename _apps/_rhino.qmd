@@ -1123,13 +1123,13 @@ After saving both `app/view/inputs.R` and `app/main.R`, I can click **Run App** 
 `inputs.R` module
 :::
 
-The `display.R` module will show the graph output, but I know this module will require adding the `movies` data *and* the `point_plot()` function (both of which I'll cover below). 
+The `display.R` module will show the graph output, but I know this module will require adding the `movies` data *and* the `scatter_plot()` function (both of which I'll cover below). 
 
 #### Logic 
 
 `rhino` apps come with an `app/logic/` folder, which is used to store code for [*"data manipulation, generating non-interactive plots and graphs, or connecting to an external data source, but outside of definable inputs, it doesn’t interact with or rely on shiny in any way."*](https://appsilon.github.io/rhino/articles/explanation/application-structure.html#logic)
 
--   The `point_plot()` function definitely meets the definition above, so I will write two modules in `app/logic`: `data` for importing the `movies` data, and `plot` for creating a scatter plot with `point_plot()` 
+-   The `scatter_plot()` function definitely meets the definition above, so I will write two modules in `app/logic`: `data` for importing the `movies` data, and `plot` for creating a scatter plot with `scatter_plot()` 
 
     -   `app/logic/data.R`: imports `movies` from my [GitHub repo](https://github.com/mjfrigaard/shiny-app-setups/blob/main/data/movies.csv) with all the shiny frameworks. Using data in `box()` modules is tricky (and its a [known](https://appsilon.github.io/rhino/articles/explanation/box-modules.html#known-issues), [issue](https://github.com/klmr/box/issues/219)), but this method works for my application. 
     
@@ -1157,17 +1157,17 @@ The `display.R` module will show the graph output, but I know this module will r
     ```
     :::
     
-    -   The second module, `app/logic/plot.R`, holds the `point_plot()` function: 
+    -   The second module, `app/logic/plot.R`, holds the `scatter_plot()` function: 
     
     ::: {style="font-size: 0.80em;"}
     ```{r}
-    #| label: logic_point_plot_module
+    #| label: logic_scatter_plot_module
     #| eval: false
     #| code-fold: show
     # contents of app/logic/plot.R
     #' point plot function
     #' @export
-    point_plot <- function(df, x_var, y_var, col_var, alpha_var, size_var) {
+    scatter_plot <- function(df, x_var, y_var, col_var, alpha_var, size_var) {
     
     box::use(
       ggplot2 = ggplot2[...]
@@ -1202,15 +1202,15 @@ The `display.R` module will show the graph output, but I know this module will r
     ```
     :::
     
-    -   To make sure everything is working, I'll also include a `app/logic/check-point_plot.R` file that contains the following:
+    -   To make sure everything is working, I'll also include a `app/logic/check-scatter_plot.R` file that contains the following:
     
     ::: {style="font-size: 0.80em;"}
     ```{r}
-    #| label: check-logic_point_plot_module
+    #| label: check-logic_scatter_plot_module
     #| eval: false
     #| code-fold: show
-    # contents of app/logic/check-point_plot.R
-    # contents for app/logic/check-point_plot.R
+    # contents of app/logic/check-scatter_plot.R
+    # contents for app/logic/check-scatter_plot.R
     
     # load modules from logic folder
     box::use(
@@ -1222,7 +1222,7 @@ The `display.R` module will show the graph output, but I know this module will r
     movies <- data$movies_data()
     
     # check point plot
-    plot$point_plot(
+    plot$scatter_plot(
       df = movies,
       x_var = 'critics_score', # as string
       y_var = 'imdb_rating', # as string
@@ -1233,14 +1233,14 @@ The `display.R` module will show the graph output, but I know this module will r
     ```
     :::
     
-    -   `check-point_plot.R` imports the two logic modules (`data` and `plot`), creates the movies data, and checks to see if the data and plotting function work: 
+    -   `check-scatter_plot.R` imports the two logic modules (`data` and `plot`), creates the movies data, and checks to see if the data and plotting function work: 
     
--   After saving `app/logic/data.R` and `app/logic/plot.R`, I can run the code in `check-point_plot.R` 
+-   After saving `app/logic/data.R` and `app/logic/plot.R`, I can run the code in `check-scatter_plot.R` 
 
 ::: {#fig-check-point-plot .column}
 ![](check-point-plot.png){height="100%" width="100%" fig-align="center"}
 
-`app/logic/check-point_plot.R` module
+`app/logic/check-scatter_plot.R` module
 :::
 
 The `app/view/display.R` module can now call `box::use()` to import the `app/logic/data` and `app/logic/plot`.
@@ -1313,8 +1313,8 @@ The `app/view/display.R` module can now call `box::use()` to import the `app/log
           })
     
         output$scatterplot <- renderPlot({
-          # use plot$point_plot() ----
-          plot <- plot$point_plot(
+          # use plot$scatter_plot() ----
+          plot <- plot$scatter_plot(
             df = movies,
             x_var = inputs()$x,
             y_var = inputs()$y,
@@ -1422,7 +1422,7 @@ After saving `app/view/data.R` and `app/view/display.R` files, the `app/view/` a
     #| code-fold: false
     app/logic/
           ├── __init__.R
-          ├── check-point_plot.R
+          ├── check-scatter_plot.R
           ├── data.R
           └── plot.R
     
