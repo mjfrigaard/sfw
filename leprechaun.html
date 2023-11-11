@@ -219,6 +219,115 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p><em>“it generates code and does not make itself a dependency of the application you build; this means applications are leaner, and smaller”</em></p>
 </blockquote>
+<p>Below is an overview of the features/functions in the <code>leprechaun</code> framework:</p>
+<div style="font-size: 0.85em;">
+<table class="table">
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Arguments/Options</th>
+<th>Description/Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>scaffold()</code></td>
+<td><p><code>ui</code>: can be one of <code>"navbarPage"</code> or <code>"fluidPage"</code></p>
+<p><code>bs_version</code>: Bootstrap version</p>
+<p><code>overwrite</code> : recreate folder structure</p></td>
+<td>The initial ‘setup’ function that builds the leprechaun files in <code>R/</code> and <code>inst/</code></td>
+</tr>
+<tr class="even">
+<td><code>scaffold_leprechaun()</code> (from <code>packer</code>)</td>
+<td><p><code>react</code> : include React?</p>
+<p><code>vue</code> : include Vue?</p>
+<p><code>use_cdn</code> : use the CDN for react or vue dependencies?</p>
+<p><code>edit</code> : open pertinent files</p></td>
+<td><p>This function comes from <a href="https://packer.john-coene.com/#/references/scaffold_leprechaun">the <code>packer</code> package</a> for integrating JS with R.</p>
+<p>This creates the following non-standard R package folders and files:</p>
+<ul>
+<li><code>srcjs/</code> and <code>node_modules/</code></li>
+<li><code>package-lock.json</code>, <code>package.json</code>, <code>webpack.common.js,</code> <code>webpack.dev.js</code>, and <code>webpack.prod.js</code> files</li>
+</ul>
+<p><em>These non-standard folders are added to the <code>.Rbuildignore</code> and <code>.gitignore</code></em> (but it would be nice to know more about what they do).</p></td>
+</tr>
+<tr class="odd">
+<td><code>use_packer()</code></td>
+<td>Assumes <code>scaffold_leprechaun()</code> from packer has been run</td>
+<td><p>Sets up application to use <code>packer</code> utilities for bundling JavaScript.</p>
+<ul>
+<li>Creates <code>inst/dev/packer.R</code></li>
+<li>Adds <code>packer</code> to <code>Suggests</code> in <code>DESCRIPTION</code></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><code>build()</code></td>
+<td>Returns <code>TRUE</code>/<code>FALSE</code> if build was successful.</td>
+<td>Used to ‘bundle’ various resources (i.e., from <code>packer</code> and the other <code>use_</code> functions)</td>
+</tr>
+<tr class="odd">
+<td><code>use_sass()</code></td>
+<td></td>
+<td><p>Creates <code>inst/dev/sass.R</code></p>
+<p>Adds <code>sass</code> to <code>DESCRIPTION</code> under <code>Suggests</code></p></td>
+</tr>
+<tr class="even">
+<td><code>use_html_utils()</code></td>
+<td>Adds <code>R/html-utils.R</code></td>
+<td><p>Adds <code>htmltools</code> to <code>Imports</code> field in <code>DESCRIPTION</code></p>
+<p><code>R/html-utils.R</code> contains a variety of utility functions using HTML tags (i.e., <code>span()</code>, <code>div()</code>, etc.)</p></td>
+</tr>
+<tr class="odd">
+<td><code>use_endpoints_utils()</code></td>
+<td>Adds <code>R/endpoint-utils.R</code></td>
+<td><p>Adds <code>jsonlite</code> to <code>Imports</code> field in <code>DESCRIPTION</code></p>
+<p><code>R/endpoint-utils.R</code> contains utility functions for creating an HTTP response object and the <code>LEPRECHAUN_SERIALISER</code> environmental variable.</p></td>
+</tr>
+<tr class="even">
+<td><code>use_js_utils()</code></td>
+<td><p>Adds <code>srcjs/leprechaun-utils.js</code> and <code>R/utils-js.R</code></p>
+<p>Adds import statement to <code>srcjs/index.js</code></p></td>
+<td>Requires running <code>leprechaun::build()</code> to bundle .js</td>
+</tr>
+<tr class="odd">
+<td><code>use_config()</code></td>
+<td><p>Adds <code>R/config.R</code> and <code>inst/config.yml</code></p>
+<p><code>inst/config.yml</code> initially contains <code>production: true</code></p></td>
+<td><p>Adds <code>yml</code> to <code>Imports</code> field in <code>DESCRIPTION</code></p>
+<p><code>R/config.R</code> contains functions for reading and getting configuration values.</p></td>
+</tr>
+<tr class="even">
+<td><code>add_module()</code></td>
+<td><p>Using <code>add_module("name")</code> :</p>
+<ol type="1">
+<li>Creates <code>R/module_name.R</code></li>
+<li>UI function: <code>nameUI()</code></li>
+<li>Server function: <code>name_server()</code></li>
+</ol></td>
+<td><p><em>It would be nice if the modules had consistent naming (the UI function uses <code>camelCase()</code> and the server function is <code>snake_case()</code>).</em></p>
+<p>By default, modules aren’t exported (i.e., with <code>@export</code>), but are included in the package index (i.e., with <code>@keywords internal</code>)</p>
+<p>Each module automatically includes:</p>
+<p><code>send_message &lt;- make_send_message(session)</code></p></td>
+</tr>
+<tr class="odd">
+<td><code>add_app_file()</code></td>
+<td><p>Adds <code>app.R</code> file to root directory.</p>
+<p>Includes call to <code>pkgload::load_all()</code> with <code>reset</code> set to <code>TRUE</code> and <code>helpers</code> set to <code>FALSE</code></p></td>
+<td>Handy for quickly launching the app during development (and deployment).</td>
+</tr>
+<tr class="even">
+<td><code>.onLoad()</code></td>
+<td>Used to add external files to app (images, html, etc.)</td>
+<td>Combines Shiny’s <code>addResourcePath()</code> and <code>system.file()</code>.</td>
+</tr>
+<tr class="odd">
+<td><code>serveAssets()</code></td>
+<td><code>modules</code> argument can be used to include JavaScript modules</td>
+<td>Adds dependencies for JavaScript, CSS, and HTML.</td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
 <section id="start" class="level2">
 <h2 class="anchored" data-anchor-id="start">Start</h2>
@@ -703,8 +812,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="add-utility-function" class="level3">
 <h3 class="anchored" data-anchor-id="add-utility-function">Add utility function</h3>
 <ul class="task-list">
-<li><p><input type="checkbox" checked=""><code>usethis::use_r()</code> created <code>R/utils_plot_display.R</code> to hold the <code>scatter_plot()</code> function</p>
-<p>::: {.cell}</p>
+<li><input type="checkbox" checked=""><code>usethis::use_r()</code> created <code>R/utils_plot_display.R</code> to hold the <code>scatter_plot()</code> function</li>
+</ul>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>scatter_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(df, x_var, y_var, col_var, alpha_var, size_var) {</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(<span class="at">data =</span> df,</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>      ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">x =</span> .data[[x_var]],</span>
@@ -713,8 +823,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>      ggplot2<span class="sc">::</span><span class="fu">geom_point</span>(<span class="at">alpha =</span> alpha_var, <span class="at">size =</span> size_var)</span>
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>:::</p></li>
-</ul>
+</div>
 <p>Now I can run <code>devtools::load_all()</code>, <code>devtools::document()</code>, restart and load the package, then <code>run()</code></p>
 <div id="fig-full-run" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -1231,7 +1340,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="recap" class="level2">
 <h2 class="anchored" data-anchor-id="recap">Recap</h2>
-<p><code>leprechaun</code> delivers on its promise to be a ‘leaner and smaller’ version of <code>golem.</code> Most of the features in <code>golem</code> are also accessible in <code>leprechaun</code>. Multiple <code>inst/</code> sub-folders makes adding assets to the application easier, and <code>leprechaun</code> has a long list of <code>use_*</code> functions for including Sass, CSS, HTML, and JavaScript. The package website has examples for getting started and adding multiple resources, but unfortunately the function reference had limited documentation.</p>
+<p><code>leprechaun</code> delivers on its promise to be a ‘leaner and smaller’ version of <code>golem.</code></p>
+<p>Most of the features in <code>golem</code> are also accessible in <code>leprechaun</code>:</p>
+<ul class="task-list">
+<li><p><input type="checkbox" checked="">Adding modules: <code>leprechaun</code>’s <code>add_module()</code> function doesn’t have the consistent naming or prefixes found in <code>golem::add_module()</code>, but still reduces a lot of typing if you are creating these files manually.</p></li>
+<li><p><input type="checkbox">Adding functions: leprechaun relies on</p></li>
+</ul>
+<p>Multiple <code>inst/</code> sub-folders makes adding assets to the application easier, and <code>leprechaun</code> has a long list of <code>use_*</code> functions for including Sass, CSS, HTML, and JavaScript. The package website has examples for getting started and adding multiple resources, but unfortunately the function reference had limited documentation.</p>
 <p><code>leprechaun</code> doesn’t come with any testing functions, although this can be done using <a href="https://testthat.r-lib.org/"><code>testthat</code></a> and <a href="https://rstudio.github.io/shinytest2/"><code>shinytest2</code></a> (just as we would with a standard R package).</p>
 
 
