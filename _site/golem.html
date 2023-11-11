@@ -217,6 +217,83 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="gap" class="level2">
 <h2 class="anchored" data-anchor-id="gap"><code>gap</code></h2>
 <p>The <a href="https://thinkr-open.github.io/golem/"><code>golem</code> package</a> is an ‘opinionated Shiny framework’ that provides many options for users experienced with creating R packages, but who are looking to streamline their application development.</p>
+<div style="font-size: 0.85em;">
+<table class="table">
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Arguments/Options</th>
+<th>Description/Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>dev/</code> scripts</td>
+<td><ul>
+<li><p><code>dev/01_start.R</code></p></li>
+<li><p><code>dev/02_dev.R</code></p></li>
+<li><p><code>dev/03_deploy.R</code></p></li>
+</ul></td>
+<td>These files are automatically included in new <code>golem</code> apps and walk through set up, development, and deployment</td>
+</tr>
+<tr class="even">
+<td><code>fill_desc()</code>: fills <code>DESCRIPTION</code> file</td>
+<td>Arguments are passed as strings without having to worry about formatting (i.e., <code>utils::person()</code>).</td>
+<td>Includes many necessary fields often overlooked when using <code>usethis::create_package()</code></td>
+</tr>
+<tr class="odd">
+<td><code>attachment::att_amend_desc()</code></td>
+<td>Updates the package dependencies in the <code>Imports</code> field of <code>DESCRIPTION</code></td>
+<td>Although not part of the golem package, <code>attachment</code> is built by the fine folks at <a href="https://thinkr-open.github.io/attachment/index.html">ThinkR</a> and makes managing dependencies smoother.</td>
+</tr>
+<tr class="even">
+<td><code>set_golem_options()</code></td>
+<td></td>
+<td>This sets a <a href="https://thinkr-open.github.io/golem/reference/golem_opts.html">variety of options</a> in the <code>golem-config.yml</code> file (most notably the name, version, and path to your app-package).</td>
+</tr>
+<tr class="odd">
+<td><code>use_recommended_tests()</code></td>
+<td></td>
+<td>Create <code>testthat</code> infrastructure and adds a collection of boilerplate tests in the <code>tests/testthat/</code> folder.</td>
+</tr>
+<tr class="even">
+<td><code>use_utils_ui()</code> &amp; <code>use_utils_server()</code></td>
+<td><code>with_test</code> is set to <code>TRUE</code></td>
+<td>Creates a collection of commonly used UI and server functions (and accompanying tests).</td>
+</tr>
+<tr class="odd">
+<td><code>add_module("name", fct, utils, export, with_test)</code></td>
+<td><p><code>name</code>: ‘name’ creates <code>mod_name_ui()</code> and <code>mod_name_server()</code></p>
+<p><code>fct</code>: creates <code>R/mod_name_fct_fun.R</code></p>
+<p><code>utils</code>: <code>R/mod_name_utils_fun.R</code></p>
+<p><code>export</code>: adds <code>@export</code></p>
+<p><code>with_test</code>: creates <code>tests/testthat/test-mod_name.R</code> and includes boilerplate tests.</p></td>
+<td><p>This is one of the best features in <code>golem</code> . A single function will create two module functions (and a module file), utility functions, and accompanying tests.</p>
+<p>An added bonus is a consistent file naming convention.</p></td>
+</tr>
+<tr class="even">
+<td><code>add_fct()</code> and <code>add_utils()</code></td>
+<td><code>with_test</code>: creates the accompanying <code>tests/testthat/test-[name].R</code> file.</td>
+<td>These are essentially wrappers for <code>usethis::use_r()</code> and <code>usethis::use_test()</code></td>
+</tr>
+<tr class="odd">
+<td><p>Adding non-R code files:</p>
+<ul>
+<li><p><code>add_js_file("script")</code></p></li>
+<li><p><code>add_js_handler("handlers")</code></p></li>
+<li><p><code>add_css_file("custom")</code></p></li>
+<li><p><code>add_sass_file("custom")</code></p></li>
+</ul></td>
+<td><p>Each <code>add_</code> function has a <a href="https://thinkr-open.github.io/golem/reference/template.html">template</a>:</p>
+<p><code>js_template()</code></p>
+<p><code>js_hanler_template()</code></p>
+<p><code>css_template()</code></p>
+<p><code>sass_template()</code></p></td>
+<td>Each of these functions create the necessary files in the <code>inst/app</code> folder.</td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
 <section id="start" class="level2">
 <h2 class="anchored" data-anchor-id="start">Start</h2>
@@ -1010,44 +1087,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The <code>pak::local_deps_tree()</code> function can tell us what the dependencies look like for an application built with <code>golem</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">local_deps_tree</span>(<span class="at">root =</span> <span class="st">"_apps/gap"</span>)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>local<span class="sc">::</span>_apps<span class="sc">/</span>gap <span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">0.9000</span> ✨👷‍♀️ ⬇ (unknown size)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>local<span class="sc">::</span>_apps<span class="sc">/</span>gap <span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">0.9000</span> ✨👷🏿‍♀️ ⬇ (unknown size)</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>├─config <span class="dv">0</span>.<span class="fl">3.2</span> ✨ ⬇ (<span class="fl">99.78</span> kB)</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>│ └─yaml <span class="dv">2</span>.<span class="fl">3.7</span> ✨ ⬇ (<span class="fl">228.15</span> kB)</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>├─ggplot2 <span class="dv">3</span>.<span class="fl">4.4</span> ✨</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>│ └─yaml <span class="dv">2</span>.<span class="fl">3.7</span> ✨</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>├─ggplot2 <span class="dv">3</span>.<span class="fl">4.4</span> ✨ ⬇ (<span class="fl">4.31</span> MB)</span>
 <span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>│ ├─cli <span class="dv">3</span>.<span class="fl">6.1</span> ✨</span>
 <span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>│ ├─glue <span class="dv">1</span>.<span class="fl">6.2</span> ✨</span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>│ ├─gtable <span class="dv">0</span>.<span class="fl">3.4</span> ✨</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>│ ├─gtable <span class="dv">0</span>.<span class="fl">3.4</span> ✨ ⬇ (<span class="fl">218.00</span> kB)</span>
 <span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>│ │ ├─cli</span>
 <span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>│ │ ├─glue</span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>│ │ ├─lifecycle <span class="dv">1</span>.<span class="fl">0.3</span> ✨ ⬇ (<span class="fl">123.60</span> kB)</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>│ │ ├─lifecycle <span class="dv">1</span>.<span class="fl">0.4</span> ✨ ⬇ (<span class="fl">124.22</span> kB)</span>
 <span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─cli</span>
 <span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─glue</span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>│ │ │ └─rlang <span class="dv">1</span>.<span class="fl">1.1</span> ✨</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>│ │ │ └─rlang <span class="dv">1</span>.<span class="fl">1.2</span> ✨</span>
 <span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>│ │ └─rlang</span>
-<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>│ ├─isoband <span class="dv">0</span>.<span class="fl">2.7</span> ✨</span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>│ ├─isoband <span class="dv">0</span>.<span class="fl">2.7</span> ✨ ⬇ (<span class="fl">1.88</span> MB)</span>
 <span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>│ ├─lifecycle</span>
 <span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>│ ├─MASS <span class="fl">7.3</span><span class="dv">-60</span> <span class="sc">&lt;</span> <span class="fl">7.3-60.1</span> ✋</span>
 <span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>│ ├─mgcv <span class="fl">1.9</span><span class="dv">-0</span> </span>
-<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>│ │ ├─Matrix <span class="fl">1.6-1.1</span> </span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>│ │ ├─nlme <span class="fl">3.1</span><span class="dv">-163</span> </span>
 <span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>│ │ │ └─lattice <span class="fl">0.22</span><span class="dv">-5</span> </span>
-<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>│ │ └─nlme <span class="fl">3.1</span><span class="dv">-163</span> </span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>│ │ └─Matrix <span class="fl">1.6-1.1</span> <span class="ot">-&gt;</span> <span class="fl">1.6</span><span class="dv">-2</span> 🚀 ⬇ (<span class="fl">5.85</span> MB)</span>
 <span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a>│ │   └─lattice</span>
 <span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a>│ ├─rlang</span>
-<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a>│ ├─scales <span class="dv">1</span>.<span class="fl">2.1</span> ✨</span>
+<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a>│ ├─scales <span class="dv">1</span>.<span class="fl">2.1</span> ✨ ⬇ (<span class="fl">615.92</span> kB)</span>
 <span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a>│ │ ├─farver <span class="dv">2</span>.<span class="fl">1.1</span> ✨</span>
-<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a>│ │ ├─labeling <span class="dv">0</span>.<span class="fl">4.3</span> ✨</span>
+<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a>│ │ ├─labeling <span class="dv">0</span>.<span class="fl">4.3</span> ✨ ⬇ (<span class="fl">61.22</span> kB)</span>
 <span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a>│ │ ├─lifecycle</span>
-<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a>│ │ ├─munsell <span class="dv">0</span>.<span class="fl">5.0</span> ✨</span>
+<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a>│ │ ├─munsell <span class="dv">0</span>.<span class="fl">5.0</span> ✨ ⬇ (<span class="fl">243.42</span> kB)</span>
 <span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a>│ │ │ └─colorspace <span class="fl">2.1</span><span class="dv">-0</span> ✨</span>
 <span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a>│ │ ├─R6 <span class="dv">2</span>.<span class="fl">5.1</span> ✨ ⬇ (<span class="fl">83.05</span> kB)</span>
-<span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a>│ │ ├─RColorBrewer <span class="fl">1.1</span><span class="dv">-3</span> ✨</span>
+<span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a>│ │ ├─RColorBrewer <span class="fl">1.1</span><span class="dv">-3</span> ✨ ⬇ (<span class="fl">53.09</span> kB)</span>
 <span id="cb32-33"><a href="#cb32-33" aria-hidden="true" tabindex="-1"></a>│ │ ├─rlang</span>
-<span id="cb32-34"><a href="#cb32-34" aria-hidden="true" tabindex="-1"></a>│ │ └─viridisLite <span class="dv">0</span>.<span class="fl">4.2</span> ✨</span>
+<span id="cb32-34"><a href="#cb32-34" aria-hidden="true" tabindex="-1"></a>│ │ └─viridisLite <span class="dv">0</span>.<span class="fl">4.2</span> ✨ ⬇ (<span class="fl">1.30</span> MB)</span>
 <span id="cb32-35"><a href="#cb32-35" aria-hidden="true" tabindex="-1"></a>│ ├─tibble <span class="dv">3</span>.<span class="fl">2.1</span> ✨</span>
 <span id="cb32-36"><a href="#cb32-36" aria-hidden="true" tabindex="-1"></a>│ │ ├─fansi <span class="dv">1</span>.<span class="fl">0.5</span> ✨</span>
 <span id="cb32-37"><a href="#cb32-37" aria-hidden="true" tabindex="-1"></a>│ │ ├─lifecycle</span>
 <span id="cb32-38"><a href="#cb32-38" aria-hidden="true" tabindex="-1"></a>│ │ ├─magrittr <span class="dv">2</span>.<span class="fl">0.3</span> ✨</span>
-<span id="cb32-39"><a href="#cb32-39" aria-hidden="true" tabindex="-1"></a>│ │ ├─pillar <span class="dv">1</span>.<span class="fl">9.0</span> ✨</span>
+<span id="cb32-39"><a href="#cb32-39" aria-hidden="true" tabindex="-1"></a>│ │ ├─pillar <span class="dv">1</span>.<span class="fl">9.0</span> ✨ ⬇ (<span class="fl">648.66</span> kB)</span>
 <span id="cb32-40"><a href="#cb32-40" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─cli</span>
 <span id="cb32-41"><a href="#cb32-41" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─fansi</span>
 <span id="cb32-42"><a href="#cb32-42" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─glue</span>
@@ -1059,29 +1136,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb32-48"><a href="#cb32-48" aria-hidden="true" tabindex="-1"></a>│ │ │   ├─glue</span>
 <span id="cb32-49"><a href="#cb32-49" aria-hidden="true" tabindex="-1"></a>│ │ │   ├─lifecycle</span>
 <span id="cb32-50"><a href="#cb32-50" aria-hidden="true" tabindex="-1"></a>│ │ │   └─rlang</span>
-<span id="cb32-51"><a href="#cb32-51" aria-hidden="true" tabindex="-1"></a>│ │ ├─pkgconfig <span class="dv">2</span>.<span class="fl">0.3</span> ✨</span>
+<span id="cb32-51"><a href="#cb32-51" aria-hidden="true" tabindex="-1"></a>│ │ ├─pkgconfig <span class="dv">2</span>.<span class="fl">0.3</span> ✨ ⬇ (<span class="fl">18.18</span> kB)</span>
 <span id="cb32-52"><a href="#cb32-52" aria-hidden="true" tabindex="-1"></a>│ │ ├─rlang</span>
 <span id="cb32-53"><a href="#cb32-53" aria-hidden="true" tabindex="-1"></a>│ │ └─vctrs</span>
 <span id="cb32-54"><a href="#cb32-54" aria-hidden="true" tabindex="-1"></a>│ ├─vctrs</span>
-<span id="cb32-55"><a href="#cb32-55" aria-hidden="true" tabindex="-1"></a>│ └─withr <span class="dv">2</span>.<span class="fl">5.2</span> ✨ ⬇ (<span class="fl">230.90</span> kB)</span>
+<span id="cb32-55"><a href="#cb32-55" aria-hidden="true" tabindex="-1"></a>│ └─withr <span class="dv">2</span>.<span class="fl">5.2</span> ✨</span>
 <span id="cb32-56"><a href="#cb32-56" aria-hidden="true" tabindex="-1"></a>├─golem <span class="dv">0</span>.<span class="fl">4.1</span> ✨ ⬇ (<span class="fl">1.15</span> MB)</span>
 <span id="cb32-57"><a href="#cb32-57" aria-hidden="true" tabindex="-1"></a>│ ├─attempt <span class="dv">0</span>.<span class="fl">3.1</span> ✨ ⬇ (<span class="fl">109.54</span> kB)</span>
 <span id="cb32-58"><a href="#cb32-58" aria-hidden="true" tabindex="-1"></a>│ │ └─rlang</span>
 <span id="cb32-59"><a href="#cb32-59" aria-hidden="true" tabindex="-1"></a>│ ├─config</span>
 <span id="cb32-60"><a href="#cb32-60" aria-hidden="true" tabindex="-1"></a>│ ├─here <span class="dv">1</span>.<span class="fl">0.1</span> ✨ ⬇ (<span class="fl">51.02</span> kB)</span>
-<span id="cb32-61"><a href="#cb32-61" aria-hidden="true" tabindex="-1"></a>│ │ └─rprojroot <span class="dv">2</span>.<span class="fl">0.3</span> ✨ ⬇ (<span class="fl">100.78</span> kB)</span>
-<span id="cb32-62"><a href="#cb32-62" aria-hidden="true" tabindex="-1"></a>│ ├─htmltools <span class="dv">0</span>.<span class="dv">5</span>.<span class="fl">6.1</span> ✨ ⬇ (<span class="fl">355.95</span> kB)</span>
-<span id="cb32-63"><a href="#cb32-63" aria-hidden="true" tabindex="-1"></a>│ │ ├─digest <span class="dv">0</span>.<span class="fl">6.33</span> ✨ ⬇ (<span class="fl">297.88</span> kB)</span>
-<span id="cb32-64"><a href="#cb32-64" aria-hidden="true" tabindex="-1"></a>│ │ ├─base64enc <span class="fl">0.1</span><span class="dv">-3</span> ✨</span>
-<span id="cb32-65"><a href="#cb32-65" aria-hidden="true" tabindex="-1"></a>│ │ ├─rlang</span>
-<span id="cb32-66"><a href="#cb32-66" aria-hidden="true" tabindex="-1"></a>│ │ ├─fastmap <span class="dv">1</span>.<span class="fl">1.1</span> ✨ ⬇ (<span class="fl">201.10</span> kB)</span>
-<span id="cb32-67"><a href="#cb32-67" aria-hidden="true" tabindex="-1"></a>│ │ └─ellipsis <span class="dv">0</span>.<span class="fl">3.2</span> ✨</span>
-<span id="cb32-68"><a href="#cb32-68" aria-hidden="true" tabindex="-1"></a>│ │   └─rlang</span>
+<span id="cb32-61"><a href="#cb32-61" aria-hidden="true" tabindex="-1"></a>│ │ └─rprojroot <span class="dv">2</span>.<span class="fl">0.4</span> ✨</span>
+<span id="cb32-62"><a href="#cb32-62" aria-hidden="true" tabindex="-1"></a>│ ├─htmltools <span class="dv">0</span>.<span class="fl">5.7</span> ✨</span>
+<span id="cb32-63"><a href="#cb32-63" aria-hidden="true" tabindex="-1"></a>│ │ ├─base64enc <span class="fl">0.1</span><span class="dv">-3</span> ✨</span>
+<span id="cb32-64"><a href="#cb32-64" aria-hidden="true" tabindex="-1"></a>│ │ ├─digest <span class="dv">0</span>.<span class="fl">6.33</span> ✨ ⬇ (<span class="fl">297.88</span> kB)</span>
+<span id="cb32-65"><a href="#cb32-65" aria-hidden="true" tabindex="-1"></a>│ │ ├─ellipsis <span class="dv">0</span>.<span class="fl">3.2</span> ✨</span>
+<span id="cb32-66"><a href="#cb32-66" aria-hidden="true" tabindex="-1"></a>│ │ │ └─rlang</span>
+<span id="cb32-67"><a href="#cb32-67" aria-hidden="true" tabindex="-1"></a>│ │ ├─fastmap <span class="dv">1</span>.<span class="fl">1.1</span> ✨</span>
+<span id="cb32-68"><a href="#cb32-68" aria-hidden="true" tabindex="-1"></a>│ │ └─rlang</span>
 <span id="cb32-69"><a href="#cb32-69" aria-hidden="true" tabindex="-1"></a>│ ├─rlang</span>
 <span id="cb32-70"><a href="#cb32-70" aria-hidden="true" tabindex="-1"></a>│ ├─shiny <span class="dv">1</span>.<span class="dv">7</span>.<span class="fl">5.1</span> ✨ ⬇ (<span class="fl">4.35</span> MB)</span>
 <span id="cb32-71"><a href="#cb32-71" aria-hidden="true" tabindex="-1"></a>│ │ ├─httpuv <span class="dv">1</span>.<span class="fl">6.12</span> ✨ ⬇ (<span class="fl">2.66</span> MB)</span>
 <span id="cb32-72"><a href="#cb32-72" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─later <span class="dv">1</span>.<span class="fl">3.1</span> ✨ ⬇ (<span class="fl">607.27</span> kB)</span>
-<span id="cb32-73"><a href="#cb32-73" aria-hidden="true" tabindex="-1"></a>│ │ │ │ ├─Rcpp <span class="dv">1</span>.<span class="fl">0.11</span> ✨ ⬇ (<span class="fl">3.31</span> MB)</span>
+<span id="cb32-73"><a href="#cb32-73" aria-hidden="true" tabindex="-1"></a>│ │ │ │ ├─Rcpp <span class="dv">1</span>.<span class="fl">0.11</span> ✨</span>
 <span id="cb32-74"><a href="#cb32-74" aria-hidden="true" tabindex="-1"></a>│ │ │ │ └─rlang</span>
 <span id="cb32-75"><a href="#cb32-75" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─promises <span class="dv">1</span>.<span class="fl">2.1</span> ✨ ⬇ (<span class="fl">1.82</span> MB)</span>
 <span id="cb32-76"><a href="#cb32-76" aria-hidden="true" tabindex="-1"></a>│ │ │ │ ├─fastmap</span>
@@ -1093,7 +1170,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb32-82"><a href="#cb32-82" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─R6</span>
 <span id="cb32-83"><a href="#cb32-83" aria-hidden="true" tabindex="-1"></a>│ │ │ └─Rcpp</span>
 <span id="cb32-84"><a href="#cb32-84" aria-hidden="true" tabindex="-1"></a>│ │ ├─mime <span class="fl">0.12</span> ✨</span>
-<span id="cb32-85"><a href="#cb32-85" aria-hidden="true" tabindex="-1"></a>│ │ ├─jsonlite <span class="dv">1</span>.<span class="fl">8.7</span> ✨ ⬇ (<span class="fl">1.13</span> MB)</span>
+<span id="cb32-85"><a href="#cb32-85" aria-hidden="true" tabindex="-1"></a>│ │ ├─jsonlite <span class="dv">1</span>.<span class="fl">8.7</span> ✨</span>
 <span id="cb32-86"><a href="#cb32-86" aria-hidden="true" tabindex="-1"></a>│ │ ├─xtable <span class="fl">1.8</span><span class="dv">-4</span> ✨ ⬇ (<span class="fl">701.99</span> kB)</span>
 <span id="cb32-87"><a href="#cb32-87" aria-hidden="true" tabindex="-1"></a>│ │ ├─fontawesome <span class="dv">0</span>.<span class="fl">5.2</span> ✨ ⬇ (<span class="fl">1.36</span> MB)</span>
 <span id="cb32-88"><a href="#cb32-88" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─rlang</span>
@@ -1103,15 +1180,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb32-92"><a href="#cb32-92" aria-hidden="true" tabindex="-1"></a>│ │ ├─sourcetools <span class="dv">0</span>.<span class="fl">1.7</span><span class="dv">-1</span> ✨ ⬇ (<span class="fl">137.44</span> kB)</span>
 <span id="cb32-93"><a href="#cb32-93" aria-hidden="true" tabindex="-1"></a>│ │ ├─later</span>
 <span id="cb32-94"><a href="#cb32-94" aria-hidden="true" tabindex="-1"></a>│ │ ├─promises</span>
-<span id="cb32-95"><a href="#cb32-95" aria-hidden="true" tabindex="-1"></a>│ │ ├─crayon <span class="dv">1</span>.<span class="fl">5.2</span> ✨</span>
+<span id="cb32-95"><a href="#cb32-95" aria-hidden="true" tabindex="-1"></a>│ │ ├─crayon <span class="dv">1</span>.<span class="fl">5.2</span> ✨ ⬇ (<span class="fl">162.31</span> kB)</span>
 <span id="cb32-96"><a href="#cb32-96" aria-hidden="true" tabindex="-1"></a>│ │ ├─rlang</span>
 <span id="cb32-97"><a href="#cb32-97" aria-hidden="true" tabindex="-1"></a>│ │ ├─fastmap</span>
 <span id="cb32-98"><a href="#cb32-98" aria-hidden="true" tabindex="-1"></a>│ │ ├─withr</span>
-<span id="cb32-99"><a href="#cb32-99" aria-hidden="true" tabindex="-1"></a>│ │ ├─commonmark <span class="dv">1</span>.<span class="fl">9.0</span> ✨ ⬇ (<span class="fl">357.18</span> kB)</span>
+<span id="cb32-99"><a href="#cb32-99" aria-hidden="true" tabindex="-1"></a>│ │ ├─commonmark <span class="dv">1</span>.<span class="fl">9.0</span> ✨</span>
 <span id="cb32-100"><a href="#cb32-100" aria-hidden="true" tabindex="-1"></a>│ │ ├─glue</span>
 <span id="cb32-101"><a href="#cb32-101" aria-hidden="true" tabindex="-1"></a>│ │ ├─bslib <span class="dv">0</span>.<span class="fl">5.1</span> ✨ ⬇ (<span class="fl">5.90</span> MB)</span>
 <span id="cb32-102"><a href="#cb32-102" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─base64enc</span>
-<span id="cb32-103"><a href="#cb32-103" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─cachem <span class="dv">1</span>.<span class="fl">0.8</span> ✨ ⬇ (<span class="fl">69.43</span> kB)</span>
+<span id="cb32-103"><a href="#cb32-103" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─cachem <span class="dv">1</span>.<span class="fl">0.8</span> ✨</span>
 <span id="cb32-104"><a href="#cb32-104" aria-hidden="true" tabindex="-1"></a>│ │ │ │ ├─rlang</span>
 <span id="cb32-105"><a href="#cb32-105" aria-hidden="true" tabindex="-1"></a>│ │ │ │ └─fastmap</span>
 <span id="cb32-106"><a href="#cb32-106" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─htmltools</span>
@@ -1123,7 +1200,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb32-112"><a href="#cb32-112" aria-hidden="true" tabindex="-1"></a>│ │ │ │ └─cachem</span>
 <span id="cb32-113"><a href="#cb32-113" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─mime</span>
 <span id="cb32-114"><a href="#cb32-114" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─rlang</span>
-<span id="cb32-115"><a href="#cb32-115" aria-hidden="true" tabindex="-1"></a>│ │ │ └─sass <span class="dv">0</span>.<span class="fl">4.7</span> ✨ ⬇ (<span class="fl">2.41</span> MB)</span>
+<span id="cb32-115"><a href="#cb32-115" aria-hidden="true" tabindex="-1"></a>│ │ │ └─sass <span class="dv">0</span>.<span class="fl">4.7</span> ✨</span>
 <span id="cb32-116"><a href="#cb32-116" aria-hidden="true" tabindex="-1"></a>│ │ │   ├─fs <span class="dv">1</span>.<span class="fl">6.3</span> ✨ ⬇ (<span class="fl">625.41</span> kB)</span>
 <span id="cb32-117"><a href="#cb32-117" aria-hidden="true" tabindex="-1"></a>│ │ │   ├─rlang</span>
 <span id="cb32-118"><a href="#cb32-118" aria-hidden="true" tabindex="-1"></a>│ │ │   ├─htmltools</span>
@@ -1141,10 +1218,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb32-130"><a href="#cb32-130" aria-hidden="true" tabindex="-1"></a>  ├─lifecycle</span>
 <span id="cb32-131"><a href="#cb32-131" aria-hidden="true" tabindex="-1"></a>  ├─magrittr</span>
 <span id="cb32-132"><a href="#cb32-132" aria-hidden="true" tabindex="-1"></a>  ├─rlang</span>
-<span id="cb32-133"><a href="#cb32-133" aria-hidden="true" tabindex="-1"></a>  ├─stringi <span class="dv">1</span>.<span class="fl">7.12</span> ✨ ⬇ (<span class="fl">14.63</span> MB)</span>
+<span id="cb32-133"><a href="#cb32-133" aria-hidden="true" tabindex="-1"></a>  ├─stringi <span class="dv">1</span>.<span class="fl">7.12</span> ✨</span>
 <span id="cb32-134"><a href="#cb32-134" aria-hidden="true" tabindex="-1"></a>  └─vctrs</span>
 <span id="cb32-135"><a href="#cb32-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-136"><a href="#cb32-136" aria-hidden="true" tabindex="-1"></a>Key<span class="sc">:</span>  ✨ new <span class="sc">|</span> ✋ outdated <span class="sc">|</span>  ⬇ download <span class="sc">|</span> 👷‍♀️ build</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb32-136"><a href="#cb32-136" aria-hidden="true" tabindex="-1"></a>Key<span class="sc">:</span>  ✨ new <span class="sc">|</span> 🚀 update <span class="sc">|</span> ✋ outdated <span class="sc">|</span>  ⬇ download <span class="sc">|</span> 👷🏿‍♀️ build</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

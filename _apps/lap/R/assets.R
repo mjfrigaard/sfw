@@ -3,17 +3,17 @@
 #---------------------------------------------#
 
 #' Dependencies
-#' 
-#' @param modules JavaScript files names that require 
+#'
+#' @param modules JavaScript files names that require
 #' the `type = module`.
 #' @importFrom htmltools htmlDependency
-#' 
+#'
 #' @keywords internal
 serveAssets <- function(modules = NULL){
 	# JavaScript files
 	javascript <- list.files(
-		system.file(package = "lap"), 
-		recursive = TRUE, 
+		system.file(package = "lap"),
+		recursive = TRUE,
 		pattern = ".js$"
 	)
 
@@ -22,18 +22,18 @@ serveAssets <- function(modules = NULL){
 
 	# CSS files
 	css <- list.files(
-		system.file(package = "lap"), 
+		system.file(package = "lap"),
 		recursive = TRUE,
 		pattern = ".css$"
 	)
-	
+
 	# so dependency processes correctly
 	names(css) <- rep("file", length(css))
 	names(javascript) <- rep("file", length(javascript))
 
 	# serve dependencies
 	dependencies <- list()
-	
+
 	standard <- htmlDependency(
 		"lap",
 		version = utils::packageVersion("lap"),
@@ -44,7 +44,7 @@ serveAssets <- function(modules = NULL){
 	)
 	dependencies <- append(dependencies, list(standard))
 
-	if(!is.null(modules)){
+	if (!is.null(modules)) {
 		modules <- htmlDependency(
 			"lap-modules",
 			version = utils::packageVersion("lap"),
@@ -60,14 +60,14 @@ serveAssets <- function(modules = NULL){
 }
 
 #' Module
-#' 
+#'
 #' Retrieve and add modules from a vector of files.
-#' 
+#'
 #' @param files JavaScript files
-#' @param modules JavaScript files names that require 
+#' @param modules JavaScript files names that require
 #' the `type = module`.
 #' @importFrom htmltools htmlDependency
-#' 
+#'
 #' @keywords internal
 #' @name js-modules
 remove_modules <- function(files, modules){

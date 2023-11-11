@@ -12,9 +12,9 @@ app_ui <- function(request) {
     fluidPage(
       sidebarLayout(
         sidebarPanel(
-          mod_var_ui("vars"),
+          mod_var_input_ui("vars"),
           h6(
-            img(src = "www/images/shiny.png", width = "15%"),
+            img(src = "www/shiny.png", width = "15%"),
             em(
               "The data for this application comes from the ",
               a("Building web applications with Shiny",
@@ -28,11 +28,11 @@ app_ui <- function(request) {
           fluidRow(
             br(),
             p(em("Brought to you by: "),
-              # add golem hex (in www/images/)
-              img(src = "www/images/golem-hex.png", width = "5%")
+              # add golem hex (in www/)
+              img(src = "www/golem-hex.png", width = "5%")
             )
           ),
-          mod_plot_ui("plot")
+          mod_scatter_display_ui("plot")
         )
       )
     )

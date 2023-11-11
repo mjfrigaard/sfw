@@ -1,3 +1,4 @@
+import { handleUtils } from './leprechaun-utils.js';
 import { message } from './modules/message.js';
 import 'shiny';
 
@@ -6,3 +7,4 @@ import 'shiny';
 Shiny.addCustomMessageHandler('show-packer', (msg) => {
   message(msg.text);
 })
+handleUtils();

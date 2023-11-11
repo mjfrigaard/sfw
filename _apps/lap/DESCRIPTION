@@ -12,8 +12,10 @@ Imports:
     bslib,
     ggplot2,
     htmltools,
+    jsonlite,
     rlang,
-    shiny
+    shiny,
+    yaml
 Suggests: 
     packer,
     pkgload,

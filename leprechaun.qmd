@@ -25,6 +25,10 @@ source("_common.R")
 
 > *"it generates code and does not make itself a dependency of the application you build; this means applications are leaner, and smaller"*
 
+Below is an overview of the features/functions in the `leprechaun` framework:
+
+{{< include _leprechaun_features.qmd >}}
+
 ## Start
 
 Create a leprechaun app just like you would a new R package:
@@ -549,18 +553,18 @@ usethis::use_data(movies, overwrite = TRUE)
 
 - [x] `usethis::use_r()` created `R/utils_plot_display.R` to hold the `scatter_plot()` function  
 
-    ```{r}
-    #| label: point-plot-leprechaun
-    #| code-fold: false
-    scatter_plot <- function(df, x_var, y_var, col_var, alpha_var, size_var) {
-        ggplot2::ggplot(data = df,
-          ggplot2::aes(x = .data[[x_var]],
-              y = .data[[y_var]],
-              color = .data[[col_var]])) +
-          ggplot2::geom_point(alpha = alpha_var, size = size_var)
-    
-    }
-    ```
+```{r}
+#| label: point-plot-leprechaun
+#| code-fold: false
+scatter_plot <- function(df, x_var, y_var, col_var, alpha_var, size_var) {
+    ggplot2::ggplot(data = df,
+      ggplot2::aes(x = .data[[x_var]],
+          y = .data[[y_var]],
+          color = .data[[col_var]])) +
+      ggplot2::geom_point(alpha = alpha_var, size = size_var)
+
+}
+```
 
 Now I can run `devtools::load_all()`, `devtools::document()`, restart and load the package, then `run()`
 
@@ -1130,7 +1134,15 @@ pak::local_dev_deps_explain(
 
 ## Recap
 
-`leprechaun` delivers on its promise to be a 'leaner and smaller' version of `golem.` Most of the features in `golem` are also accessible in `leprechaun`. Multiple `inst/` sub-folders makes adding assets to the application easier, and `leprechaun` has a long list of `use_*` functions for including Sass, CSS, HTML, and JavaScript. The package website has examples for getting started and adding multiple resources, but unfortunately the function reference had limited documentation. 
+`leprechaun` delivers on its promise to be a 'leaner and smaller' version of `golem.` 
+
+Most of the features in `golem` are also accessible in `leprechaun`:
+
+-   [x] Adding modules: `leprechaun`'s `add_module()` function doesn't have the consistent naming or prefixes found in `golem::add_module()`, but still reduces a lot of typing if you are creating these files manually. 
+
+-   [ ] Adding functions: leprechaun relies on 
+
+Multiple `inst/` sub-folders makes adding assets to the application easier, and `leprechaun` has a long list of `use_*` functions for including Sass, CSS, HTML, and JavaScript. The package website has examples for getting started and adding multiple resources, but unfortunately the function reference had limited documentation. 
 
 `leprechaun` doesn't come with any testing functions, although this can be done using [`testthat`](https://testthat.r-lib.org/) and [`shinytest2`](https://rstudio.github.io/shinytest2/) (just as we would with a standard R package).
 
