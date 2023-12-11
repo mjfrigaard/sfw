@@ -216,7 +216,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="gap" class="level2">
 <h2 class="anchored" data-anchor-id="gap"><code>gap</code></h2>
-<p>The <a href="https://thinkr-open.github.io/golem/"><code>golem</code> package</a> is an ‘opinionated Shiny framework’ that provides many options for users experienced with creating R packages, but who are looking to streamline their application development.</p>
+<p>The <a href="https://thinkr-open.github.io/golem/"><code>golem</code> package</a> is an ‘opinionated Shiny framework’ that provides many options for users experienced with creating R packages, but who are looking to streamline their application development.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Below is an overview of the features/functions in the <code>golem</code> framework:</p>
 <div style="font-size: 0.85em;">
 <table class="table">
 <thead>
@@ -585,7 +586,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="testing">Testing</h3>
 <p>The <code>tests/</code> folder is created in <code>dev/01_start.R</code> with <a href="https://thinkr-open.github.io/golem/reference/use_recommended.html"><code>golem::use_recommended_tests()</code></a>, which is a wrapper around <code>usethis::use_testthat()</code></p>
 <ul class="task-list">
-<li><input type="checkbox" checked=""><code>golem::use_recommended_tests()</code> adds the <code>spelling</code> package to our <code>DESCRIPTION</code> and updates the <code>WORDLIST</code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
+<li><input type="checkbox" checked=""><code>golem::use_recommended_tests()</code> adds the <code>spelling</code> package to our <code>DESCRIPTION</code> and updates the <code>WORDLIST</code><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
 </ul>
 <ul class="task-list">
 <li><input type="checkbox" checked="">The <code>tests</code> folder uses the <a href="https://testthat.r-lib.org/"><code>testthat</code> framework</a></li>
@@ -664,7 +665,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Building an application with <code>golem</code> is very similar to developing an R package. However, some of the app development processes have been streamlined into wrapper functions. I’ll cover creating modules and utility functions using these helpers in the following sections.</p>
 <section id="modules-utility-functions" class="level3">
 <h3 class="anchored" data-anchor-id="modules-utility-functions">Modules &amp; utility functions</h3>
-<p>New modules and utility functions can be created with <a href="https://thinkr-open.github.io/golem/reference/add_module.html"><code>golem::add_module()</code></a> or <a href="https://thinkr-open.github.io/golem/reference/file_creation.html"><code>golem::add_utils()</code>/<code>golem::add_fct()</code></a>.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>New modules and utility functions can be created with <a href="https://thinkr-open.github.io/golem/reference/add_module.html"><code>golem::add_module()</code></a> or <a href="https://thinkr-open.github.io/golem/reference/file_creation.html"><code>golem::add_utils()</code>/<code>golem::add_fct()</code></a>.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
 <p>The code below creates the following files:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">add_module</span>(<span class="at">name =</span> <span class="st">'name'</span>, </span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">fct =</span> <span class="st">'fun'</span>, </span>
@@ -1087,141 +1088,144 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The <code>pak::local_deps_tree()</code> function can tell us what the dependencies look like for an application built with <code>golem</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">local_deps_tree</span>(<span class="at">root =</span> <span class="st">"_apps/gap"</span>)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>local<span class="sc">::</span>_apps<span class="sc">/</span>gap <span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">0.9000</span> ✨👷‍♂️ ⬇ (unknown size)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>local<span class="sc">::</span>_apps<span class="sc">/</span>gap <span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">0.9000</span> ✨👷🏻‍♀️ ⬇ (unknown size)</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>├─config <span class="dv">0</span>.<span class="fl">3.2</span> ✨ ⬇ (<span class="fl">99.78</span> kB)</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>│ └─yaml <span class="dv">2</span>.<span class="fl">3.7</span> ✨</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>│ └─yaml <span class="dv">2</span>.<span class="fl">3.8</span> ✨👷🏻‍♀️🔧 ⬇ (<span class="fl">94.33</span> kB)</span>
 <span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>├─ggplot2 <span class="dv">3</span>.<span class="fl">4.4</span> ✨ ⬇ (<span class="fl">4.31</span> MB)</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>│ ├─cli <span class="dv">3</span>.<span class="fl">6.1</span> ✨</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>│ ├─glue <span class="dv">1</span>.<span class="fl">6.2</span> ✨</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>│ ├─cli <span class="dv">3</span>.<span class="fl">6.2</span> ✨ ⬇ (<span class="fl">1.38</span> MB)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>│ ├─glue <span class="dv">1</span>.<span class="fl">6.2</span> ✨ ⬇ (<span class="fl">156.74</span> kB)</span>
 <span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>│ ├─gtable <span class="dv">0</span>.<span class="fl">3.4</span> ✨ ⬇ (<span class="fl">218.00</span> kB)</span>
 <span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>│ │ ├─cli</span>
 <span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>│ │ ├─glue</span>
 <span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>│ │ ├─lifecycle <span class="dv">1</span>.<span class="fl">0.4</span> ✨ ⬇ (<span class="fl">124.22</span> kB)</span>
 <span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─cli</span>
 <span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─glue</span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>│ │ │ └─rlang <span class="dv">1</span>.<span class="fl">1.2</span> ✨</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>│ │ │ └─rlang <span class="dv">1</span>.<span class="fl">1.2</span> ✨ ⬇ (<span class="fl">1.89</span> MB)</span>
 <span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>│ │ └─rlang</span>
 <span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>│ ├─isoband <span class="dv">0</span>.<span class="fl">2.7</span> ✨ ⬇ (<span class="fl">1.88</span> MB)</span>
 <span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>│ ├─lifecycle</span>
 <span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>│ ├─MASS <span class="fl">7.3</span><span class="dv">-60</span> <span class="sc">&lt;</span> <span class="fl">7.3-60.1</span> ✋</span>
 <span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>│ ├─mgcv <span class="fl">1.9</span><span class="dv">-0</span> </span>
-<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>│ │ ├─nlme <span class="fl">3.1</span><span class="dv">-163</span> </span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>│ │ ├─nlme <span class="fl">3.1</span><span class="dv">-164</span> </span>
 <span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>│ │ │ └─lattice <span class="fl">0.22</span><span class="dv">-5</span> </span>
-<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>│ │ └─Matrix <span class="fl">1.6-1.1</span> <span class="ot">-&gt;</span> <span class="fl">1.6</span><span class="dv">-2</span> 🚀 ⬇ (<span class="fl">5.85</span> MB)</span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>│ │ └─Matrix <span class="fl">1.6</span><span class="dv">-4</span> </span>
 <span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a>│ │   └─lattice</span>
 <span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a>│ ├─rlang</span>
-<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a>│ ├─scales <span class="dv">1</span>.<span class="fl">2.1</span> ✨ ⬇ (<span class="fl">615.92</span> kB)</span>
-<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a>│ │ ├─farver <span class="dv">2</span>.<span class="fl">1.1</span> ✨</span>
-<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a>│ │ ├─labeling <span class="dv">0</span>.<span class="fl">4.3</span> ✨ ⬇ (<span class="fl">61.22</span> kB)</span>
-<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a>│ │ ├─lifecycle</span>
-<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a>│ │ ├─munsell <span class="dv">0</span>.<span class="fl">5.0</span> ✨ ⬇ (<span class="fl">243.42</span> kB)</span>
-<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a>│ │ │ └─colorspace <span class="fl">2.1</span><span class="dv">-0</span> ✨</span>
-<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a>│ │ ├─R6 <span class="dv">2</span>.<span class="fl">5.1</span> ✨ ⬇ (<span class="fl">83.05</span> kB)</span>
-<span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a>│ │ ├─RColorBrewer <span class="fl">1.1</span><span class="dv">-3</span> ✨ ⬇ (<span class="fl">53.09</span> kB)</span>
-<span id="cb32-33"><a href="#cb32-33" aria-hidden="true" tabindex="-1"></a>│ │ ├─rlang</span>
-<span id="cb32-34"><a href="#cb32-34" aria-hidden="true" tabindex="-1"></a>│ │ └─viridisLite <span class="dv">0</span>.<span class="fl">4.2</span> ✨ ⬇ (<span class="fl">1.30</span> MB)</span>
-<span id="cb32-35"><a href="#cb32-35" aria-hidden="true" tabindex="-1"></a>│ ├─tibble <span class="dv">3</span>.<span class="fl">2.1</span> ✨</span>
-<span id="cb32-36"><a href="#cb32-36" aria-hidden="true" tabindex="-1"></a>│ │ ├─fansi <span class="dv">1</span>.<span class="fl">0.5</span> ✨</span>
-<span id="cb32-37"><a href="#cb32-37" aria-hidden="true" tabindex="-1"></a>│ │ ├─lifecycle</span>
-<span id="cb32-38"><a href="#cb32-38" aria-hidden="true" tabindex="-1"></a>│ │ ├─magrittr <span class="dv">2</span>.<span class="fl">0.3</span> ✨</span>
-<span id="cb32-39"><a href="#cb32-39" aria-hidden="true" tabindex="-1"></a>│ │ ├─pillar <span class="dv">1</span>.<span class="fl">9.0</span> ✨ ⬇ (<span class="fl">648.66</span> kB)</span>
-<span id="cb32-40"><a href="#cb32-40" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─cli</span>
-<span id="cb32-41"><a href="#cb32-41" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─fansi</span>
-<span id="cb32-42"><a href="#cb32-42" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─glue</span>
-<span id="cb32-43"><a href="#cb32-43" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─lifecycle</span>
-<span id="cb32-44"><a href="#cb32-44" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─rlang</span>
-<span id="cb32-45"><a href="#cb32-45" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─utf8 <span class="dv">1</span>.<span class="fl">2.4</span> ✨</span>
-<span id="cb32-46"><a href="#cb32-46" aria-hidden="true" tabindex="-1"></a>│ │ │ └─vctrs <span class="dv">0</span>.<span class="fl">6.4</span> ✨</span>
-<span id="cb32-47"><a href="#cb32-47" aria-hidden="true" tabindex="-1"></a>│ │ │   ├─cli</span>
-<span id="cb32-48"><a href="#cb32-48" aria-hidden="true" tabindex="-1"></a>│ │ │   ├─glue</span>
-<span id="cb32-49"><a href="#cb32-49" aria-hidden="true" tabindex="-1"></a>│ │ │   ├─lifecycle</span>
-<span id="cb32-50"><a href="#cb32-50" aria-hidden="true" tabindex="-1"></a>│ │ │   └─rlang</span>
-<span id="cb32-51"><a href="#cb32-51" aria-hidden="true" tabindex="-1"></a>│ │ ├─pkgconfig <span class="dv">2</span>.<span class="fl">0.3</span> ✨ ⬇ (<span class="fl">18.18</span> kB)</span>
-<span id="cb32-52"><a href="#cb32-52" aria-hidden="true" tabindex="-1"></a>│ │ ├─rlang</span>
-<span id="cb32-53"><a href="#cb32-53" aria-hidden="true" tabindex="-1"></a>│ │ └─vctrs</span>
-<span id="cb32-54"><a href="#cb32-54" aria-hidden="true" tabindex="-1"></a>│ ├─vctrs</span>
-<span id="cb32-55"><a href="#cb32-55" aria-hidden="true" tabindex="-1"></a>│ └─withr <span class="dv">2</span>.<span class="fl">5.2</span> ✨</span>
-<span id="cb32-56"><a href="#cb32-56" aria-hidden="true" tabindex="-1"></a>├─golem <span class="dv">0</span>.<span class="fl">4.1</span> ✨ ⬇ (<span class="fl">1.15</span> MB)</span>
-<span id="cb32-57"><a href="#cb32-57" aria-hidden="true" tabindex="-1"></a>│ ├─attempt <span class="dv">0</span>.<span class="fl">3.1</span> ✨ ⬇ (<span class="fl">109.54</span> kB)</span>
-<span id="cb32-58"><a href="#cb32-58" aria-hidden="true" tabindex="-1"></a>│ │ └─rlang</span>
-<span id="cb32-59"><a href="#cb32-59" aria-hidden="true" tabindex="-1"></a>│ ├─config</span>
-<span id="cb32-60"><a href="#cb32-60" aria-hidden="true" tabindex="-1"></a>│ ├─here <span class="dv">1</span>.<span class="fl">0.1</span> ✨ ⬇ (<span class="fl">51.02</span> kB)</span>
-<span id="cb32-61"><a href="#cb32-61" aria-hidden="true" tabindex="-1"></a>│ │ └─rprojroot <span class="dv">2</span>.<span class="fl">0.4</span> ✨</span>
-<span id="cb32-62"><a href="#cb32-62" aria-hidden="true" tabindex="-1"></a>│ ├─htmltools <span class="dv">0</span>.<span class="fl">5.7</span> ✨</span>
-<span id="cb32-63"><a href="#cb32-63" aria-hidden="true" tabindex="-1"></a>│ │ ├─base64enc <span class="fl">0.1</span><span class="dv">-3</span> ✨</span>
-<span id="cb32-64"><a href="#cb32-64" aria-hidden="true" tabindex="-1"></a>│ │ ├─digest <span class="dv">0</span>.<span class="fl">6.33</span> ✨ ⬇ (<span class="fl">297.88</span> kB)</span>
-<span id="cb32-65"><a href="#cb32-65" aria-hidden="true" tabindex="-1"></a>│ │ ├─ellipsis <span class="dv">0</span>.<span class="fl">3.2</span> ✨</span>
-<span id="cb32-66"><a href="#cb32-66" aria-hidden="true" tabindex="-1"></a>│ │ │ └─rlang</span>
-<span id="cb32-67"><a href="#cb32-67" aria-hidden="true" tabindex="-1"></a>│ │ ├─fastmap <span class="dv">1</span>.<span class="fl">1.1</span> ✨</span>
-<span id="cb32-68"><a href="#cb32-68" aria-hidden="true" tabindex="-1"></a>│ │ └─rlang</span>
-<span id="cb32-69"><a href="#cb32-69" aria-hidden="true" tabindex="-1"></a>│ ├─rlang</span>
-<span id="cb32-70"><a href="#cb32-70" aria-hidden="true" tabindex="-1"></a>│ ├─shiny <span class="dv">1</span>.<span class="dv">7</span>.<span class="fl">5.1</span> ✨ ⬇ (<span class="fl">4.35</span> MB)</span>
-<span id="cb32-71"><a href="#cb32-71" aria-hidden="true" tabindex="-1"></a>│ │ ├─httpuv <span class="dv">1</span>.<span class="fl">6.12</span> ✨ ⬇ (<span class="fl">2.66</span> MB)</span>
-<span id="cb32-72"><a href="#cb32-72" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─later <span class="dv">1</span>.<span class="fl">3.1</span> ✨ ⬇ (<span class="fl">607.27</span> kB)</span>
-<span id="cb32-73"><a href="#cb32-73" aria-hidden="true" tabindex="-1"></a>│ │ │ │ ├─Rcpp <span class="dv">1</span>.<span class="fl">0.11</span> ✨</span>
-<span id="cb32-74"><a href="#cb32-74" aria-hidden="true" tabindex="-1"></a>│ │ │ │ └─rlang</span>
-<span id="cb32-75"><a href="#cb32-75" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─promises <span class="dv">1</span>.<span class="fl">2.1</span> ✨ ⬇ (<span class="fl">1.82</span> MB)</span>
-<span id="cb32-76"><a href="#cb32-76" aria-hidden="true" tabindex="-1"></a>│ │ │ │ ├─fastmap</span>
-<span id="cb32-77"><a href="#cb32-77" aria-hidden="true" tabindex="-1"></a>│ │ │ │ ├─later</span>
-<span id="cb32-78"><a href="#cb32-78" aria-hidden="true" tabindex="-1"></a>│ │ │ │ ├─magrittr</span>
-<span id="cb32-79"><a href="#cb32-79" aria-hidden="true" tabindex="-1"></a>│ │ │ │ ├─R6</span>
-<span id="cb32-80"><a href="#cb32-80" aria-hidden="true" tabindex="-1"></a>│ │ │ │ ├─Rcpp</span>
-<span id="cb32-81"><a href="#cb32-81" aria-hidden="true" tabindex="-1"></a>│ │ │ │ └─rlang</span>
-<span id="cb32-82"><a href="#cb32-82" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─R6</span>
-<span id="cb32-83"><a href="#cb32-83" aria-hidden="true" tabindex="-1"></a>│ │ │ └─Rcpp</span>
-<span id="cb32-84"><a href="#cb32-84" aria-hidden="true" tabindex="-1"></a>│ │ ├─mime <span class="fl">0.12</span> ✨</span>
-<span id="cb32-85"><a href="#cb32-85" aria-hidden="true" tabindex="-1"></a>│ │ ├─jsonlite <span class="dv">1</span>.<span class="fl">8.7</span> ✨</span>
-<span id="cb32-86"><a href="#cb32-86" aria-hidden="true" tabindex="-1"></a>│ │ ├─xtable <span class="fl">1.8</span><span class="dv">-4</span> ✨ ⬇ (<span class="fl">701.99</span> kB)</span>
-<span id="cb32-87"><a href="#cb32-87" aria-hidden="true" tabindex="-1"></a>│ │ ├─fontawesome <span class="dv">0</span>.<span class="fl">5.2</span> ✨ ⬇ (<span class="fl">1.36</span> MB)</span>
-<span id="cb32-88"><a href="#cb32-88" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─rlang</span>
-<span id="cb32-89"><a href="#cb32-89" aria-hidden="true" tabindex="-1"></a>│ │ │ └─htmltools</span>
-<span id="cb32-90"><a href="#cb32-90" aria-hidden="true" tabindex="-1"></a>│ │ ├─htmltools</span>
-<span id="cb32-91"><a href="#cb32-91" aria-hidden="true" tabindex="-1"></a>│ │ ├─R6</span>
-<span id="cb32-92"><a href="#cb32-92" aria-hidden="true" tabindex="-1"></a>│ │ ├─sourcetools <span class="dv">0</span>.<span class="fl">1.7</span><span class="dv">-1</span> ✨ ⬇ (<span class="fl">137.44</span> kB)</span>
-<span id="cb32-93"><a href="#cb32-93" aria-hidden="true" tabindex="-1"></a>│ │ ├─later</span>
-<span id="cb32-94"><a href="#cb32-94" aria-hidden="true" tabindex="-1"></a>│ │ ├─promises</span>
-<span id="cb32-95"><a href="#cb32-95" aria-hidden="true" tabindex="-1"></a>│ │ ├─crayon <span class="dv">1</span>.<span class="fl">5.2</span> ✨ ⬇ (<span class="fl">162.31</span> kB)</span>
-<span id="cb32-96"><a href="#cb32-96" aria-hidden="true" tabindex="-1"></a>│ │ ├─rlang</span>
-<span id="cb32-97"><a href="#cb32-97" aria-hidden="true" tabindex="-1"></a>│ │ ├─fastmap</span>
-<span id="cb32-98"><a href="#cb32-98" aria-hidden="true" tabindex="-1"></a>│ │ ├─withr</span>
-<span id="cb32-99"><a href="#cb32-99" aria-hidden="true" tabindex="-1"></a>│ │ ├─commonmark <span class="dv">1</span>.<span class="fl">9.0</span> ✨</span>
-<span id="cb32-100"><a href="#cb32-100" aria-hidden="true" tabindex="-1"></a>│ │ ├─glue</span>
-<span id="cb32-101"><a href="#cb32-101" aria-hidden="true" tabindex="-1"></a>│ │ ├─bslib <span class="dv">0</span>.<span class="fl">5.1</span> ✨ ⬇ (<span class="fl">5.90</span> MB)</span>
-<span id="cb32-102"><a href="#cb32-102" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─base64enc</span>
-<span id="cb32-103"><a href="#cb32-103" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─cachem <span class="dv">1</span>.<span class="fl">0.8</span> ✨</span>
-<span id="cb32-104"><a href="#cb32-104" aria-hidden="true" tabindex="-1"></a>│ │ │ │ ├─rlang</span>
-<span id="cb32-105"><a href="#cb32-105" aria-hidden="true" tabindex="-1"></a>│ │ │ │ └─fastmap</span>
-<span id="cb32-106"><a href="#cb32-106" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─htmltools</span>
-<span id="cb32-107"><a href="#cb32-107" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─jquerylib <span class="dv">0</span>.<span class="fl">1.4</span> ✨ ⬇ (<span class="fl">526.36</span> kB)</span>
-<span id="cb32-108"><a href="#cb32-108" aria-hidden="true" tabindex="-1"></a>│ │ │ │ └─htmltools</span>
-<span id="cb32-109"><a href="#cb32-109" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─jsonlite</span>
-<span id="cb32-110"><a href="#cb32-110" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─memoise <span class="dv">2</span>.<span class="fl">0.1</span> ✨ ⬇ (<span class="fl">47.96</span> kB)</span>
-<span id="cb32-111"><a href="#cb32-111" aria-hidden="true" tabindex="-1"></a>│ │ │ │ ├─rlang</span>
-<span id="cb32-112"><a href="#cb32-112" aria-hidden="true" tabindex="-1"></a>│ │ │ │ └─cachem</span>
-<span id="cb32-113"><a href="#cb32-113" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─mime</span>
-<span id="cb32-114"><a href="#cb32-114" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─rlang</span>
-<span id="cb32-115"><a href="#cb32-115" aria-hidden="true" tabindex="-1"></a>│ │ │ └─sass <span class="dv">0</span>.<span class="fl">4.7</span> ✨</span>
-<span id="cb32-116"><a href="#cb32-116" aria-hidden="true" tabindex="-1"></a>│ │ │   ├─fs <span class="dv">1</span>.<span class="fl">6.3</span> ✨ ⬇ (<span class="fl">625.41</span> kB)</span>
-<span id="cb32-117"><a href="#cb32-117" aria-hidden="true" tabindex="-1"></a>│ │ │   ├─rlang</span>
-<span id="cb32-118"><a href="#cb32-118" aria-hidden="true" tabindex="-1"></a>│ │ │   ├─htmltools</span>
-<span id="cb32-119"><a href="#cb32-119" aria-hidden="true" tabindex="-1"></a>│ │ │   ├─R6</span>
-<span id="cb32-120"><a href="#cb32-120" aria-hidden="true" tabindex="-1"></a>│ │ │   └─rappdirs <span class="dv">0</span>.<span class="fl">3.3</span> ✨</span>
-<span id="cb32-121"><a href="#cb32-121" aria-hidden="true" tabindex="-1"></a>│ │ ├─cachem</span>
-<span id="cb32-122"><a href="#cb32-122" aria-hidden="true" tabindex="-1"></a>│ │ ├─ellipsis</span>
-<span id="cb32-123"><a href="#cb32-123" aria-hidden="true" tabindex="-1"></a>│ │ └─lifecycle</span>
-<span id="cb32-124"><a href="#cb32-124" aria-hidden="true" tabindex="-1"></a>│ └─yaml</span>
-<span id="cb32-125"><a href="#cb32-125" aria-hidden="true" tabindex="-1"></a>├─rlang</span>
-<span id="cb32-126"><a href="#cb32-126" aria-hidden="true" tabindex="-1"></a>├─shiny</span>
-<span id="cb32-127"><a href="#cb32-127" aria-hidden="true" tabindex="-1"></a>└─stringr <span class="dv">1</span>.<span class="fl">5.0</span> ✨ ⬇ (<span class="fl">311.21</span> kB)</span>
-<span id="cb32-128"><a href="#cb32-128" aria-hidden="true" tabindex="-1"></a>  ├─cli</span>
-<span id="cb32-129"><a href="#cb32-129" aria-hidden="true" tabindex="-1"></a>  ├─glue</span>
-<span id="cb32-130"><a href="#cb32-130" aria-hidden="true" tabindex="-1"></a>  ├─lifecycle</span>
-<span id="cb32-131"><a href="#cb32-131" aria-hidden="true" tabindex="-1"></a>  ├─magrittr</span>
-<span id="cb32-132"><a href="#cb32-132" aria-hidden="true" tabindex="-1"></a>  ├─rlang</span>
-<span id="cb32-133"><a href="#cb32-133" aria-hidden="true" tabindex="-1"></a>  ├─stringi <span class="dv">1</span>.<span class="fl">7.12</span> ✨</span>
-<span id="cb32-134"><a href="#cb32-134" aria-hidden="true" tabindex="-1"></a>  └─vctrs</span>
-<span id="cb32-135"><a href="#cb32-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-136"><a href="#cb32-136" aria-hidden="true" tabindex="-1"></a>Key<span class="sc">:</span>  ✨ new <span class="sc">|</span> 🚀 update <span class="sc">|</span> ✋ outdated <span class="sc">|</span>  ⬇ download <span class="sc">|</span> 👷‍♂️ build</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a>│ ├─scales <span class="dv">1</span>.<span class="fl">3.0</span> ✨ ⬇ (<span class="fl">708.17</span> kB)</span>
+<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a>│ │ ├─cli</span>
+<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a>│ │ ├─farver <span class="dv">2</span>.<span class="fl">1.1</span> ✨ ⬇ (<span class="fl">1.99</span> MB)</span>
+<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a>│ │ ├─glue</span>
+<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a>│ │ ├─labeling <span class="dv">0</span>.<span class="fl">4.3</span> ✨ ⬇ (<span class="fl">61.22</span> kB)</span>
+<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a>│ │ ├─lifecycle</span>
+<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a>│ │ ├─munsell <span class="dv">0</span>.<span class="fl">5.0</span> ✨ ⬇ (<span class="fl">243.42</span> kB)</span>
+<span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a>│ │ │ └─colorspace <span class="fl">2.1</span><span class="dv">-0</span> ✨ ⬇ (<span class="fl">2.64</span> MB)</span>
+<span id="cb32-33"><a href="#cb32-33" aria-hidden="true" tabindex="-1"></a>│ │ ├─R6 <span class="dv">2</span>.<span class="fl">5.1</span> ✨ ⬇ (<span class="fl">83.05</span> kB)</span>
+<span id="cb32-34"><a href="#cb32-34" aria-hidden="true" tabindex="-1"></a>│ │ ├─RColorBrewer <span class="fl">1.1</span><span class="dv">-3</span> ✨ ⬇ (<span class="fl">53.09</span> kB)</span>
+<span id="cb32-35"><a href="#cb32-35" aria-hidden="true" tabindex="-1"></a>│ │ ├─rlang</span>
+<span id="cb32-36"><a href="#cb32-36" aria-hidden="true" tabindex="-1"></a>│ │ └─viridisLite <span class="dv">0</span>.<span class="fl">4.2</span> ✨ ⬇ (<span class="fl">1.30</span> MB)</span>
+<span id="cb32-37"><a href="#cb32-37" aria-hidden="true" tabindex="-1"></a>│ ├─tibble <span class="dv">3</span>.<span class="fl">2.1</span> ✨ ⬇ (<span class="fl">682.28</span> kB)</span>
+<span id="cb32-38"><a href="#cb32-38" aria-hidden="true" tabindex="-1"></a>│ │ ├─fansi <span class="dv">1</span>.<span class="fl">0.6</span> ✨ ⬇ (<span class="fl">388.94</span> kB)</span>
+<span id="cb32-39"><a href="#cb32-39" aria-hidden="true" tabindex="-1"></a>│ │ ├─lifecycle</span>
+<span id="cb32-40"><a href="#cb32-40" aria-hidden="true" tabindex="-1"></a>│ │ ├─magrittr <span class="dv">2</span>.<span class="fl">0.3</span> ✨ ⬇ (<span class="fl">232.37</span> kB)</span>
+<span id="cb32-41"><a href="#cb32-41" aria-hidden="true" tabindex="-1"></a>│ │ ├─pillar <span class="dv">1</span>.<span class="fl">9.0</span> ✨ ⬇ (<span class="fl">648.66</span> kB)</span>
+<span id="cb32-42"><a href="#cb32-42" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─cli</span>
+<span id="cb32-43"><a href="#cb32-43" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─fansi</span>
+<span id="cb32-44"><a href="#cb32-44" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─glue</span>
+<span id="cb32-45"><a href="#cb32-45" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─lifecycle</span>
+<span id="cb32-46"><a href="#cb32-46" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─rlang</span>
+<span id="cb32-47"><a href="#cb32-47" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─utf8 <span class="dv">1</span>.<span class="fl">2.4</span> ✨ ⬇ (<span class="fl">210.04</span> kB)</span>
+<span id="cb32-48"><a href="#cb32-48" aria-hidden="true" tabindex="-1"></a>│ │ │ └─vctrs <span class="dv">0</span>.<span class="fl">6.5</span> ✨ ⬇ (<span class="fl">1.97</span> MB)</span>
+<span id="cb32-49"><a href="#cb32-49" aria-hidden="true" tabindex="-1"></a>│ │ │   ├─cli</span>
+<span id="cb32-50"><a href="#cb32-50" aria-hidden="true" tabindex="-1"></a>│ │ │   ├─glue</span>
+<span id="cb32-51"><a href="#cb32-51" aria-hidden="true" tabindex="-1"></a>│ │ │   ├─lifecycle</span>
+<span id="cb32-52"><a href="#cb32-52" aria-hidden="true" tabindex="-1"></a>│ │ │   └─rlang</span>
+<span id="cb32-53"><a href="#cb32-53" aria-hidden="true" tabindex="-1"></a>│ │ ├─pkgconfig <span class="dv">2</span>.<span class="fl">0.3</span> ✨ ⬇ (<span class="fl">18.18</span> kB)</span>
+<span id="cb32-54"><a href="#cb32-54" aria-hidden="true" tabindex="-1"></a>│ │ ├─rlang</span>
+<span id="cb32-55"><a href="#cb32-55" aria-hidden="true" tabindex="-1"></a>│ │ └─vctrs</span>
+<span id="cb32-56"><a href="#cb32-56" aria-hidden="true" tabindex="-1"></a>│ ├─vctrs</span>
+<span id="cb32-57"><a href="#cb32-57" aria-hidden="true" tabindex="-1"></a>│ └─withr <span class="dv">2</span>.<span class="fl">5.2</span> ✨ ⬇ (<span class="fl">230.90</span> kB)</span>
+<span id="cb32-58"><a href="#cb32-58" aria-hidden="true" tabindex="-1"></a>├─golem <span class="dv">0</span>.<span class="fl">4.1</span> ✨ ⬇ (<span class="fl">1.15</span> MB)</span>
+<span id="cb32-59"><a href="#cb32-59" aria-hidden="true" tabindex="-1"></a>│ ├─attempt <span class="dv">0</span>.<span class="fl">3.1</span> ✨ ⬇ (<span class="fl">109.54</span> kB)</span>
+<span id="cb32-60"><a href="#cb32-60" aria-hidden="true" tabindex="-1"></a>│ │ └─rlang</span>
+<span id="cb32-61"><a href="#cb32-61" aria-hidden="true" tabindex="-1"></a>│ ├─config</span>
+<span id="cb32-62"><a href="#cb32-62" aria-hidden="true" tabindex="-1"></a>│ ├─here <span class="dv">1</span>.<span class="fl">0.1</span> ✨ ⬇ (<span class="fl">51.02</span> kB)</span>
+<span id="cb32-63"><a href="#cb32-63" aria-hidden="true" tabindex="-1"></a>│ │ └─rprojroot <span class="dv">2</span>.<span class="fl">0.4</span> ✨ ⬇ (<span class="fl">105.21</span> kB)</span>
+<span id="cb32-64"><a href="#cb32-64" aria-hidden="true" tabindex="-1"></a>│ ├─htmltools <span class="dv">0</span>.<span class="fl">5.7</span> ✨ ⬇ (<span class="fl">358.55</span> kB)</span>
+<span id="cb32-65"><a href="#cb32-65" aria-hidden="true" tabindex="-1"></a>│ │ ├─base64enc <span class="fl">0.1</span><span class="dv">-3</span> ✨ ⬇ (<span class="fl">34.81</span> kB)</span>
+<span id="cb32-66"><a href="#cb32-66" aria-hidden="true" tabindex="-1"></a>│ │ ├─digest <span class="dv">0</span>.<span class="fl">6.33</span> ✨ ⬇ (<span class="fl">297.88</span> kB)</span>
+<span id="cb32-67"><a href="#cb32-67" aria-hidden="true" tabindex="-1"></a>│ │ ├─ellipsis <span class="dv">0</span>.<span class="fl">3.2</span> ✨ ⬇ (<span class="fl">39.03</span> kB)</span>
+<span id="cb32-68"><a href="#cb32-68" aria-hidden="true" tabindex="-1"></a>│ │ │ └─rlang</span>
+<span id="cb32-69"><a href="#cb32-69" aria-hidden="true" tabindex="-1"></a>│ │ ├─fastmap <span class="dv">1</span>.<span class="fl">1.1</span> ✨ ⬇ (<span class="fl">201.10</span> kB)</span>
+<span id="cb32-70"><a href="#cb32-70" aria-hidden="true" tabindex="-1"></a>│ │ └─rlang</span>
+<span id="cb32-71"><a href="#cb32-71" aria-hidden="true" tabindex="-1"></a>│ ├─rlang</span>
+<span id="cb32-72"><a href="#cb32-72" aria-hidden="true" tabindex="-1"></a>│ ├─shiny <span class="dv">1</span>.<span class="fl">8.0</span> ✨ ⬇ (<span class="fl">4.47</span> MB)</span>
+<span id="cb32-73"><a href="#cb32-73" aria-hidden="true" tabindex="-1"></a>│ │ ├─httpuv <span class="dv">1</span>.<span class="fl">6.13</span> ✨ ⬇ (<span class="fl">2.66</span> MB)</span>
+<span id="cb32-74"><a href="#cb32-74" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─later <span class="dv">1</span>.<span class="fl">3.2</span> ✨ ⬇ (<span class="fl">607.42</span> kB)</span>
+<span id="cb32-75"><a href="#cb32-75" aria-hidden="true" tabindex="-1"></a>│ │ │ │ ├─Rcpp <span class="dv">1</span>.<span class="fl">0.11</span> ✨ ⬇ (<span class="fl">3.31</span> MB)</span>
+<span id="cb32-76"><a href="#cb32-76" aria-hidden="true" tabindex="-1"></a>│ │ │ │ └─rlang</span>
+<span id="cb32-77"><a href="#cb32-77" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─promises <span class="dv">1</span>.<span class="fl">2.1</span> ✨ ⬇ (<span class="fl">1.82</span> MB)</span>
+<span id="cb32-78"><a href="#cb32-78" aria-hidden="true" tabindex="-1"></a>│ │ │ │ ├─fastmap</span>
+<span id="cb32-79"><a href="#cb32-79" aria-hidden="true" tabindex="-1"></a>│ │ │ │ ├─later</span>
+<span id="cb32-80"><a href="#cb32-80" aria-hidden="true" tabindex="-1"></a>│ │ │ │ ├─magrittr</span>
+<span id="cb32-81"><a href="#cb32-81" aria-hidden="true" tabindex="-1"></a>│ │ │ │ ├─R6</span>
+<span id="cb32-82"><a href="#cb32-82" aria-hidden="true" tabindex="-1"></a>│ │ │ │ ├─Rcpp</span>
+<span id="cb32-83"><a href="#cb32-83" aria-hidden="true" tabindex="-1"></a>│ │ │ │ └─rlang</span>
+<span id="cb32-84"><a href="#cb32-84" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─R6</span>
+<span id="cb32-85"><a href="#cb32-85" aria-hidden="true" tabindex="-1"></a>│ │ │ └─Rcpp</span>
+<span id="cb32-86"><a href="#cb32-86" aria-hidden="true" tabindex="-1"></a>│ │ ├─mime <span class="fl">0.12</span> ✨ ⬇ (<span class="fl">36.62</span> kB)</span>
+<span id="cb32-87"><a href="#cb32-87" aria-hidden="true" tabindex="-1"></a>│ │ ├─jsonlite <span class="dv">1</span>.<span class="fl">8.8</span> ✨ ⬇ (<span class="fl">1.13</span> MB)</span>
+<span id="cb32-88"><a href="#cb32-88" aria-hidden="true" tabindex="-1"></a>│ │ ├─xtable <span class="fl">1.8</span><span class="dv">-4</span> ✨ ⬇ (<span class="fl">701.99</span> kB)</span>
+<span id="cb32-89"><a href="#cb32-89" aria-hidden="true" tabindex="-1"></a>│ │ ├─fontawesome <span class="dv">0</span>.<span class="fl">5.2</span> ✨ ⬇ (<span class="fl">1.36</span> MB)</span>
+<span id="cb32-90"><a href="#cb32-90" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─rlang</span>
+<span id="cb32-91"><a href="#cb32-91" aria-hidden="true" tabindex="-1"></a>│ │ │ └─htmltools</span>
+<span id="cb32-92"><a href="#cb32-92" aria-hidden="true" tabindex="-1"></a>│ │ ├─htmltools</span>
+<span id="cb32-93"><a href="#cb32-93" aria-hidden="true" tabindex="-1"></a>│ │ ├─R6</span>
+<span id="cb32-94"><a href="#cb32-94" aria-hidden="true" tabindex="-1"></a>│ │ ├─sourcetools <span class="dv">0</span>.<span class="fl">1.7</span><span class="dv">-1</span> ✨ ⬇ (<span class="fl">137.44</span> kB)</span>
+<span id="cb32-95"><a href="#cb32-95" aria-hidden="true" tabindex="-1"></a>│ │ ├─later</span>
+<span id="cb32-96"><a href="#cb32-96" aria-hidden="true" tabindex="-1"></a>│ │ ├─promises</span>
+<span id="cb32-97"><a href="#cb32-97" aria-hidden="true" tabindex="-1"></a>│ │ ├─crayon <span class="dv">1</span>.<span class="fl">5.2</span> ✨ ⬇ (<span class="fl">162.31</span> kB)</span>
+<span id="cb32-98"><a href="#cb32-98" aria-hidden="true" tabindex="-1"></a>│ │ ├─rlang</span>
+<span id="cb32-99"><a href="#cb32-99" aria-hidden="true" tabindex="-1"></a>│ │ ├─fastmap</span>
+<span id="cb32-100"><a href="#cb32-100" aria-hidden="true" tabindex="-1"></a>│ │ ├─withr</span>
+<span id="cb32-101"><a href="#cb32-101" aria-hidden="true" tabindex="-1"></a>│ │ ├─commonmark <span class="dv">1</span>.<span class="fl">9.0</span> ✨ ⬇ (<span class="fl">357.18</span> kB)</span>
+<span id="cb32-102"><a href="#cb32-102" aria-hidden="true" tabindex="-1"></a>│ │ ├─glue</span>
+<span id="cb32-103"><a href="#cb32-103" aria-hidden="true" tabindex="-1"></a>│ │ ├─bslib <span class="dv">0</span>.<span class="fl">6.1</span> ✨ ⬇ (<span class="fl">6.24</span> MB)</span>
+<span id="cb32-104"><a href="#cb32-104" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─base64enc</span>
+<span id="cb32-105"><a href="#cb32-105" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─cachem <span class="dv">1</span>.<span class="fl">0.8</span> ✨ ⬇ (<span class="fl">69.43</span> kB)</span>
+<span id="cb32-106"><a href="#cb32-106" aria-hidden="true" tabindex="-1"></a>│ │ │ │ ├─rlang</span>
+<span id="cb32-107"><a href="#cb32-107" aria-hidden="true" tabindex="-1"></a>│ │ │ │ └─fastmap</span>
+<span id="cb32-108"><a href="#cb32-108" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─htmltools</span>
+<span id="cb32-109"><a href="#cb32-109" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─jquerylib <span class="dv">0</span>.<span class="fl">1.4</span> ✨ ⬇ (<span class="fl">526.36</span> kB)</span>
+<span id="cb32-110"><a href="#cb32-110" aria-hidden="true" tabindex="-1"></a>│ │ │ │ └─htmltools</span>
+<span id="cb32-111"><a href="#cb32-111" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─jsonlite</span>
+<span id="cb32-112"><a href="#cb32-112" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─lifecycle</span>
+<span id="cb32-113"><a href="#cb32-113" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─memoise <span class="dv">2</span>.<span class="fl">0.1</span> ✨ ⬇ (<span class="fl">47.96</span> kB)</span>
+<span id="cb32-114"><a href="#cb32-114" aria-hidden="true" tabindex="-1"></a>│ │ │ │ ├─rlang</span>
+<span id="cb32-115"><a href="#cb32-115" aria-hidden="true" tabindex="-1"></a>│ │ │ │ └─cachem</span>
+<span id="cb32-116"><a href="#cb32-116" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─mime</span>
+<span id="cb32-117"><a href="#cb32-117" aria-hidden="true" tabindex="-1"></a>│ │ │ ├─rlang</span>
+<span id="cb32-118"><a href="#cb32-118" aria-hidden="true" tabindex="-1"></a>│ │ │ └─sass <span class="dv">0</span>.<span class="fl">4.8</span> ✨ ⬇ (<span class="fl">2.41</span> MB)</span>
+<span id="cb32-119"><a href="#cb32-119" aria-hidden="true" tabindex="-1"></a>│ │ │   ├─fs <span class="dv">1</span>.<span class="fl">6.3</span> ✨ ⬇ (<span class="fl">625.41</span> kB)</span>
+<span id="cb32-120"><a href="#cb32-120" aria-hidden="true" tabindex="-1"></a>│ │ │   ├─rlang</span>
+<span id="cb32-121"><a href="#cb32-121" aria-hidden="true" tabindex="-1"></a>│ │ │   ├─htmltools</span>
+<span id="cb32-122"><a href="#cb32-122" aria-hidden="true" tabindex="-1"></a>│ │ │   ├─R6</span>
+<span id="cb32-123"><a href="#cb32-123" aria-hidden="true" tabindex="-1"></a>│ │ │   └─rappdirs <span class="dv">0</span>.<span class="fl">3.3</span> ✨ ⬇ (<span class="fl">47.30</span> kB)</span>
+<span id="cb32-124"><a href="#cb32-124" aria-hidden="true" tabindex="-1"></a>│ │ ├─cachem</span>
+<span id="cb32-125"><a href="#cb32-125" aria-hidden="true" tabindex="-1"></a>│ │ ├─ellipsis</span>
+<span id="cb32-126"><a href="#cb32-126" aria-hidden="true" tabindex="-1"></a>│ │ └─lifecycle</span>
+<span id="cb32-127"><a href="#cb32-127" aria-hidden="true" tabindex="-1"></a>│ └─yaml</span>
+<span id="cb32-128"><a href="#cb32-128" aria-hidden="true" tabindex="-1"></a>├─rlang</span>
+<span id="cb32-129"><a href="#cb32-129" aria-hidden="true" tabindex="-1"></a>├─shiny</span>
+<span id="cb32-130"><a href="#cb32-130" aria-hidden="true" tabindex="-1"></a>└─stringr <span class="dv">1</span>.<span class="fl">5.1</span> ✨ ⬇ (<span class="fl">312.39</span> kB)</span>
+<span id="cb32-131"><a href="#cb32-131" aria-hidden="true" tabindex="-1"></a>  ├─cli</span>
+<span id="cb32-132"><a href="#cb32-132" aria-hidden="true" tabindex="-1"></a>  ├─glue</span>
+<span id="cb32-133"><a href="#cb32-133" aria-hidden="true" tabindex="-1"></a>  ├─lifecycle</span>
+<span id="cb32-134"><a href="#cb32-134" aria-hidden="true" tabindex="-1"></a>  ├─magrittr</span>
+<span id="cb32-135"><a href="#cb32-135" aria-hidden="true" tabindex="-1"></a>  ├─rlang</span>
+<span id="cb32-136"><a href="#cb32-136" aria-hidden="true" tabindex="-1"></a>  ├─stringi <span class="dv">1</span>.<span class="fl">8.2</span> ✨ ⬇ (<span class="fl">14.63</span> MB)</span>
+<span id="cb32-137"><a href="#cb32-137" aria-hidden="true" tabindex="-1"></a>  └─vctrs</span>
+<span id="cb32-138"><a href="#cb32-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-139"><a href="#cb32-139" aria-hidden="true" tabindex="-1"></a>Key<span class="sc">:</span>  ✨ new <span class="sc">|</span> ✋ outdated <span class="sc">|</span>  ⬇ download <span class="sc">|</span> 👷🏻‍♀️ build <span class="sc">|</span> 🔧 compile</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -1232,8 +1236,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>The tests <code>golem</code> creates in the <code>tests/testthat/</code> folder can serve as a nice guide for users new to <code>testthat</code><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>New functions are added to the <code>R/</code> folder and include <a href="https://style.tidyverse.org/documentation.html#internal-functions"><code>@noRd</code></a> by default (which must be removed create the <code>.Rd</code> files in the <code>man/</code> folder)<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>The code used to build the golem app is <a href="https://github.com/mjfrigaard/sfw/tree/main/_apps/gap">here</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The tests <code>golem</code> creates in the <code>tests/testthat/</code> folder can serve as a nice guide for users new to <code>testthat</code><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>New functions are added to the <code>R/</code> folder and include <a href="https://style.tidyverse.org/documentation.html#internal-functions"><code>@noRd</code></a> by default (which must be removed create the <code>.Rd</code> files in the <code>man/</code> folder)<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
