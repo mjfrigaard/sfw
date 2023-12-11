@@ -19,8 +19,6 @@ execute:
 source("_common.R")
 ```
 
-## `lap` 
-
 [`leprechaun`](https://leprechaun.opifex.org/#/) apps are built much like R packages (with `devtools` and `usethis`), but they are designed with the intention of being a 'leaner and smaller' version of `golem`:[^view-lap]
 
 > *"it generates code and does not make itself a dependency of the application you build; this means applications are leaner, and smaller"*
@@ -31,9 +29,9 @@ Below is an overview of the features/functions in the `leprechaun` framework:
 
 {{< include _leprechaun_features.qmd >}}
 
-## Start
+## Getting started
 
-Create a leprechaun app just like you would a new R package:
+Create a `leprechaun` app just like you would a new R package:
 
 ```{r}
 #| label: create_package-lap
@@ -57,14 +55,16 @@ usethis::create_package("lap")
 ✔ Opening '/Users/mjfrigaard/projects/lap/' in new RStudio session
 ```
 
-After the new project opens, install and load the `leprechaun` package, then run `leprechaun::scaffold()`:
+After the new project opens, install and load the `leprechaun` package, then run `leprechaun::scaffold()`:[^leprechaun-scaffold]
+
+[^leprechaun-scaffold]: The [`leprechaun::scaffold()`](https://leprechaun.opifex.org/#/reference/scaffold) defaults to a `navbarPage()`, but I've switched to a `fluidPage()` for this example. 
 
 ```{r}
 #| label: install.packages-scaffold
 #| code-fold: false
 install.packages("leprechaun")
 library(leprechaun)
-leprechaun::scaffold()
+leprechaun::scaffold(ui = "fluidPage")
 ```
 
 
@@ -106,10 +106,11 @@ leprechaun::scaffold()
 ✔ Adding '^\\.leprechaun$' to '.Rbuildignore'
 ```
 
+## `leprechaun` structure 
+
 This results in the following folder tree:
 
 ```{bash}
-#| label: scaffold-leprechaun
 #| code-fold: false
 lap/
   ├── DESCRIPTION
@@ -145,7 +146,6 @@ The initial application files are created using [`leprechaun::scaffold()`](https
   -   `overwrite`: Overwrite all files?\
     
 ```{bash}
-#| label: r-contents-leprechaun
 #| code-fold: false
 └── R/
     ├── _disable_autoload.R
@@ -195,7 +195,7 @@ inst/
 4 directories, 1 file
 ```
 
-assets, dev, and image will be demonstrated in the sections below. The `inst/run/app.R` contains calls to `leprechaun::build()` and `pkgload::load_all()` before running the app with `run()`
+`assets`, `dev`, and `img` will be demonstrated in the sections below. The `inst/run/app.R` contains calls to `leprechaun::build()` and `pkgload::load_all()` before running the app with `run()`
 
 ```{r}
 #| eval: false
@@ -215,7 +215,7 @@ run()
     
 This file is not run directly (check `leprechaun::add_app_file()`)
 
-## Develop
+## Building a `leprechaun` app
 
 Building `leprechaun` apps is similar to developing an R package. New code is placed in the `R/` folder, and application resources (CSS, SASS, JavaScript files) are added using one of the `leprechaun::use_*` functions: 
 
@@ -225,10 +225,6 @@ Building `leprechaun` apps is similar to developing an R package. New code is pl
   -   [`use_js_utils()`](https://leprechaun.opifex.org/#/reference/use_js_utils)
   
 More assets can be added using the [`leprechaun::use_packer()`](https://leprechaun.opifex.org/#/examples/basic#javascript) function. 
-
-### 
-
-The [`leprechaun::scaffold()`](https://leprechaun.opifex.org/#/reference/scaffold) defaults to a `navbarPage()`, but I've switched to a `fluidPage()` for this example. 
 
 ### `add_module()`
 
@@ -312,7 +308,7 @@ The module contents are similar to `golem`, but instead of using the `@noRd` tag
 
 The code for the `var_input` and `plot_display` modules are below. 
 
-- [x] The `R/module_var_input.R` file: `plot_dispay` collects the data from `var_input` and creates the plot with the custom `scatter_plot()` function:
+-  The `R/module_var_input.R` file: `plot_dispay` collects the data from `var_input` and creates the plot with the custom `scatter_plot()` function:
 
 ```{r}
 #| eval: false
@@ -399,7 +395,7 @@ var_input_server <- function(id) {
 }
 ```
 
-- [x] The `R/module_plot_display.R` file 
+-  The `R/module_plot_display.R` file 
 
 ```{r}
 #| eval: false
@@ -466,7 +462,7 @@ plot_display_server <- function(id, var_inputs) {
 
 After creating the modules, adding them to the UI (`R/ui.R`) and server (`R/server.R`) is straightforward.
 
-- [x] The `R/ui.R` file: the UI includes the `bs_theme()` function (with version set to `5`).
+-  The `R/ui.R` file: the UI includes the `bs_theme()` function (with version set to `5`).
     
 ```{r}
 #| label: ui-leprechaun
@@ -500,7 +496,7 @@ ui <- function(req) {
 }
 ```
 
-- [x] The `R/server.R` file: The server also has the `make_send_message()` function in it by default (more on that below).
+-  The `R/server.R` file: The server also has the `make_send_message()` function in it by default (more on that below).
 
 ```{r}
 #| label: server-leprechaun
@@ -532,7 +528,7 @@ The other components of `lap` were created using the standard `usethis` package 
 
 ### Add data
 
-- [x] `movies.RData` was added to `inst/extdata` and loaded into the package with `usethis::use_data_raw()`
+-  `movies.RData` was added to `inst/extdata` and loaded into the package with `usethis::use_data_raw()`
 
 ```{r}
 #| label: co_box_extdata
@@ -553,7 +549,7 @@ usethis::use_data(movies, overwrite = TRUE)
 
 ### Add utility function
 
-- [x] `usethis::use_r()` created `R/utils_plot_display.R` to hold the `scatter_plot()` function  
+-  `usethis::use_r()` created `R/utils_plot_display.R` to hold the `scatter_plot()` function  
 
 ```{r}
 #| label: point-plot-leprechaun
@@ -577,15 +573,15 @@ Now I can run `devtools::load_all()`, `devtools::document()`, restart and load t
 run `lap`
 :::
 
-## Adding features 
+### Adding features 
 
 `leprechaun` stores external code files the `inst/` folder (similar to the `golem` framework), but uses a combination of `use_*` and `build()` functions to add functionality to you app.  
 
-### Use `packer`
+#### Use `packer`
 
 I'll demonstrate how `make_send_message()` function works by walking through the JavaScript example from the [package website](https://leprechaun.opifex.org/#/examples/basic#javascript). 
 
-- [x]  First we have to build the scaffolding for packer by running [`packer::scaffold_leprechaun()`](https://packer.john-coene.com/#/references/scaffold_leprechaun)
+-   First we have to build the scaffolding for packer by running [`packer::scaffold_leprechaun()`](https://packer.john-coene.com/#/references/scaffold_leprechaun)
     
 ```{r}
 #| label: scaffold_leprechaun
@@ -622,7 +618,7 @@ packer::scaffold_leprechaun()
 ℹ Run `leprechaun::use_packer()`
 ```
 
-- [x] Now that the scaffolding is in place, run `leprechaun::use_packer()`:
+-  Now that the scaffolding is in place, run `leprechaun::use_packer()`:
     
 ```{r}
 #| label: use_packer
@@ -638,7 +634,7 @@ leprechaun::use_packer()
 ! This requires `leprechaun::build()` or the `leprechaun::build_roclet`
 ```
     
-- [x] The final step is to build or 'bundle' the JavaScript files with `leprechaun::build()`
+-  The final step is to build or 'bundle' the JavaScript files with `leprechaun::build()`
     
 ```{r}
 #| label: leprechaun_build_js
@@ -735,7 +731,7 @@ send_message("show-packer",
 
 Read more about sending JavaScript messages [here on the shiny website.](https://shiny.rstudio.com/articles/js-send-message.html)
 
-### Add images
+#### Add images
 
 I'll demonstrate how to use the `inst/` folder by adding an image to the application.
 
@@ -769,11 +765,11 @@ Once again, run `devtools::load_all()` and `devtools::document()`, restarting an
 Adding images to `inst/img/`
 :::
 
-### Use `Sass`
+#### Use `Sass`
 
 We can add Sass styling to our `leprechaun` app using the [`use_sass()`](https://leprechaun.opifex.org/#/reference/use_sass) helper function (this Sass example is from the [package  website](https://leprechaun.opifex.org/#/examples/basic#sass)). 
   
-- [x] Run `leprechaun::use_sass()`:
+-  Run `leprechaun::use_sass()`:
 
 ```{r}
 #| label: use_sass-leprechaun
@@ -817,7 +813,7 @@ html{
 }
 ```
 
-- [x] We'll change the `color:` from `red` to green (`#38B44A`) using `$accent: #38B44A;`
+-  We'll change the `color:` from `red` to green (`#38B44A`) using `$accent: #38B44A;`
     
 ```{scss}
 $accent: #38B44A;
@@ -829,7 +825,7 @@ html{
 }
 ```
 
-- [x] Then run [`leprechaun::build()`](https://leprechaun.opifex.org/#/reference/build)
+-  Then run [`leprechaun::build()`](https://leprechaun.opifex.org/#/reference/build)
     
 ```{r}
 #| label: build-leprechaun
@@ -891,7 +887,7 @@ Once again, I run `devtools::load_all()`, `devtools::document()`, install and re
 run `lap` with new Sass
 :::
 
-## `leprechaun::build()`
+### `leprechaun::build()`
 
 The `assets/` folder contains the files generated by the `.R` scripts in the `dev/` folder.
 
@@ -919,7 +915,7 @@ The `assets/` folder contains the files generated by the `.R` scripts in the `de
 
 -   `inst/dev/sass.R` creates `inst/assets/style.min.css` and `inst/dev/packer.R` creates `inst/assets/index.js`
 
-### `serveAssets()`
+#### `serveAssets()`
 
 After running `leprechaun::use_sass()` and `leprechaun::build()`, we'll check the `serveAssets()` function:
 
@@ -952,7 +948,7 @@ List of 10
 
 This shows me `stylesheet` has been updated with `"assets/style.min.css"` and `script` has been updated with `"assets/index.js"` (these files are loaded into the application when it runs). 
 
-## Configure
+### Configure
 
 `leprechaun` app configuration files use the [config](https://rstudio.github.io/config/articles/introduction.html) package (similar to `golem`). leprechaun doesn't assume I'll be using a `config.yml` file, but I can easily add one with [`leprechaun::use_config()`](https://leprechaun.opifex.org/#/guide/use#config).
 
@@ -973,7 +969,7 @@ This shows me `stylesheet` has been updated with `"assets/style.min.css"` and `s
 
     -   Values can be added to `inst/config.yml` using the [config file format](https://biostat.app.vumc.org/wiki/Main/YamlR), then the `CONFIG_FILE` can be set as [an environmental variable](https://rstudio.github.io/config/articles/introduction.html#configurations)
 
-## `lap` dependencies 
+## `leprechaun` dependencies 
 
 ```{r}
 #| label: co_box_leaner_smaller
@@ -1140,7 +1136,7 @@ pak::local_dev_deps_explain(
 
 Most of the features in `golem` are also accessible in `leprechaun`:
 
--   [x] Adding modules: `leprechaun`'s `add_module()` function doesn't have the consistent naming or prefixes found in `golem::add_module()`, but still reduces a lot of typing if you are creating these files manually. 
+-    Adding modules: `leprechaun`'s `add_module()` function doesn't have the consistent naming or prefixes found in `golem::add_module()`, but still reduces a lot of typing if you are creating these files manually. 
 
 -   [ ] Adding functions: leprechaun relies on 
 
