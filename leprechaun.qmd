@@ -21,9 +21,11 @@ source("_common.R")
 
 ## `lap` 
 
-[`leprechaun`](https://leprechaun.opifex.org/#/) apps are built much like R packages (with `devtools` and `usethis`), but they are designed with the intention of being a 'leaner and smaller' version of `golem`:
+[`leprechaun`](https://leprechaun.opifex.org/#/) apps are built much like R packages (with `devtools` and `usethis`), but they are designed with the intention of being a 'leaner and smaller' version of `golem`:[^view-lap]
 
 > *"it generates code and does not make itself a dependency of the application you build; this means applications are leaner, and smaller"*
+
+[^view-lap]: The coed used to build the `leprechaun` app is [here](https://github.com/mjfrigaard/sfw/tree/main/_apps/lap)
 
 Below is an overview of the features/functions in the `leprechaun` framework:
 

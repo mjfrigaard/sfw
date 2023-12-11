@@ -43,16 +43,178 @@ This website is a resource for developers who are curious about the relative pro
 
 This repo contains the following shiny applications: 
 
-1. [`gap`](https://github.com/mjfrigaard/sfw/tree/main/_apps/gap): a `golem` app-package
+::: {layout="[20, 80]"}
 
-2. [`lap`](https://github.com/mjfrigaard/sfw/tree/main/_apps/lap): a `leprechaun` app-package
+![](img/goelm_hex.png){fig-align="left" width="250"}
 
-3. [`rap`](https://github.com/mjfrigaard/sfw/tree/main/_apps/rap): a `rhino` app (pseudo-package)[^rhino-non-pkg]
+[`gap`](golem.qmd): a [`golem`](https://thinkr-open.github.io/golem/) app-package
 
-[^rhino-non-pkg]: `rhino` apps aren't R packages--they're dependencies are managed with a `dependencies.R` file and [`box`](https://klmr.me/box/) modules.
+
+:::
+
+::: {layout="[20, 80]"}
+
+![](img/leprechaun_hex.png){fig-align="left" width="250"}
+
+
+
+[`lap`](leprechaun.qmd): a [`leprechaun`](https://leprechaun.opifex.org/#/) app-package
+
+:::
+
+
+::: {layout="[20, 80]"}
+
+![](img/rhino_hex.png){fig-align="left" width="250"}
+
+ [`rap`](rhino.qmd): a [`rhino`](https://appsilon.github.io/rhino/) app (pseudo-package)[^rhino-non-pkg]
+ 
+ [^rhino-non-pkg]: `rhino` apps aren't R packages--they're dependencies are managed with a `dependencies.R` file and [`box`](https://klmr.me/box/) modules.
+
+:::
 
 ### The application
 
 The original data and code for each application comes from [Building Web Applications With Shiny](https://rstudio-education.github.io/shiny-course/)[^bwas], but has been adapted to provide a basic (but realistic) example with modules, utility function, tests, etc.
+
+```{r}
+#| eval: false
+#| code-fold: false
+library(shiny)
+library(shinythemes)
+ui <- fluidPage(
+  theme = shinythemes::shinytheme("spacelab"),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput(
+        inputId = "y",
+        label = "Y-axis:",
+        choices = c(
+          "IMDB rating" = "imdb_rating",
+          "IMDB number of votes" = "imdb_num_votes",
+          "Critics Score" = "critics_score",
+          "Audience Score" = "audience_score",
+          "Runtime" = "runtime"
+        ),
+        selected = "audience_score"
+      ),
+      selectInput(
+        inputId = "x",
+        label = "X-axis:",
+        choices = c(
+          "IMDB rating" = "imdb_rating",
+          "IMDB number of votes" = "imdb_num_votes",
+          "Critics Score" = "critics_score",
+          "Audience Score" = "audience_score",
+          "Runtime" = "runtime"
+        ),
+        selected = "critics_score"
+      ),
+      selectInput(
+        inputId = "z",
+        label = "Color by:",
+        choices = c(
+          "Title Type" = "title_type",
+          "Genre" = "genre",
+          "MPAA Rating" = "mpaa_rating",
+          "Critics Rating" = "critics_rating",
+          "Audience Rating" = "audience_rating"
+        ),
+        selected = "mpaa_rating"
+      ),
+      sliderInput(
+        inputId = "alpha",
+        label = "Alpha:",
+        min = 0, max = 1,
+        value = 0.4
+      ),
+      sliderInput(
+        inputId = "size",
+        label = "Size:",
+        min = 0, max = 5,
+        value = 3
+      ),
+      textInput(
+        inputId = "plot_title",
+        label = "Plot title",
+        placeholder = "Enter text to be used as plot title"
+      ),
+      actionButton(
+        inputId = "update_plot_title",
+        label = "Update plot title"
+      )
+    ),
+    mainPanel(
+      br(),
+      p(
+        "These data were obtained from",
+        a("IMBD", href = "http://www.imbd.com/"), "and",
+        a("Rotten Tomatoes", href = "https://www.rottentomatoes.com/"), "."
+      ),
+      p(
+        "The data represent",
+        nrow(movies),
+        "randomly sampled movies released between 1972 to 2014 in the United States."
+      ),
+      plotOutput(outputId = "scatterplot"),
+      hr(),
+      p(em(
+        "The code for this Shiny application comes from",
+        a("Building Web Applications with shiny",
+          href = "https://rstudio-education.github.io/shiny-course/"
+        )
+      ))
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  
+  new_plot_title <- reactive({
+    tools::toTitleCase(input$plot_title)
+  }) |>
+    bindEvent(input$update_plot_title,
+      ignoreNULL = FALSE,
+      ignoreInit = FALSE
+    )
+
+
+  output$scatterplot <- renderPlot({
+    scatter_plot(
+      # load movies data 
+      df = movies,
+      x_var = input$x,
+      y_var = input$y,
+      col_var = input$z,
+      alpha_var = input$alpha,
+      size_var = input$size
+    ) +
+      ggplot2::labs(title = new_plot_title()) +
+      ggplot2::theme_minimal() +
+      ggplot2::theme(legend.position = "bottom")
+  })
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+`scatter_plot()` gives us an example utility function to build with our applications.
+
+```{r}
+#| eval: false
+#| code-fold: false
+scatter_plot <- function(df, x_var, y_var, col_var, alpha_var, size_var) {
+    ggplot2::ggplot(data = df,
+      ggplot2::aes(x = .data[[x_var]],
+          y = .data[[y_var]],
+          color = .data[[col_var]])) +
+      ggplot2::geom_point(alpha = alpha_var, size = size_var)
+
+}
+```
+
+The application also uses an external dataset.[^movies-data] 
+
+[^movies-data]: You can download the movies data [here.](https://github.com/mjfrigaard/sfw/raw/main/movies.RData)
 
 [^bwas]: This was a popular course among colleagues and covers (in my opinion) what a developer should know before considering a framework.

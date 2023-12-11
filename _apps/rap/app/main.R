@@ -1,12 +1,13 @@
-# app/view/main.R
+# app/main.R
 
 # shiny functions
 box::use(
   shiny[
-    NS, fluidPage, sidebarLayout, sidebarPanel,
+    NS, fluidPage, sidebarLayout, sidebarPanel, 
     mainPanel, fluidRow, column, tags, icon,
-    textOutput, moduleServer, renderText
-  ]
+    plotOutput, moduleServer, renderPlot
+  ],
+  shinythemes[shinytheme]
 )
 
 # import modules
@@ -22,17 +23,19 @@ box::use(
 ui <- function(id) {
   ns <- NS(id)
   fluidPage(
+    theme = shinytheme("spacelab"),
     sidebarLayout(
       sidebarPanel(
         # use inputs module UI ----
+        
         inputs$ui(ns("vals"))
       ),
       mainPanel(
         fluidRow(
           column(
             width = 12,
-            tags$h3("rap")
-          )
+              tags$h3("rap")
+            )
         ),
         fluidRow(
           column(
