@@ -42,8 +42,6 @@ box_use_df <- data.frame(
 )
 ```
 
-## `rhino`
-
 `rhino` apps are unique because unlike `golem` and `leprechaun`, they aren't R packages. `rhino` uses [`box`](https://klmr.me/box/) modules to manage add-on package functions, which makes simplifies app dependencies and separates the code into a clear 'division of labor.'[^view-rap]
 
 [^view-rap]: The code used to build the `rhino` app is available [here](https://github.com/mjfrigaard/sfw/tree/main/_apps/rap).
