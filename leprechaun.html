@@ -164,19 +164,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#lap" id="toc-lap" class="nav-link active" data-scroll-target="#lap"><code>lap</code></a></li>
-  <li><a href="#start" id="toc-start" class="nav-link" data-scroll-target="#start">Start</a>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link active" data-scroll-target="#getting-started">Getting started</a></li>
+  <li><a href="#leprechaun-structure" id="toc-leprechaun-structure" class="nav-link" data-scroll-target="#leprechaun-structure"><code>leprechaun</code> structure</a>
   <ul>
   <li><a href="#r" id="toc-r" class="nav-link" data-scroll-target="#r"><code>R/</code></a></li>
   <li><a href="#inst" id="toc-inst" class="nav-link" data-scroll-target="#inst"><code>inst/</code></a></li>
   </ul></li>
-  <li><a href="#develop" id="toc-develop" class="nav-link" data-scroll-target="#develop">Develop</a>
+  <li><a href="#building-a-leprechaun-app" id="toc-building-a-leprechaun-app" class="nav-link" data-scroll-target="#building-a-leprechaun-app">Building a <code>leprechaun</code> app</a>
   <ul>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   <li><a href="#add_module" id="toc-add_module" class="nav-link" data-scroll-target="#add_module"><code>add_module()</code></a></li>
   <li><a href="#add-data" id="toc-add-data" class="nav-link" data-scroll-target="#add-data">Add data</a></li>
   <li><a href="#add-utility-function" id="toc-add-utility-function" class="nav-link" data-scroll-target="#add-utility-function">Add utility function</a></li>
-  </ul></li>
   <li><a href="#adding-features" id="toc-adding-features" class="nav-link" data-scroll-target="#adding-features">Adding features</a>
   <ul>
   <li><a href="#use-packer" id="toc-use-packer" class="nav-link" data-scroll-target="#use-packer">Use <code>packer</code></a></li>
@@ -188,7 +186,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#serveassets" id="toc-serveassets" class="nav-link" data-scroll-target="#serveassets"><code>serveAssets()</code></a></li>
   </ul></li>
   <li><a href="#configure" id="toc-configure" class="nav-link" data-scroll-target="#configure">Configure</a></li>
-  <li><a href="#lap-dependencies" id="toc-lap-dependencies" class="nav-link" data-scroll-target="#lap-dependencies"><code>lap</code> dependencies</a></li>
+  </ul></li>
+  <li><a href="#leprechaun-dependencies" id="toc-leprechaun-dependencies" class="nav-link" data-scroll-target="#leprechaun-dependencies"><code>leprechaun</code> dependencies</a></li>
   <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap">Recap</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/mjfrigaard/sfw/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -213,8 +212,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="lap" class="level2">
-<h2 class="anchored" data-anchor-id="lap"><code>lap</code></h2>
 <p><a href="https://leprechaun.opifex.org/#/"><code>leprechaun</code></a> apps are built much like R packages (with <code>devtools</code> and <code>usethis</code>), but they are designed with the intention of being a ‘leaner and smaller’ version of <code>golem</code>:<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <blockquote class="blockquote">
 <p><em>“it generates code and does not make itself a dependency of the application you build; this means applications are leaner, and smaller”</em></p>
@@ -328,10 +325,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </div>
-</section>
-<section id="start" class="level2">
-<h2 class="anchored" data-anchor-id="start">Start</h2>
-<p>Create a leprechaun app just like you would a new R package:</p>
+<section id="getting-started" class="level2">
+<h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
+<p>Create a <code>leprechaun</code> app just like you would a new R package:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">create_package</span>(<span class="st">"lap"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -347,11 +343,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'^\\.Rproj\\.user$'</span> to <span class="st">'.Rbuildignore'</span></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Opening <span class="st">'/Users/mjfrigaard/projects/lap/'</span> in new RStudio session</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>After the new project opens, install and load the <code>leprechaun</code> package, then run <code>leprechaun::scaffold()</code>:</p>
+<p>After the new project opens, install and load the <code>leprechaun</code> package, then run <code>leprechaun::scaffold()</code>:<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"leprechaun"</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leprechaun)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>leprechaun<span class="sc">::</span><span class="fu">scaffold</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>leprechaun<span class="sc">::</span><span class="fu">scaffold</span>(<span class="at">ui =</span> <span class="st">"fluidPage"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">──</span> Scaffolding leprechaun app ─────────────────────────────────────────</span>
@@ -388,6 +384,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'^\\.leprechaun$'</span> to <span class="st">'.Rbuildignore'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="leprechaun-structure" class="level2">
+<h2 class="anchored" data-anchor-id="leprechaun-structure"><code>leprechaun</code> structure</h2>
 <p>This results in the following folder tree:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lap/</span></span>
@@ -461,7 +460,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="ex">4</span> directories, 1 file</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>assets, dev, and image will be demonstrated in the sections below. The <code>inst/run/app.R</code> contains calls to <code>leprechaun::build()</code> and <code>pkgload::load_all()</code> before running the app with <code>run()</code></p>
+<p><code>assets</code>, <code>dev</code>, and <code>img</code> will be demonstrated in the sections below. The <code>inst/run/app.R</code> contains calls to <code>leprechaun::build()</code> and <code>pkgload::load_all()</code> before running the app with <code>run()</code></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># do not deploy from this file</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># see leprechaun::add_app_file()</span></span>
@@ -478,8 +477,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This file is not run directly (check <code>leprechaun::add_app_file()</code>)</p>
 </section>
 </section>
-<section id="develop" class="level2">
-<h2 class="anchored" data-anchor-id="develop">Develop</h2>
+<section id="building-a-leprechaun-app" class="level2">
+<h2 class="anchored" data-anchor-id="building-a-leprechaun-app">Building a <code>leprechaun</code> app</h2>
 <p>Building <code>leprechaun</code> apps is similar to developing an R package. New code is placed in the <code>R/</code> folder, and application resources (CSS, SASS, JavaScript files) are added using one of the <code>leprechaun::use_*</code> functions:</p>
 <ul>
 <li><a href="https://leprechaun.opifex.org/#/reference/use_sass"><code>use_sass()</code></a></li>
@@ -489,10 +488,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="https://leprechaun.opifex.org/#/reference/use_js_utils"><code>use_js_utils()</code></a></li>
 </ul>
 <p>More assets can be added using the <a href="https://leprechaun.opifex.org/#/examples/basic#javascript"><code>leprechaun::use_packer()</code></a> function.</p>
-<section id="section" class="level3">
-<h3 class="anchored" data-anchor-id="section"></h3>
-<p>The <a href="https://leprechaun.opifex.org/#/reference/scaffold"><code>leprechaun::scaffold()</code></a> defaults to a <code>navbarPage()</code>, but I’ve switched to a <code>fluidPage()</code> for this example.</p>
-</section>
 <section id="add_module" class="level3">
 <h3 class="anchored" data-anchor-id="add_module"><code>add_module()</code></h3>
 <p>leprechaun has an <a href="https://leprechaun.opifex.org/#/reference/add_module"><code>add_module()</code></a> helper function for creating modules:</p>
@@ -572,8 +567,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>The code for the <code>var_input</code> and <code>plot_display</code> modules are below.</p>
-<ul class="task-list">
-<li><input type="checkbox" checked="">The <code>R/module_var_input.R</code> file: <code>plot_dispay</code> collects the data from <code>var_input</code> and creates the plot with the custom <code>scatter_plot()</code> function:</li>
+<ul>
+<li>The <code>R/module_var_input.R</code> file: <code>plot_dispay</code> collects the data from <code>var_input</code> and creates the plot with the custom <code>scatter_plot()</code> function:</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>var_inputUI <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
@@ -657,8 +652,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ul class="task-list">
-<li><input type="checkbox" checked="">The <code>R/module_plot_display.R</code> file</li>
+<ul>
+<li>The <code>R/module_plot_display.R</code> file</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plot_displayUI <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
@@ -721,8 +716,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>After creating the modules, adding them to the UI (<code>R/ui.R</code>) and server (<code>R/server.R</code>) is straightforward.</p>
-<ul class="task-list">
-<li><input type="checkbox" checked="">The <code>R/ui.R</code> file: the UI includes the <code>bs_theme()</code> function (with version set to <code>5</code>).</li>
+<ul>
+<li>The <code>R/ui.R</code> file: the UI includes the <code>bs_theme()</code> function (with version set to <code>5</code>).</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Shiny UI</span></span>
@@ -753,8 +748,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ul class="task-list">
-<li><input type="checkbox" checked="">The <code>R/server.R</code> file: The server also has the <code>make_send_message()</code> function in it by default (more on that below).</li>
+<ul>
+<li>The <code>R/server.R</code> file: The server also has the <code>make_send_message()</code> function in it by default (more on that below).</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Server</span></span>
@@ -783,8 +778,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="add-data" class="level3">
 <h3 class="anchored" data-anchor-id="add-data">Add data</h3>
-<ul class="task-list">
-<li><input type="checkbox" checked=""><code>movies.RData</code> was added to <code>inst/extdata</code> and loaded into the package with <code>usethis::use_data_raw()</code></li>
+<ul>
+<li><code>movies.RData</code> was added to <code>inst/extdata</code> and loaded into the package with <code>usethis::use_data_raw()</code></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
@@ -811,8 +806,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="add-utility-function" class="level3">
 <h3 class="anchored" data-anchor-id="add-utility-function">Add utility function</h3>
-<ul class="task-list">
-<li><input type="checkbox" checked=""><code>usethis::use_r()</code> created <code>R/utils_plot_display.R</code> to hold the <code>scatter_plot()</code> function</li>
+<ul>
+<li><code>usethis::use_r()</code> created <code>R/utils_plot_display.R</code> to hold the <code>scatter_plot()</code> function</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>scatter_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(df, x_var, y_var, col_var, alpha_var, size_var) {</span>
@@ -836,15 +831,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </section>
-</section>
-<section id="adding-features" class="level2">
-<h2 class="anchored" data-anchor-id="adding-features">Adding features</h2>
+<section id="adding-features" class="level3">
+<h3 class="anchored" data-anchor-id="adding-features">Adding features</h3>
 <p><code>leprechaun</code> stores external code files the <code>inst/</code> folder (similar to the <code>golem</code> framework), but uses a combination of <code>use_*</code> and <code>build()</code> functions to add functionality to you app.</p>
-<section id="use-packer" class="level3">
-<h3 class="anchored" data-anchor-id="use-packer">Use <code>packer</code></h3>
+<section id="use-packer" class="level4">
+<h4 class="anchored" data-anchor-id="use-packer">Use <code>packer</code></h4>
 <p>I’ll demonstrate how <code>make_send_message()</code> function works by walking through the JavaScript example from the <a href="https://leprechaun.opifex.org/#/examples/basic#javascript">package website</a>.</p>
-<ul class="task-list">
-<li><input type="checkbox" checked="">First we have to build the scaffolding for packer by running <a href="https://packer.john-coene.com/#/references/scaffold_leprechaun"><code>packer::scaffold_leprechaun()</code></a></li>
+<ul>
+<li>First we have to build the scaffolding for packer by running <a href="https://packer.john-coene.com/#/references/scaffold_leprechaun"><code>packer::scaffold_leprechaun()</code></a></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>packer<span class="sc">::</span><span class="fu">scaffold_leprechaun</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -875,8 +869,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="ex">ℹ</span> Run <span class="kw">`</span><span class="ex">bundle</span><span class="kw">`</span> to build the JavaScript files</span>
 <span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="ex">ℹ</span> Run <span class="kw">`</span><span class="fu">leprechaun::use_packer()</span><span class="kw">`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ul class="task-list">
-<li><input type="checkbox" checked="">Now that the scaffolding is in place, run <code>leprechaun::use_packer()</code>:</li>
+<ul>
+<li>Now that the scaffolding is in place, run <code>leprechaun::use_packer()</code>:</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>leprechaun<span class="sc">::</span><span class="fu">use_packer</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -886,8 +880,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'packer'</span> to Suggests in DESCRIPTION</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="ot">! </span><span class="ex">This</span> requires <span class="kw">`</span><span class="fu">leprechaun::build()</span><span class="kw">`</span> or the <span class="kw">`</span><span class="ex">leprechaun::build_roclet</span><span class="kw">`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ul class="task-list">
-<li><input type="checkbox" checked="">The final step is to build or ‘bundle’ the JavaScript files with <code>leprechaun::build()</code></li>
+<ul>
+<li>The final step is to build or ‘bundle’ the JavaScript files with <code>leprechaun::build()</code></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>leprechaun<span class="sc">::</span><span class="fu">build</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -967,8 +961,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Read more about sending JavaScript messages <a href="https://shiny.rstudio.com/articles/js-send-message.html">here on the shiny website.</a></p>
 </section>
-<section id="add-images" class="level3">
-<h3 class="anchored" data-anchor-id="add-images">Add images</h3>
+<section id="add-images" class="level4">
+<h4 class="anchored" data-anchor-id="add-images">Add images</h4>
 <p>I’ll demonstrate how to use the <code>inst/</code> folder by adding an image to the application.</p>
 <ul>
 <li><p>Assume I want to add <code>leprechaun.jpg</code> to my UI. I start by adding the file to <code>inst/img/</code>:</p>
@@ -998,11 +992,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </section>
-<section id="use-sass" class="level3">
-<h3 class="anchored" data-anchor-id="use-sass">Use <code>Sass</code></h3>
+<section id="use-sass" class="level4">
+<h4 class="anchored" data-anchor-id="use-sass">Use <code>Sass</code></h4>
 <p>We can add Sass styling to our <code>leprechaun</code> app using the <a href="https://leprechaun.opifex.org/#/reference/use_sass"><code>use_sass()</code></a> helper function (this Sass example is from the <a href="https://leprechaun.opifex.org/#/examples/basic#sass">package website</a>).</p>
-<ul class="task-list">
-<li><input type="checkbox" checked="">Run <code>leprechaun::use_sass()</code>:</li>
+<ul>
+<li>Run <code>leprechaun::use_sass()</code>:</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>leprechaun<span class="sc">::</span><span class="fu">use_sass</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1038,8 +1032,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    }</span>
 <span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ul class="task-list">
-<li><input type="checkbox" checked="">We’ll change the <code>color:</code> from <code>red</code> to green (<code>#38B44A</code>) using <code>$accent: #38B44A;</code></li>
+<ul>
+<li>We’ll change the <code>color:</code> from <code>red</code> to green (<code>#38B44A</code>) using <code>$accent: #38B44A;</code></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode scss code-with-copy"><code class="sourceCode scss"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="va">$accent</span>: <span class="cn">#38B44A</span><span class="op">;</span></span>
@@ -1050,8 +1044,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    }</span>
 <span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ul class="task-list">
-<li><input type="checkbox" checked="">Then run <a href="https://leprechaun.opifex.org/#/reference/build"><code>leprechaun::build()</code></a></li>
+<ul>
+<li>Then run <a href="https://leprechaun.opifex.org/#/reference/build"><code>leprechaun::build()</code></a></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>leprechaun<span class="sc">::</span><span class="fu">build</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1112,8 +1106,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="leprechaunbuild" class="level2">
-<h2 class="anchored" data-anchor-id="leprechaunbuild"><code>leprechaun::build()</code></h2>
+<section id="leprechaunbuild" class="level3">
+<h3 class="anchored" data-anchor-id="leprechaunbuild"><code>leprechaun::build()</code></h3>
 <p>The <code>assets/</code> folder contains the files generated by the <code>.R</code> scripts in the <code>dev/</code> folder.</p>
 <blockquote class="blockquote">
 <p><em>“Do not call this function from within the app. It helps build things, not run them.”</em> - <a href="https://github.com/devOpifex/leprechaun/blob/1c8ef853d2fadc476926dd31424965fc19582d2f/docs/guide/build.md"><code>build.md</code> guide</a></p>
@@ -1137,8 +1131,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div></li>
 <li><p><code>inst/dev/sass.R</code> creates <code>inst/assets/style.min.css</code> and <code>inst/dev/packer.R</code> creates <code>inst/assets/index.js</code></p></li>
 </ul>
-<section id="serveassets" class="level3">
-<h3 class="anchored" data-anchor-id="serveassets"><code>serveAssets()</code></h3>
+<section id="serveassets" class="level4">
+<h4 class="anchored" data-anchor-id="serveassets"><code>serveAssets()</code></h4>
 <p>After running <code>leprechaun::use_sass()</code> and <code>leprechaun::build()</code>, we’ll check the <code>serveAssets()</code> function:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>lap<span class="sc">:::</span><span class="fu">serveAssets</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1164,8 +1158,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This shows me <code>stylesheet</code> has been updated with <code>"assets/style.min.css"</code> and <code>script</code> has been updated with <code>"assets/index.js"</code> (these files are loaded into the application when it runs).</p>
 </section>
 </section>
-<section id="configure" class="level2">
-<h2 class="anchored" data-anchor-id="configure">Configure</h2>
+<section id="configure" class="level3">
+<h3 class="anchored" data-anchor-id="configure">Configure</h3>
 <p><code>leprechaun</code> app configuration files use the <a href="https://rstudio.github.io/config/articles/introduction.html">config</a> package (similar to <code>golem</code>). leprechaun doesn’t assume I’ll be using a <code>config.yml</code> file, but I can easily add one with <a href="https://leprechaun.opifex.org/#/guide/use#config"><code>leprechaun::use_config()</code></a>.</p>
 <ul>
 <li><p><code>use_config()</code> adds a <code>inst/config.yml</code> and <code>R/config.R</code></p></li>
@@ -1182,8 +1176,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 </ul>
 </section>
-<section id="lap-dependencies" class="level2">
-<h2 class="anchored" data-anchor-id="lap-dependencies"><code>lap</code> dependencies</h2>
+</section>
+<section id="leprechaun-dependencies" class="level2">
+<h2 class="anchored" data-anchor-id="leprechaun-dependencies"><code>leprechaun</code> dependencies</h2>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -1342,8 +1337,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="recap">Recap</h2>
 <p><code>leprechaun</code> delivers on its promise to be a ‘leaner and smaller’ version of <code>golem.</code></p>
 <p>Most of the features in <code>golem</code> are also accessible in <code>leprechaun</code>:</p>
-<ul class="task-list">
-<li><p><input type="checkbox" checked="">Adding modules: <code>leprechaun</code>’s <code>add_module()</code> function doesn’t have the consistent naming or prefixes found in <code>golem::add_module()</code>, but still reduces a lot of typing if you are creating these files manually.</p></li>
+<ul>
+<li><p>Adding modules: <code>leprechaun</code>’s <code>add_module()</code> function doesn’t have the consistent naming or prefixes found in <code>golem::add_module()</code>, but still reduces a lot of typing if you are creating these files manually.</p></li>
 <li><p><input type="checkbox">Adding functions: leprechaun relies on</p></li>
 </ul>
 <p>Multiple <code>inst/</code> sub-folders makes adding assets to the application easier, and <code>leprechaun</code> has a long list of <code>use_*</code> functions for including Sass, CSS, HTML, and JavaScript. The package website has examples for getting started and adding multiple resources, but unfortunately the function reference had limited documentation.</p>
@@ -1357,6 +1352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <ol>
 <li id="fn1"><p>The coed used to build the <code>leprechaun</code> app is <a href="https://github.com/mjfrigaard/sfw/tree/main/_apps/lap">here</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The <a href="https://leprechaun.opifex.org/#/reference/scaffold"><code>leprechaun::scaffold()</code></a> defaults to a <code>navbarPage()</code>, but I’ve switched to a <code>fluidPage()</code> for this example.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
