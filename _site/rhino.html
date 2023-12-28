@@ -208,6 +208,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#appmain.r-1" id="toc-appmain.r-1" class="nav-link" data-scroll-target="#appmain.r-1"><span style="font-size: 1.10em; font-weight: bold;"><code>app/main.R</code></span></a></li>
   </ul></li>
+  <li><a href="#writing-cypress-tests" id="toc-writing-cypress-tests" class="nav-link" data-scroll-target="#writing-cypress-tests">Writing Cypress tests</a></li>
+  <li><a href="#running-cypress-tests" id="toc-running-cypress-tests" class="nav-link" data-scroll-target="#running-cypress-tests">Running Cypress tests</a></li>
   </ul></li>
   <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap">Recap</a></li>
   </ul>
@@ -737,11 +739,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-13" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-13" data-code-lines="5" data-code-annotation="1">Add <code>vroom</code> functions</span>
+<span data-code-cell="annotated-cell-13" data-code-annotation="1" data-code-lines="5">Add <code>vroom</code> functions</span>
 </dd>
 <dt data-target-cell="annotated-cell-13" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-13" data-code-lines="13,14" data-code-annotation="2">Call <code>vroom</code> functions</span>
+<span data-code-cell="annotated-cell-13" data-code-annotation="2" data-code-lines="13,14">Call <code>vroom</code> functions</span>
 </dd>
 </dl>
 </div>
@@ -778,19 +780,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-14" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-14" data-code-lines="8" data-code-annotation="1">Add <code>ggplot2</code> functions</span>
+<span data-code-cell="annotated-cell-14" data-code-annotation="1" data-code-lines="8">Add <code>ggplot2</code> functions</span>
 </dd>
 <dt data-target-cell="annotated-cell-14" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-14" data-code-lines="9" data-code-annotation="2">Add <code>rlang</code> functions</span>
+<span data-code-cell="annotated-cell-14" data-code-annotation="2" data-code-lines="9">Add <code>rlang</code> functions</span>
 </dd>
 <dt data-target-cell="annotated-cell-14" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-14" data-code-lines="12,20" data-code-annotation="3">Use <code>ggplot2</code> functions</span>
+<span data-code-cell="annotated-cell-14" data-code-annotation="3" data-code-lines="12,20">Use <code>ggplot2</code> functions</span>
 </dd>
 <dt data-target-cell="annotated-cell-14" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-14" data-code-lines="15,16,17" data-code-annotation="4">Use <code>rlang</code> functions</span>
+<span data-code-cell="annotated-cell-14" data-code-annotation="4" data-code-lines="15,16,17">Use <code>rlang</code> functions</span>
 </dd>
 </dl>
 </div>
@@ -1565,8 +1567,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>It’s important to keep these differences in mind when writing your own <code>shinytest2</code> tests. For example, the system tests from <code>moviesApp</code> <a href="#fn19" class="footnote-ref" id="fnref19" role="doc-noteref"><sup>19</sup></a> would need to re-written:</p>
+<p>It’s important to keep these differences in mind when writing <code>shinytest2</code> tests. I’ve provided a few <code>shinytest2</code> example tests for the data visualization user-input features using <code>testthat</code>s BDD functions:<a href="#fn19" class="footnote-ref" id="fnref19" role="doc-noteref"><sup>19</sup></a></p>
 <div class="cell">
+<details>
+<summary>show/hide contents of tests/testthat/test-app-feature-01.R</summary>
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shinytest2)</span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(<span class="st">"Feature 1: Scatter plot data visualization dropdowns</span></span>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="st">           As a film data analyst</span></span>
@@ -1588,7 +1592,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb58-19"><a href="#cb58-19" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">app-vars-z</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"genre"</span>)</span>
 <span id="cb58-20"><a href="#cb58-20" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">expect_values</span>()</span>
 <span id="cb58-21"><a href="#cb58-21" aria-hidden="true" tabindex="-1"></a>       })</span>
-<span id="cb58-22"><a href="#cb58-22" aria-hidden="true" tabindex="-1"></a>     })</span>
+<span id="cb58-22"><a href="#cb58-22" aria-hidden="true" tabindex="-1"></a>   })</span>
 <span id="cb58-23"><a href="#cb58-23" aria-hidden="true" tabindex="-1"></a>             </span>
 <span id="cb58-24"><a href="#cb58-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">describe</span>(<span class="st">"Scenario B: Change dropdown values for plotting</span></span>
 <span id="cb58-25"><a href="#cb58-25" aria-hidden="true" tabindex="-1"></a><span class="st">              Given the movie review application is loaded</span></span>
@@ -1605,8 +1609,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb58-36"><a href="#cb58-36" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">app-vars-plot_title</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"New plot title"</span>)</span>
 <span id="cb58-37"><a href="#cb58-37" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">expect_values</span>()</span>
 <span id="cb58-38"><a href="#cb58-38" aria-hidden="true" tabindex="-1"></a>        })</span>
-<span id="cb58-39"><a href="#cb58-39" aria-hidden="true" tabindex="-1"></a>      })</span>
+<span id="cb58-39"><a href="#cb58-39" aria-hidden="true" tabindex="-1"></a>    })</span>
 <span id="cb58-40"><a href="#cb58-40" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 </section>
@@ -1697,7 +1702,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h4 class="anchored" data-anchor-id="appmain.r-1"><span style="font-size: 1.10em; font-weight: bold;"><code>app/main.R</code></span></h4>
 <p>The following changes were made in <code>app/main.R</code>:</p>
 <div class="cell">
-<details>
+<details open="">
 <summary>show/hide app/main.R</summary>
 <div class="sourceCode cell-code" id="annotated-cell-28"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-28-1"><a href="#annotated-cell-28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># app/main.R</span></span>
 <span id="annotated-cell-28-2"><a href="#annotated-cell-28-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1794,27 +1799,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-28" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-28" data-code-lines="8" data-code-annotation="1">add horizontal rule function to <code>box::use()</code><br>
+<span data-code-cell="annotated-cell-28" data-code-annotation="1" data-code-lines="8">add horizontal rule function to <code>box::use()</code><br>
 </span>
 </dd>
 <dt data-target-cell="annotated-cell-28" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-28" data-code-lines="20,22" data-code-annotation="2">use modules from <code>app/view/clicks.R</code> and <code>app/view/message.R</code><br>
+<span data-code-cell="annotated-cell-28" data-code-annotation="2" data-code-lines="20,22">use modules from <code>app/view/clicks.R</code> and <code>app/view/message.R</code><br>
 </span>
 </dd>
 <dt data-target-cell="annotated-cell-28" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-28" data-code-lines="34,38" data-code-annotation="3">include modules in UI<br>
+<span data-code-cell="annotated-cell-28" data-code-annotation="3" data-code-lines="34,38">include modules in UI<br>
 </span>
 </dd>
 <dt data-target-cell="annotated-cell-28" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-28" data-code-lines="83,88" data-code-annotation="4">include modules in server</span>
+<span data-code-cell="annotated-cell-28" data-code-annotation="4" data-code-lines="83,88">include modules in server</span>
 </dd>
 </dl>
 </div>
 </div>
 </section>
+</section>
+<section id="writing-cypress-tests" class="level3">
+<h3 class="anchored" data-anchor-id="writing-cypress-tests">Writing Cypress tests</h3>
+<p>New Cypress tests are stored in</p>
+</section>
+<section id="running-cypress-tests" class="level3">
+<h3 class="anchored" data-anchor-id="running-cypress-tests">Running Cypress tests</h3>
 </section>
 </section>
 <section id="recap" class="level2">

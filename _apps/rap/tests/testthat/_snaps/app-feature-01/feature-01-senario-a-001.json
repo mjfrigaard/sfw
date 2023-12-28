@@ -1,5 +1,7 @@
 {
   "input": {
+    "app-clicks-click": 0,
+    "app-message-show_message": 0,
     "app-vals-alpha": 0.5,
     "app-vals-plot_title": "",
     "app-vals-size": 2,
@@ -8,6 +10,7 @@
     "app-vals-z": "mpaa_rating"
   },
   "output": {
+    "app-clicks-counter": "0",
     "app-disp-scatterplot": {
       "src": "[image data hash: ba019a096cbfccb53609ee27db558551]",
       "width": 752,
@@ -50,6 +53,14 @@
           "height": 800
         }
       }
+    },
+    "app-message-message_text": {
+      "message": "",
+      "call": "NULL",
+      "type": [
+        "shiny.silent.error",
+        "validation"
+      ]
     }
   },
   "export": {

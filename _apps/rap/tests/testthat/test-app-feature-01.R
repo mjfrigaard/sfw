@@ -10,7 +10,7 @@ describe("Feature 1: Scatter plot data visualization dropdowns
              When I choose the variable [critics_score] for the x-axis
              And I choose the variable [imdb_num_votes] for the y-axis
              And I choose the variable [genre] for the color", {
-    test_that("Then the scatter plot should show [critics_score] on the x-axis
+    it("Then the scatter plot should show [critics_score] on the x-axis
          And the scatter plot should show [imdb_num_votes] on the y-axis
          And the points on the scatter plot should be colored by [genre]", {
               app <- AppDriver$new(name = "feature-01-senario-a", 
@@ -27,7 +27,7 @@ describe("Feature 1: Scatter plot data visualization dropdowns
               When I choose the size of the points to be [0.7]
               And I choose the opacity of the points to be [3]
               And I enter '[New plot title]' for the plot title", {
-         test_that("Then the size of the points on the scatter plot should be [3]
+         it("Then the size of the points on the scatter plot should be [3]
               And the opacity of the points on the scatter plot should be [0.7]
               And the title of the plot should be '[New Plot Title]'", {
               app <- AppDriver$new(name = "feature-01-senario-b", 

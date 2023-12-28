@@ -1545,11 +1545,12 @@ app$set_inputs(`app-vals-plot_title` = "New plot title")
 
 :::
 
-It's important to keep these differences in mind when writing your own `shinytest2` tests. For example, the system tests from `moviesApp` [^feature-1-system-tests] would need to re-written: 
+It's important to keep these differences in mind when writing `shinytest2` tests. I've provided a few `shinytest2` example tests for the data visualization user-input features using `testthat`s BDD functions:[^feature-1-system-tests]
 
 ```{r}
 #| eval: false 
-#| code-fold: false
+#| code-fold: true 
+#| code-summary: 'show/hide contents of tests/testthat/test-app-feature-01.R'
 library(shinytest2)
 describe("Feature 1: Scatter plot data visualization dropdowns
            As a film data analyst
@@ -1571,7 +1572,7 @@ describe("Feature 1: Scatter plot data visualization dropdowns
                 app$set_inputs(`app-vars-z` = "genre")
                 app$expect_values()
        })
-     })
+   })
              
   describe("Scenario B: Change dropdown values for plotting
               Given the movie review application is loaded
@@ -1588,7 +1589,7 @@ describe("Feature 1: Scatter plot data visualization dropdowns
                 app$set_inputs(`app-vars-plot_title` = "New plot title")
                 app$expect_values()
         })
-      })
+    })
 })
 ```
 
@@ -1693,7 +1694,7 @@ The following changes were made in `app/main.R`:
 
 ```{r}
 #| eval: false 
-#| code-fold: true
+#| code-fold: show
 #| code-summary: 'show/hide app/main.R'
 # app/main.R
 
@@ -1791,6 +1792,13 @@ server <- function(id) {
 2. use modules from `app/view/clicks.R` and `app/view/message.R`   
 3. include modules in UI  
 4. include modules in server  
+
+### Writing Cypress tests
+
+New Cypress tests are stored in 
+
+### Running Cypress tests 
+
 
 
 
