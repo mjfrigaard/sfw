@@ -42,7 +42,7 @@ box_use_df <- data.frame(
 )
 ```
 
-`rhino` apps are unique because unlike `golem` and `leprechaun`, they aren't R packages. `rhino` uses [`box`](https://klmr.me/box/) modules to manage add-on package functions, which makes simplifies app dependencies and separates the code into a clear 'division of labor.'[^view-rap]
+`rhino` apps are unique because unlike `golem` and `leprechaun`, they aren't R packages. `rhino` uses [`box`](https://klmr.me/box/) modules to manage add-on package functions, which minimizes dependencies and separates the application's code into a clear 'division of labor.'[^view-rap]
 
 [^view-rap]: The code used to build the `rhino` app is available [here](https://github.com/mjfrigaard/sfw/tree/main/_apps/rap).
 
@@ -323,7 +323,7 @@ Now that we've covered the initial file and folder structure of a new `rhino` ap
 ```{r}
 #| eval: false 
 #| code-fold: true 
-#| code-summary: 'view monolithlic app.R file'
+#| code-summary: 'show/hide monolithlic app.R file'
 ui <- shiny::fluidPage(
   theme = shinythemes::shinytheme("spacelab"),
   shiny::sidebarLayout(
@@ -444,7 +444,7 @@ shiny::shinyApp(ui = ui, server = server)
 ```{r}
 #| eval: false
 #| code-fold: true 
-#| code-summary: 'view scatter_plot.R utility function'
+#| code-summary: 'show/hide scatter_plot.R utility function'
 scatter_plot <- function(df, x_var, y_var, col_var, alpha_var, size_var) {
     ggplot2::ggplot(data = df,
       ggplot2::aes(x = .data[[x_var]],
@@ -483,21 +483,23 @@ If/when the app is converted into an R package, add-on packages are managed by:
   
 [^roxygen2-dependencies]: Add-on packages can also be included in R packages by adding the  `@importFrom` or `@import` tags from `roxygen2`, which writes the `NAMESPACE` directives
 
-The methods above beg the questions:
+The methods above might prompt the following questions:
 
-1. _Why do we load the **entire** package namespace *and* attaching it to the search list with `library`, even if we only need a single function during standard (i.e., non-package) R development?_ [^install-packages-library]
+1. _Why do we load and attach the **entire package namespace** *and* if we only need a single function during standard (i.e., non-package) R development?_ [^install-packages-library]
 
-2. _Why do we install the **entire** package in the `DESCRIPTION` if we're only accessing a single function below R with `pkg::fun()` in our R package?_ [^import-packages-description]
+2. _Why do we install the **entire package** in the `DESCRIPTION` if we're only accessing a single function below R with `pkg::fun()` in our R package?_ [^import-packages-description]
 
-[^install-packages-library]: `install-packages()` downloads and installs packages from a repo like CRAN or GitHub, and `library` (or `require`) loads and attaches the add-on packages.
+[^install-packages-library]: `install-packages()` downloads and installs packages from a repo like CRAN or GitHub, and `library` (or `require`) loads and attaches the add-on packages to the search list.
 
-[^import-packages-description]: Adding a package to the `Imports` field in the `DESCRIPTION` will download/install the add-on package when your package is installed, but not *attach* it to the search list. 
+[^import-packages-description]: Adding a package to the `Imports` field in the `DESCRIPTION` will download/install the add-on package when your package is installed, but not *attach* it to the search list (the `Depends` field *will* install and attach the package).
 
 This is where [`box`](https://klmr.me/box/index.html) comes in--it's designed to *'completely replace the base R `library` and `require` functions'*. 
 
 #### How `box` modules work
 
-Below is a quick demonstration of how `box` modules work using the `tidyverse_logo()` function from the `tidyverse` meta-package. If we attempted to use the `tidyverse_logo()` function without installing or loading the `tidyverse` package, we see the following error:
+Below is a quick demonstration of `box` modules using `tidyverse::tidyverse_logo()`. If we attempted to use the `tidyverse_logo()` function without installing or loading the `tidyverse` meta-package, we see the following error:[^tidyverse]
+
+[^tidyverse]: `library(tidyverse)` is typically used to install the core tidyverse packages (`ggplot2`, `dplyr`, `tidyr`, `readr`, `purrr`, `tibble`, `stringr`, `forcats`), but this is not advised during package development. 
 
 ```{r}
 #| label: tidyverse_logo_test
@@ -592,8 +594,10 @@ logo$tidyverse_logo()
 \__/_/\_,_/\_, /|___/\__/_/ /___/\__/ 
      ⬢  . /___/      ⬡      .       ⬢ 
 ```
+
+<br>
     
-`box` modules are self-contained, meaning the `tidyverse_logo()` function only exists *inside* the `logo` module. 
+`box` modules are self-contained, meaning the `tidyverse_logo()` function only exists *inside* the `logo` module. Explicitly listing the packages and functions we intend to use with `box::use()` means we no longer need to include calls to  `install.packages()` and `library()` or `require()`. 
 
 -   Note what happens when I try to access the `tidyverse_logo()` function by itself:
 
@@ -611,13 +615,16 @@ logo$tidyverse_logo()
     Error in tidyverse_logo(): could not find function "tidyverse_logo"
     ```
 
-Explicitly listing the packages and functions we intend to use with `box::use()` means we no longer need to include calls to  `install.packages()` and `library()`/`require()`. This was a very brief overview of `box`, so I *highly recommend* consulting the [`box` website](https://klmr.me/box/index.html) and vignettes.[^box-read-more]
+<br>
+
+This was a very brief overview of `box`, so I *highly recommend* consulting the [`box` website](https://klmr.me/box/index.html) and vignettes. The `rhino` website also has a great overview on using [`box` with Shiny apps](https://appsilon.github.io/rhino/articles/explanation/box-modules.html).[^rbox]
+
+
+[^rbox]: I'd start with ["the hierarchy of module environments"](https://klmr.me/box/articles/mod-env-hierarchy.html) vignette. I've also created a collection of `box` module examples in the [`rbox` repo](https://github.com/mjfrigaard/rbox/blob/main/boxes.md).
 
 [^rhino-explicit-namespaces]: This is how `box` "*completely replaces the base R `library` and `require` functions*" - [`box` documentation](https://klmr.me/box/index.html).
 
-[^box-read-more]: I highly recommend the ["the hierarchy of module environments"](https://klmr.me/box/articles/mod-env-hierarchy.html) vignette. The `rhino` website also has a great overview on using [`box` with shiny apps](https://appsilon.github.io/rhino/articles/explanation/box-modules.html), and I've also created a collection of `box` module examples in this [repo](https://github.com/mjfrigaard/rbox/blob/main/boxes.md))
-
-### Data
+## Data
 
 Non-Shiny code and functions should be stored in `app/logic/`. We'll include a `box` module for importing the `movies` data in `app/logic/data.R`.[^rhino-logic-folder]
 
@@ -647,7 +654,7 @@ movies_data <- function() {
 
 In `app/logic/data.R`, the necessary `vroom` functions are included with `box::use()` to import `movies.csv` from GitHub.
 
-### Utility function
+## Utility functions
 
 The `scatter_plot()` utility function is stored in `app/logic/plot.R`. Again, `box::use()` includes the `ggplot2` and `rlang` functions for `scatter_plot()`:
 
@@ -812,7 +819,7 @@ describe("Feature: Scatter Plot Generation Verification
 ```
 
 
-### App Modules
+## App Modules
 
 Now we're going to convert contents of `app.R` into *Shiny* modules. Shiny modules should be placed in the `app/view/` folder. **`rhino` modules are still broken into `ui` and `server` functions, and `box::use()` is called *within* each function to add the necessary `package[function]`**
 
@@ -1166,7 +1173,46 @@ describe("Feature: Server Acceptance of Reactive Values
 
 These tests confirm the reactive values are passed between the `app/view/inputs` and the `app/view/display` modules. 
 
-### `app/main.R`
+### Running tests
+
+Running the `testthat` tests in `rap` app is *slightly* different than executing tests in an R package. The standard `devtools` functions and keyboard shortcuts aren't available, but `rhino` comes with a [`rhino::test_r()`](https://appsilon.github.io/rhino/reference/test_r.html) helper function to run all the tests in the `testthat/` folder:
+
+```{bash}
+#| eval: false 
+#| code-fold: false
+tests/testthat/
+├── test-data.R
+├── test-display.R
+├── test-inputs.R
+├── test-main.R
+└── test-plot.R
+
+1 directory, 5 files
+```
+
+```{r}
+#| eval: false 
+#| code-fold: false
+rhino::test_r()
+```
+
+```{verbatim}
+#| eval: false 
+#| code-fold: false
+✔ | F W  S  OK | Context
+✔ |          4 | data [1.3s]                                                                                                               
+✔ |          5 | display [1.2s]                                                                                                            
+✔ |          2 | inputs                                                                                                                    
+✔ |          1 | plot                                                                                                                      
+
+══ Results ═════════════════════════════════════════════════════════════════════
+Duration: 3.3 s
+
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 12 ]
+```
+
+
+## `app/main.R`
 
 After the `app/logic/` and `app/view/` code has been written and tested, the modules and layout functions can be included in `app/main.R`. 
 
@@ -1277,7 +1323,7 @@ After saving all the module files and `app/main.R`, we can run the app using `ap
 initial `rap` launch
 :::
 
-### Add `.js`/`.css`/`.sass`
+## Adding non-R code 
 
 It's fairly straightforward to add external resources (i.e., JavaScript, CSS, Sass, etc.) to `rhino` apps. I'll use the [example from the website](https://appsilon.github.io/rhino/articles/tutorial/create-your-first-rhino-app.html#add-javascript-code) to demonstrate because it adds *both* CSS and JavaScript to the codebase.
 
@@ -1399,11 +1445,359 @@ Adding `.js` to `app/js/index.js`
 Adding `.js` to `app/js/index.js` 'on click'
 :::
 
+
+
+## System tests ([`shinytest2`]{style="font-size: 0.83em;"})
+
+System tests can also be written using [`shinytest2`](https://rstudio.github.io/shinytest2/). The tests below come from *System tests* chapter of Shiny App-Packages.[^system-tests-shinyap]
+
+Start by installing `shinytest2` and `shinyvalidate`[^how-to-use-shinytest2]
+
+-   This will update the `dependencies.R` file (and might require a call to `renv::snapshot()`)
+
+    ```{r}
+    #| eval: false 
+    #| code-fold: false
+    rhino::pkg_install(c("shinytest2", "shinyvalidate"))
+    ```
+
+-   Create new tests with `shinytest2::record_test()` the same way you would for a standard Shiny app
+
+    ```{r}
+    #| eval: false 
+    #| code-fold: false
+    shinytest2::record_test()
+    ```
+
+::: {#fig-shinytest2_rhino.png .column}
+![](img/shinytest2_rhino.png){#fig-shinytest2_rhino.png height="80%" width="80%" fig-align="center"}
+
+Test recorder
+:::
+
+This produces the following in the **Console**:
+
+```{bash}
+#| eval: false 
+#| code-fold: false
+{shiny} R stderr ----------- Loading required package: shiny
+{shiny} R stderr ----------- Running application in test mode.
+{shiny} R stderr ----------- Listening on http://127.0.0.1:5391
+• Saving test runner: tests/testthat.R
+• Saving test file: tests/testthat/test-shinytest2.R
+✔ Adding 'shinytest2::load_app_env()' to 'tests/testthat/setup-shinytest2.R'
+• Modify '/rap/tests/testthat/test-shinytest2.R'
+• Running recorded test: tests/testthat/test-shinytest2.R
+✔ | F W  S  OK | Context
+✔ |   2      1 | shinytest2 [11.4s]                                           
+
+─────────────────────────────────────────────────────────────────────────────
+Warning (test-shinytest2.R:13:3): {shinytest2} recording: feature-01
+Adding new file snapshot: 'tests/testthat/_snaps/feature-01-001_.png'
+
+Warning (test-shinytest2.R:13:3): {shinytest2} recording: feature-01
+Adding new file snapshot: 'tests/testthat/_snaps/feature-01-001.json'
+─────────────────────────────────────────────────────────────────────────────
+
+══ Results ══════════════════════════════════════════════════════════════════
+Duration: 11.8 s
+
+[ FAIL 0 | WARN 2 | SKIP 0 | PASS 1 ]
+```
+
+### System test anatomy
+
+::: {layout="[40,60]"}
+
+##### 
+
+The `shinytest2` tests for `moviesApp` are below. Note how the nested modules are called from the app Driver (`app$set_inputs()`):
+
+```{r}
+#| eval: false 
+#| code-fold: false
+app$set_inputs(`vars-y` = "imdb_num_votes")
+app$set_inputs(`vars-x` = "critics_score")
+app$set_inputs(`vars-z` = "genre")
+app$set_inputs(`vars-alpha` = 0.7)
+app$set_inputs(`vars-size` = 3)
+app$set_inputs(`vars-plot_title` = "New plot title")
+```
+
+:::
+
+::: {layout="[40,60]"}
+
+##### 
+
+In `rap`, the `box` modules in our have another level of abstraction (i.e., `vars-y` becomes `app-vals-y`):
+
+```{r}
+#| eval: false 
+#| code-fold: false
+app$set_inputs(`app-vals-y` = "imdb_num_votes")
+app$set_inputs(`app-vals-x` = "critics_score")
+app$set_inputs(`app-vals-z` = "genre")
+app$set_inputs(`app-vals-alpha` = 0.7)
+app$set_inputs(`app-vals-size` = 3)
+app$set_inputs(`app-vals-plot_title` = "New plot title")
+```
+
+:::
+
+It's important to keep these differences in mind when writing your own `shinytest2` tests. For example, the system tests from `moviesApp` [^feature-1-system-tests] would need to re-written: 
+
+```{r}
+#| eval: false 
+#| code-fold: false
+library(shinytest2)
+describe("Feature 1: Scatter plot data visualization dropdowns
+           As a film data analyst
+           I want to explore variables in the movie review data
+           So that I can analyze relationships between movie reivew sources", {
+             
+  describe("Scenario A: Change dropdown values for plotting
+             Given the movie review application is loaded
+             When I choose the variable [critics_score] for the x-axis
+             And I choose the variable [imdb_num_votes] for the y-axis
+             And I choose the variable [genre] for the color", {
+    test_that("Then the scatter plot should show [critics_score] on the x-axis
+         And the scatter plot should show [imdb_num_votes] on the y-axis
+         And the points on the scatter plot should be colored by [genre]", {
+              app <- AppDriver$new(name = "feature-01-senario-a", 
+                                     height = 800, width = 1173)
+                app$set_inputs(`app-vars-y` = "imdb_num_votes")
+                app$set_inputs(`app=vars-x` = "critics_score")
+                app$set_inputs(`app-vars-z` = "genre")
+                app$expect_values()
+       })
+     })
+             
+  describe("Scenario B: Change dropdown values for plotting
+              Given the movie review application is loaded
+              When I choose the size of the points to be [0.7]
+              And I choose the opacity of the points to be [3]
+              And I enter '[New plot title]' for the plot title", {
+         test_that("Then the size of the points on the scatter plot should be [3]
+              And the opacity of the points on the scatter plot should be [0.7]
+              And the title of the plot should be '[New Plot Title]'", {
+              app <- AppDriver$new(name = "feature-01-senario-b", 
+                                     height = 800, width = 1173)
+                app$set_inputs(`app-vars-alpha` = 0.7)
+                app$set_inputs(`app-vars-size` = 3)
+                app$set_inputs(`app-vars-plot_title` = "New plot title")
+                app$expect_values()
+        })
+      })
+})
+```
+
+
+[^feature-1-system-tests]: This test is covered in [BDD test templates](https://mjfrigaard.github.io/shiny-app-pkgs/test_system.html#bdd-test-templates) section of Shiny App-Packages.
+
+[^how-to-use-shinytest2]: These steps are covered in the Appsilon article, ['How-to: Use shinytest2'](https://appsilon.github.io/rhino/articles/how-to/use-shinytest2.html).
+
+[^system-tests-shinyap]: System tests are covered for a [Shiny app in a standard R package.](https://mjfrigaard.github.io/shiny-app-pkgs/test_system.html#shinytest2) 
+
+## System tests (Cypress)
+
+`rhino` apps extend the test suite to include the [Cypress test framework](https://www.cypress.io/). The Cypress tests below follow the example from the [`rhino` website](https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html).
+
+### Clicks & message modules
+
+Below we add two modules to the application (i.e., in `app/view`).
+
+#### [`clicks.R`]{style="font-size: 1.10em; font-weight: bold"}
+
+The following module was added to `app/view/clicks.R`:
+
+```{r}
+#| eval: false 
+#| code-fold: true 
+#| code-summary: 'show/hide app/view/clicks.R'
+# app/view/clicks.R
+
+box::use(
+  shiny[actionButton, div, moduleServer, NS, renderText, textOutput],
+)
+
+#' @export
+ui <- function(id) {
+  ns <- NS(id)
+  div(
+    class = "clicks",
+    actionButton(
+      ns("click"),
+      "Click me!"
+    ),
+    textOutput(ns("counter"))
+  )
+}
+
+#' @export
+server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    output$counter <- renderText(input$click)
+  })
+}
+```
+
+
+#### [`message.R`]{style="font-size: 1.10em; font-weight: bold"}
+
+The following module was added to `app/view/message.R`:
+
+```{r}
+#| eval: false 
+#| code-fold: true
+#| code-summary: 'show/hide app/view/message.R'
+# app/view/message.R
+
+box::use(
+  shiny[actionButton, div, moduleServer, NS, renderText, req, textOutput],
+)
+
+#' @export
+ui <- function(id) {
+  ns <- NS(id)
+
+  div(
+    class = "message",
+    actionButton(
+      ns("show_message"),
+      "Show message"
+    ),
+    textOutput(ns("message_text"))
+  )
+}
+
+#' @export
+server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    output$message_text <- renderText({
+      req(input$show_message)
+
+      "This is a message"
+    })
+  })
+}
+```
+
+### Updates to [`main.R`]{style="font-size: 1.05em; font-weight: bold;"}
+
+To use the `box` modules above, we'll need to include them in the `app/main.R` file. 
+
+#### [`app/main.R`]{style="font-size: 1.10em; font-weight: bold;"}
+
+The following changes were made in `app/main.R`:
+
+```{r}
+#| eval: false 
+#| code-fold: true
+#| code-summary: 'show/hide app/main.R'
+# app/main.R
+
+# shiny functions
+box::use(
+  shiny[
+    NS, fluidPage, sidebarLayout, sidebarPanel, 
+    mainPanel, fluidRow, column, tags, icon,
+    plotOutput, moduleServer, renderPlot, hr # <1> 
+  ],
+  shinythemes[shinytheme]
+)
+
+# import modules ----
+box::use(
+  ## load inputs module ----
+  app / view / inputs,
+  ## load display module ----
+  app / view / display,
+  ## load clicks module ----
+  app / view / clicks, # <2> 
+  ## load message module ----
+  app / view / message, # <2>
+)
+
+#' rap ui
+#' @export
+ui <- function(id) {
+  ns <- NS(id)
+  fluidPage(theme = shinytheme("spacelab"),
+    sidebarLayout(
+      sidebarPanel(
+        # use inputs module UI ----
+        inputs$ui(ns("vals")),
+        # use clicks module UI ---- # <3>
+        clicks$ui(ns("clicks")),
+        hr(),
+        # use message module UI ----
+        message$ui(ns("message"))), # <3>
+      mainPanel(
+        fluidRow(
+          column(
+            width = 12,
+              tags$h3("rap")
+            )
+          ),
+        fluidRow(
+          column(
+            width = 1,
+            offset = 11,
+            # example info button ---
+            tags$button(id = "help-button",
+              icon("info"),
+              # add 'onclick' after rhino::build_sass()
+              # and rhino::build_js()
+              onclick = "App.showHelp()")
+          )
+        ),
+        fluidRow(
+            column(
+              width = 12,
+              # use display module UI ----
+            display$ui(ns("disp"))
+            )
+          )
+        )
+      )
+    )
+}
+
+#' rap server
+#' @export
+server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    # use inputs module server ----
+    selected_vars <- inputs$server(id = "vals")
+    # use display module server ----
+    display$server(
+      id = "disp",
+      var_inputs = selected_vars
+    )
+  })
+  
+  moduleServer(id, function(input, output, session) { # <4>
+    # use clicks module server ----
+    clicks$server("clicks")
+    # use message module server ----
+    message$server("message")
+  }) # <4>
+  
+}
+
+```
+1. add horizontal rule function to `box::use()`   
+2. use modules from `app/view/clicks.R` and `app/view/message.R`   
+3. include modules in UI  
+4. include modules in server  
+
+
+
+
 ## Recap
 
 Most of the development takes place in `app/logic` and `app/view` (using `box` modules). The separation of the 'business logic' workflow from the 'app view' code is similar to the `dev` folder in `golem` and `leprechaun`, but the `box` modules make it easy to move code and functions back and forth between the two folders.
-
-Testing `rhino` apps is similar to any `testthat` folder (and can be used with [`shinytest2`](https://appsilon.github.io/rhino/articles/how-to/use-shinytest2.html)) and comes with a helper function, [`rhino::test_r()`](https://appsilon.github.io/rhino/reference/test_r.html)
 
 New JavaScript or CSS code requires a corresponding `rhino` (`rhino::build_js()` or `rhino::build_sass()`), and requires installing [node.js](https://nodejs.org/en/). These functions create output files in `app/static/js/app.min.js` and `app/static/css/app.min.css` that are used in the application.
 

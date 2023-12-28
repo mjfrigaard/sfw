@@ -28,16 +28,13 @@ website:
 format:
   html:
     #code-fold: show
-    #code-summary: 'show/hide'
-    #code-overflow: wrap
+    code-summary: 'show/hide'
+    code-overflow: wrap
     #code-link: false
     #code-overflow: wrap
-    #code-link: false
-    #code-block-bg: "#f8f8f8"
-    #code-block-border-left: "#99bbc9"
     #code-annotations: true
-    #code-block-bg: "#f8f8f8"
-    #code-block-border-left: "#99bbc9"
+    code-block-bg: "#f8f8f8"
+    code-block-border-left: "#99bbc9"
     toc: true
     df-print: paged
     toc-depth: 5
@@ -49,7 +46,7 @@ format:
     fig-asp: 0.618
     fontsize: 1.075em
     linestretch: 1.25
-    theme: [cosmo, custom.scss]
+    theme: [yeti, custom.scss]
     highlight-style: arrow
     number-sections: false
     

@@ -5,62 +5,67 @@ box::use(
   shiny[
     NS, fluidPage, sidebarLayout, sidebarPanel, 
     mainPanel, fluidRow, column, tags, icon,
-    plotOutput, moduleServer, renderPlot
+    plotOutput, moduleServer, renderPlot,
+    br, hr
   ],
   shinythemes[shinytheme]
 )
 
-# import modules
+# import modules ----
 box::use(
-  # load inputs module ----
+  ## load inputs module ----
   app / view / inputs,
-  # load display module ----
-  app / view / display
+  ## load display module ----
+  app / view / display,
+  ## load clicks module ----
+  app / view / clicks,
+  ## load message module ----
+  app / view / message,
 )
 
 #' rap ui
 #' @export
 ui <- function(id) {
   ns <- NS(id)
-  fluidPage(
-    theme = shinytheme("spacelab"),
+  fluidPage(theme = shinytheme("spacelab"),
     sidebarLayout(
       sidebarPanel(
         # use inputs module UI ----
-        
-        inputs$ui(ns("vals"))
-      ),
+        inputs$ui(ns("vals")),
+        # use clicks module UI ----
+        clicks$ui(ns("clicks")),
+        hr(), # horizontal rule
+        # use message module UI ----
+        message$ui(ns("message"))),
       mainPanel(
         fluidRow(
           column(
             width = 12,
               tags$h3("rap")
             )
-        ),
+          ),
         fluidRow(
           column(
             width = 1,
             offset = 11,
             # example info button ---
-            tags$button(
-              id = "help-button",
+            tags$button(id = "help-button",
               icon("info"),
               # add 'onclick' after rhino::build_sass()
               # and rhino::build_js()
-              onclick = "App.showHelp()"
-            )
+              onclick = "App.showHelp()")
           )
         ),
         fluidRow(
-          column(
-            width = 12,
-            # use display module UI ----
+            column(
+              width = 12,
+              # use display module UI ----
             display$ui(ns("disp"))
+            )
           )
         )
       )
     )
-  )
 }
 
 #' rap server
@@ -75,4 +80,10 @@ server <- function(id) {
       var_inputs = selected_vars
     )
   })
+  
+  moduleServer(id, function(input, output, session) {
+    clicks$server("clicks")
+    message$server("message")
+  })
+  
 }
