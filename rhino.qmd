@@ -1545,11 +1545,15 @@ app$set_inputs(`app-vals-plot_title` = "New plot title")
 
 :::
 
-It's important to keep these differences in mind when writing `shinytest2` tests. I've provided a few `shinytest2` example tests for the data visualization user-input features using `testthat`s BDD functions:[^feature-1-system-tests]
+It's important to keep these differences in mind when writing `shinytest2` tests. 
+
+### BDD system tests 
+
+I've provided a few `shinytest2` example tests for the data visualization user-input features using `testthat`s BDD functions:[^feature-1-system-tests]
 
 ```{r}
 #| eval: false 
-#| code-fold: true 
+#| code-fold: show 
 #| code-summary: 'show/hide contents of tests/testthat/test-app-feature-01.R'
 library(shinytest2)
 describe("Feature 1: Scatter plot data visualization dropdowns
@@ -1562,7 +1566,7 @@ describe("Feature 1: Scatter plot data visualization dropdowns
              When I choose the variable [critics_score] for the x-axis
              And I choose the variable [imdb_num_votes] for the y-axis
              And I choose the variable [genre] for the color", {
-    test_that("Then the scatter plot should show [critics_score] on the x-axis
+    it("Then the scatter plot should show [critics_score] on the x-axis
          And the scatter plot should show [imdb_num_votes] on the y-axis
          And the points on the scatter plot should be colored by [genre]", {
               app <- AppDriver$new(name = "feature-01-senario-a", 
@@ -1579,7 +1583,7 @@ describe("Feature 1: Scatter plot data visualization dropdowns
               When I choose the size of the points to be [0.7]
               And I choose the opacity of the points to be [3]
               And I enter '[New plot title]' for the plot title", {
-         test_that("Then the size of the points on the scatter plot should be [3]
+         it("Then the size of the points on the scatter plot should be [3]
               And the opacity of the points on the scatter plot should be [0.7]
               And the title of the plot should be '[New Plot Title]'", {
               app <- AppDriver$new(name = "feature-01-senario-b", 
@@ -1593,6 +1597,7 @@ describe("Feature 1: Scatter plot data visualization dropdowns
 })
 ```
 
+Note that these tests combine `testthat`'s `describe()` and `it()` functions with the [Gherkin syntax](https://cucumber.io/docs/gherkin/reference/). 
 
 [^feature-1-system-tests]: This test is covered in [BDD test templates](https://mjfrigaard.github.io/shiny-app-pkgs/test_system.html#bdd-test-templates) section of Shiny App-Packages.
 
@@ -1606,89 +1611,9 @@ describe("Feature 1: Scatter plot data visualization dropdowns
 
 ### Clicks & message modules
 
-Below we add two modules to the application (i.e., in `app/view`).
+Below we add two modules ([`clicks.R` and `message.R`](https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html#test-application)) to the `rap` application (i.e., in `app/view`). Both modules contain an `actionButton()` and `textOutput()`. Using `app/view/clicks` or `app/view/message` requires adding both modules in the `app/main.R` file with `box::use()`.
 
-#### [`clicks.R`]{style="font-size: 1.10em; font-weight: bold"}
-
-The following module was added to `app/view/clicks.R`:
-
-```{r}
-#| eval: false 
-#| code-fold: true 
-#| code-summary: 'show/hide app/view/clicks.R'
-# app/view/clicks.R
-
-box::use(
-  shiny[actionButton, div, moduleServer, NS, renderText, textOutput],
-)
-
-#' @export
-ui <- function(id) {
-  ns <- NS(id)
-  div(
-    class = "clicks",
-    actionButton(
-      ns("click"),
-      "Click me!"
-    ),
-    textOutput(ns("counter"))
-  )
-}
-
-#' @export
-server <- function(id) {
-  moduleServer(id, function(input, output, session) {
-    output$counter <- renderText(input$click)
-  })
-}
-```
-
-
-#### [`message.R`]{style="font-size: 1.10em; font-weight: bold"}
-
-The following module was added to `app/view/message.R`:
-
-```{r}
-#| eval: false 
-#| code-fold: true
-#| code-summary: 'show/hide app/view/message.R'
-# app/view/message.R
-
-box::use(
-  shiny[actionButton, div, moduleServer, NS, renderText, req, textOutput],
-)
-
-#' @export
-ui <- function(id) {
-  ns <- NS(id)
-
-  div(
-    class = "message",
-    actionButton(
-      ns("show_message"),
-      "Show message"
-    ),
-    textOutput(ns("message_text"))
-  )
-}
-
-#' @export
-server <- function(id) {
-  moduleServer(id, function(input, output, session) {
-    output$message_text <- renderText({
-      req(input$show_message)
-
-      "This is a message"
-    })
-  })
-}
-```
-
-### Updates to [`main.R`]{style="font-size: 1.05em; font-weight: bold;"}
-
-To use the `box` modules above, we'll need to include them in the `app/main.R` file. 
-
-#### [`app/main.R`]{style="font-size: 1.10em; font-weight: bold;"}
+### [`app/main.R`]{style="font-size: 1.10em; font-weight: bold;"}
 
 The following changes were made in `app/main.R`:
 

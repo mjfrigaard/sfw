@@ -196,18 +196,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#system-tests-shinytest2" id="toc-system-tests-shinytest2" class="nav-link" data-scroll-target="#system-tests-shinytest2">System tests (<span style="font-size: 0.83em;"><code>shinytest2</code></span>)</a>
   <ul>
   <li><a href="#system-test-anatomy" id="toc-system-test-anatomy" class="nav-link" data-scroll-target="#system-test-anatomy">System test anatomy</a></li>
+  <li><a href="#bdd-system-tests" id="toc-bdd-system-tests" class="nav-link" data-scroll-target="#bdd-system-tests">BDD system tests</a></li>
   </ul></li>
   <li><a href="#system-tests-cypress" id="toc-system-tests-cypress" class="nav-link" data-scroll-target="#system-tests-cypress">System tests (Cypress)</a>
   <ul>
-  <li><a href="#clicks-message-modules" id="toc-clicks-message-modules" class="nav-link" data-scroll-target="#clicks-message-modules">Clicks &amp; message modules</a>
-  <ul>
-  <li><a href="#clicks.r" id="toc-clicks.r" class="nav-link" data-scroll-target="#clicks.r"><span style="font-size: 1.10em; font-weight: bold"><code>clicks.R</code></span></a></li>
-  <li><a href="#message.r" id="toc-message.r" class="nav-link" data-scroll-target="#message.r"><span style="font-size: 1.10em; font-weight: bold"><code>message.R</code></span></a></li>
-  </ul></li>
-  <li><a href="#updates-to-main.r" id="toc-updates-to-main.r" class="nav-link" data-scroll-target="#updates-to-main.r">Updates to <span style="font-size: 1.05em; font-weight: bold;"><code>main.R</code></span></a>
-  <ul>
+  <li><a href="#clicks-message-modules" id="toc-clicks-message-modules" class="nav-link" data-scroll-target="#clicks-message-modules">Clicks &amp; message modules</a></li>
   <li><a href="#appmain.r-1" id="toc-appmain.r-1" class="nav-link" data-scroll-target="#appmain.r-1"><span style="font-size: 1.10em; font-weight: bold;"><code>app/main.R</code></span></a></li>
-  </ul></li>
   <li><a href="#writing-cypress-tests" id="toc-writing-cypress-tests" class="nav-link" data-scroll-target="#writing-cypress-tests">Writing Cypress tests</a></li>
   <li><a href="#running-cypress-tests" id="toc-running-cypress-tests" class="nav-link" data-scroll-target="#running-cypress-tests">Running Cypress tests</a></li>
   </ul></li>
@@ -1567,9 +1561,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>It’s important to keep these differences in mind when writing <code>shinytest2</code> tests. I’ve provided a few <code>shinytest2</code> example tests for the data visualization user-input features using <code>testthat</code>s BDD functions:<a href="#fn19" class="footnote-ref" id="fnref19" role="doc-noteref"><sup>19</sup></a></p>
+<p>It’s important to keep these differences in mind when writing <code>shinytest2</code> tests.</p>
+</section>
+<section id="bdd-system-tests" class="level3">
+<h3 class="anchored" data-anchor-id="bdd-system-tests">BDD system tests</h3>
+<p>I’ve provided a few <code>shinytest2</code> example tests for the data visualization user-input features using <code>testthat</code>s BDD functions:<a href="#fn19" class="footnote-ref" id="fnref19" role="doc-noteref"><sup>19</sup></a></p>
 <div class="cell">
-<details>
+<details open="">
 <summary>show/hide contents of tests/testthat/test-app-feature-01.R</summary>
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shinytest2)</span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(<span class="st">"Feature 1: Scatter plot data visualization dropdowns</span></span>
@@ -1582,7 +1580,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="st">             When I choose the variable [critics_score] for the x-axis</span></span>
 <span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a><span class="st">             And I choose the variable [imdb_num_votes] for the y-axis</span></span>
 <span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a><span class="st">             And I choose the variable [genre] for the color"</span>, {</span>
-<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">test_that</span>(<span class="st">"Then the scatter plot should show [critics_score] on the x-axis</span></span>
+<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">it</span>(<span class="st">"Then the scatter plot should show [critics_score] on the x-axis</span></span>
 <span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a><span class="st">         And the scatter plot should show [imdb_num_votes] on the y-axis</span></span>
 <span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a><span class="st">         And the points on the scatter plot should be colored by [genre]"</span>, {</span>
 <span id="cb58-15"><a href="#cb58-15" aria-hidden="true" tabindex="-1"></a>              app <span class="ot">&lt;-</span> AppDriver<span class="sc">$</span><span class="fu">new</span>(<span class="at">name =</span> <span class="st">"feature-01-senario-a"</span>, </span>
@@ -1599,7 +1597,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb58-26"><a href="#cb58-26" aria-hidden="true" tabindex="-1"></a><span class="st">              When I choose the size of the points to be [0.7]</span></span>
 <span id="cb58-27"><a href="#cb58-27" aria-hidden="true" tabindex="-1"></a><span class="st">              And I choose the opacity of the points to be [3]</span></span>
 <span id="cb58-28"><a href="#cb58-28" aria-hidden="true" tabindex="-1"></a><span class="st">              And I enter '[New plot title]' for the plot title"</span>, {</span>
-<span id="cb58-29"><a href="#cb58-29" aria-hidden="true" tabindex="-1"></a>         <span class="fu">test_that</span>(<span class="st">"Then the size of the points on the scatter plot should be [3]</span></span>
+<span id="cb58-29"><a href="#cb58-29" aria-hidden="true" tabindex="-1"></a>         <span class="fu">it</span>(<span class="st">"Then the size of the points on the scatter plot should be [3]</span></span>
 <span id="cb58-30"><a href="#cb58-30" aria-hidden="true" tabindex="-1"></a><span class="st">              And the opacity of the points on the scatter plot should be [0.7]</span></span>
 <span id="cb58-31"><a href="#cb58-31" aria-hidden="true" tabindex="-1"></a><span class="st">              And the title of the plot should be '[New Plot Title]'"</span>, {</span>
 <span id="cb58-32"><a href="#cb58-32" aria-hidden="true" tabindex="-1"></a>              app <span class="ot">&lt;-</span> AppDriver<span class="sc">$</span><span class="fu">new</span>(<span class="at">name =</span> <span class="st">"feature-01-senario-b"</span>, </span>
@@ -1613,6 +1611,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb58-40"><a href="#cb58-40" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
+<p>Note that these tests combine <code>testthat</code>’s <code>describe()</code> and <code>it()</code> functions with the <a href="https://cucumber.io/docs/gherkin/reference/">Gherkin syntax</a>.</p>
 </section>
 </section>
 <section id="system-tests-cypress" class="level2">
@@ -1620,206 +1619,129 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>rhino</code> apps extend the test suite to include the <a href="https://www.cypress.io/">Cypress test framework</a>. The Cypress tests below follow the example from the <a href="https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html"><code>rhino</code> website</a>.</p>
 <section id="clicks-message-modules" class="level3">
 <h3 class="anchored" data-anchor-id="clicks-message-modules">Clicks &amp; message modules</h3>
-<p>Below we add two modules to the application (i.e., in <code>app/view</code>).</p>
-<section id="clicks.r" class="level4">
-<h4 class="anchored" data-anchor-id="clicks.r"><span style="font-size: 1.10em; font-weight: bold"><code>clicks.R</code></span></h4>
-<p>The following module was added to <code>app/view/clicks.R</code>:</p>
-<div class="cell">
-<details>
-<summary>show/hide app/view/clicks.R</summary>
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># app/view/clicks.R</span></span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>box<span class="sc">::</span><span class="fu">use</span>(</span>
-<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>  shiny[actionButton, div, moduleServer, NS, renderText, textOutput],</span>
-<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="co">#' @export</span></span>
-<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
-<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>  ns <span class="ot">&lt;-</span> <span class="fu">NS</span>(id)</span>
-<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">div</span>(</span>
-<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">class =</span> <span class="st">"clicks"</span>,</span>
-<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">actionButton</span>(</span>
-<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ns</span>(<span class="st">"click"</span>),</span>
-<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Click me!"</span></span>
-<span id="cb59-15"><a href="#cb59-15" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb59-16"><a href="#cb59-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">textOutput</span>(<span class="fu">ns</span>(<span class="st">"counter"</span>))</span>
-<span id="cb59-17"><a href="#cb59-17" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb59-18"><a href="#cb59-18" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb59-19"><a href="#cb59-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-20"><a href="#cb59-20" aria-hidden="true" tabindex="-1"></a><span class="co">#' @export</span></span>
-<span id="cb59-21"><a href="#cb59-21" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
-<span id="cb59-22"><a href="#cb59-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb59-23"><a href="#cb59-23" aria-hidden="true" tabindex="-1"></a>    output<span class="sc">$</span>counter <span class="ot">&lt;-</span> <span class="fu">renderText</span>(input<span class="sc">$</span>click)</span>
-<span id="cb59-24"><a href="#cb59-24" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb59-25"><a href="#cb59-25" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
+<p>Below we add two modules (<a href="https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html#test-application"><code>clicks.R</code> and <code>message.R</code></a>) to the <code>rap</code> application (i.e., in <code>app/view</code>). Both modules contain an <code>actionButton()</code> and <code>textOutput()</code>. Using <code>app/view/clicks</code> or <code>app/view/message</code> requires adding both modules in the <code>app/main.R</code> file with <code>box::use()</code>.</p>
 </section>
-<section id="message.r" class="level4">
-<h4 class="anchored" data-anchor-id="message.r"><span style="font-size: 1.10em; font-weight: bold"><code>message.R</code></span></h4>
-<p>The following module was added to <code>app/view/message.R</code>:</p>
-<div class="cell">
-<details>
-<summary>show/hide app/view/message.R</summary>
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># app/view/message.R</span></span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>box<span class="sc">::</span><span class="fu">use</span>(</span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  shiny[actionButton, div, moduleServer, NS, renderText, req, textOutput],</span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a><span class="co">#' @export</span></span>
-<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
-<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>  ns <span class="ot">&lt;-</span> <span class="fu">NS</span>(id)</span>
-<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">div</span>(</span>
-<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">class =</span> <span class="st">"message"</span>,</span>
-<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">actionButton</span>(</span>
-<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ns</span>(<span class="st">"show_message"</span>),</span>
-<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Show message"</span></span>
-<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb60-17"><a href="#cb60-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">textOutput</span>(<span class="fu">ns</span>(<span class="st">"message_text"</span>))</span>
-<span id="cb60-18"><a href="#cb60-18" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb60-19"><a href="#cb60-19" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb60-20"><a href="#cb60-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-21"><a href="#cb60-21" aria-hidden="true" tabindex="-1"></a><span class="co">#' @export</span></span>
-<span id="cb60-22"><a href="#cb60-22" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
-<span id="cb60-23"><a href="#cb60-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb60-24"><a href="#cb60-24" aria-hidden="true" tabindex="-1"></a>    output<span class="sc">$</span>message_text <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
-<span id="cb60-25"><a href="#cb60-25" aria-hidden="true" tabindex="-1"></a>      <span class="fu">req</span>(input<span class="sc">$</span>show_message)</span>
-<span id="cb60-26"><a href="#cb60-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-27"><a href="#cb60-27" aria-hidden="true" tabindex="-1"></a>      <span class="st">"This is a message"</span></span>
-<span id="cb60-28"><a href="#cb60-28" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb60-29"><a href="#cb60-29" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb60-30"><a href="#cb60-30" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-</section>
-</section>
-<section id="updates-to-main.r" class="level3">
-<h3 class="anchored" data-anchor-id="updates-to-main.r">Updates to <span style="font-size: 1.05em; font-weight: bold;"><code>main.R</code></span></h3>
-<p>To use the <code>box</code> modules above, we’ll need to include them in the <code>app/main.R</code> file.</p>
-<section id="appmain.r-1" class="level4">
-<h4 class="anchored" data-anchor-id="appmain.r-1"><span style="font-size: 1.10em; font-weight: bold;"><code>app/main.R</code></span></h4>
+<section id="appmain.r-1" class="level3">
+<h3 class="anchored" data-anchor-id="appmain.r-1"><span style="font-size: 1.10em; font-weight: bold;"><code>app/main.R</code></span></h3>
 <p>The following changes were made in <code>app/main.R</code>:</p>
 <div class="cell">
 <details open="">
 <summary>show/hide app/main.R</summary>
-<div class="sourceCode cell-code" id="annotated-cell-28"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-28-1"><a href="#annotated-cell-28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># app/main.R</span></span>
-<span id="annotated-cell-28-2"><a href="#annotated-cell-28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-28-3"><a href="#annotated-cell-28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># shiny functions</span></span>
-<span id="annotated-cell-28-4"><a href="#annotated-cell-28-4" aria-hidden="true" tabindex="-1"></a>box<span class="sc">::</span><span class="fu">use</span>(</span>
-<span id="annotated-cell-28-5"><a href="#annotated-cell-28-5" aria-hidden="true" tabindex="-1"></a>  shiny[</span>
-<span id="annotated-cell-28-6"><a href="#annotated-cell-28-6" aria-hidden="true" tabindex="-1"></a>    NS, fluidPage, sidebarLayout, sidebarPanel, </span>
-<span id="annotated-cell-28-7"><a href="#annotated-cell-28-7" aria-hidden="true" tabindex="-1"></a>    mainPanel, fluidRow, column, tags, icon,</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="1">1</button><span id="annotated-cell-28-8" class="code-annotation-target"><a href="#annotated-cell-28-8" aria-hidden="true" tabindex="-1"></a>    plotOutput, moduleServer, renderPlot, hr</span>
-<span id="annotated-cell-28-9"><a href="#annotated-cell-28-9" aria-hidden="true" tabindex="-1"></a>  ],</span>
-<span id="annotated-cell-28-10"><a href="#annotated-cell-28-10" aria-hidden="true" tabindex="-1"></a>  shinythemes[shinytheme]</span>
-<span id="annotated-cell-28-11"><a href="#annotated-cell-28-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="annotated-cell-28-12"><a href="#annotated-cell-28-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-28-13"><a href="#annotated-cell-28-13" aria-hidden="true" tabindex="-1"></a><span class="co"># import modules ----</span></span>
-<span id="annotated-cell-28-14"><a href="#annotated-cell-28-14" aria-hidden="true" tabindex="-1"></a>box<span class="sc">::</span><span class="fu">use</span>(</span>
-<span id="annotated-cell-28-15"><a href="#annotated-cell-28-15" aria-hidden="true" tabindex="-1"></a>  <span class="do">## load inputs module ----</span></span>
-<span id="annotated-cell-28-16"><a href="#annotated-cell-28-16" aria-hidden="true" tabindex="-1"></a>  app <span class="sc">/</span> view <span class="sc">/</span> inputs,</span>
-<span id="annotated-cell-28-17"><a href="#annotated-cell-28-17" aria-hidden="true" tabindex="-1"></a>  <span class="do">## load display module ----</span></span>
-<span id="annotated-cell-28-18"><a href="#annotated-cell-28-18" aria-hidden="true" tabindex="-1"></a>  app <span class="sc">/</span> view <span class="sc">/</span> display,</span>
-<span id="annotated-cell-28-19"><a href="#annotated-cell-28-19" aria-hidden="true" tabindex="-1"></a>  <span class="do">## load clicks module ----</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="2">2</button><span id="annotated-cell-28-20" class="code-annotation-target"><a href="#annotated-cell-28-20" aria-hidden="true" tabindex="-1"></a>  app <span class="sc">/</span> view <span class="sc">/</span> clicks,</span>
-<span id="annotated-cell-28-21"><a href="#annotated-cell-28-21" aria-hidden="true" tabindex="-1"></a>  <span class="do">## load message module ----</span></span>
-<span id="annotated-cell-28-22"><a href="#annotated-cell-28-22" aria-hidden="true" tabindex="-1"></a>  app <span class="sc">/</span> view <span class="sc">/</span> message,</span>
-<span id="annotated-cell-28-23"><a href="#annotated-cell-28-23" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="annotated-cell-28-24"><a href="#annotated-cell-28-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-28-25"><a href="#annotated-cell-28-25" aria-hidden="true" tabindex="-1"></a><span class="co">#' rap ui</span></span>
-<span id="annotated-cell-28-26"><a href="#annotated-cell-28-26" aria-hidden="true" tabindex="-1"></a><span class="co">#' @export</span></span>
-<span id="annotated-cell-28-27"><a href="#annotated-cell-28-27" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
-<span id="annotated-cell-28-28"><a href="#annotated-cell-28-28" aria-hidden="true" tabindex="-1"></a>  ns <span class="ot">&lt;-</span> <span class="fu">NS</span>(id)</span>
-<span id="annotated-cell-28-29"><a href="#annotated-cell-28-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fluidPage</span>(<span class="at">theme =</span> <span class="fu">shinytheme</span>(<span class="st">"spacelab"</span>),</span>
-<span id="annotated-cell-28-30"><a href="#annotated-cell-28-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sidebarLayout</span>(</span>
-<span id="annotated-cell-28-31"><a href="#annotated-cell-28-31" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sidebarPanel</span>(</span>
-<span id="annotated-cell-28-32"><a href="#annotated-cell-28-32" aria-hidden="true" tabindex="-1"></a>        <span class="co"># use inputs module UI ----</span></span>
-<span id="annotated-cell-28-33"><a href="#annotated-cell-28-33" aria-hidden="true" tabindex="-1"></a>        inputs<span class="sc">$</span><span class="fu">ui</span>(<span class="fu">ns</span>(<span class="st">"vals"</span>)),</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="3">3</button><span id="annotated-cell-28-34" class="code-annotation-target"><a href="#annotated-cell-28-34" aria-hidden="true" tabindex="-1"></a>        <span class="co"># use clicks module UI ----</span></span>
-<span id="annotated-cell-28-35"><a href="#annotated-cell-28-35" aria-hidden="true" tabindex="-1"></a>        clicks<span class="sc">$</span><span class="fu">ui</span>(<span class="fu">ns</span>(<span class="st">"clicks"</span>)),</span>
-<span id="annotated-cell-28-36"><a href="#annotated-cell-28-36" aria-hidden="true" tabindex="-1"></a>        <span class="fu">hr</span>(),</span>
-<span id="annotated-cell-28-37"><a href="#annotated-cell-28-37" aria-hidden="true" tabindex="-1"></a>        <span class="co"># use message module UI ----</span></span>
-<span id="annotated-cell-28-38"><a href="#annotated-cell-28-38" aria-hidden="true" tabindex="-1"></a>        message<span class="sc">$</span><span class="fu">ui</span>(<span class="fu">ns</span>(<span class="st">"message"</span>))),</span>
-<span id="annotated-cell-28-39"><a href="#annotated-cell-28-39" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mainPanel</span>(</span>
-<span id="annotated-cell-28-40"><a href="#annotated-cell-28-40" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
-<span id="annotated-cell-28-41"><a href="#annotated-cell-28-41" aria-hidden="true" tabindex="-1"></a>          <span class="fu">column</span>(</span>
-<span id="annotated-cell-28-42"><a href="#annotated-cell-28-42" aria-hidden="true" tabindex="-1"></a>            <span class="at">width =</span> <span class="dv">12</span>,</span>
-<span id="annotated-cell-28-43"><a href="#annotated-cell-28-43" aria-hidden="true" tabindex="-1"></a>              tags<span class="sc">$</span><span class="fu">h3</span>(<span class="st">"rap"</span>)</span>
-<span id="annotated-cell-28-44"><a href="#annotated-cell-28-44" aria-hidden="true" tabindex="-1"></a>            )</span>
-<span id="annotated-cell-28-45"><a href="#annotated-cell-28-45" aria-hidden="true" tabindex="-1"></a>          ),</span>
-<span id="annotated-cell-28-46"><a href="#annotated-cell-28-46" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
-<span id="annotated-cell-28-47"><a href="#annotated-cell-28-47" aria-hidden="true" tabindex="-1"></a>          <span class="fu">column</span>(</span>
-<span id="annotated-cell-28-48"><a href="#annotated-cell-28-48" aria-hidden="true" tabindex="-1"></a>            <span class="at">width =</span> <span class="dv">1</span>,</span>
-<span id="annotated-cell-28-49"><a href="#annotated-cell-28-49" aria-hidden="true" tabindex="-1"></a>            <span class="at">offset =</span> <span class="dv">11</span>,</span>
-<span id="annotated-cell-28-50"><a href="#annotated-cell-28-50" aria-hidden="true" tabindex="-1"></a>            <span class="co"># example info button ---</span></span>
-<span id="annotated-cell-28-51"><a href="#annotated-cell-28-51" aria-hidden="true" tabindex="-1"></a>            tags<span class="sc">$</span><span class="fu">button</span>(<span class="at">id =</span> <span class="st">"help-button"</span>,</span>
-<span id="annotated-cell-28-52"><a href="#annotated-cell-28-52" aria-hidden="true" tabindex="-1"></a>              <span class="fu">icon</span>(<span class="st">"info"</span>),</span>
-<span id="annotated-cell-28-53"><a href="#annotated-cell-28-53" aria-hidden="true" tabindex="-1"></a>              <span class="co"># add 'onclick' after rhino::build_sass()</span></span>
-<span id="annotated-cell-28-54"><a href="#annotated-cell-28-54" aria-hidden="true" tabindex="-1"></a>              <span class="co"># and rhino::build_js()</span></span>
-<span id="annotated-cell-28-55"><a href="#annotated-cell-28-55" aria-hidden="true" tabindex="-1"></a>              <span class="at">onclick =</span> <span class="st">"App.showHelp()"</span>)</span>
-<span id="annotated-cell-28-56"><a href="#annotated-cell-28-56" aria-hidden="true" tabindex="-1"></a>          )</span>
-<span id="annotated-cell-28-57"><a href="#annotated-cell-28-57" aria-hidden="true" tabindex="-1"></a>        ),</span>
-<span id="annotated-cell-28-58"><a href="#annotated-cell-28-58" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
-<span id="annotated-cell-28-59"><a href="#annotated-cell-28-59" aria-hidden="true" tabindex="-1"></a>            <span class="fu">column</span>(</span>
-<span id="annotated-cell-28-60"><a href="#annotated-cell-28-60" aria-hidden="true" tabindex="-1"></a>              <span class="at">width =</span> <span class="dv">12</span>,</span>
-<span id="annotated-cell-28-61"><a href="#annotated-cell-28-61" aria-hidden="true" tabindex="-1"></a>              <span class="co"># use display module UI ----</span></span>
-<span id="annotated-cell-28-62"><a href="#annotated-cell-28-62" aria-hidden="true" tabindex="-1"></a>            display<span class="sc">$</span><span class="fu">ui</span>(<span class="fu">ns</span>(<span class="st">"disp"</span>))</span>
-<span id="annotated-cell-28-63"><a href="#annotated-cell-28-63" aria-hidden="true" tabindex="-1"></a>            )</span>
-<span id="annotated-cell-28-64"><a href="#annotated-cell-28-64" aria-hidden="true" tabindex="-1"></a>          )</span>
-<span id="annotated-cell-28-65"><a href="#annotated-cell-28-65" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="annotated-cell-28-66"><a href="#annotated-cell-28-66" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="annotated-cell-28-67"><a href="#annotated-cell-28-67" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="annotated-cell-28-68"><a href="#annotated-cell-28-68" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="annotated-cell-28-69"><a href="#annotated-cell-28-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-28-70"><a href="#annotated-cell-28-70" aria-hidden="true" tabindex="-1"></a><span class="co">#' rap server</span></span>
-<span id="annotated-cell-28-71"><a href="#annotated-cell-28-71" aria-hidden="true" tabindex="-1"></a><span class="co">#' @export</span></span>
-<span id="annotated-cell-28-72"><a href="#annotated-cell-28-72" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
-<span id="annotated-cell-28-73"><a href="#annotated-cell-28-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
-<span id="annotated-cell-28-74"><a href="#annotated-cell-28-74" aria-hidden="true" tabindex="-1"></a>    <span class="co"># use inputs module server ----</span></span>
-<span id="annotated-cell-28-75"><a href="#annotated-cell-28-75" aria-hidden="true" tabindex="-1"></a>    selected_vars <span class="ot">&lt;-</span> inputs<span class="sc">$</span><span class="fu">server</span>(<span class="at">id =</span> <span class="st">"vals"</span>)</span>
-<span id="annotated-cell-28-76"><a href="#annotated-cell-28-76" aria-hidden="true" tabindex="-1"></a>    <span class="co"># use display module server ----</span></span>
-<span id="annotated-cell-28-77"><a href="#annotated-cell-28-77" aria-hidden="true" tabindex="-1"></a>    display<span class="sc">$</span><span class="fu">server</span>(</span>
-<span id="annotated-cell-28-78"><a href="#annotated-cell-28-78" aria-hidden="true" tabindex="-1"></a>      <span class="at">id =</span> <span class="st">"disp"</span>,</span>
-<span id="annotated-cell-28-79"><a href="#annotated-cell-28-79" aria-hidden="true" tabindex="-1"></a>      <span class="at">var_inputs =</span> selected_vars</span>
-<span id="annotated-cell-28-80"><a href="#annotated-cell-28-80" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="annotated-cell-28-81"><a href="#annotated-cell-28-81" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="annotated-cell-28-82"><a href="#annotated-cell-28-82" aria-hidden="true" tabindex="-1"></a>  </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="4">4</button><span id="annotated-cell-28-83" class="code-annotation-target"><a href="#annotated-cell-28-83" aria-hidden="true" tabindex="-1"></a>  <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
-<span id="annotated-cell-28-84"><a href="#annotated-cell-28-84" aria-hidden="true" tabindex="-1"></a>    <span class="co"># use clicks module server ----</span></span>
-<span id="annotated-cell-28-85"><a href="#annotated-cell-28-85" aria-hidden="true" tabindex="-1"></a>    clicks<span class="sc">$</span><span class="fu">server</span>(<span class="st">"clicks"</span>)</span>
-<span id="annotated-cell-28-86"><a href="#annotated-cell-28-86" aria-hidden="true" tabindex="-1"></a>    <span class="co"># use message module server ----</span></span>
-<span id="annotated-cell-28-87"><a href="#annotated-cell-28-87" aria-hidden="true" tabindex="-1"></a>    message<span class="sc">$</span><span class="fu">server</span>(<span class="st">"message"</span>)</span>
-<span id="annotated-cell-28-88"><a href="#annotated-cell-28-88" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="annotated-cell-28-89"><a href="#annotated-cell-28-89" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="annotated-cell-28-90"><a href="#annotated-cell-28-90" aria-hidden="true" tabindex="-1"></a>}</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-26"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-26-1"><a href="#annotated-cell-26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># app/main.R</span></span>
+<span id="annotated-cell-26-2"><a href="#annotated-cell-26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-26-3"><a href="#annotated-cell-26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># shiny functions</span></span>
+<span id="annotated-cell-26-4"><a href="#annotated-cell-26-4" aria-hidden="true" tabindex="-1"></a>box<span class="sc">::</span><span class="fu">use</span>(</span>
+<span id="annotated-cell-26-5"><a href="#annotated-cell-26-5" aria-hidden="true" tabindex="-1"></a>  shiny[</span>
+<span id="annotated-cell-26-6"><a href="#annotated-cell-26-6" aria-hidden="true" tabindex="-1"></a>    NS, fluidPage, sidebarLayout, sidebarPanel, </span>
+<span id="annotated-cell-26-7"><a href="#annotated-cell-26-7" aria-hidden="true" tabindex="-1"></a>    mainPanel, fluidRow, column, tags, icon,</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="1">1</button><span id="annotated-cell-26-8" class="code-annotation-target"><a href="#annotated-cell-26-8" aria-hidden="true" tabindex="-1"></a>    plotOutput, moduleServer, renderPlot, hr</span>
+<span id="annotated-cell-26-9"><a href="#annotated-cell-26-9" aria-hidden="true" tabindex="-1"></a>  ],</span>
+<span id="annotated-cell-26-10"><a href="#annotated-cell-26-10" aria-hidden="true" tabindex="-1"></a>  shinythemes[shinytheme]</span>
+<span id="annotated-cell-26-11"><a href="#annotated-cell-26-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="annotated-cell-26-12"><a href="#annotated-cell-26-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-26-13"><a href="#annotated-cell-26-13" aria-hidden="true" tabindex="-1"></a><span class="co"># import modules ----</span></span>
+<span id="annotated-cell-26-14"><a href="#annotated-cell-26-14" aria-hidden="true" tabindex="-1"></a>box<span class="sc">::</span><span class="fu">use</span>(</span>
+<span id="annotated-cell-26-15"><a href="#annotated-cell-26-15" aria-hidden="true" tabindex="-1"></a>  <span class="do">## load inputs module ----</span></span>
+<span id="annotated-cell-26-16"><a href="#annotated-cell-26-16" aria-hidden="true" tabindex="-1"></a>  app <span class="sc">/</span> view <span class="sc">/</span> inputs,</span>
+<span id="annotated-cell-26-17"><a href="#annotated-cell-26-17" aria-hidden="true" tabindex="-1"></a>  <span class="do">## load display module ----</span></span>
+<span id="annotated-cell-26-18"><a href="#annotated-cell-26-18" aria-hidden="true" tabindex="-1"></a>  app <span class="sc">/</span> view <span class="sc">/</span> display,</span>
+<span id="annotated-cell-26-19"><a href="#annotated-cell-26-19" aria-hidden="true" tabindex="-1"></a>  <span class="do">## load clicks module ----</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="2">2</button><span id="annotated-cell-26-20" class="code-annotation-target"><a href="#annotated-cell-26-20" aria-hidden="true" tabindex="-1"></a>  app <span class="sc">/</span> view <span class="sc">/</span> clicks,</span>
+<span id="annotated-cell-26-21"><a href="#annotated-cell-26-21" aria-hidden="true" tabindex="-1"></a>  <span class="do">## load message module ----</span></span>
+<span id="annotated-cell-26-22"><a href="#annotated-cell-26-22" aria-hidden="true" tabindex="-1"></a>  app <span class="sc">/</span> view <span class="sc">/</span> message,</span>
+<span id="annotated-cell-26-23"><a href="#annotated-cell-26-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="annotated-cell-26-24"><a href="#annotated-cell-26-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-26-25"><a href="#annotated-cell-26-25" aria-hidden="true" tabindex="-1"></a><span class="co">#' rap ui</span></span>
+<span id="annotated-cell-26-26"><a href="#annotated-cell-26-26" aria-hidden="true" tabindex="-1"></a><span class="co">#' @export</span></span>
+<span id="annotated-cell-26-27"><a href="#annotated-cell-26-27" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
+<span id="annotated-cell-26-28"><a href="#annotated-cell-26-28" aria-hidden="true" tabindex="-1"></a>  ns <span class="ot">&lt;-</span> <span class="fu">NS</span>(id)</span>
+<span id="annotated-cell-26-29"><a href="#annotated-cell-26-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fluidPage</span>(<span class="at">theme =</span> <span class="fu">shinytheme</span>(<span class="st">"spacelab"</span>),</span>
+<span id="annotated-cell-26-30"><a href="#annotated-cell-26-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sidebarLayout</span>(</span>
+<span id="annotated-cell-26-31"><a href="#annotated-cell-26-31" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sidebarPanel</span>(</span>
+<span id="annotated-cell-26-32"><a href="#annotated-cell-26-32" aria-hidden="true" tabindex="-1"></a>        <span class="co"># use inputs module UI ----</span></span>
+<span id="annotated-cell-26-33"><a href="#annotated-cell-26-33" aria-hidden="true" tabindex="-1"></a>        inputs<span class="sc">$</span><span class="fu">ui</span>(<span class="fu">ns</span>(<span class="st">"vals"</span>)),</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="3">3</button><span id="annotated-cell-26-34" class="code-annotation-target"><a href="#annotated-cell-26-34" aria-hidden="true" tabindex="-1"></a>        <span class="co"># use clicks module UI ----</span></span>
+<span id="annotated-cell-26-35"><a href="#annotated-cell-26-35" aria-hidden="true" tabindex="-1"></a>        clicks<span class="sc">$</span><span class="fu">ui</span>(<span class="fu">ns</span>(<span class="st">"clicks"</span>)),</span>
+<span id="annotated-cell-26-36"><a href="#annotated-cell-26-36" aria-hidden="true" tabindex="-1"></a>        <span class="fu">hr</span>(),</span>
+<span id="annotated-cell-26-37"><a href="#annotated-cell-26-37" aria-hidden="true" tabindex="-1"></a>        <span class="co"># use message module UI ----</span></span>
+<span id="annotated-cell-26-38"><a href="#annotated-cell-26-38" aria-hidden="true" tabindex="-1"></a>        message<span class="sc">$</span><span class="fu">ui</span>(<span class="fu">ns</span>(<span class="st">"message"</span>))),</span>
+<span id="annotated-cell-26-39"><a href="#annotated-cell-26-39" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mainPanel</span>(</span>
+<span id="annotated-cell-26-40"><a href="#annotated-cell-26-40" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
+<span id="annotated-cell-26-41"><a href="#annotated-cell-26-41" aria-hidden="true" tabindex="-1"></a>          <span class="fu">column</span>(</span>
+<span id="annotated-cell-26-42"><a href="#annotated-cell-26-42" aria-hidden="true" tabindex="-1"></a>            <span class="at">width =</span> <span class="dv">12</span>,</span>
+<span id="annotated-cell-26-43"><a href="#annotated-cell-26-43" aria-hidden="true" tabindex="-1"></a>              tags<span class="sc">$</span><span class="fu">h3</span>(<span class="st">"rap"</span>)</span>
+<span id="annotated-cell-26-44"><a href="#annotated-cell-26-44" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="annotated-cell-26-45"><a href="#annotated-cell-26-45" aria-hidden="true" tabindex="-1"></a>          ),</span>
+<span id="annotated-cell-26-46"><a href="#annotated-cell-26-46" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
+<span id="annotated-cell-26-47"><a href="#annotated-cell-26-47" aria-hidden="true" tabindex="-1"></a>          <span class="fu">column</span>(</span>
+<span id="annotated-cell-26-48"><a href="#annotated-cell-26-48" aria-hidden="true" tabindex="-1"></a>            <span class="at">width =</span> <span class="dv">1</span>,</span>
+<span id="annotated-cell-26-49"><a href="#annotated-cell-26-49" aria-hidden="true" tabindex="-1"></a>            <span class="at">offset =</span> <span class="dv">11</span>,</span>
+<span id="annotated-cell-26-50"><a href="#annotated-cell-26-50" aria-hidden="true" tabindex="-1"></a>            <span class="co"># example info button ---</span></span>
+<span id="annotated-cell-26-51"><a href="#annotated-cell-26-51" aria-hidden="true" tabindex="-1"></a>            tags<span class="sc">$</span><span class="fu">button</span>(<span class="at">id =</span> <span class="st">"help-button"</span>,</span>
+<span id="annotated-cell-26-52"><a href="#annotated-cell-26-52" aria-hidden="true" tabindex="-1"></a>              <span class="fu">icon</span>(<span class="st">"info"</span>),</span>
+<span id="annotated-cell-26-53"><a href="#annotated-cell-26-53" aria-hidden="true" tabindex="-1"></a>              <span class="co"># add 'onclick' after rhino::build_sass()</span></span>
+<span id="annotated-cell-26-54"><a href="#annotated-cell-26-54" aria-hidden="true" tabindex="-1"></a>              <span class="co"># and rhino::build_js()</span></span>
+<span id="annotated-cell-26-55"><a href="#annotated-cell-26-55" aria-hidden="true" tabindex="-1"></a>              <span class="at">onclick =</span> <span class="st">"App.showHelp()"</span>)</span>
+<span id="annotated-cell-26-56"><a href="#annotated-cell-26-56" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="annotated-cell-26-57"><a href="#annotated-cell-26-57" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="annotated-cell-26-58"><a href="#annotated-cell-26-58" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
+<span id="annotated-cell-26-59"><a href="#annotated-cell-26-59" aria-hidden="true" tabindex="-1"></a>            <span class="fu">column</span>(</span>
+<span id="annotated-cell-26-60"><a href="#annotated-cell-26-60" aria-hidden="true" tabindex="-1"></a>              <span class="at">width =</span> <span class="dv">12</span>,</span>
+<span id="annotated-cell-26-61"><a href="#annotated-cell-26-61" aria-hidden="true" tabindex="-1"></a>              <span class="co"># use display module UI ----</span></span>
+<span id="annotated-cell-26-62"><a href="#annotated-cell-26-62" aria-hidden="true" tabindex="-1"></a>            display<span class="sc">$</span><span class="fu">ui</span>(<span class="fu">ns</span>(<span class="st">"disp"</span>))</span>
+<span id="annotated-cell-26-63"><a href="#annotated-cell-26-63" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="annotated-cell-26-64"><a href="#annotated-cell-26-64" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="annotated-cell-26-65"><a href="#annotated-cell-26-65" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="annotated-cell-26-66"><a href="#annotated-cell-26-66" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="annotated-cell-26-67"><a href="#annotated-cell-26-67" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="annotated-cell-26-68"><a href="#annotated-cell-26-68" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="annotated-cell-26-69"><a href="#annotated-cell-26-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-26-70"><a href="#annotated-cell-26-70" aria-hidden="true" tabindex="-1"></a><span class="co">#' rap server</span></span>
+<span id="annotated-cell-26-71"><a href="#annotated-cell-26-71" aria-hidden="true" tabindex="-1"></a><span class="co">#' @export</span></span>
+<span id="annotated-cell-26-72"><a href="#annotated-cell-26-72" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
+<span id="annotated-cell-26-73"><a href="#annotated-cell-26-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
+<span id="annotated-cell-26-74"><a href="#annotated-cell-26-74" aria-hidden="true" tabindex="-1"></a>    <span class="co"># use inputs module server ----</span></span>
+<span id="annotated-cell-26-75"><a href="#annotated-cell-26-75" aria-hidden="true" tabindex="-1"></a>    selected_vars <span class="ot">&lt;-</span> inputs<span class="sc">$</span><span class="fu">server</span>(<span class="at">id =</span> <span class="st">"vals"</span>)</span>
+<span id="annotated-cell-26-76"><a href="#annotated-cell-26-76" aria-hidden="true" tabindex="-1"></a>    <span class="co"># use display module server ----</span></span>
+<span id="annotated-cell-26-77"><a href="#annotated-cell-26-77" aria-hidden="true" tabindex="-1"></a>    display<span class="sc">$</span><span class="fu">server</span>(</span>
+<span id="annotated-cell-26-78"><a href="#annotated-cell-26-78" aria-hidden="true" tabindex="-1"></a>      <span class="at">id =</span> <span class="st">"disp"</span>,</span>
+<span id="annotated-cell-26-79"><a href="#annotated-cell-26-79" aria-hidden="true" tabindex="-1"></a>      <span class="at">var_inputs =</span> selected_vars</span>
+<span id="annotated-cell-26-80"><a href="#annotated-cell-26-80" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="annotated-cell-26-81"><a href="#annotated-cell-26-81" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="annotated-cell-26-82"><a href="#annotated-cell-26-82" aria-hidden="true" tabindex="-1"></a>  </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="4">4</button><span id="annotated-cell-26-83" class="code-annotation-target"><a href="#annotated-cell-26-83" aria-hidden="true" tabindex="-1"></a>  <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
+<span id="annotated-cell-26-84"><a href="#annotated-cell-26-84" aria-hidden="true" tabindex="-1"></a>    <span class="co"># use clicks module server ----</span></span>
+<span id="annotated-cell-26-85"><a href="#annotated-cell-26-85" aria-hidden="true" tabindex="-1"></a>    clicks<span class="sc">$</span><span class="fu">server</span>(<span class="st">"clicks"</span>)</span>
+<span id="annotated-cell-26-86"><a href="#annotated-cell-26-86" aria-hidden="true" tabindex="-1"></a>    <span class="co"># use message module server ----</span></span>
+<span id="annotated-cell-26-87"><a href="#annotated-cell-26-87" aria-hidden="true" tabindex="-1"></a>    message<span class="sc">$</span><span class="fu">server</span>(<span class="st">"message"</span>)</span>
+<span id="annotated-cell-26-88"><a href="#annotated-cell-26-88" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="annotated-cell-26-89"><a href="#annotated-cell-26-89" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="annotated-cell-26-90"><a href="#annotated-cell-26-90" aria-hidden="true" tabindex="-1"></a>}</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-28" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-26" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-28" data-code-annotation="1" data-code-lines="8">add horizontal rule function to <code>box::use()</code><br>
+<span data-code-cell="annotated-cell-26" data-code-annotation="1" data-code-lines="8">add horizontal rule function to <code>box::use()</code><br>
 </span>
 </dd>
-<dt data-target-cell="annotated-cell-28" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-26" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-28" data-code-annotation="2" data-code-lines="20,22">use modules from <code>app/view/clicks.R</code> and <code>app/view/message.R</code><br>
+<span data-code-cell="annotated-cell-26" data-code-annotation="2" data-code-lines="20,22">use modules from <code>app/view/clicks.R</code> and <code>app/view/message.R</code><br>
 </span>
 </dd>
-<dt data-target-cell="annotated-cell-28" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-26" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-28" data-code-annotation="3" data-code-lines="34,38">include modules in UI<br>
+<span data-code-cell="annotated-cell-26" data-code-annotation="3" data-code-lines="34,38">include modules in UI<br>
 </span>
 </dd>
-<dt data-target-cell="annotated-cell-28" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-26" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-28" data-code-annotation="4" data-code-lines="83,88">include modules in server</span>
+<span data-code-cell="annotated-cell-26" data-code-annotation="4" data-code-lines="83,88">include modules in server</span>
 </dd>
 </dl>
 </div>
 </div>
-</section>
 </section>
 <section id="writing-cypress-tests" class="level3">
 <h3 class="anchored" data-anchor-id="writing-cypress-tests">Writing Cypress tests</h3>
