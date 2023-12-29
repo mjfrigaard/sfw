@@ -180,13 +180,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#dependency-refresher" id="toc-dependency-refresher" class="nav-link" data-scroll-target="#dependency-refresher">Dependency refresher</a></li>
   <li><a href="#how-box-modules-work" id="toc-how-box-modules-work" class="nav-link" data-scroll-target="#how-box-modules-work">How <code>box</code> modules work</a></li>
   </ul></li>
+  </ul></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
-  <li><a href="#utility-function" id="toc-utility-function" class="nav-link" data-scroll-target="#utility-function">Utility function</a></li>
+  <li><a href="#utility-functions" id="toc-utility-functions" class="nav-link" data-scroll-target="#utility-functions">Utility functions</a>
+  <ul>
   <li><a href="#unit-tests" id="toc-unit-tests" class="nav-link" data-scroll-target="#unit-tests">Unit tests</a></li>
-  <li><a href="#app-modules" id="toc-app-modules" class="nav-link" data-scroll-target="#app-modules">App Modules</a></li>
+  </ul></li>
+  <li><a href="#app-modules" id="toc-app-modules" class="nav-link" data-scroll-target="#app-modules">App Modules</a>
+  <ul>
   <li><a href="#module-tests" id="toc-module-tests" class="nav-link" data-scroll-target="#module-tests">Module tests</a></li>
+  <li><a href="#running-tests" id="toc-running-tests" class="nav-link" data-scroll-target="#running-tests">Running tests</a></li>
+  </ul></li>
   <li><a href="#appmain.r" id="toc-appmain.r" class="nav-link" data-scroll-target="#appmain.r"><code>app/main.R</code></a></li>
-  <li><a href="#add-.js.css.sass" id="toc-add-.js.css.sass" class="nav-link" data-scroll-target="#add-.js.css.sass">Add <code>.js</code>/<code>.css</code>/<code>.sass</code></a></li>
+  <li><a href="#adding-non-r-code" id="toc-adding-non-r-code" class="nav-link" data-scroll-target="#adding-non-r-code">Adding non-R code</a></li>
+  <li><a href="#system-tests-shinytest2" id="toc-system-tests-shinytest2" class="nav-link" data-scroll-target="#system-tests-shinytest2">System tests (<span style="font-size: 0.83em;"><code>shinytest2</code></span>)</a>
+  <ul>
+  <li><a href="#system-test-anatomy" id="toc-system-test-anatomy" class="nav-link" data-scroll-target="#system-test-anatomy">System test anatomy</a></li>
+  <li><a href="#bdd-system-tests" id="toc-bdd-system-tests" class="nav-link" data-scroll-target="#bdd-system-tests">BDD system tests</a></li>
+  </ul></li>
+  <li><a href="#system-tests-cypress" id="toc-system-tests-cypress" class="nav-link" data-scroll-target="#system-tests-cypress">System tests (Cypress)</a>
+  <ul>
+  <li><a href="#clicks-message-modules" id="toc-clicks-message-modules" class="nav-link" data-scroll-target="#clicks-message-modules">Clicks &amp; message modules</a></li>
+  <li><a href="#appmain.r-1" id="toc-appmain.r-1" class="nav-link" data-scroll-target="#appmain.r-1"><span style="font-size: 1.10em; font-weight: bold;"><code>app/main.R</code></span></a></li>
+  <li><a href="#writing-cypress-tests" id="toc-writing-cypress-tests" class="nav-link" data-scroll-target="#writing-cypress-tests">Writing Cypress tests</a></li>
+  <li><a href="#running-cypress-tests" id="toc-running-cypress-tests" class="nav-link" data-scroll-target="#running-cypress-tests">Running Cypress tests</a></li>
   </ul></li>
   <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap">Recap</a></li>
   </ul>
@@ -212,7 +229,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p><code>rhino</code> apps are unique because unlike <code>golem</code> and <code>leprechaun</code>, they aren’t R packages. <code>rhino</code> uses <a href="https://klmr.me/box/"><code>box</code></a> modules to manage add-on package functions, which makes simplifies app dependencies and separates the code into a clear ‘division of labor.’<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p><code>rhino</code> apps are unique because unlike <code>golem</code> and <code>leprechaun</code>, they aren’t R packages. <code>rhino</code> uses <a href="https://klmr.me/box/"><code>box</code></a> modules to manage add-on package functions, which minimizes dependencies and separates the application’s code into a clear ‘division of labor.’<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <section id="getting-started" class="level2">
 <h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
 <p>To create a new <code>rhino</code> application, select <strong>Project</strong> &gt; <strong>New Project</strong> &gt; <strong>New Directory</strong>, and <strong>Shiny Application using rhino</strong>. The <strong>New Project Wizard</strong> will require a <em>Directory name</em> and <em>subdirectory</em> and <em>Github Actions CI</em> (selected by default)</p>
@@ -453,7 +470,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Now that we’ve covered the initial file and folder structure of a new <code>rhino</code> application, we’re going to cover how to convert the ‘vanilla’ Shiny app below into the <code>rhino</code> structure. We’ll have to 1) load the <code>movies</code> data, and 2) create/call the <code>scatter_plot()</code> utility function, and 3) convert the contents of <code>app.R</code> into modules.</p>
 <div class="cell">
 <details>
-<summary>view monolithlic app.R file</summary>
+<summary>show/hide monolithlic app.R file</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> shiny<span class="sc">::</span><span class="fu">fluidPage</span>(</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">theme =</span> shinythemes<span class="sc">::</span><span class="fu">shinytheme</span>(<span class="st">"spacelab"</span>),</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  shiny<span class="sc">::</span><span class="fu">sidebarLayout</span>(</span>
@@ -573,7 +590,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell">
 <details>
-<summary>view scatter_plot.R utility function</summary>
+<summary>show/hide scatter_plot.R utility function</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>scatter_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(df, x_var, y_var, col_var, alpha_var, size_var) {</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(<span class="at">data =</span> df,</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>      ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">x =</span> .data[[x_var]],</span>
@@ -611,21 +628,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>including the package in the <code>DESCRIPTION</code> file</p></li>
 <li><p>using <code>pkg::fun()</code> in code below <code>R/</code> <a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a></p></li>
 </ol>
-<p>The methods above beg the questions:</p>
+<p>The methods above might prompt the following questions:</p>
 <ol type="1">
-<li><p><em>Why do we load the <strong>entire</strong> package namespace <em>and</em> attaching it to the search list with <code>library</code>, even if we only need a single function during standard (i.e., non-package) R development?</em> <a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></p></li>
-<li><p><em>Why do we install the <strong>entire</strong> package in the <code>DESCRIPTION</code> if we’re only accessing a single function below R with <code>pkg::fun()</code> in our R package?</em> <a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a></p></li>
+<li><p><em>Why do we load and attach the <strong>entire package namespace</strong> <em>and</em> if we only need a single function during standard (i.e., non-package) R development?</em> <a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></p></li>
+<li><p><em>Why do we install the <strong>entire package</strong> in the <code>DESCRIPTION</code> if we’re only accessing a single function below R with <code>pkg::fun()</code> in our R package?</em> <a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a></p></li>
 </ol>
 <p>This is where <a href="https://klmr.me/box/index.html"><code>box</code></a> comes in–it’s designed to <em>‘completely replace the base R <code>library</code> and <code>require</code> functions’</em>.</p>
 </section>
 <section id="how-box-modules-work" class="level4">
 <h4 class="anchored" data-anchor-id="how-box-modules-work">How <code>box</code> modules work</h4>
-<p>Below is a quick demonstration of how <code>box</code> modules work using the <code>tidyverse_logo()</code> function from the <code>tidyverse</code> meta-package. If we attempted to use the <code>tidyverse_logo()</code> function without installing or loading the <code>tidyverse</code> package, we see the following error:</p>
+<p>Below is a quick demonstration of <code>box</code> modules using <code>tidyverse::tidyverse_logo()</code>. If we attempted to use the <code>tidyverse_logo()</code> function without installing or loading the <code>tidyverse</code> meta-package, we see the following error:<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidyverse_logo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="sourceCode" id="cb18"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>Error in tidyverse_logo(): could not find function "tidyverse_logo"</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This is expected, because even if <code>tidyverse</code> has been installed, it hasn’t been loaded with <code>libaray(tidyverse)</code>. <code>box</code> modules allow us to <strong>encapsulate and explicitly import packages and functions</strong>.<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a></p>
+<p>This is expected, because even if <code>tidyverse</code> has been installed, it hasn’t been loaded with <code>libaray(tidyverse)</code>. <code>box</code> modules allow us to <strong>encapsulate and explicitly import packages and functions</strong>.<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a></p>
 <p>Below is a quick demonstration of how they work:</p>
 </section>
 </section>
@@ -681,7 +698,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="ex">/</span> __/ / _  / // / <span class="kw">|</span><span class="ex">/</span> / <span class="at">-_</span><span class="er">)</span> <span class="ex">__</span><span class="er">(</span><span class="ex">_-</span><span class="op">&lt;</span>/ <span class="at">-_</span><span class="kw">)</span></span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="ex">\__/_/\_,_/\_,</span> /<span class="kw">|</span><span class="ex">___/\__/_/</span> /___/\__/ </span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>     <span class="ex">⬢</span>  . /___/      ⬡      .       ⬢ </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><code>box</code> modules are self-contained, meaning the <code>tidyverse_logo()</code> function only exists <em>inside</em> the <code>logo</code> module.</p>
+<p><br></p>
+<p><code>box</code> modules are self-contained, meaning the <code>tidyverse_logo()</code> function only exists <em>inside</em> the <code>logo</code> module. Explicitly listing the packages and functions we intend to use with <code>box::use()</code> means we no longer need to include calls to <code>install.packages()</code> and <code>library()</code> or <code>require()</code>.</p>
 <ul>
 <li><p>Note what happens when I try to access the <code>tidyverse_logo()</code> function by itself:</p>
 <div class="cell">
@@ -689,10 +707,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="sourceCode" id="cb27"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>Error in tidyverse_logo(): could not find function "tidyverse_logo"</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ul>
-<p>Explicitly listing the packages and functions we intend to use with <code>box::use()</code> means we no longer need to include calls to <code>install.packages()</code> and <code>library()</code>/<code>require()</code>. This was a very brief overview of <code>box</code>, so I <em>highly recommend</em> consulting the <a href="https://klmr.me/box/index.html"><code>box</code> website</a> and vignettes.<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a></p>
-<section id="data" class="level3">
-<h3 class="anchored" data-anchor-id="data">Data</h3>
-<p>Non-Shiny code and functions should be stored in <code>app/logic/</code>. We’ll include a <code>box</code> module for importing the <code>movies</code> data in <code>app/logic/data.R</code>.<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a></p>
+<p><br></p>
+<p>This was a very brief overview of <code>box</code>, so I <em>highly recommend</em> consulting the <a href="https://klmr.me/box/index.html"><code>box</code> website</a> and vignettes. The <code>rhino</code> website also has a great overview on using <a href="https://appsilon.github.io/rhino/articles/explanation/box-modules.html"><code>box</code> with Shiny apps</a>.<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a></p>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<p>Non-Shiny code and functions should be stored in <code>app/logic/</code>. We’ll include a <code>box</code> module for importing the <code>movies</code> data in <code>app/logic/data.R</code>.<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-13"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-13-1"><a href="#annotated-cell-13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># contents of app/logic/data.R</span></span>
 <span id="annotated-cell-13-2"><a href="#annotated-cell-13-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -713,19 +733,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-13" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="5" data-code-annotation="1" data-code-cell="annotated-cell-13">Add <code>vroom</code> functions</span>
+<span data-code-annotation="1" data-code-cell="annotated-cell-13" data-code-lines="5">Add <code>vroom</code> functions</span>
 </dd>
 <dt data-target-cell="annotated-cell-13" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="13,14" data-code-annotation="2" data-code-cell="annotated-cell-13">Call <code>vroom</code> functions</span>
+<span data-code-annotation="2" data-code-cell="annotated-cell-13" data-code-lines="13,14">Call <code>vroom</code> functions</span>
 </dd>
 </dl>
 </div>
 </div>
 <p>In <code>app/logic/data.R</code>, the necessary <code>vroom</code> functions are included with <code>box::use()</code> to import <code>movies.csv</code> from GitHub.</p>
 </section>
-<section id="utility-function" class="level3">
-<h3 class="anchored" data-anchor-id="utility-function">Utility function</h3>
+<section id="utility-functions" class="level2">
+<h2 class="anchored" data-anchor-id="utility-functions">Utility functions</h2>
 <p>The <code>scatter_plot()</code> utility function is stored in <code>app/logic/plot.R</code>. Again, <code>box::use()</code> includes the <code>ggplot2</code> and <code>rlang</code> functions for <code>scatter_plot()</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-14"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-14-1"><a href="#annotated-cell-14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># contents of app/logic/plot.R</span></span>
@@ -754,24 +774,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-14" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="8" data-code-annotation="1" data-code-cell="annotated-cell-14">Add <code>ggplot2</code> functions</span>
+<span data-code-annotation="1" data-code-cell="annotated-cell-14" data-code-lines="8">Add <code>ggplot2</code> functions</span>
 </dd>
 <dt data-target-cell="annotated-cell-14" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="9" data-code-annotation="2" data-code-cell="annotated-cell-14">Add <code>rlang</code> functions</span>
+<span data-code-annotation="2" data-code-cell="annotated-cell-14" data-code-lines="9">Add <code>rlang</code> functions</span>
 </dd>
 <dt data-target-cell="annotated-cell-14" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-lines="12,20" data-code-annotation="3" data-code-cell="annotated-cell-14">Use <code>ggplot2</code> functions</span>
+<span data-code-annotation="3" data-code-cell="annotated-cell-14" data-code-lines="12,20">Use <code>ggplot2</code> functions</span>
 </dd>
 <dt data-target-cell="annotated-cell-14" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-lines="15,16,17" data-code-annotation="4" data-code-cell="annotated-cell-14">Use <code>rlang</code> functions</span>
+<span data-code-annotation="4" data-code-cell="annotated-cell-14" data-code-lines="15,16,17">Use <code>rlang</code> functions</span>
 </dd>
 </dl>
 </div>
 </div>
-<p>The <code>app/logic/__init__.R</code> file exports the two modules above:<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a></p>
+<p>The <code>app/logic/__init__.R</code> file exports the two modules above:<a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Logic: application code independent from Shiny.</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># https://go.appsilon.com/rhino-project-structure</span></span>
@@ -781,7 +801,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  app <span class="sc">/</span> logic <span class="sc">/</span> plot</span>
 <span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
 <section id="unit-tests" class="level3">
 <h3 class="anchored" data-anchor-id="unit-tests">Unit tests</h3>
 <p>The unit tests for the <code>box</code> modules in <code>app/logic/</code> and <code>app/view/</code> are in the <code>tests/testthat/</code> folder:</p>
@@ -886,8 +905,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb31-46"><a href="#cb31-46" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="app-modules" class="level3">
-<h3 class="anchored" data-anchor-id="app-modules">App Modules</h3>
+</section>
+<section id="app-modules" class="level2">
+<h2 class="anchored" data-anchor-id="app-modules">App Modules</h2>
 <p>Now we’re going to convert contents of <code>app.R</code> into <em>Shiny</em> modules. Shiny modules should be placed in the <code>app/view/</code> folder. <strong><code>rhino</code> modules are still broken into <code>ui</code> and <code>server</code> functions, and <code>box::use()</code> is called <em>within</em> each function to add the necessary <code>package[function]</code></strong></p>
 <ul>
 <li><p>The first module we’ll create is the <code>app/view/inputs.R</code> module for collecting the user inputs:</p>
@@ -1095,7 +1115,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div></li>
 </ul>
 <p>After composing the module in <code>app/view/display.R</code>, I’ll add <code>testthat</code> tests for the <code>app/logic/</code> and <code>app/view</code> modules.</p>
-</section>
 <section id="module-tests" class="level3">
 <h3 class="anchored" data-anchor-id="module-tests">Module tests</h3>
 <p>We can test the application modules with Shiny’s <code>testServer()</code> function. First we’ll test that the reactive list of inputs is returned from <code>app/view/inputs</code>:</p>
@@ -1218,96 +1237,124 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>These tests confirm the reactive values are passed between the <code>app/view/inputs</code> and the <code>app/view/display</code> modules.</p>
 </section>
-<section id="appmain.r" class="level3">
-<h3 class="anchored" data-anchor-id="appmain.r"><code>app/main.R</code></h3>
+<section id="running-tests" class="level3">
+<h3 class="anchored" data-anchor-id="running-tests">Running tests</h3>
+<p>Running the <code>testthat</code> tests in <code>rap</code> app is <em>slightly</em> different than executing tests in an R package. The standard <code>devtools</code> functions and keyboard shortcuts aren’t available, but <code>rhino</code> comes with a <a href="https://appsilon.github.io/rhino/reference/test_r.html"><code>rhino::test_r()</code></a> helper function to run all the tests in the <code>testthat/</code> folder:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tests/testthat/</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> test-data.R</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> test-display.R</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> test-inputs.R</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> test-main.R</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> test-plot.R</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="ex">1</span> directory, 5 files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>rhino<span class="sc">::</span><span class="fu">test_r</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>✔ | F W  S  OK | Context</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>✔ |          4 | data [1.3s]                                                                                                               </span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>✔ |          5 | display [1.2s]                                                                                                            </span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>✔ |          2 | inputs                                                                                                                    </span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>✔ |          1 | plot                                                                                                                      </span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>══ Results ═════════════════════════════════════════════════════════════════════</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>Duration: 3.3 s</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>[ FAIL 0 | WARN 0 | SKIP 0 | PASS 12 ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="appmain.r" class="level2">
+<h2 class="anchored" data-anchor-id="appmain.r"><code>app/main.R</code></h2>
 <p>After the <code>app/logic/</code> and <code>app/view/</code> code has been written and tested, the modules and layout functions can be included in <code>app/main.R</code>.</p>
 <ul>
 <li><p><code>box::use()</code> is used to import the <code>shiny</code> and <code>shinythemes</code> functions:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># app/main.R</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># shiny functions</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>box<span class="sc">::</span><span class="fu">use</span>(</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  shiny[</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    NS, fluidPage, sidebarLayout, sidebarPanel, </span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    mainPanel, fluidRow, column, tags, icon,</span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    plotOutput, moduleServer, renderPlot</span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  ],</span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  shinythemes[shinytheme]</span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="co"># import modules</span></span>
-<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>box<span class="sc">::</span><span class="fu">use</span>(</span>
-<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># load inputs module ----</span></span>
-<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>  app <span class="sc">/</span> view <span class="sc">/</span> inputs,</span>
-<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># load display module ----</span></span>
-<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>  app <span class="sc">/</span> view <span class="sc">/</span> display</span>
-<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># app/main.R</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co"># shiny functions</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>box<span class="sc">::</span><span class="fu">use</span>(</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  shiny[</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    NS, fluidPage, sidebarLayout, sidebarPanel, </span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    mainPanel, fluidRow, column, tags, icon,</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    plotOutput, moduleServer, renderPlot</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>  ],</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>  shinythemes[shinytheme]</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a><span class="co"># import modules</span></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>box<span class="sc">::</span><span class="fu">use</span>(</span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># load inputs module ----</span></span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>  app <span class="sc">/</span> view <span class="sc">/</span> inputs,</span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># load display module ----</span></span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>  app <span class="sc">/</span> view <span class="sc">/</span> display</span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 </ul>
 <p>The <code>ui()</code> and <code>server()</code> functions in <code>app/main</code> look very similar to the <code>movies_ui()</code> and <code>movies_server()</code> functions, except we access the modules using the <code>$</code> operator.</p>
 <ul>
 <li><p>The <code>ui()</code> function includes both <code>input$ui()</code> and <code>display$ui()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' rap ui</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co">#' @export</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  ns <span class="ot">&lt;-</span> <span class="fu">NS</span>(id)</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fluidPage</span>(</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">theme =</span> <span class="fu">shinytheme</span>(<span class="st">"spacelab"</span>),</span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sidebarLayout</span>(</span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sidebarPanel</span>(</span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># use inputs module UI ----</span></span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>        inputs<span class="sc">$</span><span class="fu">ui</span>(<span class="fu">ns</span>(<span class="st">"vals"</span>))</span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mainPanel</span>(</span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
-<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>          <span class="fu">column</span>(</span>
-<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">width =</span> <span class="dv">12</span>,</span>
-<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>              tags<span class="sc">$</span><span class="fu">h3</span>(<span class="st">"rap"</span>)</span>
-<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>            )</span>
-<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>        ),</span>
-<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
-<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>          <span class="fu">column</span>(</span>
-<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">width =</span> <span class="dv">1</span>,</span>
-<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>            <span class="at">offset =</span> <span class="dv">11</span>,</span>
-<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>            <span class="co"># example info button ---</span></span>
-<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>            tags<span class="sc">$</span><span class="fu">button</span>(</span>
-<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>              <span class="at">id =</span> <span class="st">"help-button"</span>,</span>
-<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>              <span class="fu">icon</span>(<span class="st">"info"</span>),</span>
-<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a>              <span class="co"># add 'onclick' after rhino::build_sass()</span></span>
-<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a>              <span class="co"># and rhino::build_js()</span></span>
-<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a>              <span class="at">onclick =</span> <span class="st">"App.showHelp()"</span></span>
-<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a>            )</span>
-<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a>          )</span>
-<span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a>        ),</span>
-<span id="cb39-33"><a href="#cb39-33" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
-<span id="cb39-34"><a href="#cb39-34" aria-hidden="true" tabindex="-1"></a>          <span class="fu">column</span>(</span>
-<span id="cb39-35"><a href="#cb39-35" aria-hidden="true" tabindex="-1"></a>            <span class="at">width =</span> <span class="dv">12</span>,</span>
-<span id="cb39-36"><a href="#cb39-36" aria-hidden="true" tabindex="-1"></a>            <span class="co"># use display module UI ----</span></span>
-<span id="cb39-37"><a href="#cb39-37" aria-hidden="true" tabindex="-1"></a>            display<span class="sc">$</span><span class="fu">ui</span>(<span class="fu">ns</span>(<span class="st">"disp"</span>))</span>
-<span id="cb39-38"><a href="#cb39-38" aria-hidden="true" tabindex="-1"></a>          )</span>
-<span id="cb39-39"><a href="#cb39-39" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb39-40"><a href="#cb39-40" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb39-41"><a href="#cb39-41" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb39-42"><a href="#cb39-42" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb39-43"><a href="#cb39-43" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' rap ui</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="co">#' @export</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  ns <span class="ot">&lt;-</span> <span class="fu">NS</span>(id)</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fluidPage</span>(</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">theme =</span> <span class="fu">shinytheme</span>(<span class="st">"spacelab"</span>),</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sidebarLayout</span>(</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sidebarPanel</span>(</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># use inputs module UI ----</span></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>        inputs<span class="sc">$</span><span class="fu">ui</span>(<span class="fu">ns</span>(<span class="st">"vals"</span>))</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mainPanel</span>(</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>          <span class="fu">column</span>(</span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">width =</span> <span class="dv">12</span>,</span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>              tags<span class="sc">$</span><span class="fu">h3</span>(<span class="st">"rap"</span>)</span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>          <span class="fu">column</span>(</span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">width =</span> <span class="dv">1</span>,</span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>            <span class="at">offset =</span> <span class="dv">11</span>,</span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>            <span class="co"># example info button ---</span></span>
+<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>            tags<span class="sc">$</span><span class="fu">button</span>(</span>
+<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>              <span class="at">id =</span> <span class="st">"help-button"</span>,</span>
+<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a>              <span class="fu">icon</span>(<span class="st">"info"</span>),</span>
+<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a>              <span class="co"># add 'onclick' after rhino::build_sass()</span></span>
+<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a>              <span class="co"># and rhino::build_js()</span></span>
+<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a>              <span class="at">onclick =</span> <span class="st">"App.showHelp()"</span></span>
+<span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb42-31"><a href="#cb42-31" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="cb42-32"><a href="#cb42-32" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb42-33"><a href="#cb42-33" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
+<span id="cb42-34"><a href="#cb42-34" aria-hidden="true" tabindex="-1"></a>          <span class="fu">column</span>(</span>
+<span id="cb42-35"><a href="#cb42-35" aria-hidden="true" tabindex="-1"></a>            <span class="at">width =</span> <span class="dv">12</span>,</span>
+<span id="cb42-36"><a href="#cb42-36" aria-hidden="true" tabindex="-1"></a>            <span class="co"># use display module UI ----</span></span>
+<span id="cb42-37"><a href="#cb42-37" aria-hidden="true" tabindex="-1"></a>            display<span class="sc">$</span><span class="fu">ui</span>(<span class="fu">ns</span>(<span class="st">"disp"</span>))</span>
+<span id="cb42-38"><a href="#cb42-38" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="cb42-39"><a href="#cb42-39" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb42-40"><a href="#cb42-40" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb42-41"><a href="#cb42-41" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb42-42"><a href="#cb42-42" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb42-43"><a href="#cb42-43" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 <li><p>The <code>server</code> function in <code>app/main.R</code> calls the <code>inputs$server()</code>, collects the input values as <code>selected_vars</code>, and passed these to <code>display$server()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' rap server</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="co">#' @export</span></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># use inputs module server ----</span></span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    selected_vars <span class="ot">&lt;-</span> inputs<span class="sc">$</span><span class="fu">server</span>(<span class="at">id =</span> <span class="st">"vals"</span>)</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># use display module server ----</span></span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    display<span class="sc">$</span><span class="fu">server</span>(</span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">id =</span> <span class="st">"disp"</span>,</span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">var_inputs =</span> selected_vars</span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' rap server</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="co">#' @export</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># use inputs module server ----</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    selected_vars <span class="ot">&lt;-</span> inputs<span class="sc">$</span><span class="fu">server</span>(<span class="at">id =</span> <span class="st">"vals"</span>)</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># use display module server ----</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>    display<span class="sc">$</span><span class="fu">server</span>(</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">id =</span> <span class="st">"disp"</span>,</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">var_inputs =</span> selected_vars</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 </ul>
 <p>After saving all the module files and <code>app/main.R</code>, we can run the app using <code>app.R</code>:</p>
@@ -1323,89 +1370,89 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </section>
-<section id="add-.js.css.sass" class="level3">
-<h3 class="anchored" data-anchor-id="add-.js.css.sass">Add <code>.js</code>/<code>.css</code>/<code>.sass</code></h3>
+<section id="adding-non-r-code" class="level2">
+<h2 class="anchored" data-anchor-id="adding-non-r-code">Adding non-R code</h2>
 <p>It’s fairly straightforward to add external resources (i.e., JavaScript, CSS, Sass, etc.) to <code>rhino</code> apps. I’ll use the <a href="https://appsilon.github.io/rhino/articles/tutorial/create-your-first-rhino-app.html#add-javascript-code">example from the website</a> to demonstrate because it adds <em>both</em> CSS and JavaScript to the codebase.</p>
 <ul>
 <li><p>Update the <code>mainPanel()</code> to include the title, info button, and display module in <code>app/main.R</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>tags<span class="sc">$</span><span class="fu">button</span>(</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="st">"help-button"</span>,</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">icon</span>(<span class="st">"info"</span>),</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add 'onclick' after rhino::build_sass()</span></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># and rhino::build_js()</span></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">onclick =</span> <span class="st">"App.showHelp()"</span></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>tags<span class="sc">$</span><span class="fu">button</span>(</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="st">"help-button"</span>,</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">icon</span>(<span class="st">"info"</span>),</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add 'onclick' after rhino::build_sass()</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># and rhino::build_js()</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">onclick =</span> <span class="st">"App.showHelp()"</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>The following CSS is added to <code>app/styles/main.css</code> in the <code>container</code> for the button.</li>
 </ul>
-<div class="sourceCode" id="cb42"><pre class="sourceCode css code-with-copy"><code class="sourceCode css"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="er">// app/styles/main.scss</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">.components-container</span> {</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">display</span>: <span class="dv">inline-grid</span><span class="op">;</span></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">grid-template-columns</span>: <span class="dv">1</span><span class="dt">fr</span> <span class="dv">1</span><span class="dt">fr</span><span class="op">;</span></span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">width</span>: <span class="dv">100</span><span class="dt">%</span><span class="op">;</span></span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">.component-box</span> {</span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">padding</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">margin</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">box-shadow</span>: <span class="dv">0</span> <span class="dv">4</span><span class="dt">px</span> <span class="dv">8</span><span class="dt">px</span> <span class="dv">0</span> <span class="fu">rgba(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0.2</span><span class="fu">)</span><span class="op">,</span> <span class="dv">0</span> <span class="dv">6</span><span class="dt">px</span> <span class="dv">20</span><span class="dt">px</span> <span class="dv">0</span> <span class="fu">rgba(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0.19</span><span class="fu">)</span><span class="op">;</span></span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>h1 {</span>
-<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-align</span>: <span class="dv">center</span><span class="op">;</span></span>
-<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-weight</span>: <span class="dv">900</span><span class="op">;</span></span>
-<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a><span class="pp">#help-button</span> {</span>
-<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">position</span>: <span class="dv">fixed</span><span class="op">;</span></span>
-<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>  <span class="kw">top</span>: <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>  <span class="kw">right</span>: <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>  <span class="kw">margin</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
-<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode css code-with-copy"><code class="sourceCode css"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="er">// app/styles/main.scss</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">.components-container</span> {</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">display</span>: <span class="dv">inline-grid</span><span class="op">;</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">grid-template-columns</span>: <span class="dv">1</span><span class="dt">fr</span> <span class="dv">1</span><span class="dt">fr</span><span class="op">;</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">width</span>: <span class="dv">100</span><span class="dt">%</span><span class="op">;</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">.component-box</span> {</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">padding</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">margin</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">box-shadow</span>: <span class="dv">0</span> <span class="dv">4</span><span class="dt">px</span> <span class="dv">8</span><span class="dt">px</span> <span class="dv">0</span> <span class="fu">rgba(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0.2</span><span class="fu">)</span><span class="op">,</span> <span class="dv">0</span> <span class="dv">6</span><span class="dt">px</span> <span class="dv">20</span><span class="dt">px</span> <span class="dv">0</span> <span class="fu">rgba(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0.19</span><span class="fu">)</span><span class="op">;</span></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>h1 {</span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-align</span>: <span class="dv">center</span><span class="op">;</span></span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-weight</span>: <span class="dv">900</span><span class="op">;</span></span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a><span class="pp">#help-button</span> {</span>
+<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">position</span>: <span class="dv">fixed</span><span class="op">;</span></span>
+<span id="cb45-22"><a href="#cb45-22" aria-hidden="true" tabindex="-1"></a>  <span class="kw">top</span>: <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb45-23"><a href="#cb45-23" aria-hidden="true" tabindex="-1"></a>  <span class="kw">right</span>: <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb45-24"><a href="#cb45-24" aria-hidden="true" tabindex="-1"></a>  <span class="kw">margin</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb45-25"><a href="#cb45-25" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>Run <code>rhino::build_sass()</code> to create the <code>app/static/css/app.min.css</code> file (<strong>requires <a href="https://nodejs.org/en/">node.js</a></strong>)</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>rhino<span class="sc">::</span><span class="fu">build_sass</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>rhino<span class="sc">::</span><span class="fu">build_sass</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="sourceCode" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="ex">added</span> 748 packages in 49s</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="ex">build-sass</span></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="ex">sass</span> <span class="at">--no-source-map</span> <span class="at">--style</span><span class="op">=</span>compressed </span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">../app/styles/main.scss:../app/static/css/app.min.css</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="ex">added</span> 748 packages in 49s</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="ex">build-sass</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="ex">sass</span> <span class="at">--no-source-map</span> <span class="at">--style</span><span class="op">=</span>compressed </span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">../app/styles/main.scss:../app/static/css/app.min.css</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>This tells me <code>app.min.css</code> has been added to in <code>app/static/css/</code></li>
 </ul>
-<div class="sourceCode" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="ex">app/static/</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>      <span class="ex">└──</span> css</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>           <span class="ex">└──</span> app.min.css</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="ex">app/static/</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>      <span class="ex">└──</span> css</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>           <span class="ex">└──</span> app.min.css</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>Add the following to <code>app/js/index.js</code>:</li>
 </ul>
-<div class="sourceCode" id="cb46"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">showHelp</span>() {</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">alert</span>(<span class="st">'Learn more about shiny frameworks: https://mjfrigaard.github.io/posts/my-rhino-app/'</span>)<span class="op">;</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">showHelp</span>() {</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">alert</span>(<span class="st">'Learn more about shiny frameworks: https://mjfrigaard.github.io/posts/my-rhino-app/'</span>)<span class="op">;</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>Run <code>rhino::build_js()</code> to build the <code>app/static/js/app.min.js</code> (<strong>requires <a href="https://nodejs.org/en/">node.js</a></strong>)</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>rhino<span class="sc">::</span><span class="fu">build_js</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>rhino<span class="sc">::</span><span class="fu">build_js</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="sourceCode" id="cb48"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="ex">build-js</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="ex">webpack</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="ex">asset</span> app.min.js 502 bytes <span class="pp">[</span><span class="ss">emitted</span><span class="pp">]</span> <span class="pp">[</span><span class="ss">minimized</span><span class="pp">]</span> <span class="er">(</span><span class="ex">name:</span> main<span class="kw">)</span></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="ex">runtime</span> modules 670 bytes 3 modules</span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="ex">../app/js/index.js</span> 126 bytes <span class="pp">[</span><span class="ss">built</span><span class="pp">]</span> [code generated]</span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="ex">webpack</span> 5.69.0 compiled successfully in 1300 ms</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="ex">build-js</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="ex">webpack</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="ex">asset</span> app.min.js 502 bytes <span class="pp">[</span><span class="ss">emitted</span><span class="pp">]</span> <span class="pp">[</span><span class="ss">minimized</span><span class="pp">]</span> <span class="er">(</span><span class="ex">name:</span> main<span class="kw">)</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="ex">runtime</span> modules 670 bytes 3 modules</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="ex">../app/js/index.js</span> 126 bytes <span class="pp">[</span><span class="ss">built</span><span class="pp">]</span> [code generated]</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a><span class="ex">webpack</span> 5.69.0 compiled successfully in 1300 ms</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>The output tells me the <code>app.min.js</code> has been created in <code>app/static/js</code></li>
 </ul>
-<div class="sourceCode" id="cb49"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="ex">app/static/</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>      <span class="ex">└──</span> js</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>          <span class="ex">└──</span> app.min.js</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<div class="sourceCode" id="cb52"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="ex">app/static/</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>      <span class="ex">└──</span> js</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>          <span class="ex">└──</span> app.min.js</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ul>
 <p>Now when I save everything and click ‘<strong>Run App</strong>’ in <code>app.R</code> I should see the info button (and message):</p>
 <div id="fig-js-button" class="quarto-figure quarto-figure-center anchored">
@@ -1429,11 +1476,284 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </section>
+<section id="system-tests-shinytest2" class="level2">
+<h2 class="anchored" data-anchor-id="system-tests-shinytest2">System tests (<span style="font-size: 0.83em;"><code>shinytest2</code></span>)</h2>
+<p>System tests can also be written using <a href="https://rstudio.github.io/shinytest2/"><code>shinytest2</code></a>. The tests below come from <em>System tests</em> chapter of Shiny App-Packages.<a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a></p>
+<p>Start by installing <code>shinytest2</code> and <code>shinyvalidate</code><a href="#fn18" class="footnote-ref" id="fnref18" role="doc-noteref"><sup>18</sup></a></p>
+<ul>
+<li><p>This will update the <code>dependencies.R</code> file (and might require a call to <code>renv::snapshot()</code>)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>rhino<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="fu">c</span>(<span class="st">"shinytest2"</span>, <span class="st">"shinyvalidate"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>Create new tests with <code>shinytest2::record_test()</code> the same way you would for a standard Shiny app</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>shinytest2<span class="sc">::</span><span class="fu">record_test</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+</ul>
+<div id="fig-shinytest2_rhino.png" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<div id="fig-shinytest2_rhino.png" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/shinytest2_rhino.png" style="width:80.0%;height:80.0%" data-ref-parent="fig-shinytest2_rhino.png" class="figure-img"></p>
+<figcaption class="figure-caption">(a)</figcaption>
+</figure>
+</div>
+<figcaption class="figure-caption">Figure&nbsp;5: Test recorder</figcaption>
+</figure>
+</div>
+<p>This produces the following in the <strong>Console</strong>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="ex">{shiny}</span> R stderr <span class="at">-----------</span> Loading required package: shiny</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="ex">{shiny}</span> R stderr <span class="at">-----------</span> Running application in test mode.</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="ex">{shiny}</span> R stderr <span class="at">-----------</span> Listening on http://127.0.0.1:5391</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="ex">•</span> Saving test runner: tests/testthat.R</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="ex">•</span> Saving test file: tests/testthat/test-shinytest2.R</span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'shinytest2::load_app_env()'</span> to <span class="st">'tests/testthat/setup-shinytest2.R'</span></span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="ex">•</span> Modify <span class="st">'/rap/tests/testthat/test-shinytest2.R'</span></span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a><span class="ex">•</span> Running recorded test: tests/testthat/test-shinytest2.R</span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> <span class="kw">|</span> <span class="ex">F</span> W  S  OK <span class="kw">|</span> <span class="ex">Context</span></span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> <span class="kw">|</span>   <span class="ex">2</span>      1 <span class="kw">|</span> <span class="ex">shinytest2</span> <span class="pp">[</span><span class="ss">11.4s</span><span class="pp">]</span>                                           </span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a><span class="ex">─────────────────────────────────────────────────────────────────────────────</span></span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a><span class="ex">Warning</span> <span class="er">(</span><span class="ex">test-shinytest2.R:13:3</span><span class="kw">)</span><span class="bu">:</span> {shinytest2} recording: feature-01</span>
+<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a><span class="ex">Adding</span> new file snapshot: <span class="st">'tests/testthat/_snaps/feature-01-001_.png'</span></span>
+<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-16"><a href="#cb55-16" aria-hidden="true" tabindex="-1"></a><span class="ex">Warning</span> <span class="er">(</span><span class="ex">test-shinytest2.R:13:3</span><span class="kw">)</span><span class="bu">:</span> {shinytest2} recording: feature-01</span>
+<span id="cb55-17"><a href="#cb55-17" aria-hidden="true" tabindex="-1"></a><span class="ex">Adding</span> new file snapshot: <span class="st">'tests/testthat/_snaps/feature-01-001.json'</span></span>
+<span id="cb55-18"><a href="#cb55-18" aria-hidden="true" tabindex="-1"></a><span class="ex">─────────────────────────────────────────────────────────────────────────────</span></span>
+<span id="cb55-19"><a href="#cb55-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-20"><a href="#cb55-20" aria-hidden="true" tabindex="-1"></a><span class="ex">══</span> Results ══════════════════════════════════════════════════════════════════</span>
+<span id="cb55-21"><a href="#cb55-21" aria-hidden="true" tabindex="-1"></a><span class="ex">Duration:</span> 11.8 s</span>
+<span id="cb55-22"><a href="#cb55-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-23"><a href="#cb55-23" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span> FAIL 0 <span class="er">|</span> <span class="er">WARN</span> <span class="ex">2</span> <span class="kw">|</span> <span class="ex">SKIP</span> 0 <span class="kw">|</span> <span class="ex">PASS</span> 1 ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="system-test-anatomy" class="level3">
+<h3 class="anchored" data-anchor-id="system-test-anatomy">System test anatomy</h3>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<section id="section" class="level5 quarto-layout-cell" style="flex-basis: 40.0%;justify-content: center;">
+<h5 class="anchored" data-anchor-id="section"></h5>
+<p>The <code>shinytest2</code> tests for <code>moviesApp</code> are below. Note how the nested modules are called from the app Driver (<code>app$set_inputs()</code>):</p>
+</section>
+<div class="cell quarto-layout-cell" style="flex-basis: 60.0%;justify-content: center;">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-y</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"imdb_num_votes"</span>)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-x</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"critics_score"</span>)</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-z</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"genre"</span>)</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-alpha</span><span class="st">`</span> <span class="ot">=</span> <span class="fl">0.7</span>)</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-size</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">3</span>)</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-plot_title</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"New plot title"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<section id="section-1" class="level5 quarto-layout-cell" style="flex-basis: 40.0%;justify-content: center;">
+<h5 class="anchored" data-anchor-id="section-1"></h5>
+<p>In <code>rap</code>, the <code>box</code> modules in our have another level of abstraction (i.e., <code>vars-y</code> becomes <code>app-vals-y</code>):</p>
+</section>
+<div class="cell quarto-layout-cell" style="flex-basis: 60.0%;justify-content: center;">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">app-vals-y</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"imdb_num_votes"</span>)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">app-vals-x</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"critics_score"</span>)</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">app-vals-z</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"genre"</span>)</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">app-vals-alpha</span><span class="st">`</span> <span class="ot">=</span> <span class="fl">0.7</span>)</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">app-vals-size</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">3</span>)</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">app-vals-plot_title</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"New plot title"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p>It’s important to keep these differences in mind when writing <code>shinytest2</code> tests.</p>
+</section>
+<section id="bdd-system-tests" class="level3">
+<h3 class="anchored" data-anchor-id="bdd-system-tests">BDD system tests</h3>
+<p>I’ve provided a few <code>shinytest2</code> example tests for the data visualization user-input features using <code>testthat</code>s BDD functions:<a href="#fn19" class="footnote-ref" id="fnref19" role="doc-noteref"><sup>19</sup></a></p>
+<div class="cell">
+<details open="">
+<summary>show/hide contents of tests/testthat/test-app-feature-01.R</summary>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shinytest2)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(<span class="st">"Feature 1: Scatter plot data visualization dropdowns</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="st">           As a film data analyst</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="st">           I want to explore variables in the movie review data</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="st">           So that I can analyze relationships between movie reivew sources"</span>, {</span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>             </span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">describe</span>(<span class="st">"Scenario A: Change dropdown values for plotting</span></span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a><span class="st">             Given the movie review application is loaded</span></span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="st">             When I choose the variable [critics_score] for the x-axis</span></span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a><span class="st">             And I choose the variable [imdb_num_votes] for the y-axis</span></span>
+<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a><span class="st">             And I choose the variable [genre] for the color"</span>, {</span>
+<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">it</span>(<span class="st">"Then the scatter plot should show [critics_score] on the x-axis</span></span>
+<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a><span class="st">         And the scatter plot should show [imdb_num_votes] on the y-axis</span></span>
+<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a><span class="st">         And the points on the scatter plot should be colored by [genre]"</span>, {</span>
+<span id="cb58-15"><a href="#cb58-15" aria-hidden="true" tabindex="-1"></a>              app <span class="ot">&lt;-</span> AppDriver<span class="sc">$</span><span class="fu">new</span>(<span class="at">name =</span> <span class="st">"feature-01-senario-a"</span>, </span>
+<span id="cb58-16"><a href="#cb58-16" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">height =</span> <span class="dv">800</span>, <span class="at">width =</span> <span class="dv">1173</span>)</span>
+<span id="cb58-17"><a href="#cb58-17" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">app-vars-y</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"imdb_num_votes"</span>)</span>
+<span id="cb58-18"><a href="#cb58-18" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">app=vars-x</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"critics_score"</span>)</span>
+<span id="cb58-19"><a href="#cb58-19" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">app-vars-z</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"genre"</span>)</span>
+<span id="cb58-20"><a href="#cb58-20" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">expect_values</span>()</span>
+<span id="cb58-21"><a href="#cb58-21" aria-hidden="true" tabindex="-1"></a>       })</span>
+<span id="cb58-22"><a href="#cb58-22" aria-hidden="true" tabindex="-1"></a>   })</span>
+<span id="cb58-23"><a href="#cb58-23" aria-hidden="true" tabindex="-1"></a>             </span>
+<span id="cb58-24"><a href="#cb58-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">describe</span>(<span class="st">"Scenario B: Change dropdown values for plotting</span></span>
+<span id="cb58-25"><a href="#cb58-25" aria-hidden="true" tabindex="-1"></a><span class="st">              Given the movie review application is loaded</span></span>
+<span id="cb58-26"><a href="#cb58-26" aria-hidden="true" tabindex="-1"></a><span class="st">              When I choose the size of the points to be [0.7]</span></span>
+<span id="cb58-27"><a href="#cb58-27" aria-hidden="true" tabindex="-1"></a><span class="st">              And I choose the opacity of the points to be [3]</span></span>
+<span id="cb58-28"><a href="#cb58-28" aria-hidden="true" tabindex="-1"></a><span class="st">              And I enter '[New plot title]' for the plot title"</span>, {</span>
+<span id="cb58-29"><a href="#cb58-29" aria-hidden="true" tabindex="-1"></a>         <span class="fu">it</span>(<span class="st">"Then the size of the points on the scatter plot should be [3]</span></span>
+<span id="cb58-30"><a href="#cb58-30" aria-hidden="true" tabindex="-1"></a><span class="st">              And the opacity of the points on the scatter plot should be [0.7]</span></span>
+<span id="cb58-31"><a href="#cb58-31" aria-hidden="true" tabindex="-1"></a><span class="st">              And the title of the plot should be '[New Plot Title]'"</span>, {</span>
+<span id="cb58-32"><a href="#cb58-32" aria-hidden="true" tabindex="-1"></a>              app <span class="ot">&lt;-</span> AppDriver<span class="sc">$</span><span class="fu">new</span>(<span class="at">name =</span> <span class="st">"feature-01-senario-b"</span>, </span>
+<span id="cb58-33"><a href="#cb58-33" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">height =</span> <span class="dv">800</span>, <span class="at">width =</span> <span class="dv">1173</span>)</span>
+<span id="cb58-34"><a href="#cb58-34" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">app-vars-alpha</span><span class="st">`</span> <span class="ot">=</span> <span class="fl">0.7</span>)</span>
+<span id="cb58-35"><a href="#cb58-35" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">app-vars-size</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">3</span>)</span>
+<span id="cb58-36"><a href="#cb58-36" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">app-vars-plot_title</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"New plot title"</span>)</span>
+<span id="cb58-37"><a href="#cb58-37" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">expect_values</span>()</span>
+<span id="cb58-38"><a href="#cb58-38" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb58-39"><a href="#cb58-39" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb58-40"><a href="#cb58-40" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Note that these tests combine <code>testthat</code>’s <code>describe()</code> and <code>it()</code> functions with the <a href="https://cucumber.io/docs/gherkin/reference/">Gherkin syntax</a>.</p>
+</section>
+</section>
+<section id="system-tests-cypress" class="level2">
+<h2 class="anchored" data-anchor-id="system-tests-cypress">System tests (Cypress)</h2>
+<p><code>rhino</code> apps extend the test suite to include the <a href="https://www.cypress.io/">Cypress test framework</a>. The Cypress tests below follow the example from the <a href="https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html"><code>rhino</code> website</a>.</p>
+<section id="clicks-message-modules" class="level3">
+<h3 class="anchored" data-anchor-id="clicks-message-modules">Clicks &amp; message modules</h3>
+<p>Below we add two modules (<a href="https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html#test-application"><code>clicks.R</code> and <code>message.R</code></a>) to the <code>rap</code> application (i.e., in <code>app/view</code>). Both modules contain an <code>actionButton()</code> and <code>textOutput()</code>. Using <code>app/view/clicks</code> or <code>app/view/message</code> requires adding both modules in the <code>app/main.R</code> file with <code>box::use()</code>.</p>
+</section>
+<section id="appmain.r-1" class="level3">
+<h3 class="anchored" data-anchor-id="appmain.r-1"><span style="font-size: 1.10em; font-weight: bold;"><code>app/main.R</code></span></h3>
+<p>The following changes were made in <code>app/main.R</code>:</p>
+<div class="cell">
+<details open="">
+<summary>show/hide app/main.R</summary>
+<div class="sourceCode cell-code" id="annotated-cell-26"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-26-1"><a href="#annotated-cell-26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># app/main.R</span></span>
+<span id="annotated-cell-26-2"><a href="#annotated-cell-26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-26-3"><a href="#annotated-cell-26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># shiny functions</span></span>
+<span id="annotated-cell-26-4"><a href="#annotated-cell-26-4" aria-hidden="true" tabindex="-1"></a>box<span class="sc">::</span><span class="fu">use</span>(</span>
+<span id="annotated-cell-26-5"><a href="#annotated-cell-26-5" aria-hidden="true" tabindex="-1"></a>  shiny[</span>
+<span id="annotated-cell-26-6"><a href="#annotated-cell-26-6" aria-hidden="true" tabindex="-1"></a>    NS, fluidPage, sidebarLayout, sidebarPanel, </span>
+<span id="annotated-cell-26-7"><a href="#annotated-cell-26-7" aria-hidden="true" tabindex="-1"></a>    mainPanel, fluidRow, column, tags, icon,</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="1">1</button><span id="annotated-cell-26-8" class="code-annotation-target"><a href="#annotated-cell-26-8" aria-hidden="true" tabindex="-1"></a>    plotOutput, moduleServer, renderPlot, hr</span>
+<span id="annotated-cell-26-9"><a href="#annotated-cell-26-9" aria-hidden="true" tabindex="-1"></a>  ],</span>
+<span id="annotated-cell-26-10"><a href="#annotated-cell-26-10" aria-hidden="true" tabindex="-1"></a>  shinythemes[shinytheme]</span>
+<span id="annotated-cell-26-11"><a href="#annotated-cell-26-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="annotated-cell-26-12"><a href="#annotated-cell-26-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-26-13"><a href="#annotated-cell-26-13" aria-hidden="true" tabindex="-1"></a><span class="co"># import modules ----</span></span>
+<span id="annotated-cell-26-14"><a href="#annotated-cell-26-14" aria-hidden="true" tabindex="-1"></a>box<span class="sc">::</span><span class="fu">use</span>(</span>
+<span id="annotated-cell-26-15"><a href="#annotated-cell-26-15" aria-hidden="true" tabindex="-1"></a>  <span class="do">## load inputs module ----</span></span>
+<span id="annotated-cell-26-16"><a href="#annotated-cell-26-16" aria-hidden="true" tabindex="-1"></a>  app <span class="sc">/</span> view <span class="sc">/</span> inputs,</span>
+<span id="annotated-cell-26-17"><a href="#annotated-cell-26-17" aria-hidden="true" tabindex="-1"></a>  <span class="do">## load display module ----</span></span>
+<span id="annotated-cell-26-18"><a href="#annotated-cell-26-18" aria-hidden="true" tabindex="-1"></a>  app <span class="sc">/</span> view <span class="sc">/</span> display,</span>
+<span id="annotated-cell-26-19"><a href="#annotated-cell-26-19" aria-hidden="true" tabindex="-1"></a>  <span class="do">## load clicks module ----</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="2">2</button><span id="annotated-cell-26-20" class="code-annotation-target"><a href="#annotated-cell-26-20" aria-hidden="true" tabindex="-1"></a>  app <span class="sc">/</span> view <span class="sc">/</span> clicks,</span>
+<span id="annotated-cell-26-21"><a href="#annotated-cell-26-21" aria-hidden="true" tabindex="-1"></a>  <span class="do">## load message module ----</span></span>
+<span id="annotated-cell-26-22"><a href="#annotated-cell-26-22" aria-hidden="true" tabindex="-1"></a>  app <span class="sc">/</span> view <span class="sc">/</span> message,</span>
+<span id="annotated-cell-26-23"><a href="#annotated-cell-26-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="annotated-cell-26-24"><a href="#annotated-cell-26-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-26-25"><a href="#annotated-cell-26-25" aria-hidden="true" tabindex="-1"></a><span class="co">#' rap ui</span></span>
+<span id="annotated-cell-26-26"><a href="#annotated-cell-26-26" aria-hidden="true" tabindex="-1"></a><span class="co">#' @export</span></span>
+<span id="annotated-cell-26-27"><a href="#annotated-cell-26-27" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
+<span id="annotated-cell-26-28"><a href="#annotated-cell-26-28" aria-hidden="true" tabindex="-1"></a>  ns <span class="ot">&lt;-</span> <span class="fu">NS</span>(id)</span>
+<span id="annotated-cell-26-29"><a href="#annotated-cell-26-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fluidPage</span>(<span class="at">theme =</span> <span class="fu">shinytheme</span>(<span class="st">"spacelab"</span>),</span>
+<span id="annotated-cell-26-30"><a href="#annotated-cell-26-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sidebarLayout</span>(</span>
+<span id="annotated-cell-26-31"><a href="#annotated-cell-26-31" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sidebarPanel</span>(</span>
+<span id="annotated-cell-26-32"><a href="#annotated-cell-26-32" aria-hidden="true" tabindex="-1"></a>        <span class="co"># use inputs module UI ----</span></span>
+<span id="annotated-cell-26-33"><a href="#annotated-cell-26-33" aria-hidden="true" tabindex="-1"></a>        inputs<span class="sc">$</span><span class="fu">ui</span>(<span class="fu">ns</span>(<span class="st">"vals"</span>)),</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="3">3</button><span id="annotated-cell-26-34" class="code-annotation-target"><a href="#annotated-cell-26-34" aria-hidden="true" tabindex="-1"></a>        <span class="co"># use clicks module UI ----</span></span>
+<span id="annotated-cell-26-35"><a href="#annotated-cell-26-35" aria-hidden="true" tabindex="-1"></a>        clicks<span class="sc">$</span><span class="fu">ui</span>(<span class="fu">ns</span>(<span class="st">"clicks"</span>)),</span>
+<span id="annotated-cell-26-36"><a href="#annotated-cell-26-36" aria-hidden="true" tabindex="-1"></a>        <span class="fu">hr</span>(),</span>
+<span id="annotated-cell-26-37"><a href="#annotated-cell-26-37" aria-hidden="true" tabindex="-1"></a>        <span class="co"># use message module UI ----</span></span>
+<span id="annotated-cell-26-38"><a href="#annotated-cell-26-38" aria-hidden="true" tabindex="-1"></a>        message<span class="sc">$</span><span class="fu">ui</span>(<span class="fu">ns</span>(<span class="st">"message"</span>))),</span>
+<span id="annotated-cell-26-39"><a href="#annotated-cell-26-39" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mainPanel</span>(</span>
+<span id="annotated-cell-26-40"><a href="#annotated-cell-26-40" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
+<span id="annotated-cell-26-41"><a href="#annotated-cell-26-41" aria-hidden="true" tabindex="-1"></a>          <span class="fu">column</span>(</span>
+<span id="annotated-cell-26-42"><a href="#annotated-cell-26-42" aria-hidden="true" tabindex="-1"></a>            <span class="at">width =</span> <span class="dv">12</span>,</span>
+<span id="annotated-cell-26-43"><a href="#annotated-cell-26-43" aria-hidden="true" tabindex="-1"></a>              tags<span class="sc">$</span><span class="fu">h3</span>(<span class="st">"rap"</span>)</span>
+<span id="annotated-cell-26-44"><a href="#annotated-cell-26-44" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="annotated-cell-26-45"><a href="#annotated-cell-26-45" aria-hidden="true" tabindex="-1"></a>          ),</span>
+<span id="annotated-cell-26-46"><a href="#annotated-cell-26-46" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
+<span id="annotated-cell-26-47"><a href="#annotated-cell-26-47" aria-hidden="true" tabindex="-1"></a>          <span class="fu">column</span>(</span>
+<span id="annotated-cell-26-48"><a href="#annotated-cell-26-48" aria-hidden="true" tabindex="-1"></a>            <span class="at">width =</span> <span class="dv">1</span>,</span>
+<span id="annotated-cell-26-49"><a href="#annotated-cell-26-49" aria-hidden="true" tabindex="-1"></a>            <span class="at">offset =</span> <span class="dv">11</span>,</span>
+<span id="annotated-cell-26-50"><a href="#annotated-cell-26-50" aria-hidden="true" tabindex="-1"></a>            <span class="co"># example info button ---</span></span>
+<span id="annotated-cell-26-51"><a href="#annotated-cell-26-51" aria-hidden="true" tabindex="-1"></a>            tags<span class="sc">$</span><span class="fu">button</span>(<span class="at">id =</span> <span class="st">"help-button"</span>,</span>
+<span id="annotated-cell-26-52"><a href="#annotated-cell-26-52" aria-hidden="true" tabindex="-1"></a>              <span class="fu">icon</span>(<span class="st">"info"</span>),</span>
+<span id="annotated-cell-26-53"><a href="#annotated-cell-26-53" aria-hidden="true" tabindex="-1"></a>              <span class="co"># add 'onclick' after rhino::build_sass()</span></span>
+<span id="annotated-cell-26-54"><a href="#annotated-cell-26-54" aria-hidden="true" tabindex="-1"></a>              <span class="co"># and rhino::build_js()</span></span>
+<span id="annotated-cell-26-55"><a href="#annotated-cell-26-55" aria-hidden="true" tabindex="-1"></a>              <span class="at">onclick =</span> <span class="st">"App.showHelp()"</span>)</span>
+<span id="annotated-cell-26-56"><a href="#annotated-cell-26-56" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="annotated-cell-26-57"><a href="#annotated-cell-26-57" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="annotated-cell-26-58"><a href="#annotated-cell-26-58" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
+<span id="annotated-cell-26-59"><a href="#annotated-cell-26-59" aria-hidden="true" tabindex="-1"></a>            <span class="fu">column</span>(</span>
+<span id="annotated-cell-26-60"><a href="#annotated-cell-26-60" aria-hidden="true" tabindex="-1"></a>              <span class="at">width =</span> <span class="dv">12</span>,</span>
+<span id="annotated-cell-26-61"><a href="#annotated-cell-26-61" aria-hidden="true" tabindex="-1"></a>              <span class="co"># use display module UI ----</span></span>
+<span id="annotated-cell-26-62"><a href="#annotated-cell-26-62" aria-hidden="true" tabindex="-1"></a>            display<span class="sc">$</span><span class="fu">ui</span>(<span class="fu">ns</span>(<span class="st">"disp"</span>))</span>
+<span id="annotated-cell-26-63"><a href="#annotated-cell-26-63" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="annotated-cell-26-64"><a href="#annotated-cell-26-64" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="annotated-cell-26-65"><a href="#annotated-cell-26-65" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="annotated-cell-26-66"><a href="#annotated-cell-26-66" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="annotated-cell-26-67"><a href="#annotated-cell-26-67" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="annotated-cell-26-68"><a href="#annotated-cell-26-68" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="annotated-cell-26-69"><a href="#annotated-cell-26-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-26-70"><a href="#annotated-cell-26-70" aria-hidden="true" tabindex="-1"></a><span class="co">#' rap server</span></span>
+<span id="annotated-cell-26-71"><a href="#annotated-cell-26-71" aria-hidden="true" tabindex="-1"></a><span class="co">#' @export</span></span>
+<span id="annotated-cell-26-72"><a href="#annotated-cell-26-72" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
+<span id="annotated-cell-26-73"><a href="#annotated-cell-26-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
+<span id="annotated-cell-26-74"><a href="#annotated-cell-26-74" aria-hidden="true" tabindex="-1"></a>    <span class="co"># use inputs module server ----</span></span>
+<span id="annotated-cell-26-75"><a href="#annotated-cell-26-75" aria-hidden="true" tabindex="-1"></a>    selected_vars <span class="ot">&lt;-</span> inputs<span class="sc">$</span><span class="fu">server</span>(<span class="at">id =</span> <span class="st">"vals"</span>)</span>
+<span id="annotated-cell-26-76"><a href="#annotated-cell-26-76" aria-hidden="true" tabindex="-1"></a>    <span class="co"># use display module server ----</span></span>
+<span id="annotated-cell-26-77"><a href="#annotated-cell-26-77" aria-hidden="true" tabindex="-1"></a>    display<span class="sc">$</span><span class="fu">server</span>(</span>
+<span id="annotated-cell-26-78"><a href="#annotated-cell-26-78" aria-hidden="true" tabindex="-1"></a>      <span class="at">id =</span> <span class="st">"disp"</span>,</span>
+<span id="annotated-cell-26-79"><a href="#annotated-cell-26-79" aria-hidden="true" tabindex="-1"></a>      <span class="at">var_inputs =</span> selected_vars</span>
+<span id="annotated-cell-26-80"><a href="#annotated-cell-26-80" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="annotated-cell-26-81"><a href="#annotated-cell-26-81" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="annotated-cell-26-82"><a href="#annotated-cell-26-82" aria-hidden="true" tabindex="-1"></a>  </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="4">4</button><span id="annotated-cell-26-83" class="code-annotation-target"><a href="#annotated-cell-26-83" aria-hidden="true" tabindex="-1"></a>  <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
+<span id="annotated-cell-26-84"><a href="#annotated-cell-26-84" aria-hidden="true" tabindex="-1"></a>    <span class="co"># use clicks module server ----</span></span>
+<span id="annotated-cell-26-85"><a href="#annotated-cell-26-85" aria-hidden="true" tabindex="-1"></a>    clicks<span class="sc">$</span><span class="fu">server</span>(<span class="st">"clicks"</span>)</span>
+<span id="annotated-cell-26-86"><a href="#annotated-cell-26-86" aria-hidden="true" tabindex="-1"></a>    <span class="co"># use message module server ----</span></span>
+<span id="annotated-cell-26-87"><a href="#annotated-cell-26-87" aria-hidden="true" tabindex="-1"></a>    message<span class="sc">$</span><span class="fu">server</span>(<span class="st">"message"</span>)</span>
+<span id="annotated-cell-26-88"><a href="#annotated-cell-26-88" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="annotated-cell-26-89"><a href="#annotated-cell-26-89" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="annotated-cell-26-90"><a href="#annotated-cell-26-90" aria-hidden="true" tabindex="-1"></a>}</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-26" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-annotation="1" data-code-cell="annotated-cell-26" data-code-lines="8">add horizontal rule function to <code>box::use()</code><br>
+</span>
+</dd>
+<dt data-target-cell="annotated-cell-26" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-annotation="2" data-code-cell="annotated-cell-26" data-code-lines="20,22">use modules from <code>app/view/clicks.R</code> and <code>app/view/message.R</code><br>
+</span>
+</dd>
+<dt data-target-cell="annotated-cell-26" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-annotation="3" data-code-cell="annotated-cell-26" data-code-lines="34,38">include modules in UI<br>
+</span>
+</dd>
+<dt data-target-cell="annotated-cell-26" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-annotation="4" data-code-cell="annotated-cell-26" data-code-lines="83,88">include modules in server</span>
+</dd>
+</dl>
+</div>
+</div>
+</section>
+<section id="writing-cypress-tests" class="level3">
+<h3 class="anchored" data-anchor-id="writing-cypress-tests">Writing Cypress tests</h3>
+<p>New Cypress tests are stored in</p>
+</section>
+<section id="running-cypress-tests" class="level3">
+<h3 class="anchored" data-anchor-id="running-cypress-tests">Running Cypress tests</h3>
+</section>
 </section>
 <section id="recap" class="level2">
 <h2 class="anchored" data-anchor-id="recap">Recap</h2>
 <p>Most of the development takes place in <code>app/logic</code> and <code>app/view</code> (using <code>box</code> modules). The separation of the ‘business logic’ workflow from the ‘app view’ code is similar to the <code>dev</code> folder in <code>golem</code> and <code>leprechaun</code>, but the <code>box</code> modules make it easy to move code and functions back and forth between the two folders.</p>
-<p>Testing <code>rhino</code> apps is similar to any <code>testthat</code> folder (and can be used with <a href="https://appsilon.github.io/rhino/articles/how-to/use-shinytest2.html"><code>shinytest2</code></a>) and comes with a helper function, <a href="https://appsilon.github.io/rhino/reference/test_r.html"><code>rhino::test_r()</code></a></p>
 <p>New JavaScript or CSS code requires a corresponding <code>rhino</code> (<code>rhino::build_js()</code> or <code>rhino::build_sass()</code>), and requires installing <a href="https://nodejs.org/en/">node.js</a>. These functions create output files in <code>app/static/js/app.min.js</code> and <code>app/static/css/app.min.css</code> that are used in the application.</p>
 
 
@@ -1452,12 +1772,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li id="fn7"><p>Testing with Cypress is also covered in the <a href="https://appsilon.github.io/rhino/articles/how-to/use-shinytest2.html">‘Use <code>shinttest2</code> vignette’</a>.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn8"><p>Read more about <code>rhino</code> <a href="https://appsilon.github.io/rhino/reference/test_r.html">unit tests</a><a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn9"><p>Add-on packages can also be included in R packages by adding the <code>@importFrom</code> or <code>@import</code> tags from <code>roxygen2</code>, which writes the <code>NAMESPACE</code> directives<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn10"><p><code>install-packages()</code> downloads and installs packages from a repo like CRAN or GitHub, and <code>library</code> (or <code>require</code>) loads and attaches the add-on packages.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn11"><p>Adding a package to the <code>Imports</code> field in the <code>DESCRIPTION</code> will download/install the add-on package when your package is installed, but not <em>attach</em> it to the search list.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn12"><p>This is how <code>box</code> “<em>completely replaces the base R <code>library</code> and <code>require</code> functions</em>” - <a href="https://klmr.me/box/index.html"><code>box</code> documentation</a>.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn13"><p>I highly recommend the <a href="https://klmr.me/box/articles/mod-env-hierarchy.html">“the hierarchy of module environments”</a> vignette. The <code>rhino</code> website also has a great overview on using <a href="https://appsilon.github.io/rhino/articles/explanation/box-modules.html"><code>box</code> with shiny apps</a>, and I’ve also created a collection of <code>box</code> module examples in this <a href="https://github.com/mjfrigaard/rbox/blob/main/boxes.md">repo</a>)<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn14"><p><code>rhino</code> apps come with an <code>app/logic/</code> folder, which is used to store code for <a href="https://appsilon.github.io/rhino/articles/explanation/application-structure.html#logic"><em>“data manipulation, generating non-interactive plots and graphs, or connecting to an external data source, but outside of definable inputs, it doesn’t interact with or rely on shiny in any way.”</em></a><a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn15"><p>The <code>__init__.R</code> files are covered <a href="https://appsilon.github.io/rhino/articles/explanation/box-modules.html#init-files">on the <code>rhino</code> website</a><a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p><code>install.packages()</code> downloads and installs packages from a repo like CRAN or GitHub, and <code>library</code> (or <code>require</code>) loads and attaches the add-on packages to the search list.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>Adding a package to the <code>Imports</code> field in the <code>DESCRIPTION</code> will download/install the add-on package when your package is installed, but not <em>attach</em> it to the search list (the <code>Depends</code> field <em>will</em> install and attach the package).<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p><code>library(tidyverse)</code> is typically used to install the core tidyverse packages (<code>ggplot2</code>, <code>dplyr</code>, <code>tidyr</code>, <code>readr</code>, <code>purrr</code>, <code>tibble</code>, <code>stringr</code>, <code>forcats</code>), but this is not advised during package development.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p>This is how <code>box</code> “<em>completely replaces the base R <code>library</code> and <code>require</code> functions</em>” - <a href="https://klmr.me/box/index.html"><code>box</code> documentation</a>.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn14"><p>I’d start with <a href="https://klmr.me/box/articles/mod-env-hierarchy.html">“the hierarchy of module environments”</a> vignette. I’ve also created a collection of <code>box</code> module examples in the <a href="https://github.com/mjfrigaard/rbox/blob/main/boxes.md"><code>rbox</code> repo</a>.<a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn15"><p><code>rhino</code> apps come with an <code>app/logic/</code> folder, which is used to store code for <a href="https://appsilon.github.io/rhino/articles/explanation/application-structure.html#logic"><em>“data manipulation, generating non-interactive plots and graphs, or connecting to an external data source, but outside of definable inputs, it doesn’t interact with or rely on shiny in any way.”</em></a><a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn16"><p>The <code>__init__.R</code> files are covered <a href="https://appsilon.github.io/rhino/articles/explanation/box-modules.html#init-files">on the <code>rhino</code> website</a><a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn17"><p>System tests are covered for a <a href="https://mjfrigaard.github.io/shiny-app-pkgs/test_system.html#shinytest2">Shiny app in a standard R package.</a><a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn18"><p>These steps are covered in the Appsilon article, <a href="https://appsilon.github.io/rhino/articles/how-to/use-shinytest2.html">‘How-to: Use shinytest2’</a>.<a href="#fnref18" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn19"><p>This test is covered in <a href="https://mjfrigaard.github.io/shiny-app-pkgs/test_system.html#bdd-test-templates">BDD test templates</a> section of Shiny App-Packages.<a href="#fnref19" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
