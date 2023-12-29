@@ -100,15 +100,8 @@ gap
     │   └── golem-config.yml
     ├── man
     │   └── run_app.Rd
-    ├── gap.Rproj
-    ├── renv
-    │   ├── activate.R
-    │   ├── sandbox
-    │   │   └── R-4.2
-    │   └── settings.dcf
-    └── renv.lock
+    └── gap.Rproj
 
-12 directories, 17 files
 ```
 
 The [`dev/`](https://github.com/mjfrigaard/sfw/tree/main/_apps/gap/dev) folder contains `golem`'s 'guided tour' scripts. These contain functions to help guide application development. 
@@ -119,10 +112,10 @@ The [`dev/`](https://github.com/mjfrigaard/sfw/tree/main/_apps/gap/dev) folder c
 #| label: gap-dev
 #| code-fold: false
 gap/dev/
-            ├── 01_start.R
-            ├── 02_dev.R
-            ├── 03_deploy.R
-            └── run_dev.R
+    ├── 01_start.R
+    ├── 02_dev.R
+    ├── 03_deploy.R
+    └── run_dev.R
 
 1 directory, 4 files
 ```
@@ -131,7 +124,7 @@ gap/dev/
 
 ### Package files
 
-If you are familiar with R package development, you can think of the `dev/` scripts as a 'shiny app-package development checklist.' 
+If you are familiar with R package development, you can think of the `dev/` scripts as a 'Shiny app-package development checklist.' 
 
 -   **DESCRIPTION**: In the `dev/01_start.R` script, users build a `DESCRIPTION` file with [`golem::fill_desc()`](https://thinkr-open.github.io/golem/reference/fill_desc.html)
 
@@ -265,7 +258,9 @@ Check them out here:
 
 ### App Code
 
-The `dev/02_dev.R` file covers developing a `golem` app-package. Most of the `golem` functions are for creating files in the `R/` and `inst/` folders:
+The `dev/02_dev.R` file covers the 'development' phase of a new a `golem` app-package. Most of the `golem` functions in `dev/02_dev.R` will create files in the `R/` and `inst/` folders. 
+
+The two pre-configured UI and server functions are in `R/app_ui.R` and `R/app_server.R`:
     
 ```bash
 R/
@@ -277,7 +272,7 @@ R/
 1 directory, 4 files
 ```
 
--   `R/app_ui.R` and `R/app_server.R` are `golem`'s version of `ui.R` and `server.R`  
+-   `app_ui()` and `app_server()` are `golem`-flavored UI and server files, which means they include the `@noRd` tag and include additional `golem` utilities.
     
     ```{r}
     #| label: golem_r_app_ui
@@ -298,8 +293,22 @@ R/
       )
     }
     ```
+    
+    ```{r}
+    #| label: golem_r_app_server
+    #| code-fold: false
+    #' The application server-side
+    #'
+    #' @param input,output,session Internal parameters for {shiny}.
+    #'     DO NOT REMOVE.
+    #' @import shiny
+    #' @noRd
+    app_server <- function(input, output, session) {
+      # Your application server logic
+    }
+    ```
 
--   `golem_add_external_resources()` is a wrapper for `shiny::addResourcePath()` and `htmltools::htmlDependency()`:
+-   If you do some digging, you'll find most of these `golem` utilities are wrappers for `shiny` and `usethis` functions. For example, `golem_add_external_resources()` is a wrapper for `shiny::addResourcePath()` and `htmltools::htmlDependency()`:
 
     ```{r}
     #| label: golem_add_external_resources
@@ -327,22 +336,26 @@ R/
     }
     ```
     
-    -   `app_sys()` is a wrapper for `system.file()`:
-
+    -   And `app_sys()` is a wrapper for `system.file()`:
+    
     ```{r}
-    #| label: golem_r_app_server
+    #| label: golem_app_sys
     #| code-fold: false
-    #' The application server-side
+    #' Access files in the current app
     #'
-    #' @param input,output,session Internal parameters for {shiny}.
-    #'     DO NOT REMOVE.
-    #' @import shiny
+    #' NOTE: If you manually change your package name in the DESCRIPTION,
+    #' don't forget to change it here too, and in the config file.
+    #' For a safer name change mechanism, use the `golem::set_golem_name()` function.
+    #'
+    #' @param ... character vectors, specifying subdirectory and file(s)
+    #' within your package. The default, none, returns the root of the app.
+    #'
     #' @noRd
-    app_server <- function(input, output, session) {
-      # Your application server logic
+    app_sys <- function(...) {
+      system.file(..., package = "gap")
     }
     ```
-
+    
 -   `run_app.R` is an exported function that is available for me to run my app after I've installed the package: 
     
     ```{r}
@@ -421,9 +434,11 @@ R/
 
 #### Test files
 
-The `tests/` folder is created in `dev/01_start.R` with [`golem::use_recommended_tests()`](https://thinkr-open.github.io/golem/reference/use_recommended.html), which is a wrapper around `usethis::use_testthat()`
+[`golem::use_recommended_tests()`](https://thinkr-open.github.io/golem/reference/use_recommended.html) creates the `tests/` folder and a series of unit tests in the  `dev/01_start.R` script. This function is essentially a wrapper around `usethis::use_testthat()`, but with some additional 'recommendations'.[^golem-tests]
 
--   `golem::use_recommended_tests()` adds the `spelling` package to our `DESCRIPTION` and updates the `WORDLIST`[^golem-tests]
+-   `golem::use_recommended_tests()` adds the `spelling` package to our `DESCRIPTION` and updates the `WORDLIST`
+
+-   The `tests` folder uses the [`testthat` framework](https://testthat.r-lib.org/)
 
     ```{bash}
     #| label: tests-utils
@@ -437,8 +452,6 @@ The `tests/` folder is created in `dev/01_start.R` with [`golem::use_recommended
     ```
 
 [^golem-tests]: The tests `golem` creates in the `tests/testthat/` folder can serve as a nice guide for users new to `testthat`
-
-- The `tests` folder uses the [`testthat` framework](https://testthat.r-lib.org/)
     
 #### External files
 
@@ -623,7 +636,7 @@ The code above creates the following files:
 
 [^golem-remove-nord]: New functions are added to the `R/` folder and include [`@noRd`](https://style.tidyverse.org/documentation.html#internal-functions) by default (which must be removed create the `.Rd` files in the `man/` folder)
 
-The gap application includes two modules: 
+The `gap` application includes two modules: 
 
 ```{verbatim}
 _apps/gap/R
@@ -631,11 +644,11 @@ _apps/gap/R
     └── mod_var_input.R
 ```
 
-`mod_var_input` collects the reactive inputs from the UI and passes them to `mod_scatter_display` (you can view the code in these modules [here on GitHub](https://github.com/mjfrigaard/sfw/tree/main/_apps/gap)).
+`mod_var_input` collects the reactive inputs from the UI and passes them to `mod_scatter_display` (view the code in these modules [here on GitHub](https://github.com/mjfrigaard/sfw/tree/main/_apps/gap)).
 
 ### Utility functions
 
-The `scatter_plot()` utility function file was created with `golem::add_utils()` (and ends with a `_utils` suffix):
+The `scatter_plot()` utility function was created with the `utils` argument of `add_module()`, so it's stored the `mod_scatter_display_utils.R` file:
     
 ```{r}
 #| label: mod_plot-server-scatter_plot
@@ -687,11 +700,92 @@ During development, we can include unit tests for new modules and/or functions u
 
 ### System tests 
 
+System tests can be performed with `shinytest2` (similar to non-package or non-`golem` apps). Two example `shinytest2` tests can be found in `test-shinytest2.R` and `test-app-feature-01.R`:
 
+```{bash}
+#| eval: false 
+#| code-fold: false
+tests
+└── testthat
+    ├── fixtures
+    │   ├── make-tidy_ggp2_movies.R
+    │   └── tidy_ggp2_movies.rds
+    ├── helper.R
+    ├── setup-shinytest2.R
+    ├── test-app-feature-01.R
+    └── test-shinytest2.R
+```
+
+-   `test-shinytest2.R` contains the boilerplate test from running `shinytest2::record_test()`:
+
+    ```{r}
+    #| eval: false 
+    #| code-fold: true
+    #| code-summary: 'show/hide test-shinytest2.R'
+    library(shinytest2)
+    test_that("{shinytest2} recording: feature-01", {
+      app <- AppDriver$new(name = "feature-01", height = 800, width = 1173)
+      app$set_inputs(`vars-y` = "imdb_num_votes")
+      app$set_inputs(`vars-x` = "critics_score")
+      app$set_inputs(`vars-z` = "genre")
+      app$set_inputs(`vars-alpha` = 0.7)
+      app$set_inputs(`vars-size` = 3)
+      app$set_inputs(`vars-plot_title` = "New plot title")
+      app$expect_values()
+    })
+    ```
+
+-   `test-app-feature-01.R` contains `testthat`s BDD functions describing an app feature and scenario:
+
+    ```{r}
+    #| eval: false 
+    #| code-fold: true
+    #| code-summary: 'show/hide test-app-feature-01.R'
+    library(shinytest2)
+    describe("Feature 1: Scatter plot data visualization dropdowns
+               As a film data analyst
+               I want to explore variables in the movie review data
+               So that I can analyze relationships between movie reivew sources", {
+    
+      describe("Scenario A: Change dropdown values for plotting
+                 Given the movie review application is loaded
+                 When I choose the variable [critics_score] for the x-axis
+                 And I choose the variable [imdb_num_votes] for the y-axis
+                 And I choose the variable [genre] for the color", {
+            it("Then the scatter plot should show [critics_score] on the x-axis
+                 And the scatter plot should show [imdb_num_votes] on the y-axis
+                 And the points on the scatter plot should be colored by [genre]", {
+                  app <- AppDriver$new(name = "feature-01-senario-a",
+                                         height = 800, width = 1173)
+                    app$set_inputs(`vars-y` = "imdb_num_votes")
+                    app$set_inputs(`vars-x` = "critics_score")
+                    app$set_inputs(`vars-z` = "genre")
+                    app$expect_values()
+           })
+       })
+    
+      describe("Scenario B: Change dropdown values for plotting
+                  Given the movie review application is loaded
+                  When I choose the size of the points to be [3]
+                  And I choose the opacity of the points to be [0.7]
+                  And I enter '[New plot title]' for the plot title", {
+             it("Then the size of the points on the scatter plot should be [3]
+                  And the opacity of the points on the scatter plot should be [0.7]
+                  And the title of the plot should be '[New plot title]'", {
+                  app <- AppDriver$new(name = "feature-01-senario-b",
+                                         height = 800, width = 1173)
+                    app$set_inputs(`vars-alpha` = 0.7)
+                    app$set_inputs(`vars-size` = 3)
+                    app$set_inputs(`vars-plot_title` = "New plot title")
+                    app$expect_values()
+            })
+        })
+    })
+    ```
 
 ### Test coverage 
 
-The `covrpage` package provides a test coverage report in `tests/README.md` file.[^test-coverage]
+The `covrpage` package provides a test coverage report in [`tests/README.md`](https://github.com/mjfrigaard/sfw/blob/main/_apps/gap/tests/README.md#tests-and-coverage) file.[^test-coverage]
 
 [^test-coverage]: Test coverage is only included for the three initial `golem` test files (`test-golem-recommended.R`, `test-golem_utils_server.R`, `test-golem_utils_ui.R`).
 
