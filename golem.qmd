@@ -532,7 +532,7 @@ Docker
 
 ## Building a `golem` app
 
-Building an application with `golem` is very similar to developing an R package. However, some of the app development processes have been streamlined into wrapper functions. I'll cover creating modules and utility functions using these helpers in the following sections.
+Building an application with `golem` is very similar to developing an R package. However, `golem` streamlines some of the R package development processes into wrapper functions. The sections below cover creating modules, utility functions, and tests in a new `golem` app:
 
 ### Modules 
 
@@ -789,7 +789,7 @@ The `covrpage` package provides a test coverage report in [`tests/README.md`](ht
 
 [^test-coverage]: Test coverage is only included for the three initial `golem` test files (`test-golem-recommended.R`, `test-golem_utils_server.R`, `test-golem_utils_ui.R`).
 
-### Adding resources
+## Adding resources
 
 To include other files (like images), add the image file to `inst/app/www/`, then add the `www/` to the path (see example UI code below)
     

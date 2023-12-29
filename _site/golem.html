@@ -185,8 +185,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#unit-tests" id="toc-unit-tests" class="nav-link" data-scroll-target="#unit-tests">Unit tests</a></li>
   <li><a href="#system-tests" id="toc-system-tests" class="nav-link" data-scroll-target="#system-tests">System tests</a></li>
   <li><a href="#test-coverage" id="toc-test-coverage" class="nav-link" data-scroll-target="#test-coverage">Test coverage</a></li>
-  <li><a href="#adding-resources" id="toc-adding-resources" class="nav-link" data-scroll-target="#adding-resources">Adding resources</a></li>
   </ul></li>
+  <li><a href="#adding-resources" id="toc-adding-resources" class="nav-link" data-scroll-target="#adding-resources">Adding resources</a></li>
   <li><a href="#golem-dependencies" id="toc-golem-dependencies" class="nav-link" data-scroll-target="#golem-dependencies"><code>golem</code> dependencies</a>
   <ul>
   <li><a href="#namespace" id="toc-namespace" class="nav-link" data-scroll-target="#namespace">NAMESPACE</a></li>
@@ -688,7 +688,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="building-a-golem-app" class="level2">
 <h2 class="anchored" data-anchor-id="building-a-golem-app">Building a <code>golem</code> app</h2>
-<p>Building an application with <code>golem</code> is very similar to developing an R package. However, some of the app development processes have been streamlined into wrapper functions. I’ll cover creating modules and utility functions using these helpers in the following sections.</p>
+<p>Building an application with <code>golem</code> is very similar to developing an R package. However, <code>golem</code> streamlines some of the R package development processes into wrapper functions. The sections below cover creating modules, utility functions, and tests in a new <code>golem</code> app:</p>
 <section id="modules" class="level3">
 <h3 class="anchored" data-anchor-id="modules">Modules</h3>
 <p>New modules and utility functions can be created with <a href="https://thinkr-open.github.io/golem/reference/add_module.html"><code>golem::add_module()</code></a> or <a href="https://thinkr-open.github.io/golem/reference/file_creation.html"><code>golem::add_utils()</code>/<code>golem::add_fct()</code></a>.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
@@ -926,8 +926,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="test-coverage">Test coverage</h3>
 <p>The <code>covrpage</code> package provides a test coverage report in <a href="https://github.com/mjfrigaard/sfw/blob/main/_apps/gap/tests/README.md#tests-and-coverage"><code>tests/README.md</code></a> file.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
 </section>
-<section id="adding-resources" class="level3">
-<h3 class="anchored" data-anchor-id="adding-resources">Adding resources</h3>
+</section>
+<section id="adding-resources" class="level2">
+<h2 class="anchored" data-anchor-id="adding-resources">Adding resources</h2>
 <p>To include other files (like images), add the image file to <code>inst/app/www/</code>, then add the <code>www/</code> to the path (see example UI code below)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add icon</span></span>
@@ -1062,7 +1063,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-</section>
 <section id="golem-dependencies" class="level2">
 <h2 class="anchored" data-anchor-id="golem-dependencies"><code>golem</code> dependencies</h2>
 <p><code>golem</code> apps add <code>golem</code> as a dependency.</p>
@@ -1100,7 +1100,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The <code>pak::local_deps_tree()</code> function can tell us what the dependencies look like for an application built with <code>golem</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">local_deps_tree</span>(<span class="at">root =</span> <span class="st">"_apps/gap"</span>)</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>local<span class="sc">::</span>_apps<span class="sc">/</span>gap <span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">0.9000</span> ✨👷‍♂️ ⬇ (unknown size)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>local<span class="sc">::</span>_apps<span class="sc">/</span>gap <span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">0.9000</span> ✨👷🏿‍♂️ ⬇ (unknown size)</span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>├─config <span class="dv">0</span>.<span class="fl">3.2</span> ✨ ⬇ (<span class="fl">99.78</span> kB)</span>
 <span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>│ └─yaml <span class="dv">2</span>.<span class="fl">3.8</span> ✨ ⬇ (<span class="fl">231.13</span> kB)</span>
 <span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>├─ggplot2 <span class="dv">3</span>.<span class="fl">4.4</span> ✨ ⬇ (<span class="fl">4.31</span> MB)</span>
@@ -1237,7 +1237,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb45-136"><a href="#cb45-136" aria-hidden="true" tabindex="-1"></a>  ├─stringi <span class="dv">1</span>.<span class="fl">8.3</span> ✨ ⬇ (<span class="fl">14.63</span> MB)</span>
 <span id="cb45-137"><a href="#cb45-137" aria-hidden="true" tabindex="-1"></a>  └─vctrs</span>
 <span id="cb45-138"><a href="#cb45-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-139"><a href="#cb45-139" aria-hidden="true" tabindex="-1"></a>Key<span class="sc">:</span>  ✨ new <span class="sc">|</span> ✋ outdated <span class="sc">|</span>  ⬇ download <span class="sc">|</span> 👷‍♂️ build</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb45-139"><a href="#cb45-139" aria-hidden="true" tabindex="-1"></a>Key<span class="sc">:</span>  ✨ new <span class="sc">|</span> ✋ outdated <span class="sc">|</span>  ⬇ download <span class="sc">|</span> 👷🏿‍♂️ build</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
