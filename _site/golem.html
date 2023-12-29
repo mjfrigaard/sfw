@@ -173,15 +173,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#creating-code-files" id="toc-creating-code-files" class="nav-link" data-scroll-target="#creating-code-files">Creating code files</a></li>
   <li><a href="#configuration" id="toc-configuration" class="nav-link" data-scroll-target="#configuration">Configuration</a></li>
-  <li><a href="#testing" id="toc-testing" class="nav-link" data-scroll-target="#testing">Testing</a></li>
+  <li><a href="#test-files" id="toc-test-files" class="nav-link" data-scroll-target="#test-files">Test files</a></li>
   <li><a href="#external-files" id="toc-external-files" class="nav-link" data-scroll-target="#external-files">External files</a></li>
   <li><a href="#deploy" id="toc-deploy" class="nav-link" data-scroll-target="#deploy">Deploy</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#building-a-golem-app" id="toc-building-a-golem-app" class="nav-link" data-scroll-target="#building-a-golem-app">Building a <code>golem</code> app</a>
   <ul>
-  <li><a href="#modules-utility-functions" id="toc-modules-utility-functions" class="nav-link" data-scroll-target="#modules-utility-functions">Modules &amp; utility functions</a></li>
-  <li><a href="#adding-tests" id="toc-adding-tests" class="nav-link" data-scroll-target="#adding-tests">Adding tests</a></li>
+  <li><a href="#modules" id="toc-modules" class="nav-link" data-scroll-target="#modules">Modules</a></li>
+  <li><a href="#utility-functions" id="toc-utility-functions" class="nav-link" data-scroll-target="#utility-functions">Utility functions</a></li>
+  <li><a href="#unit-tests" id="toc-unit-tests" class="nav-link" data-scroll-target="#unit-tests">Unit tests</a></li>
+  <li><a href="#system-tests" id="toc-system-tests" class="nav-link" data-scroll-target="#system-tests">System tests</a></li>
+  <li><a href="#test-coverage" id="toc-test-coverage" class="nav-link" data-scroll-target="#test-coverage">Test coverage</a></li>
   <li><a href="#adding-resources" id="toc-adding-resources" class="nav-link" data-scroll-target="#adding-resources">Adding resources</a></li>
   </ul></li>
   <li><a href="#golem-dependencies" id="toc-golem-dependencies" class="nav-link" data-scroll-target="#golem-dependencies"><code>golem</code> dependencies</a>
@@ -213,7 +216,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>The <a href="https://thinkr-open.github.io/golem/"><code>golem</code> package</a> is an ‘opinionated Shiny framework’ that provides many options for users experienced with creating R packages, but who are looking to streamline their application development.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>The <a href="https://thinkr-open.github.io/golem/"><code>golem</code> package</a> provides many options for R programmers experienced with creating R packages, but who are looking to streamline their application development.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<blockquote class="blockquote">
+<p>“<em>opinionated framework for building production-grade Shiny applications</em>”</p>
+</blockquote>
 <p>Below is an overview of the features/functions in the <code>golem</code> framework:</p>
 <div style="font-size: 0.85em;">
 <table class="table">
@@ -598,19 +604,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div></li>
 </ul>
 </section>
-<section id="testing" class="level4">
-<h4 class="anchored" data-anchor-id="testing">Testing</h4>
+<section id="test-files" class="level4">
+<h4 class="anchored" data-anchor-id="test-files">Test files</h4>
 <p>The <code>tests/</code> folder is created in <code>dev/01_start.R</code> with <a href="https://thinkr-open.github.io/golem/reference/use_recommended.html"><code>golem::use_recommended_tests()</code></a>, which is a wrapper around <code>usethis::use_testthat()</code></p>
 <ul>
 <li><p><code>golem::use_recommended_tests()</code> adds the <code>spelling</code> package to our <code>DESCRIPTION</code> and updates the <code>WORDLIST</code><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tests/testthat/</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>            <span class="ex">├──</span> _snaps</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>            <span class="ex">├──</span> test-golem-recommended.R</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>            <span class="ex">├──</span> test-golem_utils_server.R</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>            <span class="ex">└──</span> test-golem_utils_ui.R</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="ex">2</span> directories, 4 files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>            <span class="ex">├──</span> test-golem-recommended.R</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>            <span class="ex">├──</span> test-golem_utils_server.R</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>            <span class="ex">└──</span> test-golem_utils_ui.R</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="ex">2</span> directories, 4 files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 </ul>
 <ul>
@@ -678,19 +683,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="building-a-golem-app" class="level2">
 <h2 class="anchored" data-anchor-id="building-a-golem-app">Building a <code>golem</code> app</h2>
 <p>Building an application with <code>golem</code> is very similar to developing an R package. However, some of the app development processes have been streamlined into wrapper functions. I’ll cover creating modules and utility functions using these helpers in the following sections.</p>
-<section id="modules-utility-functions" class="level3">
-<h3 class="anchored" data-anchor-id="modules-utility-functions">Modules &amp; utility functions</h3>
+<section id="modules" class="level3">
+<h3 class="anchored" data-anchor-id="modules">Modules</h3>
 <p>New modules and utility functions can be created with <a href="https://thinkr-open.github.io/golem/reference/add_module.html"><code>golem::add_module()</code></a> or <a href="https://thinkr-open.github.io/golem/reference/file_creation.html"><code>golem::add_utils()</code>/<code>golem::add_fct()</code></a>.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
-<p>The code below creates the following files:</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">add_module</span>(<span class="at">name =</span> <span class="st">'name'</span>, </span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">fct =</span> <span class="st">'fun'</span>, </span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">utils =</span> <span class="st">'fun'</span>, </span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">with_test =</span> <span class="cn">TRUE</span>, </span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">export =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The code above creates the following files:</p>
 <ul>
-<li><code>R/mod_name.R</code>: a boilerplate Shiny module (ui and server functions)</li>
-</ul>
+<li><p><code>R/mod_name.R</code>: a boilerplate Shiny module (ui and server functions)</p>
 <div class="cell">
+<details>
+<summary>show/hide R/mod_name.R</summary>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' name UI Function</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' @description A shiny Module.</span></span>
@@ -704,10 +710,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>mod_name_ui <span class="ot">&lt;-</span> <span class="cf">function</span>(id){</span>
 <span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  ns <span class="ot">&lt;-</span> <span class="fu">NS</span>(id)</span>
 <span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tagList</span>(</span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="co">#' name Server Functions</span></span>
 <span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
 <span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="co">#' @rdname mod_name</span></span>
@@ -715,21 +721,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>mod_name_server <span class="ot">&lt;-</span> <span class="cf">function</span>(id){</span>
 <span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">moduleServer</span>( id, <span class="cf">function</span>(input, output, session){</span>
 <span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>    ns <span class="ot">&lt;-</span> session<span class="sc">$</span>ns</span>
-<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>  })</span>
 <span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a><span class="do">## To be copied in the UI</span></span>
 <span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a><span class="co"># mod_name_ui("name_1")</span></span>
-<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a><span class="do">## To be copied in the server</span></span>
 <span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a><span class="co"># mod_name_server("name_1")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ul>
-<li><p><code>R/mod_name_fct_fun.R</code> and <code>R/mod_name_utils_fun.R</code>: empty R files in the R/ folder (with the same prefix as the module).</p></li>
-<li><p><code>tests/testthat/test-mod_name.R</code>: a test file for the module (with some boilerplate tests)</p></li>
-</ul>
+</details>
+</div></li>
+<li><p><code>R/mod_name_fct_fun.R</code> and <code>R/mod_name_utils_fun.R</code>: empty R files in the <code>R/</code> folder (with the same prefix as the module).</p></li>
+<li><p><code>tests/testthat/test-mod_name.R</code>: a test file for the module (with some boilerplate tests)</p>
 <div class="cell">
+<details>
+<summary>show/hide tests/testthat/test-mod_name.R</summary>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">testServer</span>(mod_name_server,</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add here your module params</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">args =</span> <span class="fu">list</span>(), {</span>
@@ -755,7 +762,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># - Testing output</span></span>
 <span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># expect_true(inherits(output$tbl$html, "html"))</span></span>
 <span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">"module ui works"</span>, {</span>
 <span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>  ui <span class="ot">&lt;-</span> <span class="fu">mod_name_ui</span>(<span class="at">id =</span> <span class="st">"test"</span>)</span>
 <span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a>  golem<span class="sc">::</span><span class="fu">expect_shinytaglist</span>(ui)</span>
@@ -765,91 +772,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expect_true</span>(i <span class="sc">%in%</span> <span class="fu">names</span>(fmls))</span>
 <span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ul>
-<li>Below is the <code>mod_var</code> module:</li>
+</details>
+</div></li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>mod_var_ui <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  ns <span class="ot">&lt;-</span> <span class="fu">NS</span>(id)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tagList</span>(</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">selectInput</span>(</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">inputId =</span> <span class="fu">ns</span>(<span class="st">"y"</span>),</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">label =</span> <span class="st">"Y-axis:"</span>,</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">choices =</span> <span class="fu">c</span>(</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"IMDB rating"</span> <span class="ot">=</span> <span class="st">"imdb_rating"</span>,</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"IMDB number of votes"</span> <span class="ot">=</span> <span class="st">"imdb_num_votes"</span>,</span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Critics Score"</span> <span class="ot">=</span> <span class="st">"critics_score"</span>,</span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Audience Score"</span> <span class="ot">=</span> <span class="st">"audience_score"</span>,</span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Runtime"</span> <span class="ot">=</span> <span class="st">"runtime"</span></span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">selected =</span> <span class="st">"audience_score"</span></span>
-<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">selectInput</span>(</span>
-<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">inputId =</span> <span class="fu">ns</span>(<span class="st">"x"</span>),</span>
-<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">label =</span> <span class="st">"X-axis:"</span>,</span>
-<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">choices =</span> <span class="fu">c</span>(</span>
-<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">"IMDB rating"</span> <span class="ot">=</span> <span class="st">"imdb_rating"</span>,</span>
-<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">"IMDB number of votes"</span> <span class="ot">=</span> <span class="st">"imdb_num_votes"</span>,</span>
-<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Critics Score"</span> <span class="ot">=</span> <span class="st">"critics_score"</span>,</span>
-<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Audience Score"</span> <span class="ot">=</span> <span class="st">"audience_score"</span>,</span>
-<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Runtime"</span> <span class="ot">=</span> <span class="st">"runtime"</span></span>
-<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>      <span class="at">selected =</span> <span class="st">"imdb_rating"</span></span>
-<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">selectInput</span>(</span>
-<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a>      <span class="at">inputId =</span> <span class="fu">ns</span>(<span class="st">"z"</span>),</span>
-<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a>      <span class="at">label =</span> <span class="st">"Color by:"</span>,</span>
-<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a>      <span class="at">choices =</span> <span class="fu">c</span>(</span>
-<span id="cb30-32"><a href="#cb30-32" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Title Type"</span> <span class="ot">=</span> <span class="st">"title_type"</span>,</span>
-<span id="cb30-33"><a href="#cb30-33" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Genre"</span> <span class="ot">=</span> <span class="st">"genre"</span>,</span>
-<span id="cb30-34"><a href="#cb30-34" aria-hidden="true" tabindex="-1"></a>        <span class="st">"MPAA Rating"</span> <span class="ot">=</span> <span class="st">"mpaa_rating"</span>,</span>
-<span id="cb30-35"><a href="#cb30-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Critics Rating"</span> <span class="ot">=</span> <span class="st">"critics_rating"</span>,</span>
-<span id="cb30-36"><a href="#cb30-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Audience Rating"</span> <span class="ot">=</span> <span class="st">"audience_rating"</span></span>
-<span id="cb30-37"><a href="#cb30-37" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb30-38"><a href="#cb30-38" aria-hidden="true" tabindex="-1"></a>      <span class="at">selected =</span> <span class="st">"mpaa_rating"</span></span>
-<span id="cb30-39"><a href="#cb30-39" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb30-40"><a href="#cb30-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sliderInput</span>(</span>
-<span id="cb30-41"><a href="#cb30-41" aria-hidden="true" tabindex="-1"></a>      <span class="at">inputId =</span> <span class="fu">ns</span>(<span class="st">"alpha"</span>),</span>
-<span id="cb30-42"><a href="#cb30-42" aria-hidden="true" tabindex="-1"></a>      <span class="at">label =</span> <span class="st">"Alpha:"</span>,</span>
-<span id="cb30-43"><a href="#cb30-43" aria-hidden="true" tabindex="-1"></a>      <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">1</span>, <span class="at">step =</span> <span class="fl">0.1</span>,</span>
-<span id="cb30-44"><a href="#cb30-44" aria-hidden="true" tabindex="-1"></a>      <span class="at">value =</span> <span class="fl">0.5</span></span>
-<span id="cb30-45"><a href="#cb30-45" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb30-46"><a href="#cb30-46" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sliderInput</span>(</span>
-<span id="cb30-47"><a href="#cb30-47" aria-hidden="true" tabindex="-1"></a>      <span class="at">inputId =</span> <span class="fu">ns</span>(<span class="st">"size"</span>),</span>
-<span id="cb30-48"><a href="#cb30-48" aria-hidden="true" tabindex="-1"></a>      <span class="at">label =</span> <span class="st">"Size:"</span>,</span>
-<span id="cb30-49"><a href="#cb30-49" aria-hidden="true" tabindex="-1"></a>      <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">5</span>,</span>
-<span id="cb30-50"><a href="#cb30-50" aria-hidden="true" tabindex="-1"></a>      <span class="at">value =</span> <span class="dv">2</span></span>
-<span id="cb30-51"><a href="#cb30-51" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb30-52"><a href="#cb30-52" aria-hidden="true" tabindex="-1"></a>    <span class="fu">textInput</span>(</span>
-<span id="cb30-53"><a href="#cb30-53" aria-hidden="true" tabindex="-1"></a>      <span class="at">inputId =</span> <span class="fu">ns</span>(<span class="st">"plot_title"</span>),</span>
-<span id="cb30-54"><a href="#cb30-54" aria-hidden="true" tabindex="-1"></a>      <span class="at">label =</span> <span class="st">"Plot title"</span>,</span>
-<span id="cb30-55"><a href="#cb30-55" aria-hidden="true" tabindex="-1"></a>      <span class="at">placeholder =</span> <span class="st">"Enter plot title"</span></span>
-<span id="cb30-56"><a href="#cb30-56" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb30-57"><a href="#cb30-57" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb30-58"><a href="#cb30-58" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb30-59"><a href="#cb30-59" aria-hidden="true" tabindex="-1"></a>mod_var_server <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
-<span id="cb30-60"><a href="#cb30-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-61"><a href="#cb30-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb30-62"><a href="#cb30-62" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(</span>
-<span id="cb30-63"><a href="#cb30-63" aria-hidden="true" tabindex="-1"></a>      <span class="fu">reactive</span>({</span>
-<span id="cb30-64"><a href="#cb30-64" aria-hidden="true" tabindex="-1"></a>        <span class="fu">list</span>(</span>
-<span id="cb30-65"><a href="#cb30-65" aria-hidden="true" tabindex="-1"></a>          <span class="st">"y"</span> <span class="ot">=</span> input<span class="sc">$</span>y,</span>
-<span id="cb30-66"><a href="#cb30-66" aria-hidden="true" tabindex="-1"></a>          <span class="st">"x"</span> <span class="ot">=</span> input<span class="sc">$</span>x,</span>
-<span id="cb30-67"><a href="#cb30-67" aria-hidden="true" tabindex="-1"></a>          <span class="st">"z"</span> <span class="ot">=</span> input<span class="sc">$</span>z,</span>
-<span id="cb30-68"><a href="#cb30-68" aria-hidden="true" tabindex="-1"></a>          <span class="st">"alpha"</span> <span class="ot">=</span> input<span class="sc">$</span>alpha,</span>
-<span id="cb30-69"><a href="#cb30-69" aria-hidden="true" tabindex="-1"></a>          <span class="st">"size"</span> <span class="ot">=</span> input<span class="sc">$</span>size,</span>
-<span id="cb30-70"><a href="#cb30-70" aria-hidden="true" tabindex="-1"></a>          <span class="st">"plot_title"</span> <span class="ot">=</span> input<span class="sc">$</span>plot_title</span>
-<span id="cb30-71"><a href="#cb30-71" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb30-72"><a href="#cb30-72" aria-hidden="true" tabindex="-1"></a>      })</span>
-<span id="cb30-73"><a href="#cb30-73" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb30-74"><a href="#cb30-74" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb30-75"><a href="#cb30-75" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>View the modules I use in the <code>gap</code> application <a href="https://github.com/mjfrigaard/sfw/blob/main/gap/R">here on GitHub</a>.</p>
-<ul>
-<li>The <code>scatter_plot()</code> utility function file end with a <code>_utils</code> suffix:</li>
-</ul>
+<p>The gap application includes two modules:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>_apps/gap/R</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    ├── mod_scatter_display.R</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    └── mod_var_input.R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>mod_var_input</code> collects the reactive inputs from the UI and passes them to <code>mod_scatter_display</code> (you can view the code in these modules <a href="https://github.com/mjfrigaard/sfw/tree/main/_apps/gap">here on GitHub</a>).</p>
+</section>
+<section id="utility-functions" class="level3">
+<h3 class="anchored" data-anchor-id="utility-functions">Utility functions</h3>
+<p>The <code>scatter_plot()</code> utility function file was created with <code>golem::add_utils()</code> (and ends with a <code>_utils</code> suffix):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>scatter_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(df, x_var, y_var, col_var, alpha_var, size_var) {</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(<span class="at">data =</span> df,</span>
@@ -866,7 +800,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span style="font-weight: bold; font-size: 1.10em;">Module names</span>
+<span style="font-weight: bold; font-size: 1.10em;">Code file names</span>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -889,29 +823,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="adding-tests" class="level3">
-<h3 class="anchored" data-anchor-id="adding-tests">Adding tests</h3>
-<ul>
-<li>Include tests for new modules and functions using the <code>with_test = TRUE</code> argument</li>
-</ul>
+<section id="unit-tests" class="level3">
+<h3 class="anchored" data-anchor-id="unit-tests">Unit tests</h3>
+<p><code>golem</code> apps come with boilerplate unit tests via <code>use_recommended_tests()</code>, <code>use_utils_ui(with_test = TRUE)</code>, <code>use_utils_server(with_test = TRUE)</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tests/testthat/</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>            <span class="ex">├──</span> _snaps</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>            <span class="ex">├──</span> test-golem-recommended.R</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>            <span class="ex">├──</span> test-golem_utils_server.R</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>            <span class="ex">├──</span> test-golem_utils_ui.R</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>            <span class="ex">├──</span> test-mod_plot.R</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>            <span class="ex">├──</span> test-mod_plot_utils.R</span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>            <span class="ex">└──</span> test-mod_var_input.R</span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="ex">2</span> directories, 6 files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>            <span class="ex">├──</span> test-golem-recommended.R</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>            <span class="ex">├──</span> test-golem_utils_server.R</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>            <span class="ex">└──</span> test-golem_utils_ui.R</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="ex">2</span> directories, 3 files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>During development, we can include unit tests for new modules and/or functions using the <code>with_test = TRUE</code> argument.</p>
+</section>
+<section id="system-tests" class="level3">
+<h3 class="anchored" data-anchor-id="system-tests">System tests</h3>
+</section>
+<section id="test-coverage" class="level3">
+<h3 class="anchored" data-anchor-id="test-coverage">Test coverage</h3>
+<p>The <code>covrpage</code> package provides a test coverage report in <code>tests/README.md</code> file.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
 </section>
 <section id="adding-resources" class="level3">
 <h3 class="anchored" data-anchor-id="adding-resources">Adding resources</h3>
-<ul>
-<li>To include other files (like images), add the image file to <code>inst/app/www/</code>, then add the <code>www/</code> to the path (see example UI code below)</li>
-</ul>
+<p>To include other files (like images), add the image file to <code>inst/app/www/</code>, then add the <code>www/</code> to the path (see example UI code below)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add icon</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span>tags<span class="sc">$</span><span class="fu">img</span>(<span class="at">src =</span> <span class="st">"www/shiny.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -929,9 +863,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add icon</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span>tags<span class="sc">$</span><span class="fu">img</span>(<span class="at">src =</span> <span class="st">"www/images/golem-hex.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ul>
-<li>In <code>R/app_ui.R</code>, the <code>app_ui()</code> function contains the UI layout functions (<code>fluidPage()</code>, <code>sidebarLayout()</code>, etc.), and a call to <code>golem_add_external_resources()</code>:</li>
-</ul>
+<p>In <code>R/app_ui.R</code>, the <code>app_ui()</code> function contains the UI layout functions (<code>fluidPage()</code>, <code>sidebarLayout()</code>, etc.), and a call to <code>golem_add_external_resources()</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' The application User-Interface</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
@@ -974,7 +906,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb36-39"><a href="#cb36-39" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb36-40"><a href="#cb36-40" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now when I run <code>devtools::load_all()</code>, <code>devtools::document()</code>, install/restart, and load the package, I see the images properly rendered with the application:</p>
+<p>After running <code>devtools::load_all()</code>, <code>devtools::document()</code>, <code>devtools::install()</code>, the image is properly rendered with the application:</p>
 <div id="fig-run_app_gap" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <div id="fig-run_app_gap" class="quarto-figure quarto-figure-center anchored">
@@ -1085,11 +1017,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The <code>pak::local_deps_tree()</code> function can tell us what the dependencies look like for an application built with <code>golem</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">local_deps_tree</span>(<span class="at">root =</span> <span class="st">"_apps/gap"</span>)</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>local<span class="sc">::</span>_apps<span class="sc">/</span>gap <span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">0.9000</span> ✨👷🏼‍♂️ ⬇ (unknown size)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>local<span class="sc">::</span>_apps<span class="sc">/</span>gap <span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">0.9000</span> ✨👷🏻‍♂️ ⬇ (unknown size)</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>├─config <span class="dv">0</span>.<span class="fl">3.2</span> ✨ ⬇ (<span class="fl">99.78</span> kB)</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>│ └─yaml <span class="dv">2</span>.<span class="fl">3.8</span> ✨👷🏼‍♂️🔧 ⬇ (<span class="fl">94.33</span> kB)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>│ └─yaml <span class="dv">2</span>.<span class="fl">3.8</span> ✨ ⬇ (<span class="fl">231.13</span> kB)</span>
 <span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>├─ggplot2 <span class="dv">3</span>.<span class="fl">4.4</span> ✨ ⬇ (<span class="fl">4.31</span> MB)</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>│ ├─cli <span class="dv">3</span>.<span class="fl">6.2</span> ✨ ⬇ (<span class="fl">1.38</span> MB)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>│ ├─cli <span class="dv">3</span>.<span class="fl">6.2</span> ✨ ⬇ (<span class="fl">1.39</span> MB)</span>
 <span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>│ ├─glue <span class="dv">1</span>.<span class="fl">6.2</span> ✨ ⬇ (<span class="fl">156.74</span> kB)</span>
 <span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>│ ├─gtable <span class="dv">0</span>.<span class="fl">3.4</span> ✨ ⬇ (<span class="fl">218.00</span> kB)</span>
 <span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>│ │ ├─cli</span>
@@ -1102,7 +1034,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>│ ├─isoband <span class="dv">0</span>.<span class="fl">2.7</span> ✨ ⬇ (<span class="fl">1.88</span> MB)</span>
 <span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>│ ├─lifecycle</span>
 <span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>│ ├─MASS <span class="fl">7.3</span><span class="dv">-60</span> <span class="sc">&lt;</span> <span class="fl">7.3-60.1</span> ✋</span>
-<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>│ ├─mgcv <span class="fl">1.9</span><span class="dv">-0</span> </span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>│ ├─mgcv <span class="fl">1.9</span><span class="dv">-1</span> </span>
 <span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>│ │ ├─nlme <span class="fl">3.1</span><span class="dv">-164</span> </span>
 <span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>│ │ │ └─lattice <span class="fl">0.22</span><span class="dv">-5</span> </span>
 <span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>│ │ └─Matrix <span class="fl">1.6</span><span class="dv">-4</span> </span>
@@ -1219,10 +1151,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb41-133"><a href="#cb41-133" aria-hidden="true" tabindex="-1"></a>  ├─lifecycle</span>
 <span id="cb41-134"><a href="#cb41-134" aria-hidden="true" tabindex="-1"></a>  ├─magrittr</span>
 <span id="cb41-135"><a href="#cb41-135" aria-hidden="true" tabindex="-1"></a>  ├─rlang</span>
-<span id="cb41-136"><a href="#cb41-136" aria-hidden="true" tabindex="-1"></a>  ├─stringi <span class="dv">1</span>.<span class="fl">8.2</span> ✨ ⬇ (<span class="fl">14.63</span> MB)</span>
+<span id="cb41-136"><a href="#cb41-136" aria-hidden="true" tabindex="-1"></a>  ├─stringi <span class="dv">1</span>.<span class="fl">8.3</span> ✨ ⬇ (<span class="fl">14.63</span> MB)</span>
 <span id="cb41-137"><a href="#cb41-137" aria-hidden="true" tabindex="-1"></a>  └─vctrs</span>
 <span id="cb41-138"><a href="#cb41-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-139"><a href="#cb41-139" aria-hidden="true" tabindex="-1"></a>Key<span class="sc">:</span>  ✨ new <span class="sc">|</span> ✋ outdated <span class="sc">|</span>  ⬇ download <span class="sc">|</span> 👷🏼‍♂️ build <span class="sc">|</span> 🔧 compile</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb41-139"><a href="#cb41-139" aria-hidden="true" tabindex="-1"></a>Key<span class="sc">:</span>  ✨ new <span class="sc">|</span> ✋ outdated <span class="sc">|</span>  ⬇ download <span class="sc">|</span> 👷🏻‍♂️ build</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -1251,6 +1183,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li id="fn1"><p>The code used to build the golem app is <a href="https://github.com/mjfrigaard/sfw/tree/main/_apps/gap">here</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>The tests <code>golem</code> creates in the <code>tests/testthat/</code> folder can serve as a nice guide for users new to <code>testthat</code><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>New functions are added to the <code>R/</code> folder and include <a href="https://style.tidyverse.org/documentation.html#internal-functions"><code>@noRd</code></a> by default (which must be removed create the <code>.Rd</code> files in the <code>man/</code> folder)<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Test coverage is only included for the three initial <code>golem</code> test files (<code>test-golem-recommended.R</code>, <code>test-golem_utils_server.R</code>, <code>test-golem_utils_ui.R</code>).<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -489,7 +489,7 @@ The methods above might prompt the following questions:
 
 2. _Why do we install the **entire package** in the `DESCRIPTION` if we're only accessing a single function below R with `pkg::fun()` in our R package?_ [^import-packages-description]
 
-[^install-packages-library]: `install-packages()` downloads and installs packages from a repo like CRAN or GitHub, and `library` (or `require`) loads and attaches the add-on packages to the search list.
+[^install-packages-library]: `install.packages()` downloads and installs packages from a repo like CRAN or GitHub, and `library` (or `require`) loads and attaches the add-on packages to the search list.
 
 [^import-packages-description]: Adding a package to the `Imports` field in the `DESCRIPTION` will download/install the add-on package when your package is installed, but not *attach* it to the search list (the `Depends` field *will* install and attach the package).
 

@@ -43,7 +43,9 @@ box_use_df <- data.frame(
 )
 ```
 
-The [`golem` package](https://thinkr-open.github.io/golem/) is an 'opinionated Shiny framework' that provides many options for users experienced with creating R packages, but who are looking to streamline their application development.[^view-gap]
+The [`golem` package](https://thinkr-open.github.io/golem/) provides many options for R programmers experienced with creating R packages, but who are looking to streamline their application development.[^view-gap]
+
+> "*opinionated framework for building production-grade Shiny applications*"
 
 [^view-gap]: The code used to build the golem app is [here](https://github.com/mjfrigaard/sfw/tree/main/_apps/gap).
 
@@ -417,7 +419,7 @@ R/
     }
     ```
 
-#### Testing
+#### Test files
 
 The `tests/` folder is created in `dev/01_start.R` with [`golem::use_recommended_tests()`](https://thinkr-open.github.io/golem/reference/use_recommended.html), which is a wrapper around `usethis::use_testthat()`
 
@@ -427,7 +429,6 @@ The `tests/` folder is created in `dev/01_start.R` with [`golem::use_recommended
     #| label: tests-utils
     #| code-fold: false
     tests/testthat/
-                ├── _snaps
                 ├── test-golem-recommended.R
                 ├── test-golem_utils_server.R
                 └── test-golem_utils_ui.R
@@ -520,11 +521,9 @@ Docker
 
 Building an application with `golem` is very similar to developing an R package. However, some of the app development processes have been streamlined into wrapper functions. I'll cover creating modules and utility functions using these helpers in the following sections.
 
-### Modules & utility functions
+### Modules 
 
 New modules and utility functions can be created with [`golem::add_module()`](https://thinkr-open.github.io/golem/reference/add_module.html) or [`golem::add_utils()`/`golem::add_fct()`](https://thinkr-open.github.io/golem/reference/file_creation.html).[^golem-remove-nord]
-
-The code below creates the following files: 
 
 ```r
 add_module(name = 'name', 
@@ -534,180 +533,112 @@ add_module(name = 'name',
            export = TRUE)
 ```
 
-- `R/mod_name.R`: a boilerplate Shiny module (ui and server functions)
+The code above creates the following files: 
 
-```{r}
-#| code-fold: false
-#| eval: false
-#' name UI Function
-#'
-#' @description A shiny Module.
-#'
-#' @param id,input,output,session Internal parameters for {shiny}.
-#'
-#' @rdname mod_name
-#' @export 
-#'
-#' @importFrom shiny NS tagList 
-mod_name_ui <- function(id){
-  ns <- NS(id)
-  tagList(
- 
-  )
-}
-    
-#' name Server Functions
-#'
-#' @rdname mod_name
-#' @export 
-mod_name_server <- function(id){
-  moduleServer( id, function(input, output, session){
-    ns <- session$ns
- 
-  })
-}
-    
-## To be copied in the UI
-# mod_name_ui("name_1")
-    
-## To be copied in the server
-# mod_name_server("name_1")
-```
+-   `R/mod_name.R`: a boilerplate Shiny module (ui and server functions)
 
-- `R/mod_name_fct_fun.R` and `R/mod_name_utils_fun.R`: empty R files in the R/ folder (with the same prefix as the module).
+    ```{r}
+    #| code-fold: true
+    #| code-summary: 'show/hide R/mod_name.R'
+    #| eval: false
+    #' name UI Function
+    #'
+    #' @description A shiny Module.
+    #'
+    #' @param id,input,output,session Internal parameters for {shiny}.
+    #'
+    #' @rdname mod_name
+    #' @export 
+    #'
+    #' @importFrom shiny NS tagList 
+    mod_name_ui <- function(id){
+      ns <- NS(id)
+      tagList(
+     
+      )
+    }
+        
+    #' name Server Functions
+    #'
+    #' @rdname mod_name
+    #' @export 
+    mod_name_server <- function(id){
+      moduleServer( id, function(input, output, session){
+        ns <- session$ns
+     
+      })
+    }
+        
+    ## To be copied in the UI
+    # mod_name_ui("name_1")
+        
+    ## To be copied in the server
+    # mod_name_server("name_1")
+    ```
 
-- `tests/testthat/test-mod_name.R`: a test file for the module (with some boilerplate tests)
+  -   `R/mod_name_fct_fun.R` and `R/mod_name_utils_fun.R`: empty R files in the `R/` folder (with the same prefix as the module).
 
-```{r}
-#| code-fold: false
-#| eval: false
-testServer(mod_name_server,
-  # Add here your module params
-  args = list(), {
-    ns <- session$ns
-    expect_true(
-      inherits(ns, "function")
-    )
-    expect_true(
-      grepl(id, ns(""))
-    )
-    expect_true(
-      grepl("test", ns("test"))
-    )
-    # Here are some examples of tests you can
-    # run on your module
-    # - Testing the setting of inputs
-    # session$setInputs(x = 1)
-    # expect_true(input$x == 1)
-    # - If ever your input updates a reactiveValues
-    # - Note that this reactiveValues must be passed
-    # - to the testServer function via args = list()
-    # expect_true(r$x == 1)
-    # - Testing output
-    # expect_true(inherits(output$tbl$html, "html"))
-})
- 
-test_that("module ui works", {
-  ui <- mod_name_ui(id = "test")
-  golem::expect_shinytaglist(ui)
-  # Check that formals have not been removed
-  fmls <- formals(mod_name_ui)
-  for (i in c("id")) {
-    expect_true(i %in% names(fmls))
-  }
-})
-```
+-   `tests/testthat/test-mod_name.R`: a test file for the module (with some boilerplate tests)
+
+    ```{r}
+    #| code-fold: true
+    #| eval: false
+    #| code-summary: 'show/hide tests/testthat/test-mod_name.R'
+    testServer(mod_name_server,
+      # Add here your module params
+      args = list(), {
+        ns <- session$ns
+        expect_true(
+          inherits(ns, "function")
+        )
+        expect_true(
+          grepl(id, ns(""))
+        )
+        expect_true(
+          grepl("test", ns("test"))
+        )
+        # Here are some examples of tests you can
+        # run on your module
+        # - Testing the setting of inputs
+        # session$setInputs(x = 1)
+        # expect_true(input$x == 1)
+        # - If ever your input updates a reactiveValues
+        # - Note that this reactiveValues must be passed
+        # - to the testServer function via args = list()
+        # expect_true(r$x == 1)
+        # - Testing output
+        # expect_true(inherits(output$tbl$html, "html"))
+    })
+     
+    test_that("module ui works", {
+      ui <- mod_name_ui(id = "test")
+      golem::expect_shinytaglist(ui)
+      # Check that formals have not been removed
+      fmls <- formals(mod_name_ui)
+      for (i in c("id")) {
+        expect_true(i %in% names(fmls))
+      }
+    })
+    ```
 
 [^golem-remove-nord]: New functions are added to the `R/` folder and include [`@noRd`](https://style.tidyverse.org/documentation.html#internal-functions) by default (which must be removed create the `.Rd` files in the `man/` folder)
 
-- Below is the `mod_var` module:
+The gap application includes two modules: 
 
-```{r}
-#| label: mod_var
-#| code-fold: false
-mod_var_ui <- function(id) {
-  ns <- NS(id)
-  tagList(
-    selectInput(
-      inputId = ns("y"),
-      label = "Y-axis:",
-      choices = c(
-        "IMDB rating" = "imdb_rating",
-        "IMDB number of votes" = "imdb_num_votes",
-        "Critics Score" = "critics_score",
-        "Audience Score" = "audience_score",
-        "Runtime" = "runtime"
-      ),
-      selected = "audience_score"
-    ),
-    selectInput(
-      inputId = ns("x"),
-      label = "X-axis:",
-      choices = c(
-        "IMDB rating" = "imdb_rating",
-        "IMDB number of votes" = "imdb_num_votes",
-        "Critics Score" = "critics_score",
-        "Audience Score" = "audience_score",
-        "Runtime" = "runtime"
-      ),
-      selected = "imdb_rating"
-    ),
-    selectInput(
-      inputId = ns("z"),
-      label = "Color by:",
-      choices = c(
-        "Title Type" = "title_type",
-        "Genre" = "genre",
-        "MPAA Rating" = "mpaa_rating",
-        "Critics Rating" = "critics_rating",
-        "Audience Rating" = "audience_rating"
-      ),
-      selected = "mpaa_rating"
-    ),
-    sliderInput(
-      inputId = ns("alpha"),
-      label = "Alpha:",
-      min = 0, max = 1, step = 0.1,
-      value = 0.5
-    ),
-    sliderInput(
-      inputId = ns("size"),
-      label = "Size:",
-      min = 0, max = 5,
-      value = 2
-    ),
-    textInput(
-      inputId = ns("plot_title"),
-      label = "Plot title",
-      placeholder = "Enter plot title"
-    )
-  )
-}
-mod_var_server <- function(id) {
-
-  moduleServer(id, function(input, output, session) {
-    return(
-      reactive({
-        list(
-          "y" = input$y,
-          "x" = input$x,
-          "z" = input$z,
-          "alpha" = input$alpha,
-          "size" = input$size,
-          "plot_title" = input$plot_title
-        )
-      })
-    )
-  })
-}
+```{verbatim}
+_apps/gap/R
+    ├── mod_scatter_display.R
+    └── mod_var_input.R
 ```
 
-View the modules I use in the `gap` application [here on GitHub](https://github.com/mjfrigaard/sfw/blob/main/gap/R).
+`mod_var_input` collects the reactive inputs from the UI and passes them to `mod_scatter_display` (you can view the code in these modules [here on GitHub](https://github.com/mjfrigaard/sfw/tree/main/_apps/gap)).
 
-- The `scatter_plot()` utility function file end with a `_utils` suffix:
+### Utility functions
+
+The `scatter_plot()` utility function file was created with `golem::add_utils()` (and ends with a `_utils` suffix):
     
 ```{r}
-#| label: mod_plot-server
+#| label: mod_plot-server-scatter_plot
 #| code-fold: false
 scatter_plot <- function(df, x_var, y_var, col_var, alpha_var, size_var) {
     ggplot2::ggplot(data = df,
@@ -726,7 +657,7 @@ scatter_plot <- function(df, x_var, y_var, col_var, alpha_var, size_var) {
 #| results: asis
 #| echo: false
 co_box(color = "b", 
-  header = "Module names", 
+  header = "Code file names", 
   contents = "Including `mod` in the name of module scripts and functions makes it easier to separate them from other functions in my package namespace, if I'm using tab-completion, or if I'm searching for a particular file using `Ctrl` + `.`:
 
 ::: {#fig-go-to .column}
@@ -737,28 +668,36 @@ co_box(color = "b",
 )
 ```
 
-### Adding tests 
+### Unit tests
 
-- Include tests for new modules and functions using the `with_test = TRUE` argument
-    
+`golem` apps come with boilerplate unit tests via `use_recommended_tests()`, `use_utils_ui(with_test = TRUE)`, `use_utils_server(with_test = TRUE)`. 
+
 ```{bash}
 #| label: tests-modules
 #| code-fold: false
 tests/testthat/
-            ├── _snaps
             ├── test-golem-recommended.R
             ├── test-golem_utils_server.R
-            ├── test-golem_utils_ui.R
-            ├── test-mod_plot.R
-            ├── test-mod_plot_utils.R
-            └── test-mod_var_input.R
+            └── test-golem_utils_ui.R
 
-2 directories, 6 files
+2 directories, 3 files
 ```
+
+During development, we can include unit tests for new modules and/or functions using the `with_test = TRUE` argument.
+
+### System tests 
+
+
+
+### Test coverage 
+
+The `covrpage` package provides a test coverage report in `tests/README.md` file.[^test-coverage]
+
+[^test-coverage]: Test coverage is only included for the three initial `golem` test files (`test-golem-recommended.R`, `test-golem_utils_server.R`, `test-golem_utils_ui.R`).
 
 ### Adding resources
 
-- To include other files (like images), add the image file to `inst/app/www/`, then add the `www/` to the path (see example UI code below)
+To include other files (like images), add the image file to `inst/app/www/`, then add the `www/` to the path (see example UI code below)
     
 ```{r}
 #| label: add-external-img-golem
@@ -788,7 +727,7 @@ Now I can add the image file to the `inst/app/www/images/` folder and include th
 shiny::tags$img(src = "www/images/golem-hex.png")
 ```
 
-- In `R/app_ui.R`, the `app_ui()` function contains the UI layout functions (`fluidPage()`, `sidebarLayout()`, etc.), and a call to `golem_add_external_resources()`:
+In `R/app_ui.R`, the `app_ui()` function contains the UI layout functions (`fluidPage()`, `sidebarLayout()`, etc.), and a call to `golem_add_external_resources()`:
 
 ```{r}
 #| label: app_ui-golem
@@ -835,7 +774,7 @@ app_ui <- function(request) {
 }
 ```
 
-Now when I run `devtools::load_all()`, `devtools::document()`, install/restart, and load the package, I see the images properly rendered with the application:
+After running `devtools::load_all()`, `devtools::document()`, `devtools::install()`, the image is properly rendered with the application:
 
 ::: {#fig-run_app_gap .column}
 ![`gap::run_app()`](img/run_app_gap.png){#fig-run_app_gap width="100%" fig-align="center"}
