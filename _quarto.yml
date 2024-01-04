@@ -29,7 +29,7 @@ format:
   html:
     #code-fold: show
     code-summary: 'show/hide'
-    code-overflow: wrap
+    # code-overflow: 
     #code-link: false
     #code-overflow: wrap
     #code-annotations: true

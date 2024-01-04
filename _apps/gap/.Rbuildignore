@@ -1,5 +1,9 @@
+^renv$
+^renv\.lock$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^moviesApp\.Rcheck$
 ^moviesApp.*\.tar\.gz$
 ^moviesApp.*\.tgz$
+^Dockerfile$
+^\.dockerignore$

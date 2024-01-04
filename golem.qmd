@@ -17,30 +17,6 @@ execute:
 #| include: false
 source("_common.R")
 library(kableExtra)
-# box_use_df -----
-box_use_df <- data.frame(
-  check.names = FALSE,
-  `Inside box::use()` = c(
-    "box::use(
-      pkg
-    )",
-    "box::use(
-      p = pkg
-      )",
-    "box::use(
-      pkg = pkg[foo, bar]
-      )",
-    "box::use(
-      pkg[my_foo = foo, ...]
-      )"
-  ),
-  Action = c(
-    "imports 'pkg', does not attach any function names",
-    "imports 'pkg' with alias ('p'), does not attach any function names",
-    "imports 'pkg' and attaches the function names 'pkg::foo()' and 'pkg::bar()'",
-    "imports 'pkg' with alias for 'foo' ('my_foo') and attaches all exported function names"
-  )
-)
 ```
 
 The [`golem` package](https://thinkr-open.github.io/golem/) provides many options for R programmers experienced with creating R packages, but who are looking to streamline their application development.[^view-gap]
@@ -237,20 +213,20 @@ The `golem` functions in `dev/01_start.R` are for setting the `golem` options an
 - **Helper functions**: [`golem::use_utils_ui()`](https://thinkr-open.github.io/golem/reference/utils_files.html) and [`golem::use_utils_server()`](https://thinkr-open.github.io/golem/reference/utils_files.html) create `golem`'s UI (`R/golem_utils_ui.R`) and server (`R/golem_utils_server.R`) utility functions in the `R/` folder
 
 ```{r}
-#| label: free_code
+#| label: co_box_free_code
 #| results: asis
 #| eval: true
 #| echo: false
-co_box(color = "b", 
+co_box(color = "g", fold = FALSE, look = "default",
   header = "`golem` gives away lots of free code!", contents = "
 
-_Both `R/golem_utils_ui.R` and `R/golem_utils_server.R` contain a lot of helper functions that come in handy if you're tired of writing out particular function names (like `reactiveValuesToList()` or `column(width = 6)`/`column(width = 12)`)_ 
+Both `R/golem_utils_ui.R` and `R/golem_utils_server.R` contain a lot of helper functions that come in handy if you're tired of writing out particular function names (_like `reactiveValuesToList()` or `column(width = 6)`/`column(width = 12)`_) 
   
 Check them out here: 
   
-- [`golem_utils_ui.R`](https://github.com/mjfrigaard/sfw/blob/main/_apps/gap/R/golem_utils_ui.R)
+- [golem_utils_ui.R](https://github.com/mjfrigaard/sfw/blob/main/_apps/gap/R/golem_utils_ui.R)
   
-- [`golem_utils_server.R`](https://github.com/mjfrigaard/sfw/blob/main/_apps/gap/R/golem_utils_server.R)
+- [golem_utils_server.R](https://github.com/mjfrigaard/sfw/blob/main/_apps/gap/R/golem_utils_server.R)
   
 ")
 ```
@@ -634,7 +610,7 @@ The code above creates the following files:
     })
     ```
 
-[^golem-remove-nord]: New functions are added to the `R/` folder and include [`@noRd`](https://style.tidyverse.org/documentation.html#internal-functions) by default (which must be removed create the `.Rd` files in the `man/` folder)
+[^golem-remove-nord]: New functions created with `golem::add_*()` functions are placed in the `R/` folder with a [`@noRd`](https://style.tidyverse.org/documentation.html#internal-functions) tag by default (this behavior can be changed with the `export` argument).
 
 The `gap` application includes two modules: 
 
@@ -785,7 +761,7 @@ tests
 
 ### Test coverage 
 
-The `covrpage` package provides a test coverage report in [`tests/README.md`](https://github.com/mjfrigaard/sfw/blob/main/_apps/gap/tests/README.md#tests-and-coverage) file.[^test-coverage]
+The `covrpage` package provides a test coverage report in [`tests/README.md`](https://github.com/mjfrigaard/sfw/blob/main/_apps/gap/tests/README.md#tests-and-coverage) file. This file includes a report of the R file tested, the unit test context, number of tests, and the test status.[^test-coverage]
 
 [^test-coverage]: Test coverage is only included for the three initial `golem` test files (`test-golem-recommended.R`, `test-golem_utils_server.R`, `test-golem_utils_ui.R`).
 
@@ -931,6 +907,193 @@ fs::dir_tree(path = system.file('', package = 'gap'))
   
 ")
 ```
+
+## Docker
+
+For deployment. golem has multiple functions for building Docker files. The two I'll cover here are `golem::add_dockerfile()` and `golem::add_dockerfile_with_renv()`.
+
+### add_dockerfile() 
+
+`add_dockerfile()` results in the following `Dockerfile`:
+
+```{bash}
+#| eval: false 
+#| code-fold: false
+FROM rocker/verse:4.3.2
+RUN apt-get update && apt-get install -y  libicu-dev libxml2-dev make pandoc zlib1g-dev && rm -rf /var/lib/apt/lists/*
+RUN mkdir -p /usr/local/lib/R/etc/ /usr/lib/R/etc/
+RUN echo "options(repos = c(CRAN = 'https://cran.rstudio.com/'), download.file.method = 'libcurl', Ncpus = 4)" | tee /usr/local/lib/R/etc/Rprofile.site | tee /usr/lib/R/etc/Rprofile.site
+RUN R -e 'install.packages("remotes")'
+RUN Rscript -e 'remotes::install_version("rlang",upgrade="never", version = "1.1.2")'
+RUN Rscript -e 'remotes::install_version("knitr",upgrade="never", version = "1.45")'
+RUN Rscript -e 'remotes::install_version("stringr",upgrade="never", version = "1.5.1")'
+RUN Rscript -e 'remotes::install_version("shiny",upgrade="never", version = "1.8.0")'
+RUN Rscript -e 'remotes::install_version("config",upgrade="never", version = "0.3.2")'
+RUN Rscript -e 'remotes::install_version("spelling",upgrade="never", version = "2.2.1")'
+RUN Rscript -e 'remotes::install_version("rmarkdown",upgrade="never", version = "2.25")'
+RUN Rscript -e 'remotes::install_version("golem",upgrade="never", version = "0.4.1")'
+RUN Rscript -e 'remotes::install_version("ggplot2",upgrade="never", version = "3.4.4")'
+RUN Rscript -e 'remotes::install_github("rstudio/htmltools@a8a3559edbfd9dda78418251e69273fa9dfeb9bc")'
+RUN Rscript -e 'remotes::install_github("r-lib/testthat@fe50a222c62cc8733b397690caf3b2a95856f902")'
+RUN mkdir /build_zone
+ADD . /build_zone
+WORKDIR /build_zone
+RUN R -e 'remotes::install_local(upgrade="never")'
+RUN rm -rf /build_zone
+EXPOSE 80
+CMD R -e "options('shiny.port'=80,shiny.host='0.0.0.0');library(gap);gap::run_app()"
+```
+
+This `Dockerfile` sets up a Docker image with specific R/Linux packages, adds and installs the gap app-package from the current directory, and configures the container to run the Shiny app on port 80.
+
+1. `FROM rocker/verse:4.3.2` which is a pre-built R environment.
+
+2. `RUN apt-get update && apt-get install -y` updates and installs several Linux packages: 
+
+    -   `libcurl4-openssl-dev`: These are the development files and libraries for [`libcurl`](https://curl.se/libcurl/), which is used for for secure data transfer operations in R packages (the `openssl` indicates OpenSSL support).
+
+    -   `libicu-dev`: The development files and libraries for the International Components for Unicode [library](https://icu.unicode.org/).
+  
+    -   `libssl-dev`: The development files and libraries for [SSL libraries](https://wiki.openssl.org/index.php/Libssl_API), necessary for secure communications over networks.
+  
+    -   `libxml2-dev`: Development files for the [`libxml2` library](https://www.linuxfromscratch.org/blfs/view/svn/general/libxml2.html), which is used for parsing XML and HTML documents.
+  
+    -   `make`: the [`make` build utility](https://www.gnu.org/software/make/manual/make.html) that automatically builds executable programs and libraries from source code.
+  
+    -   `pandoc`: the universal [document converter](https://pandoc.org/) used for converting markdown files to various other formats
+  
+    -   `zlib1g-dev`: development files for the [`zlib` compression library](https://packages.debian.org/sid/zlib1g-dev)
+    
+    -   `rm -rf /var/lib/apt/lists/*` cleans up the package list to reduce the image size.
+
+3. `RUN mkdir -p /usr/local/lib/R/etc/ /usr/lib/R/etc/` creates two directories (`/usr/local/lib/R/etc/` and `/usr/lib/R/etc/`) for R configuration files
+
+4. `RUN echo "options(...) | tee ...` configures global R settings (CRAN repository, download method, and number of CPU cores)
+
+5. `RUN R -e 'install.packages("remotes")'` installs the `remotes` package
+
+6. `RUN Rscript -e 'remotes::install_version(...)'` is used to installs specific versions of R packages used in the gap app-package without upgrading dependencies.
+
+7. `RUN Rscript -e 'remotes::install_github(...)'` is used to install R packages directly from GitHub repositories (at specific commits).
+
+8. `RUN mkdir /build_zone` will create a directory in the image for building the application.
+
+
+9. `ADD . /build_zone` adds the contents of the current directory (from where the Docker build command is run) into the `/build_zone` directory in the image.
+
+10. `WORKDIR /build_zone` sets the `/build_zone` directory as the working directory for all subsequent commands.
+
+11. `RUN R -e 'remotes::install_local(upgrade="never")'` installs the R package located in `/build_zone` without upgrading dependencies (this is our `gap` app-package being containerized).
+
+12. `RUN rm -rf /build_zone` reduce the final image size by removing the `/build_zone` directory.
+
+13. EXPOSE 80` exposes port 80 of the container (this is typically used for web applications like Shiny apps).
+
+14. `CMD R -e "options('shiny.port'=80,shiny.host='0.0.0.0');library(gap);gap::run_app()"` specifies the command to be run when the Docker container starts. These calls set the port and host Shiny app options, loads `gap`, and runs the standalone app function (`gap::run_app()`).
+
+### add_dockerfile_with_renv()
+
+`add_dockerfile_with_renv()` creates a `tmp/deploy` folder and adds the following files: 
+
+```{bash}
+#| eval: false 
+#| code-fold: false
+#| include: true 
+deploy/
+  ├── Dockerfile
+  ├── Dockerfile_base
+  ├── README
+  ├── gap_0.0.0.9000.tar.gz
+  └── renv.lock.prod
+```
+
+
+#### `Dockerfile_base` 
+
+<br>
+
+`Dockerfile_base` is used to create a base image with necessary dependencies and configurations
+
+```{bash}
+#| eval: false 
+#| code-fold: false
+#| code-summary: 'show/hide Dockerfile_base'
+#| include: true 
+FROM rocker/verse:4.3.2
+RUN apt-get update -y && apt-get install -y  make zlib1g-dev git libicu-dev && rm -rf /var/lib/apt/lists/*
+RUN mkdir -p /usr/local/lib/R/etc/ /usr/lib/R/etc/
+RUN echo "options(renv.config.pak.enabled = FALSE, repos = c(CRAN = 'https://cran.rstudio.com/'), download.file.method = 'libcurl', Ncpus = 4)" | tee /usr/local/lib/R/etc/Rprofile.site | tee /usr/lib/R/etc/Rprofile.site
+RUN R -e 'install.packages("remotes")'
+RUN R -e 'remotes::install_version("renv", version = "1.0.3")'
+COPY renv.lock.prod renv.lock
+RUN R -e 'renv::restore()'
+```
+
+-   Each instruction does the following:
+
+    -   `RUN apt-get update -y && apt-get install` updates and installs several Linux packages (`make`, `zlib1g-dev`, `git`, `libicu-dev`)
+  
+    -   `RUN mkdir` and `RUN echo` creates directories and configures R settings (CRAN repository, download method, number of CPUs to use)
+  
+    -    `RUN R -e ` installs the `remotes` package  and version 1.0.3 of the `renv` package (`renv` is used for project-local package management)
+  
+    -   `COPY` copies a file `renv.lock.prod` into the image as `renv.lock`
+  
+    -   `RUN R -e` uses `renv::restore()` to install the R packages specified in this lock file
+
+#### `Dockerfile` 
+
+<br>
+
+`Dockerfile` builds on this base image to set up the `gap` app-package and its dependencies. 
+
+```{bash}
+#| eval: false 
+#| code-fold: false
+#| code-summary: 'show/hide Dockerfile'
+#| include: true 
+FROM gap_base
+COPY renv.lock.prod renv.lock
+RUN R -e 'renv::restore()'
+COPY gap_*.tar.gz /app.tar.gz
+RUN R -e 'remotes::install_local("/app.tar.gz",upgrade="never")'
+RUN rm /app.tar.gz
+EXPOSE 80
+CMD R -e "options('shiny.port'=80,shiny.host='0.0.0.0');library(gap);gap::run_app()"
+```
+
+-   These instructions perform the following:
+    -   `FROM gap_base` starts from `gap_base`, which is the image built using `Dockerfile_base`.
+    
+    -   `COPY` & `RUN R -e` repeats the step of copying `renv.lock.prod` and restoring packages using `renv::restore()`.
+    
+    -   `COPY gap_*.tar.gz /app.tar.gz` copies files matching `gap_*.tar.gz` (presumably our compressed app-package) into the image as `/app.tar.gz`.
+    
+    -   `RUN R -e` installs this local package using `remotes::install_local()`.
+    
+    -   `RUN rm` reduce the size of the final image by removing the copied `tar.gz` file.
+
+    -   `EXPOSE 80` exposes port 80 (necessary for external access to the app when it's running inside the container).
+
+    -   `CMD R -e` defines the command to run when the container starts, which in this case, runs the `gap` application (`gap::run_app()`) on port `80` and (bound to `0.0.0.0`).
+
+#### `README`
+
+<br>
+
+The `docker run` commands in the `README` creates the base image from `Dockerfile_base` and starts a container from the `Dockerfile` image and launch the gap application on port `80`.
+
+```{bash}
+#| eval: false 
+#| code-fold: false
+#| include: true
+docker build -f Dockerfile_base --progress=plain -t gap_base .
+docker build -f Dockerfile --progress=plain -t gap:latest .
+docker run -p 80:80 gap:latest
+# then go to 127.0.0.1:80
+```
+    
+`gap_0.0.0.9000.tar.gz` is our app-package to deploy in the Docker container.
 
 ## `golem` dependencies
 

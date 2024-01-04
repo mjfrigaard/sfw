@@ -11,15 +11,20 @@ Imports:
     config (>= 0.3.1),
     ggplot2,
     golem (>= 0.3.5),
+    logger,
     rlang,
     shiny (>= 1.7.4),
     stringr,
     tools
 Suggests: 
+    ggplot2movies,
+    glue,
     knitr,
     rmarkdown,
+    shinytest2,
     spelling,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    waldo
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3

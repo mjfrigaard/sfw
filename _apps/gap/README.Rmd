@@ -30,7 +30,7 @@ The goal of `gap` is to demonstrate the `golem` framework.
 
 You can install the development version of `gap` from [GitHub](https://github.com/) with:
 
-```{r inst_pkg, eval=TRUE, message=FALSE, warning=FALSE}
+```{r inst_pkg, eval=FALSE, message=FALSE, warning=FALSE}
 install.packages("devtools")
 devtools::install_github("mjfrigaard/gap")
 ```
@@ -44,6 +44,16 @@ You can run the application with the following:
 library(gap)
 gap::run_app()
 ```
+
+## Docker
+
+Run the following commands in the Terminal.
+
+```{bash, eval=FALSE}
+docker build -t gap-docker-demo .
+docker run -p 80:80 gap-docker-demo
+```
+
 
 ## Code of Conduct
 
