@@ -7,5 +7,3 @@ This repo contains the following shiny applications:
 2. [`lap`](https://github.com/mjfrigaard/sfw/tree/main/_apps/lap): a `leprechaun` app-package
 
 3. [`rap`](https://github.com/mjfrigaard/sfw/tree/main/_apps/rap): a `rhino` app (pseudo-package)
-
-3. [`duap`](https://github.com/mjfrigaard/sfw/tree/main/_apps/duap): a `devtools`/`usethis` app-package
