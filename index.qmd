@@ -39,9 +39,7 @@ library(pak)
 
 ### Shiny frameworks
 
-This website is a resource for developers who are curious about the relative pros and cons of using a Shiny framework to build their apps.
-
-This repo contains the following Shiny applications: 
+This website is a resource for developers to get an 'under the hood' view of three popular Shiny frameworks. 
 
 ::: {layout="[20, 80]"}
 
@@ -218,3 +216,28 @@ The application also uses an external dataset.[^movies-data]
 [^movies-data]: You can download the movies data [here.](https://github.com/mjfrigaard/sfw/raw/main/movies.RData)
 
 [^bwas]: This was a popular course among colleagues and covers (in my opinion) what a developer should know before considering a framework.
+
+
+```{r}
+#| eval: true
+#| echo: false
+tar(
+  tarfile = "_apps/gap.tar.gz",
+  files = "_apps/gap",
+  compression = 'gzip',
+  tar = "tar"
+)
+tar(
+  tarfile = "_apps/lap.tar.gz",
+  files = "_apps/lap",
+  compression = 'gzip',
+  tar = "tar"
+)
+tar(
+  tarfile = "_apps/rap.tar.gz",
+  files = "_apps/rap",
+  compression = 'gzip',
+  tar = "tar"
+)
+```
+
