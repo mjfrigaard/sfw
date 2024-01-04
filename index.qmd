@@ -45,7 +45,7 @@ This website is a resource for developers to get an 'under the hood' view of thr
 
 ![](img/goelm_hex.png){fig-align="left" width="250"}
 
-[`gap`](golem.qmd): a [`golem`](https://thinkr-open.github.io/golem/) app-package
+[`gap`](golem.qmd): a [`golem`](https://thinkr-open.github.io/golem/) app-package ([download gap](https://github.com/mjfrigaard/sfw/raw/main/_apps/gap.tar.gz))
 
 
 :::
@@ -56,7 +56,7 @@ This website is a resource for developers to get an 'under the hood' view of thr
 
 
 
-[`lap`](leprechaun.qmd): a [`leprechaun`](https://leprechaun.opifex.org/#/) app-package
+[`lap`](leprechaun.qmd): a [`leprechaun`](https://leprechaun.opifex.org/#/) app-package ([download lap](https://github.com/mjfrigaard/sfw/raw/main/_apps/lap.tar.gz))
 
 :::
 
@@ -65,7 +65,7 @@ This website is a resource for developers to get an 'under the hood' view of thr
 
 ![](img/rhino_hex.png){fig-align="left" width="250"}
 
- [`rap`](rhino.qmd): a [`rhino`](https://appsilon.github.io/rhino/) app (pseudo-package)[^rhino-non-pkg]
+ [`rap`](rhino.qmd): a [`rhino`](https://appsilon.github.io/rhino/) app (pseudo-package)[^rhino-non-pkg] ([download rap](https://github.com/mjfrigaard/sfw/raw/main/_apps/rap.tar.gz))
  
  [^rhino-non-pkg]: `rhino` apps aren't R packages--they're dependencies are managed with a `dependencies.R` file and [`box`](https://klmr.me/box/) modules.
 
