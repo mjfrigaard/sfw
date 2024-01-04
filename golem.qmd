@@ -910,7 +910,7 @@ fs::dir_tree(path = system.file('', package = 'gap'))
 
 ## Docker
 
-For deployment. golem has multiple functions for building Docker files. The two I'll cover here are `golem::add_dockerfile()` and `golem::add_dockerfile_with_renv()`.
+For deployment. golem has multiple functions for building Docker files. The two I'll cover here are `golem::add_dockerfile()` and `golem::add_dockerfile_with_renv()`. In the `gap` directory, you'll see the [`Dockerfile`](https://github.com/mjfrigaard/sfw/blob/main/_apps/gap/Dockerfile) from `add_dockerfile()`. The files from `add_dockerfile_with_renv()` are in the [`inst/docker-renv` folder.](https://github.com/mjfrigaard/sfw/tree/main/_apps/gap/inst/docker-renv).
 
 ### add_dockerfile() 
 

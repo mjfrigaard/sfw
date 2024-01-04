@@ -41,7 +41,7 @@ library(pak)
 
 This website is a resource for developers who are curious about the relative pros and cons of using a Shiny framework to build their apps.
 
-This repo contains the following shiny applications: 
+This repo contains the following Shiny applications: 
 
 ::: {layout="[20, 80]"}
 
