@@ -1075,7 +1075,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="docker" class="level2">
 <h2 class="anchored" data-anchor-id="docker">Docker</h2>
-<p>For deployment. golem has multiple functions for building Docker files. The two I’ll cover here are <code>golem::add_dockerfile()</code> and <code>golem::add_dockerfile_with_renv()</code>.</p>
+<p>For deployment. golem has multiple functions for building Docker files. The two I’ll cover here are <code>golem::add_dockerfile()</code> and <code>golem::add_dockerfile_with_renv()</code>. In the <code>gap</code> directory, you’ll see the <a href="https://github.com/mjfrigaard/sfw/blob/main/_apps/gap/Dockerfile"><code>Dockerfile</code></a> from <code>add_dockerfile()</code>. The files from <code>add_dockerfile_with_renv()</code> are in the <a href="https://github.com/mjfrigaard/sfw/tree/main/_apps/gap/inst/docker-renv"><code>inst/docker-renv</code> folder.</a>.</p>
 <section id="add_dockerfile" class="level3">
 <h3 class="anchored" data-anchor-id="add_dockerfile">add_dockerfile()</h3>
 <p><code>add_dockerfile()</code> results in the following <code>Dockerfile</code>:</p>
@@ -1246,7 +1246,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The <code>pak::local_deps_tree()</code> function can tell us what the dependencies look like for an application built with <code>golem</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">local_deps_tree</span>(<span class="at">root =</span> <span class="st">"_apps/gap"</span>)</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>local<span class="sc">::</span>_apps<span class="sc">/</span>gap <span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">0.9000</span> ✨👷 ⬇ (unknown size)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>local<span class="sc">::</span>_apps<span class="sc">/</span>gap <span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">0.9000</span> ✨👷🏿‍♂️ ⬇ (unknown size)</span>
 <span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>├─config <span class="dv">0</span>.<span class="fl">3.2</span> ✨ ⬇ (<span class="fl">99.78</span> kB)</span>
 <span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>│ └─yaml <span class="dv">2</span>.<span class="fl">3.8</span> ✨ ⬇ (<span class="fl">231.13</span> kB)</span>
 <span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>├─ggplot2 <span class="dv">3</span>.<span class="fl">4.4</span> ✨ ⬇ (<span class="fl">4.31</span> MB)</span>
@@ -1384,7 +1384,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb50-137"><a href="#cb50-137" aria-hidden="true" tabindex="-1"></a>  ├─stringi <span class="dv">1</span>.<span class="fl">8.3</span> ✨ ⬇ (<span class="fl">14.63</span> MB)</span>
 <span id="cb50-138"><a href="#cb50-138" aria-hidden="true" tabindex="-1"></a>  └─vctrs</span>
 <span id="cb50-139"><a href="#cb50-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-140"><a href="#cb50-140" aria-hidden="true" tabindex="-1"></a>Key<span class="sc">:</span>  ✨ new <span class="sc">|</span> ✋ outdated <span class="sc">|</span>  ⬇ download <span class="sc">|</span> 👷 build</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb50-140"><a href="#cb50-140" aria-hidden="true" tabindex="-1"></a>Key<span class="sc">:</span>  ✨ new <span class="sc">|</span> ✋ outdated <span class="sc">|</span>  ⬇ download <span class="sc">|</span> 👷🏿‍♂️ build</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
