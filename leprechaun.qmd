@@ -23,7 +23,7 @@ source("_common.R")
 
 > *"it generates code and does not make itself a dependency of the application you build; this means applications are leaner, and smaller"*
 
-[^view-lap]: The coed used to build the `leprechaun` app is [here](https://github.com/mjfrigaard/sfw/tree/main/_apps/lap)
+[^view-lap]: Download the code used to build the `leprechaun` app [here](https://github.com/mjfrigaard/sfw/raw/main/_apps/lap.tar.gz)
 
 Below is an overview of the features/functions in the `leprechaun` framework:
 

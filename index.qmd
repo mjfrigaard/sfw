@@ -73,7 +73,7 @@ This website is a resource for developers to get an 'under the hood' view of thr
 
 ### The application
 
-The original data and code for each application comes from [Building Web Applications With Shiny](https://rstudio-education.github.io/shiny-course/)[^bwas], but has been adapted to provide a basic (but realistic) example with modules, utility function, tests, etc.
+The original data and code for each application comes from [Building Web Applications With Shiny](https://rstudio-education.github.io/shiny-course/),[^bwas] but has been adapted to provide a basic (but realistic) example with modules, utility function, tests, etc.
 
 ```{r}
 #| eval: false

@@ -23,7 +23,6 @@ server <- function(id) {
   moduleServer(id, function(input, output, session) {
     output$message_text <- renderText({
       req(input$show_message)
-
       "This is a message"
     })
   })

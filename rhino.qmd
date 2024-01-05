@@ -44,7 +44,7 @@ box_use_df <- data.frame(
 
 `rhino` apps are unique because unlike `golem` and `leprechaun`, they aren't R packages. `rhino` uses [`box`](https://klmr.me/box/) modules to manage add-on package functions, which minimizes dependencies and separates the application's code into a clear 'division of labor.'[^view-rap]
 
-[^view-rap]: The code used to build the `rhino` app is available [here](https://github.com/mjfrigaard/sfw/tree/main/_apps/rap).
+[^view-rap]: The code used to build the `rhino` app is available [here](https://github.com/mjfrigaard/sfw/raw/main/_apps/rap.tar.gz).
 
 ## Getting started
 
@@ -1451,7 +1451,7 @@ Adding `.js` to `app/js/index.js` 'on click'
 
 System tests can also be written using [`shinytest2`](https://rstudio.github.io/shinytest2/). The tests below come from *System tests* chapter of Shiny App-Packages.[^system-tests-shinyap]
 
-Start by installing `shinytest2` and `shinyvalidate`[^how-to-use-shinytest2]
+Start by installing `shinytest2` and `shinyvalidate`:[^how-to-use-shinytest2]
 
 -   This will update the `dependencies.R` file (and might require a call to `renv::snapshot()`)
 
@@ -1461,7 +1461,7 @@ Start by installing `shinytest2` and `shinyvalidate`[^how-to-use-shinytest2]
     rhino::pkg_install(c("shinytest2", "shinyvalidate"))
     ```
 
--   Create new tests with `shinytest2::record_test()` the same way you would for a standard Shiny app
+-   Create new tests with `shinytest2::record_test()` the same way you would for a standard Shiny app:
 
     ```{r}
     #| eval: false 
@@ -1505,7 +1505,7 @@ Duration: 11.8 s
 [ FAIL 0 | WARN 2 | SKIP 0 | PASS 1 ]
 ```
 
-### System test anatomy
+### Modules in `rhino`
 
 ::: {layout="[40,60]"}
 
@@ -1530,7 +1530,7 @@ app$set_inputs(`vars-plot_title` = "New plot title")
 
 ##### 
 
-In `rap`, the `box` modules in our have another level of abstraction (i.e., `vars-y` becomes `app-vals-y`):
+In `rap`, the `box` modules have another level of encapsulation (i.e., `vars-y` becomes `app-vals-y`):
 
 ```{r}
 #| eval: false 
@@ -1545,7 +1545,9 @@ app$set_inputs(`app-vals-plot_title` = "New plot title")
 
 :::
 
-It's important to keep these differences in mind when writing `shinytest2` tests. 
+It's important to keep these differences in mind when writing `shinytest2` tests.[^modules-encapsulation]
+
+[^modules-encapsulation]: This is referenced in the [Cypress tutorial](https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html#test-if-the-button-shows-the-message) when trying to identify the text output from the `app/view/message` module.
 
 ### BDD system tests 
 
@@ -1603,19 +1605,76 @@ Note that these tests combine `testthat`'s `describe()` and `it()` functions wit
 
 [^how-to-use-shinytest2]: These steps are covered in the Appsilon article, ['How-to: Use shinytest2'](https://appsilon.github.io/rhino/articles/how-to/use-shinytest2.html).
 
-[^system-tests-shinyap]: System tests are covered for a [Shiny app in a standard R package.](https://mjfrigaard.github.io/shiny-app-pkgs/test_system.html#shinytest2) 
+[^system-tests-shinyap]: These system tests are written for a Shiny app in a [standard R package.](https://mjfrigaard.github.io/shiny-app-pkgs/test_system.html#shinytest2) 
 
 ## System tests (Cypress)
 
-`rhino` apps extend the test suite to include the [Cypress test framework](https://www.cypress.io/). The Cypress tests below follow the example from the [`rhino` website](https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html).
+`rhino` apps extend the test suite to include the [Cypress test framework](https://www.cypress.io/). The Cypress testing framework relies on [node.js](https://nodejs.org/en). Every machine/setup is a little different, but I use [`homebrew`](https://brew.sh/), so I installed `node` with the following: 
+
+```bash
+# remove to get a fresh start
+brew uninstall node
+# update homebrew 
+brew update
+brew upgrade
+# file cleanup
+brew cleanup
+```
+
+Install `node`: 
+
+```bash
+brew install node
+```
+
+Link `node` (I had to use the `--overwrite` flag):
+
+```bash
+brew link --overwrite node
+```
+
+```bash
+Linking /usr/local/Cellar/node/21.5.0... 112 symlinks created.
+```
+
+Run the post-install:
+
+```bash
+brew postinstall node
+```
+
+```bash
+==> Postinstalling node
+```
+
+Verify versions:
+
+```bash
+node --version
+```
+
+```bash
+v21.5.0
+```
+
+```bash
+npm -v
+```
+
+```bash
+10.2.4
+```
+
 
 ### Clicks & message modules
 
-Below we add two modules ([`clicks.R` and `message.R`](https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html#test-application)) to the `rap` application (i.e., in `app/view`). Both modules contain an `actionButton()` and `textOutput()`. Using `app/view/clicks` or `app/view/message` requires adding both modules in the `app/main.R` file with `box::use()`.
+The Cypress tests below follow the example from the [`rhino` website](https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html). Below are two modules ([`clicks.R` and `message.R`](https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html#test-application)) that have been included in `app/view` (as `app/view/message.R` and `app/view/clicks.R`). 
+
+Both modules contain an `actionButton()` and `textOutput()`. Using `app/view/clicks` or `app/view/message` also requires adding both modules in the `app/main.R` file with `box::use()`:
 
 ### [`app/main.R`]{style="font-size: 1.10em; font-weight: bold;"}
 
-The following changes were made in `app/main.R`:
+The updated `app/main.R` file:
 
 ```{r}
 #| eval: false 
@@ -1628,21 +1687,18 @@ box::use(
   shiny[
     NS, fluidPage, sidebarLayout, sidebarPanel, 
     mainPanel, fluidRow, column, tags, icon,
-    plotOutput, moduleServer, renderPlot, hr # <1> 
+    plotOutput, moduleServer, renderPlot,
+    br, hr
   ],
   shinythemes[shinytheme]
 )
 
 # import modules ----
 box::use(
-  ## load inputs module ----
   app / view / inputs,
-  ## load display module ----
   app / view / display,
-  ## load clicks module ----
-  app / view / clicks, # <2> 
-  ## load message module ----
-  app / view / message, # <2>
+  app / view / clicks,
+  app / view / message,
 )
 
 #' rap ui
@@ -1652,25 +1708,17 @@ ui <- function(id) {
   fluidPage(theme = shinytheme("spacelab"),
     sidebarLayout(
       sidebarPanel(
-        # use inputs module UI ----
-        inputs$ui(ns("vals")),
-        # use clicks module UI ---- # <3>
-        clicks$ui(ns("clicks")),
-        hr(),
-        # use message module UI ----
-        message$ui(ns("message"))), # <3>
+        inputs$ui(ns("vals"))
+        ),
       mainPanel(
         fluidRow(
-          column(
-            width = 12,
-              tags$h3("rap")
-            )
+              clicks$ui(ns("clicks")), # <1>
+              message$ui(ns("message")) # <1>
           ),
         fluidRow(
           column(
             width = 1,
             offset = 11,
-            # example info button ---
             tags$button(id = "help-button",
               icon("info"),
               # add 'onclick' after rhino::build_sass()
@@ -1681,7 +1729,7 @@ ui <- function(id) {
         fluidRow(
             column(
               width = 12,
-              # use display module UI ----
+              tags$h3("rap"),
             display$ui(ns("disp"))
             )
           )
@@ -1694,44 +1742,346 @@ ui <- function(id) {
 #' @export
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
-    # use inputs module server ----
     selected_vars <- inputs$server(id = "vals")
-    # use display module server ----
     display$server(
       id = "disp",
       var_inputs = selected_vars
     )
   })
   
-  moduleServer(id, function(input, output, session) { # <4>
-    # use clicks module server ----
-    clicks$server("clicks")
-    # use message module server ----
-    message$server("message")
-  }) # <4>
+  moduleServer(id, function(input, output, session) {
+    clicks$server("clicks") # <2>
+    message$server("message") # <2>
+  })
   
 }
-
 ```
-1. add horizontal rule function to `box::use()`   
-2. use modules from `app/view/clicks.R` and `app/view/message.R`   
-3. include modules in UI  
-4. include modules in server  
+1. include `app/view/clicks.R` and `app/view/message.R` modules in UI  
+2. include `app/view/clicks.R` and `app/view/message.R` modules in server 
 
-### Writing Cypress tests
+The new 'clicks' and 'message' buttons are visible in the `mainPanel()`: 
 
-New Cypress tests are stored in 
+![](img/clicks_message.png){width="90%" fig-align="center"}
 
 ### Running Cypress tests 
 
+Cypress tests are stored in the `tests/cypress/integration/` folder:[^integration-vs-e2e]
+
+```bash
+tests/cypress
+└── integration
+    └── app.spec.js
+
+2 directories, 1 file
+```
+
+[^integration-vs-e2e]: The folder names are slightly different in the [Cypress tutorial](https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html#how-to-run-cypress-tests), but if you replace `e2e` with integration in the file paths, everything works!
+
+The initial call to `rhino::test_e2e()` should note if it is your first time using cypress (and might include an update or two).[^cypress-docs-initial-test_e2e]
+
+[^cypress-docs-initial-test_e2e]: The [`rhino` documentation](https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html#how-to-run-cypress-tests) also mentions updates, '*since this is the first time you use one of the functionalities that depend on Node.js, it needs to install all the required libraries. Don’t worry, this is just a one-time step and is done automatically.*' 
+
+```{bash}
+#| eval: false 
+#| code-fold: false
+> test-e2e
+> start-server-and-test run-app http://localhost:3333 run-cypress
+
+1: starting server using command "npm run run-app"
+and when url "[ 'http://localhost:3333' ]" is responding with HTTP status code 200
+running tests using command "npm run run-cypress"
 
 
+> run-app
+> cd .. && Rscript -e "shiny::runApp(port = 3333)"
 
+Loading required package: shiny
+
+Listening on http://127.0.0.1:3333
+
+> run-cypress
+> cypress run --project ../tests
+
+It looks like this is your first time using Cypress: 7.7.0
+
+[STARTED] Task without title.
+[TITLE]  Verified Cypress!       /Users/mjfrigaard/Library/Caches/Cypress/7.7.0/Cypress.app
+[SUCCESS]  Verified Cypress!       /Users/mjfrigaard/Library/Caches/Cypress/7.7.0/Cypress.app
+
+Opening Cypress...
+```
+
+The initial test run output (from the test stored in `tests/cypress/integration/app.spec.js`) is below:
+
+```{bash}
+#| eval: false 
+#| code-fold: show
+#| code-summary: 'hide/view initial tests/cypress/integration/app.spec.js test'
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:    7.7.0                                                                              │
+  │ Browser:    Electron 89 (headless)                                                             │
+  │ Specs:      1 found (app.spec.js)                                                              │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  app.spec.js                                                                     (1 of 1)
+
+  app
+    ✓ starts (691ms)
+
+
+  1 passing (716ms)
+
+New names:
+• `` -> `...1`
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        1                                                                                │
+  │ Passing:      1                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        true                                                                             │
+  │ Duration:     0 seconds                                                                        │
+  │ Spec Ran:     app.spec.js                                                                      │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+  (Video)
+
+  -  Started processing:  Compressing to 32 CRF                                                     
+  -  Finished processing: /Users/mjfrigaard/projects/apps/sfw/_apps/rap/tests/cypress     (1 second)
+                          /videos/app.spec.js.mp4                                                   
+
+
+Opening `/dev/tty` failed (6): Device not configured
+resize:  can`t open terminal /dev/tty
+================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped  
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ ✔  app.spec.js                              714ms        1        1        -        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    ✔  All specs passed!                        714ms        1        1        -        -        -  
+
+```
+
+The Cypress output lists the test file name as `Spec` or `Specs`, and gives us a detailed report of the test result and any artifacts (like videos or images).
+
+```{bash}
+#| eval: false 
+#| code-fold: false
+tests/cypress
+├── integration
+│   └── app.spec.js
+├── screenshots
+└── videos
+    └── app.spec.js.mp4
+
+4 directories, 2 files
+```
+
+### Writing Cypress tests 
+
+I'll include the first test for the `app/view/message` module from the `rhino` cypress tutorial in the `tests/cypress/integration/` folder:
+
+```JavaScript
+// tests/cypress/integration/message.cy.js
+
+describe("Show message", () => {
+  beforeEach(() => {
+    cy.visit("/");
+  });
+
+  it("'Show message' button exists", () => {
+    cy.get(".message button").should("have.text", "Show message");
+  });
+
+});
+```
+
+I love the use of testthat's BDD functions with cypress, because we can see the feature and scenario described in the test itself. 
+
+After running the test with `rhino::test_e2e()`, we see the output now includes two videos (one for each test): 
+
+```{bash}
+#| eval: false 
+#| code-fold: show
+#| code-summary: 'hide/view tests/cypress/integration/message.cy.js test'
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:    7.7.0                                                                              │
+  │ Browser:    Electron 89 (headless)                                                             │
+  │ Specs:      2 found (app.spec.js, message.cy.js)                                               │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  message.cy.js                                                                   (2 of 2)
+
+
+  Show message
+    ✓ 'Show message' button exists (546ms)
+
+
+  1 passing (612ms)
+
+New names:
+• `` -> `...1`
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        1                                                                                │
+  │ Passing:      1                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        true                                                                             │
+  │ Duration:     0 seconds                                                                        │
+  │ Spec Ran:     message.cy.js                                                                    │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+  (Video)
+
+  -  Started processing:  Compressing to 32 CRF                                                     
+  -  Finished processing: /Users/mjfrigaard/projects/apps/sfw/_apps/rap/tests/cypress     (1 second)
+                          /videos/message.cy.js.mp4                                                 
+
+
+Opening `/dev/tty` failed (6): Device not configured
+resize:  can`t open terminal /dev/tty
+================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped  
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ ✔  app.spec.js                              776ms        1        1        -        -        - │
+  ├────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ ✔  message.cy.js                            596ms        1        1        -        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    ✔  All specs passed!                        00:01        2        2        -        -        -  
+
+```
+
+
+```{bash}
+#| eval: false 
+#| code-fold: false
+tests/cypress
+├── integration
+│   ├── app.spec.js
+│   └── message.cy.js
+├── screenshots
+└── videos
+    ├── app.spec.js.mp4
+    └── message.cy.js.mp4
+
+4 directories, 4 files
+```
+
+If we view the contents of `tests/cypress/videos/message.cy.js.mp4`, we see it opens our app and verifies the message button: 
+
+:::{#fig-cypress_message_01}
+
+![Cypress test recording](img/cypress_message_01.gif){#fig-cypress_message_01 fig-align="center" width="100%"}
+
+
+Contents of `tests/cypress/videos/message.cy.js.mp4`
+:::
+
+### Interactive tests
+
+After adding the second test for the `app/view/message` module, we'll run the test using `interactive = TRUE`, which opens the Cypress app window: 
+
+
+:::{#fig-cypress_open}
+
+![Cypress app](img/cypress_open.gif){#fig-cypress_open fig-align="center" width="100%"}
+
+
+The Cypress appliction 
+:::
+
+After the application opens, you'll be able to select the browser (I have Chrome selected)
+
+
+:::{#fig-cypress_open_finally}
+
+![Run cypress tests](img/cypress_open_finally.gif){#fig-cypress_open_finally fig-align="center" width="100%"}
+
+
+Run the tests in `tests/cypress/integration/`
+:::
+
+Clicking on **Run 2 integration specs** will launch the application in Chrome. You'll see the tests loading in the sidebar before they are run.
+
+
+:::{#fig-cypress_open_chrome}
+
+![Chrome from cypress](img/cypress_open_chrome.gif){#fig-cypress_open_chrome fig-align="center" width="100%"}
+
+
+Open application in Chrome from cypress
+:::
+
+Below is a screenshot of our tests listed in the sidebar:
+
+:::{#fig-cypress_chrome_tests}
+
+![Chrome tests](img/cypress_chrome_tests.png){#fig-cypress_chrome_tests fig-align="center" width="100%"}
+
+
+Tests list
+:::
+
+
+Cypress quickly runs through each test:
+
+:::{#fig-cypress_chrome_run_tests}
+
+![Running tests](img/cypress_chrome_run_tests.gif){#fig-cypress_chrome_run_tests fig-align="center" width="100%"}
+
+
+Running tests in Chrome
+:::
+
+
+And we can see the final result at the menu bar: 
+
+:::{#fig-cypress_chrome_test_result}
+
+![Test results](img/cypress_chrome_test_result.png){#fig-cypress_chrome_test_result fig-align="center" width="100%"}
+
+Test results in Chrome
+:::
+
+The [Cypress documentation](https://docs.cypress.io/guides/getting-started/opening-the-app) is worth reading through, because there are other features I haven't covered here.
 
 ## Recap
 
-Most of the development takes place in `app/logic` and `app/view` (using `box` modules). The separation of the 'business logic' workflow from the 'app view' code is similar to the `dev` folder in `golem` and `leprechaun`, but the `box` modules make it easy to move code and functions back and forth between the two folders.
+-   Most of the development takes place in `app/logic` and `app/view` (using `box` modules). The separation of the 'business logic' workflow from the 'app view' code provides a nice division of labor for each module, and the use of `box` modules make it easy to move components into the application in `app/main.R`.
 
-New JavaScript or CSS code requires a corresponding `rhino` (`rhino::build_js()` or `rhino::build_sass()`), and requires installing [node.js](https://nodejs.org/en/). These functions create output files in `app/static/js/app.min.js` and `app/static/css/app.min.css` that are used in the application.
+-   New JavaScript or CSS code requires a corresponding `rhino` (`rhino::build_js()` or `rhino::build_sass()`), and requires installing [node.js](https://nodejs.org/en/). 
+    -   These functions create output files in `app/static/js/app.min.js` and `app/static/css/app.min.css` that are used in the application.
+
+-   Testing with `testthat` is similar to a standard R package, but using `box` modules in tests takes some getting used to. 
+    -   Cypress tests are an excellent way to perform end-to-end tests (faster than `shinytest2`), but requires some overhead in learning the syntax (which combines `testthat` functions with CSS selectors, etc.).
 
 

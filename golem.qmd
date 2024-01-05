@@ -23,7 +23,7 @@ The [`golem` package](https://thinkr-open.github.io/golem/) provides many option
 
 > "*opinionated framework for building production-grade Shiny applications*"
 
-[^view-gap]: The code used to build the golem app is [here](https://github.com/mjfrigaard/sfw/tree/main/_apps/gap).
+[^view-gap]: The code used to build the golem app is [here](https://github.com/mjfrigaard/sfw/raw/main/_apps/gap.tar.gz).
 
 Below is an overview of the features/functions in the `golem` framework:
 
