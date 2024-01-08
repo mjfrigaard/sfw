@@ -165,21 +165,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#getting-started" id="toc-getting-started" class="nav-link active" data-scroll-target="#getting-started">Getting started</a></li>
-  <li><a href="#leprechaun-structure" id="toc-leprechaun-structure" class="nav-link" data-scroll-target="#leprechaun-structure"><code>leprechaun</code> structure</a>
+  <li><a href="#package-files" id="toc-package-files" class="nav-link" data-scroll-target="#package-files">Package files</a>
   <ul>
-  <li><a href="#r" id="toc-r" class="nav-link" data-scroll-target="#r"><code>R/</code></a></li>
-  <li><a href="#inst" id="toc-inst" class="nav-link" data-scroll-target="#inst"><code>inst/</code></a></li>
+  <li><a href="#leprechaun-files" id="toc-leprechaun-files" class="nav-link" data-scroll-target="#leprechaun-files"><code>leprechaun</code> files</a></li>
+  <li><a href="#app-code" id="toc-app-code" class="nav-link" data-scroll-target="#app-code">App Code</a>
+  <ul>
+  <li><a href="#the-inst-folder" id="toc-the-inst-folder" class="nav-link" data-scroll-target="#the-inst-folder">The <code>inst/</code> folder</a></li>
   </ul></li>
-  <li><a href="#building-a-leprechaun-app" id="toc-building-a-leprechaun-app" class="nav-link" data-scroll-target="#building-a-leprechaun-app">Building a <code>leprechaun</code> app</a>
+  </ul></li>
+  <li><a href="#building-leprechaun-apps" id="toc-building-leprechaun-apps" class="nav-link" data-scroll-target="#building-leprechaun-apps">Building <code>leprechaun</code> apps</a>
   <ul>
-  <li><a href="#add_module" id="toc-add_module" class="nav-link" data-scroll-target="#add_module"><code>add_module()</code></a></li>
-  <li><a href="#add-data" id="toc-add-data" class="nav-link" data-scroll-target="#add-data">Add data</a></li>
-  <li><a href="#add-utility-function" id="toc-add-utility-function" class="nav-link" data-scroll-target="#add-utility-function">Add utility function</a></li>
-  <li><a href="#adding-features" id="toc-adding-features" class="nav-link" data-scroll-target="#adding-features">Adding features</a>
+  <li><a href="#modules" id="toc-modules" class="nav-link" data-scroll-target="#modules">Modules</a></li>
+  <li><a href="#utility-functions" id="toc-utility-functions" class="nav-link" data-scroll-target="#utility-functions">Utility functions</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#unit-tests" id="toc-unit-tests" class="nav-link" data-scroll-target="#unit-tests">Unit tests</a></li>
+  <li><a href="#system-tests" id="toc-system-tests" class="nav-link" data-scroll-target="#system-tests">System tests</a></li>
+  <li><a href="#adding-files-and-images" id="toc-adding-files-and-images" class="nav-link" data-scroll-target="#adding-files-and-images">Adding files and images</a></li>
+  <li><a href="#adding-resources" id="toc-adding-resources" class="nav-link" data-scroll-target="#adding-resources">Adding resources</a>
   <ul>
-  <li><a href="#use-packer" id="toc-use-packer" class="nav-link" data-scroll-target="#use-packer">Use <code>packer</code></a></li>
-  <li><a href="#add-images" id="toc-add-images" class="nav-link" data-scroll-target="#add-images">Add images</a></li>
-  <li><a href="#use-sass" id="toc-use-sass" class="nav-link" data-scroll-target="#use-sass">Use <code>Sass</code></a></li>
+  <li><a href="#using-packer" id="toc-using-packer" class="nav-link" data-scroll-target="#using-packer">Using <code>packer</code></a></li>
+  <li><a href="#using-sass" id="toc-using-sass" class="nav-link" data-scroll-target="#using-sass">Using <code>Sass</code></a></li>
   </ul></li>
   <li><a href="#leprechaunbuild" id="toc-leprechaunbuild" class="nav-link" data-scroll-target="#leprechaunbuild"><code>leprechaun::build()</code></a>
   <ul>
@@ -187,7 +192,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#configure" id="toc-configure" class="nav-link" data-scroll-target="#configure">Configure</a></li>
   </ul></li>
-  <li><a href="#leprechaun-dependencies" id="toc-leprechaun-dependencies" class="nav-link" data-scroll-target="#leprechaun-dependencies"><code>leprechaun</code> dependencies</a></li>
+  <li><a href="#dependencies" id="toc-dependencies" class="nav-link" data-scroll-target="#dependencies">Dependencies</a></li>
   <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap">Recap</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/mjfrigaard/sfw/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -212,119 +217,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p><a href="https://leprechaun.opifex.org/#/"><code>leprechaun</code></a> apps are built much like R packages (with <code>devtools</code> and <code>usethis</code>), but they are designed with the intention of being a ‘leaner and smaller’ version of <code>golem</code>:<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p><a href="https://leprechaun.opifex.org/#/"><code>leprechaun</code></a> apps are built much like standard R packages (with <code>devtools</code> and <code>usethis</code>), but they’re designed with the intention of being a ‘leaner and smaller’ version of <code>golem</code>:<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <blockquote class="blockquote">
 <p><em>“it generates code and does not make itself a dependency of the application you build; this means applications are leaner, and smaller”</em></p>
 </blockquote>
-<p>Below is an overview of the features/functions in the <code>leprechaun</code> framework:</p>
-<div style="font-size: 0.85em;">
-<table class="table">
-<thead>
-<tr class="header">
-<th>Feature</th>
-<th>Arguments/Options</th>
-<th>Description/Comments</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>scaffold()</code></td>
-<td><p><code>ui</code>: can be one of <code>"navbarPage"</code> or <code>"fluidPage"</code></p>
-<p><code>bs_version</code>: Bootstrap version</p>
-<p><code>overwrite</code> : recreate folder structure</p></td>
-<td>The initial ‘setup’ function that builds the leprechaun files in <code>R/</code> and <code>inst/</code></td>
-</tr>
-<tr class="even">
-<td><code>scaffold_leprechaun()</code> (from <code>packer</code>)</td>
-<td><p><code>react</code> : include React?</p>
-<p><code>vue</code> : include Vue?</p>
-<p><code>use_cdn</code> : use the CDN for react or vue dependencies?</p>
-<p><code>edit</code> : open pertinent files</p></td>
-<td><p>This function comes from <a href="https://packer.john-coene.com/#/references/scaffold_leprechaun">the <code>packer</code> package</a> for integrating JS with R.</p>
-<p>This creates the following non-standard R package folders and files:</p>
-<ul>
-<li><code>srcjs/</code> and <code>node_modules/</code></li>
-<li><code>package-lock.json</code>, <code>package.json</code>, <code>webpack.common.js,</code> <code>webpack.dev.js</code>, and <code>webpack.prod.js</code> files</li>
-</ul>
-<p><em>These non-standard folders are added to the <code>.Rbuildignore</code> and <code>.gitignore</code></em> (but it would be nice to know more about what they do).</p></td>
-</tr>
-<tr class="odd">
-<td><code>use_packer()</code></td>
-<td>Assumes <code>scaffold_leprechaun()</code> from packer has been run</td>
-<td><p>Sets up application to use <code>packer</code> utilities for bundling JavaScript.</p>
-<ul>
-<li>Creates <code>inst/dev/packer.R</code></li>
-<li>Adds <code>packer</code> to <code>Suggests</code> in <code>DESCRIPTION</code></li>
-</ul></td>
-</tr>
-<tr class="even">
-<td><code>build()</code></td>
-<td>Returns <code>TRUE</code>/<code>FALSE</code> if build was successful.</td>
-<td>Used to ‘bundle’ various resources (i.e., from <code>packer</code> and the other <code>use_</code> functions)</td>
-</tr>
-<tr class="odd">
-<td><code>use_sass()</code></td>
-<td></td>
-<td><p>Creates <code>inst/dev/sass.R</code></p>
-<p>Adds <code>sass</code> to <code>DESCRIPTION</code> under <code>Suggests</code></p></td>
-</tr>
-<tr class="even">
-<td><code>use_html_utils()</code></td>
-<td>Adds <code>R/html-utils.R</code></td>
-<td><p>Adds <code>htmltools</code> to <code>Imports</code> field in <code>DESCRIPTION</code></p>
-<p><code>R/html-utils.R</code> contains a variety of utility functions using HTML tags (i.e., <code>span()</code>, <code>div()</code>, etc.)</p></td>
-</tr>
-<tr class="odd">
-<td><code>use_endpoints_utils()</code></td>
-<td>Adds <code>R/endpoint-utils.R</code></td>
-<td><p>Adds <code>jsonlite</code> to <code>Imports</code> field in <code>DESCRIPTION</code></p>
-<p><code>R/endpoint-utils.R</code> contains utility functions for creating an HTTP response object and the <code>LEPRECHAUN_SERIALISER</code> environmental variable.</p></td>
-</tr>
-<tr class="even">
-<td><code>use_js_utils()</code></td>
-<td><p>Adds <code>srcjs/leprechaun-utils.js</code> and <code>R/utils-js.R</code></p>
-<p>Adds import statement to <code>srcjs/index.js</code></p></td>
-<td>Requires running <code>leprechaun::build()</code> to bundle .js</td>
-</tr>
-<tr class="odd">
-<td><code>use_config()</code></td>
-<td><p>Adds <code>R/config.R</code> and <code>inst/config.yml</code></p>
-<p><code>inst/config.yml</code> initially contains <code>production: true</code></p></td>
-<td><p>Adds <code>yml</code> to <code>Imports</code> field in <code>DESCRIPTION</code></p>
-<p><code>R/config.R</code> contains functions for reading and getting configuration values.</p></td>
-</tr>
-<tr class="even">
-<td><code>add_module()</code></td>
-<td><p>Using <code>add_module("name")</code> :</p>
-<ol type="1">
-<li>Creates <code>R/module_name.R</code></li>
-<li>UI function: <code>nameUI()</code></li>
-<li>Server function: <code>name_server()</code></li>
-</ol></td>
-<td><p><em>It would be nice if the modules had consistent naming (the UI function uses <code>camelCase()</code> and the server function is <code>snake_case()</code>).</em></p>
-<p>By default, modules aren’t exported (i.e., with <code>@export</code>), but are included in the package index (i.e., with <code>@keywords internal</code>)</p>
-<p>Each module automatically includes:</p>
-<p><code>send_message &lt;- make_send_message(session)</code></p></td>
-</tr>
-<tr class="odd">
-<td><code>add_app_file()</code></td>
-<td><p>Adds <code>app.R</code> file to root directory.</p>
-<p>Includes call to <code>pkgload::load_all()</code> with <code>reset</code> set to <code>TRUE</code> and <code>helpers</code> set to <code>FALSE</code></p></td>
-<td>Handy for quickly launching the app during development (and deployment).</td>
-</tr>
-<tr class="even">
-<td><code>.onLoad()</code></td>
-<td>Used to add external files to app (images, html, etc.)</td>
-<td>Combines Shiny’s <code>addResourcePath()</code> and <code>system.file()</code>.</td>
-</tr>
-<tr class="odd">
-<td><code>serveAssets()</code></td>
-<td><code>modules</code> argument can be used to include JavaScript modules</td>
-<td>Adds dependencies for JavaScript, CSS, and HTML.</td>
-</tr>
-</tbody>
-</table>
-</div>
 <section id="getting-started" class="level2">
 <h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
 <p>Create a <code>leprechaun</code> app just like you would a new R package:</p>
@@ -385,9 +281,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'^\\.leprechaun$'</span> to <span class="st">'.Rbuildignore'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="leprechaun-structure" class="level2">
-<h2 class="anchored" data-anchor-id="leprechaun-structure"><code>leprechaun</code> structure</h2>
-<p>This results in the following folder tree:</p>
+<section id="package-files" class="level2">
+<h2 class="anchored" data-anchor-id="package-files">Package files</h2>
+<p><code>leprechaun::scaffold()</code> results in the following folder tree:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lap/</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> DESCRIPTION</span>
@@ -412,8 +308,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="ex">7</span> directories, 12 files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The standard R package files and folders (<code>DESCRIPTION</code>, <code>NAMESPACE</code>, <code>R/</code>, and <code>lap.Rproj</code>) are accompanied by multiple sub-folders in <code>inst/</code> (recall that <code>inst/</code> contents are available in the package when the package is installed).</p>
-<section id="r" class="level3">
-<h3 class="anchored" data-anchor-id="r"><code>R/</code></h3>
+<section id="leprechaun-files" class="level3">
+<h3 class="anchored" data-anchor-id="leprechaun-files"><code>leprechaun</code> files</h3>
 <p>The initial application files are created using <a href="https://leprechaun.opifex.org/#/reference/scaffold"><code>leprechaun::scaffold()</code></a>, which takes the following options as function arguments:</p>
 <ul>
 <li><code>ui</code> controls the application layout (can be <code>"fluidPage"</code> or <code>"navbarPage"</code>, defaults to <code>"navbarPage"</code>)</li>
@@ -441,14 +337,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="https://shiny.posit.co/r/reference/shiny/0.11/registerinputhandler"><code>registerInputHandler()</code></a>: <em>“When called, Shiny will use the function provided to refine the data passed back from the client (after being deserialized by <code>jsonlite</code>) before making it available in the input variable of the <code>server.R</code> file”</em>)</li>
 </ul></li>
 <li><p><code>leprechaun-utils.R</code> initially contains the <code>make_send_message()</code> function (which is used in the <code>R/server.R</code> below)</p></li>
+</ul>
+</section>
+<section id="app-code" class="level3">
+<h3 class="anchored" data-anchor-id="app-code">App Code</h3>
+<ul>
 <li><p><code>run.R</code> contains functions for running the production (<code>run()</code>) and development version of the application (<code>run_dev()</code>):</p></li>
 <li><p><code>server.R</code> by default creates <code>send_message</code> with <code>make_send_message(session)</code> (see <code>R/leprechaun-utils.R</code> above).</p></li>
 <li><p><code>ui.R</code> holds the <code>ui()</code> and <code>assets()</code> functions. <code>assets()</code> loads the resources called in the <code>R/assets.R</code> file (see <code>serveAssets()</code> function above).</p></li>
 <li><p><code>zzz.R</code> contains <code>.onLoad()</code>, a wrapper for <code>system.file()</code> and Shiny’s <a href="https://shiny.rstudio.com/reference/shiny/1.0.1/addresourcepath"><code>addResourcePath()</code></a> and function (used for adding images to the application in <code>inst/img/</code>).</p></li>
 </ul>
-</section>
-<section id="inst" class="level3">
-<h3 class="anchored" data-anchor-id="inst"><code>inst/</code></h3>
+<section id="the-inst-folder" class="level4">
+<h4 class="anchored" data-anchor-id="the-inst-folder">The <code>inst/</code> folder</h4>
 <p>The <code>inst/</code> folder contains the initial <code>leprechaun</code> scaffolding folders:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">inst/</span></span>
@@ -474,11 +374,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">run</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This file is not run directly (check <code>leprechaun::add_app_file()</code>)</p>
+<p>This file is not run directly (see the <code>leprechaun::add_app_file()</code> function for creating an <code>app.R</code> file to your app-package).</p>
 </section>
 </section>
-<section id="building-a-leprechaun-app" class="level2">
-<h2 class="anchored" data-anchor-id="building-a-leprechaun-app">Building a <code>leprechaun</code> app</h2>
+</section>
+<section id="building-leprechaun-apps" class="level2">
+<h2 class="anchored" data-anchor-id="building-leprechaun-apps">Building <code>leprechaun</code> apps</h2>
 <p>Building <code>leprechaun</code> apps is similar to developing an R package. New code is placed in the <code>R/</code> folder, and application resources (CSS, SASS, JavaScript files) are added using one of the <code>leprechaun::use_*</code> functions:</p>
 <ul>
 <li><a href="https://leprechaun.opifex.org/#/reference/use_sass"><code>use_sass()</code></a></li>
@@ -488,8 +389,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="https://leprechaun.opifex.org/#/reference/use_js_utils"><code>use_js_utils()</code></a></li>
 </ul>
 <p>More assets can be added using the <a href="https://leprechaun.opifex.org/#/examples/basic#javascript"><code>leprechaun::use_packer()</code></a> function.</p>
-<section id="add_module" class="level3">
-<h3 class="anchored" data-anchor-id="add_module"><code>add_module()</code></h3>
+<section id="modules" class="level3">
+<h3 class="anchored" data-anchor-id="modules">Modules</h3>
 <p>leprechaun has an <a href="https://leprechaun.opifex.org/#/reference/add_module"><code>add_module()</code></a> helper function for creating modules:</p>
 <ul>
 <li><p>The initial <code>var_input</code> module:</p>
@@ -776,8 +677,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>The other components of <code>lap</code> were created using the standard <code>usethis</code> package development functions.</p>
 </section>
-<section id="add-data" class="level3">
-<h3 class="anchored" data-anchor-id="add-data">Add data</h3>
+<section id="utility-functions" class="level3">
+<h3 class="anchored" data-anchor-id="utility-functions">Utility functions</h3>
+<ul>
+<li><code>usethis::use_r()</code> created <code>R/utils_plot_display.R</code> to hold the <code>scatter_plot()</code> function</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>scatter_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(df, x_var, y_var, col_var, alpha_var, size_var) {</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(<span class="at">data =</span> df,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>      ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">x =</span> .data[[x_var]],</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">y =</span> .data[[y_var]],</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">color =</span> .data[[col_var]])) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>      ggplot2<span class="sc">::</span><span class="fu">geom_point</span>(<span class="at">alpha =</span> alpha_var, <span class="at">size =</span> size_var)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now I can run <code>devtools::load_all()</code>, <code>devtools::document()</code>, restart and load the package, then <code>run()</code></p>
+<div id="fig-full-run" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/initial_lap_run.png" style="width:100.0%;height:100.0%" class="figure-img"></p>
+</figure>
+</div>
+<figcaption class="figure-caption">Figure&nbsp;1: run <code>lap</code></figcaption>
+</figure>
+</div>
+</section>
+<section id="data" class="level3">
+<h3 class="anchored" data-anchor-id="data">Data</h3>
 <ul>
 <li><code>movies.RData</code> was added to <code>inst/extdata</code> and loaded into the package with <code>usethis::use_data_raw()</code></li>
 </ul>
@@ -795,188 +723,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="callout-body-container callout-body">
 <div style="font-size: 1.05em; color: #282b2d;">
 <p>After calling <code>usethis::use_data_raw('movies')</code>, I can use <code>system.file()</code> to locate the file with the following code in <code>data-raw/movies.R</code>:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">## code to prepare `movies` dataset goes here</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>pth <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">'extdata/movies.RData'</span>, <span class="at">package =</span> <span class="st">'lap'</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(pth)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(movies, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## code to prepare `movies` dataset goes here</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>pth <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">'extdata/movies.RData'</span>, <span class="at">package =</span> <span class="st">'lap'</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(pth)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(movies, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="add-utility-function" class="level3">
-<h3 class="anchored" data-anchor-id="add-utility-function">Add utility function</h3>
-<ul>
-<li><code>usethis::use_r()</code> created <code>R/utils_plot_display.R</code> to hold the <code>scatter_plot()</code> function</li>
-</ul>
+<section id="unit-tests" class="level3">
+<h3 class="anchored" data-anchor-id="unit-tests">Unit tests</h3>
+<p>The unit tests for the <code>scatter_plot()</code> utility function and the module server functions are in the <code>tests/testthat/</code> folder:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>scatter_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(df, x_var, y_var, col_var, alpha_var, size_var) {</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(<span class="at">data =</span> df,</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>      ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">x =</span> .data[[x_var]],</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">y =</span> .data[[y_var]],</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">color =</span> .data[[col_var]])) <span class="sc">+</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>      ggplot2<span class="sc">::</span><span class="fu">geom_point</span>(<span class="at">alpha =</span> alpha_var, <span class="at">size =</span> size_var)</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tests</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> testthat</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── test-module_plot_display.R</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── test-module_var_input.R</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── test-utils_scatter_plot.R</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> testthat.R</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="ex">2</span> directories, 4 files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now I can run <code>devtools::load_all()</code>, <code>devtools::document()</code>, restart and load the package, then <code>run()</code></p>
-<div id="fig-full-run" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="img/initial_lap_run.png" style="width:100.0%;height:100.0%" class="figure-img"></p>
-</figure>
-</div>
-<figcaption class="figure-caption">Figure&nbsp;1: run <code>lap</code></figcaption>
-</figure>
-</div>
+<p><code>leprechaun</code> relies on the <code>testthat</code> framework for testing.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> I’ve included the BDD functions (<code>describe()</code> and <code>it()</code>) to make each behavior and test clear.</p>
 </section>
-<section id="adding-features" class="level3">
-<h3 class="anchored" data-anchor-id="adding-features">Adding features</h3>
-<p><code>leprechaun</code> stores external code files the <code>inst/</code> folder (similar to the <code>golem</code> framework), but uses a combination of <code>use_*</code> and <code>build()</code> functions to add functionality to you app.</p>
-<section id="use-packer" class="level4">
-<h4 class="anchored" data-anchor-id="use-packer">Use <code>packer</code></h4>
-<p>I’ll demonstrate how <code>make_send_message()</code> function works by walking through the JavaScript example from the <a href="https://leprechaun.opifex.org/#/examples/basic#javascript">package website</a>.</p>
-<ul>
-<li>First we have to build the scaffolding for packer by running <a href="https://packer.john-coene.com/#/references/scaffold_leprechaun"><code>packer::scaffold_leprechaun()</code></a></li>
-</ul>
+<section id="system-tests" class="level3">
+<h3 class="anchored" data-anchor-id="system-tests">System tests</h3>
+<p>System tests can also be included with <a href="https://rstudio.github.io/shinytest2/"><code>shinytest2</code></a>. The examples in <code>lap</code> are similar to those in the <code>golem</code> application.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>packer<span class="sc">::</span><span class="fu">scaffold_leprechaun</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">──</span> Scaffolding leprechaun ──────────────────────────────────────</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Initialiased npm</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> webpack, webpack-cli, webpack-merge installed with scope <span class="st">"dev"</span> </span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Added npm scripts</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Created srcjs directory</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Created srcjs/config directory</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Created webpack config files</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="ex">──</span> Adding files to .gitignore and .Rbuildignore ──</span>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tests/</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> testthat/</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── _snaps/</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── app-feature-01</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   └── shinytest2</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── setup-shinytest2.R</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── test-app-feature-01.R</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── test-shinytest2.R</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> testthat.R</span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Setting active project to <span class="st">'/projects/apps/sfw/_apps/lap'</span></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'^srcjs$'</span> to <span class="st">'.Rbuildignore'</span></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'^node_modules$'</span> to <span class="st">'.Rbuildignore'</span></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'^package\\.json$'</span> to <span class="st">'.Rbuildignore'</span></span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'^package-lock\\.json$'</span> to <span class="st">'.Rbuildignore'</span></span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'^webpack\\.dev\\.js$'</span> to <span class="st">'.Rbuildignore'</span></span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'^webpack\\.prod\\.js$'</span> to <span class="st">'.Rbuildignore'</span></span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'^webpack\\.common\\.js$'</span> to <span class="st">'.Rbuildignore'</span></span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'node_modules'</span> to <span class="st">'.gitignore'</span></span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="ex">──</span> Scaffold built ──</span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="ex">ℹ</span> Run <span class="kw">`</span><span class="ex">bundle</span><span class="kw">`</span> to build the JavaScript files</span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="ex">ℹ</span> Run <span class="kw">`</span><span class="fu">leprechaun::use_packer()</span><span class="kw">`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="ex">5</span> directories, 13 files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ul>
-<li>Now that the scaffolding is in place, run <code>leprechaun::use_packer()</code>:</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>leprechaun<span class="sc">::</span><span class="fu">use_packer</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Creating inst/dev/packer.R</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'packer'</span> to Suggests in DESCRIPTION</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="ot">! </span><span class="ex">This</span> requires <span class="kw">`</span><span class="fu">leprechaun::build()</span><span class="kw">`</span> or the <span class="kw">`</span><span class="ex">leprechaun::build_roclet</span><span class="kw">`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ul>
-<li>The final step is to build or ‘bundle’ the JavaScript files with <code>leprechaun::build()</code></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>leprechaun<span class="sc">::</span><span class="fu">build</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Running packer.R</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Bundled       </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Now I can see what new files have been added to the package/app.</p>
-<ul>
-<li><p>In the <code>inst/dev/</code> folder:</p>
-<ul>
-<li>I can see the <code>packer.R</code> file has been added, which calls <code>packer::bundle()</code></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">inst/dev/</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>      <span class="ex">└──</span> packer.R</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="ex">1</span> directory, 1 file</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></li>
-<li><p>In the <code>srcjs/</code> folder, the <code>modules/message.js</code> and <code>index.js</code> create the alert with <code>Shiny.addCustomMessageHandler</code></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srcjs/</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> config</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   ├── entry_points.json</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   ├── externals.json</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   ├── loaders.json</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   ├── misc.json</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   └── output_path.json</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> index.js</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> modules</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>        <span class="ex">└──</span> message.js</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="sourceCode" id="cb26"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">// srcjs/modules/message.js</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> message <span class="op">=</span> (msg) <span class="kw">=&gt;</span> {</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alert</span>(msg)<span class="op">;</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">// srcjs/index.js</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { message } <span class="im">from</span> <span class="st">'./modules/message.js'</span><span class="op">;</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="st">'shiny'</span><span class="op">;</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co">// In shiny server use:</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co">// session$sendCustomMessage('show-packer', 'hello packer!')</span></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>Shiny<span class="op">.</span><span class="fu">addCustomMessageHandler</span>(<span class="st">'show-packer'</span><span class="op">,</span> (msg) <span class="kw">=&gt;</span> {</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(msg<span class="op">.</span><span class="at">text</span>)<span class="op">;</span></span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-</ul>
-<p>To use the JS message scripts in <code>srcjs/</code>, I add the following to <code>R/server.R</code>:</p>
-<ul>
-<li>In <code>R/server.R</code></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>    send_message <span class="ot">&lt;-</span> <span class="fu">make_send_message</span>(session)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">send_message</span>(<span class="st">"show-packer"</span>,</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">text =</span> <span class="st">"this message is from your R/server.R file"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>After running <code>devtools::load_all()</code> and <code>devtools::document()</code>, the application loads with an alert:</p>
-<div id="fig-leprechaun_message" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<div id="fig-leprechaun_message" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="img/leprechaun_message.png" class="img-fluid figure-img" style="width:40.0%" data-ref-parent="fig-leprechaun_message"></p>
-<figcaption class="figure-caption">(a) <code>send_message()</code> from <code>R/server.R</code></figcaption>
-</figure>
-</div>
-<figcaption class="figure-caption">Figure&nbsp;2: <code>send_message()</code></figcaption>
-</figure>
-</div>
-<p>We can also include messages from modules.</p>
-<ul>
-<li>In <code>R/module_plot_display.R</code></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>send_message <span class="ot">&lt;-</span> <span class="fu">make_send_message</span>(session)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">send_message</span>(<span class="st">"show-packer"</span>,</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">text =</span> <span class="st">"this is a message from your plot_display module"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Read more about sending JavaScript messages <a href="https://shiny.rstudio.com/articles/js-send-message.html">here on the shiny website.</a></p>
 </section>
-<section id="add-images" class="level4">
-<h4 class="anchored" data-anchor-id="add-images">Add images</h4>
+<section id="adding-files-and-images" class="level3">
+<h3 class="anchored" data-anchor-id="adding-files-and-images">Adding files and images</h3>
 <p>I’ll demonstrate how to use the <code>inst/</code> folder by adding an image to the application.</p>
 <ul>
 <li><p>Assume I want to add <code>leprechaun.jpg</code> to my UI. I start by adding the file to <code>inst/img/</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">inst/</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">└──</span> img/</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>       <span class="ex">└──</span> leprechaun.jpg <span class="op">&lt;</span>- new image file!</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">inst/</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">└──</span> img/</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>       <span class="ex">└──</span> leprechaun.jpg <span class="op">&lt;</span>- new image file!</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 <li><p>Then I add the <code>img/</code> path to the code to UI:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>tags<span class="sc">$</span><span class="fu">img</span>(</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">src =</span> <span class="st">"img/leprechaun.jpg"</span>,</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">height=</span><span class="st">"25%"</span>,</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">width=</span><span class="st">"25%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>tags<span class="sc">$</span><span class="fu">img</span>(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">src =</span> <span class="st">"img/leprechaun.jpg"</span>,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">height=</span><span class="st">"25%"</span>,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">width=</span><span class="st">"25%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 </ul>
 <p>Once again, run <code>devtools::load_all()</code> and <code>devtools::document()</code>, restarting and loading the package, then run the application with <code>run()</code></p>
@@ -988,72 +791,200 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption class="figure-caption">(a)</figcaption>
 </figure>
 </div>
-<figcaption class="figure-caption">Figure&nbsp;3: Adding images to <code>inst/img/</code></figcaption>
+<figcaption class="figure-caption">Figure&nbsp;2: Adding images to <code>inst/img/</code></figcaption>
 </figure>
 </div>
 </section>
-<section id="use-sass" class="level4">
-<h4 class="anchored" data-anchor-id="use-sass">Use <code>Sass</code></h4>
+<section id="adding-resources" class="level3">
+<h3 class="anchored" data-anchor-id="adding-resources">Adding resources</h3>
+<p><code>leprechaun</code> stores external code files the <code>inst/</code> folder (similar to the <code>golem</code> framework), but uses a combination of <code>use_*</code> and <code>build()</code> functions to add functionality to you app.</p>
+<section id="using-packer" class="level4">
+<h4 class="anchored" data-anchor-id="using-packer">Using <code>packer</code></h4>
+<p>To demonstrate how <a href="https://packer.john-coene.com/#/"><code>packer</code></a> and <code>leprechaun</code> work together, we’ll walk through the JavaScript example from the <a href="https://leprechaun.opifex.org/#/examples/basic#javascript">package website</a> step-by-step:</p>
+<ul>
+<li><p>First we have to build the scaffolding for <code>packer</code> by running <a href="https://packer.john-coene.com/#/references/scaffold_leprechaun"><code>packer::scaffold_leprechaun()</code></a>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>packer<span class="sc">::</span><span class="fu">scaffold_leprechaun</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><a href="https://packer.john-coene.com/#/references/scaffold_leprechaun"><code>packer::scaffold_leprechaun()</code></a> initializes the <code>npm</code> package manager for JavaScript, installs <code>webpack</code>, and adds the necessary JavaScript files and folders:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">──</span> Scaffolding leprechaun ──────────────────────────────────────</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Initialiased npm</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> webpack, webpack-cli, webpack-merge installed with scope <span class="st">"dev"</span> </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Added npm scripts</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Created srcjs directory</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Created srcjs/config directory</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Created webpack config files</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="ex">──</span> Adding files to .gitignore and .Rbuildignore ──</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Setting active project to <span class="st">'/projects/apps/sfw/_apps/lap'</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'^srcjs$'</span> to <span class="st">'.Rbuildignore'</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'^node_modules$'</span> to <span class="st">'.Rbuildignore'</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'^package\\.json$'</span> to <span class="st">'.Rbuildignore'</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'^package-lock\\.json$'</span> to <span class="st">'.Rbuildignore'</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'^webpack\\.dev\\.js$'</span> to <span class="st">'.Rbuildignore'</span></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'^webpack\\.prod\\.js$'</span> to <span class="st">'.Rbuildignore'</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'^webpack\\.common\\.js$'</span> to <span class="st">'.Rbuildignore'</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'node_modules'</span> to <span class="st">'.gitignore'</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="ex">──</span> Scaffold built ──</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="ex">ℹ</span> Run <span class="kw">`</span><span class="ex">bundle</span><span class="kw">`</span> to build the JavaScript files</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="ex">ℹ</span> Run <span class="kw">`</span><span class="fu">leprechaun::use_packer()</span><span class="kw">`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Now that the scaffolding is in place, run <code>leprechaun::use_packer()</code>:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>leprechaun<span class="sc">::</span><span class="fu">use_packer</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Creating inst/dev/packer.R</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'packer'</span> to Suggests in DESCRIPTION</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="ot">! </span><span class="ex">This</span> requires <span class="kw">`</span><span class="fu">leprechaun::build()</span><span class="kw">`</span> or the <span class="kw">`</span><span class="ex">leprechaun::build_roclet</span><span class="kw">`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>The final step is to build or ‘bundle’ the JavaScript files with <code>leprechaun::build()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>leprechaun<span class="sc">::</span><span class="fu">build</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Running packer.R</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Bundled       </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+</ul>
+<p>Lets review the new files that have been added to the <code>lap</code>:</p>
+<ul>
+<li><p>In the <code>inst/dev/</code> folder, the <code>packer.R</code> file has been added, which calls <code>packer::bundle()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">inst/dev/</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>      <span class="ex">└──</span> packer.R</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="ex">1</span> directory, 1 file</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>In the <code>srcjs/</code> folder, the <code>modules/message.js</code> and <code>index.js</code> create the alert with <code>Shiny.addCustomMessageHandler</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srcjs/</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> config</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   ├── entry_points.json</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   ├── externals.json</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   ├── loaders.json</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   ├── misc.json</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   └── output_path.json</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> index.js</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> modules</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>        <span class="ex">└──</span> message.js</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">// srcjs/modules/message.js</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> message <span class="op">=</span> (msg) <span class="kw">=&gt;</span> {</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alert</span>(msg)<span class="op">;</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co">// srcjs/index.js</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { message } <span class="im">from</span> <span class="st">'./modules/message.js'</span><span class="op">;</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="st">'shiny'</span><span class="op">;</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="co">// In shiny server use:</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co">// session$sendCustomMessage('show-packer', 'hello packer!')</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>Shiny<span class="op">.</span><span class="fu">addCustomMessageHandler</span>(<span class="st">'show-packer'</span><span class="op">,</span> (msg) <span class="kw">=&gt;</span> {</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(msg<span class="op">.</span><span class="at">text</span>)<span class="op">;</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ul>
+<p>To use the JS message scripts in <code>srcjs/</code>, I add the following to <code>R/server.R</code>:</p>
+<ul>
+<li>In <code>R/server.R</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>    send_message <span class="ot">&lt;-</span> <span class="fu">make_send_message</span>(session)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">send_message</span>(<span class="st">"show-packer"</span>,</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">text =</span> <span class="st">"this message is from your R/server.R file"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>After running <code>devtools::load_all()</code> and <code>devtools::document()</code>, the application loads with an alert:</p>
+<div id="fig-leprechaun_message" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<div id="fig-leprechaun_message" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/leprechaun_message.png" class="img-fluid figure-img" style="width:40.0%" data-ref-parent="fig-leprechaun_message"></p>
+<figcaption class="figure-caption">(a) <code>send_message()</code> from <code>R/server.R</code></figcaption>
+</figure>
+</div>
+<figcaption class="figure-caption">Figure&nbsp;3: <code>send_message()</code></figcaption>
+</figure>
+</div>
+<p>We can also include messages from modules.</p>
+<ul>
+<li>In <code>R/module_plot_display.R</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>send_message <span class="ot">&lt;-</span> <span class="fu">make_send_message</span>(session)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">send_message</span>(<span class="st">"show-packer"</span>,</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">text =</span> <span class="st">"this is a message from your plot_display module"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Read more about sending JavaScript messages <a href="https://shiny.rstudio.com/articles/js-send-message.html">here on the shiny website.</a></p>
+</section>
+<section id="using-sass" class="level4">
+<h4 class="anchored" data-anchor-id="using-sass">Using <code>Sass</code></h4>
 <p>We can add Sass styling to our <code>leprechaun</code> app using the <a href="https://leprechaun.opifex.org/#/reference/use_sass"><code>use_sass()</code></a> helper function (this Sass example is from the <a href="https://leprechaun.opifex.org/#/examples/basic#sass">package website</a>).</p>
 <ul>
 <li>Run <code>leprechaun::use_sass()</code>:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>leprechaun<span class="sc">::</span><span class="fu">use_sass</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>leprechaun<span class="sc">::</span><span class="fu">use_sass</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>This will add files to <code>assets/</code> and <code>dev/</code> and we see the following messages:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Creating scss</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Creating inst/dev/sass.R</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'sass'</span> to Suggests in DESCRIPTION</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'^scss$'</span> to <span class="st">'.Rbuildignore'</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="ot">! </span><span class="ex">This</span> requires <span class="kw">`</span><span class="fu">leprechaun::build()</span><span class="kw">`</span> or the <span class="kw">`</span><span class="ex">leprechaun::build_roclet</span><span class="kw">`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Creating scss</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Creating inst/dev/sass.R</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'sass'</span> to Suggests in DESCRIPTION</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Adding <span class="st">'^scss$'</span> to <span class="st">'.Rbuildignore'</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="ot">! </span><span class="ex">This</span> requires <span class="kw">`</span><span class="fu">leprechaun::build()</span><span class="kw">`</span> or the <span class="kw">`</span><span class="ex">leprechaun::build_roclet</span><span class="kw">`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Below are the new files in <code>scss/</code>:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scss</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> _core.scss</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> main.scss</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="ex">1</span> directory, 2 files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scss</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> _core.scss</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> main.scss</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="ex">1</span> directory, 2 files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>scss/</code> folder created by <a href="https://leprechaun.opifex.org/#/reference/use_sass"><code>leprechaun::use_sass()</code></a> includes <code>_core.scss</code> and <code>main.scss</code>.</p>
 <ul>
 <li><code>_core.scss</code>: the original file is below</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode scss code-with-copy"><code class="sourceCode scss"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>html{</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">.error</span> {</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">color</span>: <span class="cn">red</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode scss code-with-copy"><code class="sourceCode scss"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>html{</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">.error</span> {</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">color</span>: <span class="cn">red</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>We’ll change the <code>color:</code> from <code>red</code> to green (<code>#38B44A</code>) using <code>$accent: #38B44A;</code></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode scss code-with-copy"><code class="sourceCode scss"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="va">$accent</span>: <span class="cn">#38B44A</span><span class="op">;</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>html{</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    h1 {</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">color</span>: <span class="va">$accent</span><span class="op">;</span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode scss code-with-copy"><code class="sourceCode scss"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="va">$accent</span>: <span class="cn">#38B44A</span><span class="op">;</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>html{</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    h1 {</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">color</span>: <span class="va">$accent</span><span class="op">;</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Then run <a href="https://leprechaun.opifex.org/#/reference/build"><code>leprechaun::build()</code></a></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>leprechaun<span class="sc">::</span><span class="fu">build</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>leprechaun<span class="sc">::</span><span class="fu">build</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Running packer.R</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Bundled       </span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Running sass.R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Running packer.R</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Bundled       </span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="ex">✔</span> Running sass.R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><p>The <code>inst/dev/sass.R</code> file contains a <code>sass_build()</code> function</p>
@@ -1061,35 +992,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>sass_build()</code> looks in the <code>scss/</code> folder for <code>main.scss</code> and creates the <code>inst/assets/style.min.css</code> file.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Build CSS</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' Build the sass</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>sass_build <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  has_sass <span class="ot">&lt;-</span> <span class="fu">requireNamespace</span>(<span class="st">"sass"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span>has_sass) {</span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">warning</span>(</span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Requires `sass` package: `install.packages('sass')`</span><span class="sc">\n</span><span class="st">"</span>,</span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Skipping."</span>,</span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">call. =</span> <span class="cn">FALSE</span></span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>()</span>
-<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>  output <span class="ot">&lt;-</span> sass<span class="sc">::</span><span class="fu">sass</span>(</span>
-<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>    sass<span class="sc">::</span><span class="fu">sass_file</span>(</span>
-<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>      <span class="st">"scss/main.scss"</span></span>
-<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">cache =</span> <span class="cn">NULL</span>,</span>
-<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">options =</span> sass<span class="sc">::</span><span class="fu">sass_options</span>(</span>
-<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">output_style =</span> <span class="st">"compressed"</span></span>
-<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">output =</span> <span class="st">"inst/assets/style.min.css"</span></span>
-<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">invisible</span>(output)</span>
-<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a><span class="fu">sass_build</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Build CSS</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' Build the sass</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>sass_build <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  has_sass <span class="ot">&lt;-</span> <span class="fu">requireNamespace</span>(<span class="st">"sass"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span>has_sass) {</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">warning</span>(</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Requires `sass` package: `install.packages('sass')`</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Skipping."</span>,</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">call. =</span> <span class="cn">FALSE</span></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>()</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>  output <span class="ot">&lt;-</span> sass<span class="sc">::</span><span class="fu">sass</span>(</span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>    sass<span class="sc">::</span><span class="fu">sass_file</span>(</span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>      <span class="st">"scss/main.scss"</span></span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">cache =</span> <span class="cn">NULL</span>,</span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">options =</span> sass<span class="sc">::</span><span class="fu">sass_options</span>(</span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">output_style =</span> <span class="st">"compressed"</span></span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">output =</span> <span class="st">"inst/assets/style.min.css"</span></span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">invisible</span>(output)</span>
+<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a><span class="fu">sass_build</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 </ul>
 <p>Once again, I run <code>devtools::load_all()</code>, <code>devtools::document()</code>, install and restart, then load the package and <code>run()</code></p>
@@ -1115,19 +1046,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><p>Contents of <code>inst/assets/</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="ex">inst/assets/</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> index.js</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>        <span class="ex">└──</span> style.min.css</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="ex">1</span> directory, 2 files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="ex">inst/assets/</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> index.js</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>        <span class="ex">└──</span> style.min.css</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="ex">1</span> directory, 2 files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 <li><p>Contents of <code>inst/dev/</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="ex">inst/dev/</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>      <span class="ex">├──</span> packer.R</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>      <span class="ex">└──</span> sass.R</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="ex">1</span> directory, 2 files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="ex">inst/dev/</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>      <span class="ex">├──</span> packer.R</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>      <span class="ex">└──</span> sass.R</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="ex">1</span> directory, 2 files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 <li><p><code>inst/dev/sass.R</code> creates <code>inst/assets/style.min.css</code> and <code>inst/dev/packer.R</code> creates <code>inst/assets/index.js</code></p></li>
 </ul>
@@ -1135,41 +1066,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h4 class="anchored" data-anchor-id="serveassets"><code>serveAssets()</code></h4>
 <p>After running <code>leprechaun::use_sass()</code> and <code>leprechaun::build()</code>, we’ll check the <code>serveAssets()</code> function:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>lap<span class="sc">:::</span><span class="fu">serveAssets</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>lap<span class="sc">:::</span><span class="fu">serveAssets</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[[1]]</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="ex">List</span> of 10</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a> <span class="ex">$</span> name      : chr <span class="st">"lap"</span></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a> <span class="ex">$</span> version   : chr <span class="st">"0.0.0.9000"</span></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a> <span class="ex">$</span> src       :List of 1</span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">..$</span> file: chr <span class="st">"."</span></span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a> <span class="ex">$</span> meta      : NULL</span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a> <span class="ex">$</span> script    : Named chr <span class="st">"assets/index.js"</span></span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">..-</span> attr<span class="er">(</span><span class="ex">*,</span> <span class="st">"names"</span><span class="kw">)</span><span class="ex">=</span> chr <span class="st">"file"</span></span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a> <span class="ex">$</span> stylesheet: Named chr <span class="pp">[</span><span class="ss">1:2</span><span class="pp">]</span> <span class="st">"assets/style.min.css"</span> <span class="st">"html/R.css"</span></span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">..-</span> attr<span class="er">(</span><span class="ex">*,</span> <span class="st">"names"</span><span class="kw">)</span><span class="ex">=</span> chr <span class="pp">[</span><span class="ss">1:2</span><span class="pp">]</span> <span class="st">"file"</span> <span class="st">"file"</span></span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a> <span class="ex">$</span> head      : NULL</span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a> <span class="ex">$</span> attachment: NULL</span>
-<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a> <span class="ex">$</span> package   : chr <span class="st">"lap"</span></span>
-<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a> <span class="ex">$</span> all_files : logi TRUE</span>
-<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a> <span class="ex">-</span> attr<span class="er">(</span><span class="ex">*,</span> <span class="st">"class"</span><span class="kw">)</span><span class="ex">=</span> chr <span class="st">"html_dependency"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[[1]]</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="ex">List</span> of 10</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a> <span class="ex">$</span> name      : chr <span class="st">"lap"</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a> <span class="ex">$</span> version   : chr <span class="st">"0.0.0.9000"</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a> <span class="ex">$</span> src       :List of 1</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">..$</span> file: chr <span class="st">"."</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a> <span class="ex">$</span> meta      : NULL</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a> <span class="ex">$</span> script    : Named chr <span class="st">"assets/index.js"</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">..-</span> attr<span class="er">(</span><span class="ex">*,</span> <span class="st">"names"</span><span class="kw">)</span><span class="ex">=</span> chr <span class="st">"file"</span></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a> <span class="ex">$</span> stylesheet: Named chr <span class="pp">[</span><span class="ss">1:2</span><span class="pp">]</span> <span class="st">"assets/style.min.css"</span> <span class="st">"html/R.css"</span></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">..-</span> attr<span class="er">(</span><span class="ex">*,</span> <span class="st">"names"</span><span class="kw">)</span><span class="ex">=</span> chr <span class="pp">[</span><span class="ss">1:2</span><span class="pp">]</span> <span class="st">"file"</span> <span class="st">"file"</span></span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a> <span class="ex">$</span> head      : NULL</span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a> <span class="ex">$</span> attachment: NULL</span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a> <span class="ex">$</span> package   : chr <span class="st">"lap"</span></span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a> <span class="ex">$</span> all_files : logi TRUE</span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a> <span class="ex">-</span> attr<span class="er">(</span><span class="ex">*,</span> <span class="st">"class"</span><span class="kw">)</span><span class="ex">=</span> chr <span class="st">"html_dependency"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This shows me <code>stylesheet</code> has been updated with <code>"assets/style.min.css"</code> and <code>script</code> has been updated with <code>"assets/index.js"</code> (these files are loaded into the application when it runs).</p>
 </section>
 </section>
 <section id="configure" class="level3">
 <h3 class="anchored" data-anchor-id="configure">Configure</h3>
-<p><code>leprechaun</code> app configuration files use the <a href="https://rstudio.github.io/config/articles/introduction.html">config</a> package (similar to <code>golem</code>). leprechaun doesn’t assume I’ll be using a <code>config.yml</code> file, but I can easily add one with <a href="https://leprechaun.opifex.org/#/guide/use#config"><code>leprechaun::use_config()</code></a>.</p>
+<p><code>leprechaun</code> app configuration files use the <a href="https://rstudio.github.io/config/articles/introduction.html">config</a> package (similar to <code>golem</code>). <code>leprechaun</code> doesn’t assume I’ll be using a <code>config.yml</code> file, but I can easily add one with <a href="https://leprechaun.opifex.org/#/guide/use#config"><code>leprechaun::use_config()</code></a>.</p>
 <ul>
 <li><p><code>use_config()</code> adds a <code>inst/config.yml</code> and <code>R/config.R</code></p></li>
 <li><p>The default value in the <code>config.yml</code> files is <code>production: true</code>, which can be read using <code>config_read()</code> in <code>R/config.R</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">config_read</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">config_read</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="va">$production</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="ex">[1]</span> TRUE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="va">$production</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="ex">[1]</span> TRUE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Values can be added to <code>inst/config.yml</code> using the <a href="https://biostat.app.vumc.org/wiki/Main/YamlR">config file format</a>, then the <code>CONFIG_FILE</code> can be set as <a href="https://rstudio.github.io/config/articles/introduction.html#configurations">an environmental variable</a></li>
@@ -1177,8 +1108,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </section>
-<section id="leprechaun-dependencies" class="level2">
-<h2 class="anchored" data-anchor-id="leprechaun-dependencies"><code>leprechaun</code> dependencies</h2>
+<section id="dependencies" class="level2">
+<h2 class="anchored" data-anchor-id="dependencies">Dependencies</h2>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -1200,86 +1131,97 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>The final folder tree for <code>lap</code> (a <code>leprechaun</code> app-package) are below:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> DESCRIPTION</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> NAMESPACE</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> R</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── _disable_autoload.R</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── assets.R</span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── input-handlers.R</span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── leprechaun-utils.R</span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── module_plot_display.R</span>
-<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── module_var_input.R</span>
-<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── run.R</span>
-<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── server.R</span>
-<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── ui.R</span>
-<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── utils_scatter_plot.R</span>
-<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── zzz.R</span>
-<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> app.R</span>
-<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> data</span>
-<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── movies.rda</span>
-<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> data-raw</span>
-<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── movies.R</span>
-<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> inst</span>
-<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── assets</span>
-<span id="cb45-22"><a href="#cb45-22" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── index.js</span>
-<span id="cb45-23"><a href="#cb45-23" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   └── style.min.css</span>
-<span id="cb45-24"><a href="#cb45-24" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── dev</span>
-<span id="cb45-25"><a href="#cb45-25" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── packer.R</span>
-<span id="cb45-26"><a href="#cb45-26" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   └── sass.R</span>
-<span id="cb45-27"><a href="#cb45-27" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── extdata</span>
-<span id="cb45-28"><a href="#cb45-28" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   └── movies.RData</span>
-<span id="cb45-29"><a href="#cb45-29" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── img</span>
-<span id="cb45-30"><a href="#cb45-30" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   └── leprechaun.jpg</span>
-<span id="cb45-31"><a href="#cb45-31" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── run</span>
-<span id="cb45-32"><a href="#cb45-32" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>       └── app.R</span>
-<span id="cb45-33"><a href="#cb45-33" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> lap.Rproj</span>
-<span id="cb45-34"><a href="#cb45-34" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> man</span>
-<span id="cb45-35"><a href="#cb45-35" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── assets.Rd</span>
-<span id="cb45-36"><a href="#cb45-36" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── js-modules.Rd</span>
-<span id="cb45-37"><a href="#cb45-37" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── leprechaun_handler_df.Rd</span>
-<span id="cb45-38"><a href="#cb45-38" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── leprechaun_handler_list.Rd</span>
-<span id="cb45-39"><a href="#cb45-39" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── plot_displayUI.Rd</span>
-<span id="cb45-40"><a href="#cb45-40" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── plot_display_server.Rd</span>
-<span id="cb45-41"><a href="#cb45-41" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── run.Rd</span>
-<span id="cb45-42"><a href="#cb45-42" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── scatter_plot.Rd</span>
-<span id="cb45-43"><a href="#cb45-43" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── serveAssets.Rd</span>
-<span id="cb45-44"><a href="#cb45-44" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── ui.Rd</span>
-<span id="cb45-45"><a href="#cb45-45" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── var_inputUI.Rd</span>
-<span id="cb45-46"><a href="#cb45-46" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── var_input_server.Rd</span>
-<span id="cb45-47"><a href="#cb45-47" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> tests</span>
-<span id="cb45-48"><a href="#cb45-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-49"><a href="#cb45-49" aria-hidden="true" tabindex="-1"></a><span class="ex">12</span> directories, 36 files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> DESCRIPTION</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> NAMESPACE</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> R/</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── _disable_autoload.R</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── assets.R</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── config.R</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── endpoint-utils.R</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── html-utils.R</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── input-handlers.R</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── leprechaun-utils.R</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── module_plot_display.R</span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── module_var_input.R</span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── run.R</span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── server.R</span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── ui.R</span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── utils-js.R</span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── utils_scatter_plot.R</span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── zzz.R</span>
+<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> README.md</span>
+<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> app.R</span>
+<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> data/</span>
+<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── movies.rda</span>
+<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> data-raw/</span>
+<span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── movies.R</span>
+<span id="cb47-25"><a href="#cb47-25" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> inst/</span>
+<span id="cb47-26"><a href="#cb47-26" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── assets</span>
+<span id="cb47-27"><a href="#cb47-27" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── config.yml</span>
+<span id="cb47-28"><a href="#cb47-28" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── dev</span>
+<span id="cb47-29"><a href="#cb47-29" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── extdata</span>
+<span id="cb47-30"><a href="#cb47-30" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── img</span>
+<span id="cb47-31"><a href="#cb47-31" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── run</span>
+<span id="cb47-32"><a href="#cb47-32" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> lap.Rproj</span>
+<span id="cb47-33"><a href="#cb47-33" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> node_modules/ </span>
+<span id="cb47-34"><a href="#cb47-34" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> package-lock.json</span>
+<span id="cb47-35"><a href="#cb47-35" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> package.json</span>
+<span id="cb47-36"><a href="#cb47-36" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> scss/</span>
+<span id="cb47-37"><a href="#cb47-37" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── _core.scss</span>
+<span id="cb47-38"><a href="#cb47-38" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── main.scss</span>
+<span id="cb47-39"><a href="#cb47-39" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> srcjs/</span>
+<span id="cb47-40"><a href="#cb47-40" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── config</span>
+<span id="cb47-41"><a href="#cb47-41" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── index.js</span>
+<span id="cb47-42"><a href="#cb47-42" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── leprechaun-utils.js</span>
+<span id="cb47-43"><a href="#cb47-43" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── modules</span>
+<span id="cb47-44"><a href="#cb47-44" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> tests/</span>
+<span id="cb47-45"><a href="#cb47-45" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── testthat</span>
+<span id="cb47-46"><a href="#cb47-46" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── testthat.R</span>
+<span id="cb47-47"><a href="#cb47-47" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> webpack.common.js</span>
+<span id="cb47-48"><a href="#cb47-48" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> webpack.dev.js</span>
+<span id="cb47-49"><a href="#cb47-49" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> webpack.prod.js</span>
+<span id="cb47-50"><a href="#cb47-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-51"><a href="#cb47-51" aria-hidden="true" tabindex="-1"></a><span class="ex">109</span> directories, 63 files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>The packer::</p>
 <p><code>lap</code> depends on <code>shiny</code>, but not <code>leprechaun</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">local_dev_deps_explain</span>(</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">deps =</span> <span class="st">"shiny"</span>, </span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">root =</span> <span class="st">"_apps/lap"</span>)</span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a> lap <span class="ot">-&gt;</span> shiny</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">local_dev_deps_explain</span>(</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">deps =</span> <span class="st">"shiny"</span>, </span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">root =</span> <span class="st">"_apps/lap"</span>)</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a> lap <span class="ot">-&gt;</span> shiny</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a> lap <span class="ot">-&gt;</span> shinytest2 <span class="ot">-&gt;</span> shiny</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">local_dev_deps_explain</span>(</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">deps =</span> <span class="st">"leprechaun"</span>, </span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">root =</span> <span class="st">"_apps/lap"</span>)</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a> x leprechaun</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">local_dev_deps_explain</span>(</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">deps =</span> <span class="st">"leprechaun"</span>, </span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">root =</span> <span class="st">"_apps/lap"</span>)</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a> x leprechaun</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>However, adding functionality and features with the <code>use_*</code> functions can add dependencies to your <code>leprechaun</code> app:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">local_dev_deps_explain</span>(</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">deps =</span> <span class="st">"sass"</span>, </span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">root =</span> <span class="st">"_apps/lap"</span>)</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a> lap <span class="ot">-&gt;</span> bslib <span class="ot">-&gt;</span> sass</span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a> lap <span class="ot">-&gt;</span> shiny <span class="ot">-&gt;</span> bslib <span class="ot">-&gt;</span> sass</span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a> lap <span class="ot">-&gt;</span> packer <span class="ot">-&gt;</span> htmlwidgets <span class="ot">-&gt;</span> rmarkdown <span class="ot">-&gt;</span></span>
-<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>   bslib <span class="ot">-&gt;</span> sass</span>
-<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a> lap <span class="ot">-&gt;</span> sass</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">local_dev_deps_explain</span>(</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">deps =</span> <span class="st">"sass"</span>, </span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">root =</span> <span class="st">"_apps/lap"</span>)</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a> lap <span class="ot">-&gt;</span> bslib <span class="ot">-&gt;</span> sass</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a> lap <span class="ot">-&gt;</span> shiny <span class="ot">-&gt;</span> bslib <span class="ot">-&gt;</span> sass</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a> lap <span class="ot">-&gt;</span> packer <span class="ot">-&gt;</span> htmlwidgets <span class="ot">-&gt;</span> rmarkdown <span class="ot">-&gt;</span></span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>   bslib <span class="ot">-&gt;</span> sass</span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a> lap <span class="ot">-&gt;</span> sass</span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a> lap <span class="ot">-&gt;</span> shinytest2 <span class="ot">-&gt;</span> rmarkdown <span class="ot">-&gt;</span> bslib <span class="ot">-&gt;</span></span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>   sass</span>
+<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a> lap <span class="ot">-&gt;</span> shinytest2 <span class="ot">-&gt;</span> shiny <span class="ot">-&gt;</span> bslib <span class="ot">-&gt;</span> sass</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><p><code>leprechaun</code> apps are packages, so the <code>inst/</code> folders are available to the application at runtime (which I can find using <code>system.file()</code>).</p>
@@ -1287,46 +1229,46 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Below I’ve passed the output from <code>system.file(".", package = "lap")</code> to <code>fs::dir_tree()</code> to view it’s contents:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> DESCRIPTION</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> INDEX</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> Meta/</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── Rd.rds</span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── data.rds</span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── features.rds</span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── hsearch.rds</span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── links.rds</span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── nsInfo.rds</span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── package.rds</span>
-<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> NAMESPACE</span>
-<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> R/</span>
-<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── lap</span>
-<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── lap.rdb</span>
-<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── lap.rdx</span>
-<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> assets/</span>
-<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── index.js</span>
-<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── style.min.css</span>
-<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> data/</span>
-<span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── Rdata.rdb</span>
-<span id="cb49-21"><a href="#cb49-21" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── Rdata.rds</span>
-<span id="cb49-22"><a href="#cb49-22" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── Rdata.rdx</span>
-<span id="cb49-23"><a href="#cb49-23" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> dev/</span>
-<span id="cb49-24"><a href="#cb49-24" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── packer.R</span>
-<span id="cb49-25"><a href="#cb49-25" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── sass.R</span>
-<span id="cb49-26"><a href="#cb49-26" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> extdata/</span>
-<span id="cb49-27"><a href="#cb49-27" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── movies.RData</span>
-<span id="cb49-28"><a href="#cb49-28" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> help/</span>
-<span id="cb49-29"><a href="#cb49-29" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── AnIndex</span>
-<span id="cb49-30"><a href="#cb49-30" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── aliases.rds</span>
-<span id="cb49-31"><a href="#cb49-31" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── lap.rdb</span>
-<span id="cb49-32"><a href="#cb49-32" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── lap.rdx</span>
-<span id="cb49-33"><a href="#cb49-33" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── paths.rds</span>
-<span id="cb49-34"><a href="#cb49-34" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> html/</span>
-<span id="cb49-35"><a href="#cb49-35" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── 00Index.html</span>
-<span id="cb49-36"><a href="#cb49-36" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── R.css</span>
-<span id="cb49-37"><a href="#cb49-37" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> img/</span>
-<span id="cb49-38"><a href="#cb49-38" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── leprechaun.jpg</span>
-<span id="cb49-39"><a href="#cb49-39" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> run/</span>
-<span id="cb49-40"><a href="#cb49-40" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> app.R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> DESCRIPTION</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> INDEX</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> Meta/</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── Rd.rds</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── data.rds</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── features.rds</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── hsearch.rds</span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── links.rds</span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── nsInfo.rds</span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── package.rds</span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> NAMESPACE</span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> R/</span>
+<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── lap</span>
+<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── lap.rdb</span>
+<span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── lap.rdx</span>
+<span id="cb51-16"><a href="#cb51-16" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> assets/</span>
+<span id="cb51-17"><a href="#cb51-17" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── index.js</span>
+<span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── style.min.css</span>
+<span id="cb51-19"><a href="#cb51-19" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> data/</span>
+<span id="cb51-20"><a href="#cb51-20" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── Rdata.rdb</span>
+<span id="cb51-21"><a href="#cb51-21" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── Rdata.rds</span>
+<span id="cb51-22"><a href="#cb51-22" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── Rdata.rdx</span>
+<span id="cb51-23"><a href="#cb51-23" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> dev/</span>
+<span id="cb51-24"><a href="#cb51-24" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── packer.R</span>
+<span id="cb51-25"><a href="#cb51-25" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── sass.R</span>
+<span id="cb51-26"><a href="#cb51-26" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> extdata/</span>
+<span id="cb51-27"><a href="#cb51-27" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── movies.RData</span>
+<span id="cb51-28"><a href="#cb51-28" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> help/</span>
+<span id="cb51-29"><a href="#cb51-29" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── AnIndex</span>
+<span id="cb51-30"><a href="#cb51-30" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── aliases.rds</span>
+<span id="cb51-31"><a href="#cb51-31" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── lap.rdb</span>
+<span id="cb51-32"><a href="#cb51-32" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── lap.rdx</span>
+<span id="cb51-33"><a href="#cb51-33" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── paths.rds</span>
+<span id="cb51-34"><a href="#cb51-34" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> html/</span>
+<span id="cb51-35"><a href="#cb51-35" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── 00Index.html</span>
+<span id="cb51-36"><a href="#cb51-36" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── R.css</span>
+<span id="cb51-37"><a href="#cb51-37" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> img/</span>
+<span id="cb51-38"><a href="#cb51-38" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── leprechaun.jpg</span>
+<span id="cb51-39"><a href="#cb51-39" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> run/</span>
+<span id="cb51-40"><a href="#cb51-40" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> app.R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>I can see the <code>inst/</code> folders and files I’ve created are available to <code>lap</code> at runtime</li>
@@ -1339,10 +1281,119 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Most of the features in <code>golem</code> are also accessible in <code>leprechaun</code>:</p>
 <ul>
 <li><p>Adding modules: <code>leprechaun</code>’s <code>add_module()</code> function doesn’t have the consistent naming or prefixes found in <code>golem::add_module()</code>, but still reduces a lot of typing if you are creating these files manually.</p></li>
-<li><p><input type="checkbox">Adding functions: leprechaun relies on</p></li>
+<li><p>Adding functions: leprechaun relies on <code>usethis::use_r()</code> for adding new functionality to your application</p></li>
+<li><p><code>leprechaun</code> doesn’t come with any testing functions, although this can be done using <a href="https://testthat.r-lib.org/"><code>testthat</code></a> and <a href="https://rstudio.github.io/shinytest2/"><code>shinytest2</code></a> (just as we would with a standard R package).</p></li>
 </ul>
 <p>Multiple <code>inst/</code> sub-folders makes adding assets to the application easier, and <code>leprechaun</code> has a long list of <code>use_*</code> functions for including Sass, CSS, HTML, and JavaScript. The package website has examples for getting started and adding multiple resources, but unfortunately the function reference had limited documentation.</p>
-<p><code>leprechaun</code> doesn’t come with any testing functions, although this can be done using <a href="https://testthat.r-lib.org/"><code>testthat</code></a> and <a href="https://rstudio.github.io/shinytest2/"><code>shinytest2</code></a> (just as we would with a standard R package).</p>
+<p>Below is an overview of the features/functions in the <code>leprechaun</code> framework:</p>
+<div style="font-size: 0.85em;">
+<table class="table">
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Arguments/Options</th>
+<th>Description/Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>scaffold()</code></td>
+<td><p><code>ui</code>: can be one of <code>"navbarPage"</code> or <code>"fluidPage"</code></p>
+<p><code>bs_version</code>: Bootstrap version</p>
+<p><code>overwrite</code> : recreate folder structure</p></td>
+<td>The initial ‘setup’ function that builds the leprechaun files in <code>R/</code> and <code>inst/</code></td>
+</tr>
+<tr class="even">
+<td><code>scaffold_leprechaun()</code> (from <code>packer</code>)</td>
+<td><p><code>react</code> : include React?</p>
+<p><code>vue</code> : include Vue?</p>
+<p><code>use_cdn</code> : use the CDN for react or vue dependencies?</p>
+<p><code>edit</code> : open pertinent files</p></td>
+<td><p>This function comes from <a href="https://packer.john-coene.com/#/references/scaffold_leprechaun">the <code>packer</code> package</a> for integrating JS with R.</p>
+<p>This creates the following non-standard R package folders and files:</p>
+<ul>
+<li><code>srcjs/</code> and <code>node_modules/</code></li>
+<li><code>package-lock.json</code>, <code>package.json</code>, <code>webpack.common.js,</code> <code>webpack.dev.js</code>, and <code>webpack.prod.js</code> files</li>
+</ul>
+<p><em>These non-standard folders are added to the <code>.Rbuildignore</code> and <code>.gitignore</code></em> (but it would be nice to know more about what they do).</p></td>
+</tr>
+<tr class="odd">
+<td><code>use_packer()</code></td>
+<td>Assumes <code>scaffold_leprechaun()</code> from packer has been run</td>
+<td><p>Sets up application to use <code>packer</code> utilities for bundling JavaScript.</p>
+<ul>
+<li>Creates <code>inst/dev/packer.R</code></li>
+<li>Adds <code>packer</code> to <code>Suggests</code> in <code>DESCRIPTION</code></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><code>build()</code></td>
+<td>Returns <code>TRUE</code>/<code>FALSE</code> if build was successful.</td>
+<td>Used to ‘bundle’ various resources (i.e., from <code>packer</code> and the other <code>use_</code> functions)</td>
+</tr>
+<tr class="odd">
+<td><code>use_sass()</code></td>
+<td></td>
+<td><p>Creates <code>inst/dev/sass.R</code></p>
+<p>Adds <code>sass</code> to <code>DESCRIPTION</code> under <code>Suggests</code></p></td>
+</tr>
+<tr class="even">
+<td><code>use_html_utils()</code></td>
+<td>Adds <code>R/html-utils.R</code></td>
+<td><p>Adds <code>htmltools</code> to <code>Imports</code> field in <code>DESCRIPTION</code></p>
+<p><code>R/html-utils.R</code> contains a variety of utility functions using HTML tags (i.e., <code>span()</code>, <code>div()</code>, etc.)</p></td>
+</tr>
+<tr class="odd">
+<td><code>use_endpoints_utils()</code></td>
+<td>Adds <code>R/endpoint-utils.R</code></td>
+<td><p>Adds <code>jsonlite</code> to <code>Imports</code> field in <code>DESCRIPTION</code></p>
+<p><code>R/endpoint-utils.R</code> contains utility functions for creating an HTTP response object and the <code>LEPRECHAUN_SERIALISER</code> environmental variable.</p></td>
+</tr>
+<tr class="even">
+<td><code>use_js_utils()</code></td>
+<td><p>Adds <code>srcjs/leprechaun-utils.js</code> and <code>R/utils-js.R</code></p>
+<p>Adds import statement to <code>srcjs/index.js</code></p></td>
+<td>Requires running <code>leprechaun::build()</code> to bundle .js</td>
+</tr>
+<tr class="odd">
+<td><code>use_config()</code></td>
+<td><p>Adds <code>R/config.R</code> and <code>inst/config.yml</code></p>
+<p><code>inst/config.yml</code> initially contains <code>production: true</code></p></td>
+<td><p>Adds <code>yml</code> to <code>Imports</code> field in <code>DESCRIPTION</code></p>
+<p><code>R/config.R</code> contains functions for reading and getting configuration values.</p></td>
+</tr>
+<tr class="even">
+<td><code>add_module()</code></td>
+<td><p>Using <code>add_module("name")</code> :</p>
+<ol type="1">
+<li>Creates <code>R/module_name.R</code></li>
+<li>UI function: <code>nameUI()</code></li>
+<li>Server function: <code>name_server()</code></li>
+</ol></td>
+<td><p><em>It would be nice if the modules had consistent naming (the UI function uses <code>camelCase()</code> and the server function is <code>snake_case()</code>).</em></p>
+<p>By default, modules aren’t exported (i.e., with <code>@export</code>), but are included in the package index (i.e., with <code>@keywords internal</code>)</p>
+<p>Each module automatically includes:</p>
+<p><code>send_message &lt;- make_send_message(session)</code></p></td>
+</tr>
+<tr class="odd">
+<td><code>add_app_file()</code></td>
+<td><p>Adds <code>app.R</code> file to root directory.</p>
+<p>Includes call to <code>pkgload::load_all()</code> with <code>reset</code> set to <code>TRUE</code> and <code>helpers</code> set to <code>FALSE</code></p></td>
+<td>Handy for quickly launching the app during development (and deployment).</td>
+</tr>
+<tr class="even">
+<td><code>.onLoad()</code></td>
+<td>Used to add external files to app (images, html, etc.)</td>
+<td>Combines Shiny’s <code>addResourcePath()</code> and <code>system.file()</code>.</td>
+</tr>
+<tr class="odd">
+<td><code>serveAssets()</code></td>
+<td><code>modules</code> argument can be used to include JavaScript modules</td>
+<td>Adds dependencies for JavaScript, CSS, and HTML.</td>
+</tr>
+</tbody>
+</table>
+</div>
 
 
 </section>
@@ -1353,6 +1404,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol>
 <li id="fn1"><p>Download the code used to build the <code>leprechaun</code> app <a href="https://github.com/mjfrigaard/sfw/raw/main/_apps/lap.tar.gz">here</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>The <a href="https://leprechaun.opifex.org/#/reference/scaffold"><code>leprechaun::scaffold()</code></a> defaults to a <code>navbarPage()</code>, but I’ve switched to a <code>fluidPage()</code> for this example.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><code>testthat</code> can be used for testing utility functions and module functions (as shown <a href="https://mjfrigaard.github.io/shiny-app-pkgs/test_modules.html">here</a>).<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

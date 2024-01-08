@@ -221,23 +221,17 @@ The application also uses an external dataset.[^movies-data]
 ```{r}
 #| eval: true
 #| echo: false
-tar(
-  tarfile = "_apps/gap.tar.gz",
+tar(tarfile = "_apps/gap.tar.gz",
   files = "_apps/gap",
   compression = 'gzip',
-  tar = "tar"
-)
-tar(
-  tarfile = "_apps/lap.tar.gz",
+  tar = "tar")
+tar(tarfile = "_apps/lap.tar.gz",
   files = "_apps/lap",
   compression = 'gzip',
-  tar = "tar"
-)
-tar(
-  tarfile = "_apps/rap.tar.gz",
+  tar = "tar")
+tar(tarfile = "_apps/rap.tar.gz",
   files = "_apps/rap",
   compression = 'gzip',
-  tar = "tar"
-)
+  tar = "tar")
 ```
 

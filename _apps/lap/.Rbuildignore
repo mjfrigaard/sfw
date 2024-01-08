@@ -11,3 +11,4 @@
 ^webpack\.prod\.js$
 ^webpack\.common\.js$
 ^scss$
+_\.new\.png$
