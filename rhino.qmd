@@ -97,7 +97,7 @@ install.packages("rhino")
 rhino::init("/path/to/rhino/app")
 ```
 
-## `rhino` structure
+## `rhino` files 
 
 The initial folder structure for a new `rhino` app is below:
 
@@ -202,9 +202,7 @@ co_box(color = "r",
   contents = "If the `box` syntax looks strange--don't worry! `box` is designed to '*completely replaces the base R `library` and `require` functions.*' We'll cover it more in the **Build** section below.")
 ```
 
-### `app.R`
-
--    **`app.R`** will run the application and contains the `rhino::app()` function:[^minimal-app-dot-r]
+**`app.R`** will run the application and contains the `rhino::app()` function:[^minimal-app-dot-r]
 
 ```{r}
 #| code-fold: false
@@ -214,7 +212,7 @@ rhino::app()
 
 [^minimal-app-dot-r]: `rhino` has a 'minimal `app.R`' [philosophy](https://appsilon.github.io/rhino/articles/explanation/application-structure.html#minimal-app-r), and the call to `rhino::app()` [performs multiple operations](https://appsilon.github.io/rhino/reference/app.html) beyond `shiny::runApp()`
 
-### YAML files
+#### YAML files
 
 New `rhino` apps begin with two `.yml` configuration files:
 
@@ -241,7 +239,7 @@ New `rhino` apps begin with two `.yml` configuration files:
     
 [^rhino-yml]: Read more about `rhino.yml` in the [Explanation: Configuring Rhino - rhino.yml](https://appsilon.github.io/rhino/articles/explanation/rhino-yml.html) vignette.
 
-### Dependencies 
+#### [`dependencies.R`]{style="font-size: 0.90em; font-weight: bold;"}
 
 `rhino` apps manage dependencies with the `dependencies.R` file and [`renv`](https://rstudio.github.io/renv/articles/renv.html) package.
 
@@ -282,8 +280,6 @@ New `rhino` apps begin with two `.yml` configuration files:
     -   Adding packages with `rhino::pkg_install()` will automatically update `dependencies.R` and `renv`
 
 [^renv]: Read more about [getting started with `renv`](https://rstudio.github.io/renv/articles/renv.html).
-
-### Tests
 
 The `tests/` folder initially contains two sub-folders, `cypress/` and `testthat/`, and the `cypress.json` file.
 
@@ -624,202 +620,7 @@ This was a very brief overview of `box`, so I *highly recommend* consulting the 
 
 [^rhino-explicit-namespaces]: This is how `box` "*completely replaces the base R `library` and `require` functions*" - [`box` documentation](https://klmr.me/box/index.html).
 
-## Data
-
-Non-Shiny code and functions should be stored in `app/logic/`. We'll include a `box` module for importing the `movies` data in `app/logic/data.R`.[^rhino-logic-folder]
-
-[^rhino-logic-folder]: `rhino` apps come with an `app/logic/` folder, which is used to store code for [*"data manipulation, generating non-interactive plots and graphs, or connecting to an external data source, but outside of definable inputs, it doesn't interact with or rely on shiny in any way."*](https://appsilon.github.io/rhino/articles/explanation/application-structure.html#logic)
-
-```{r}
-#| eval: false 
-#| code-fold: false 
-# contents of app/logic/data.R
-
-#' @export
-box::use(
-  vroom[vroom, cols, col_skip] # <1>
-)
-
-#' import movies data 
-#' @export
-movies_data <- function() {
-  raw_csv_url <- "https://bit.ly/47FPO6t"
-  # from 07_data branch!
-  vroom(raw_csv_url, # <2>
-    col_types = cols(...1 = col_skip())) # <2>
-}
-```
-1. Add `vroom` functions 
-2. Call `vroom` functions
-
-In `app/logic/data.R`, the necessary `vroom` functions are included with `box::use()` to import `movies.csv` from GitHub.
-
-## Utility functions
-
-The `scatter_plot()` utility function is stored in `app/logic/plot.R`. Again, `box::use()` includes the `ggplot2` and `rlang` functions for `scatter_plot()`:
-
-```{r}
-#| eval: false 
-#| code-fold: false 
-# contents of app/logic/plot.R
-
-#' scatter plot function
-#' @export
-scatter_plot <- function(df, x_var, y_var, col_var, alpha_var, size_var) {
-
-box::use(
-  ggplot2[ggplot, aes, geom_point], # <1> 
-  rlang[.data] # <2> 
-)
-  
-  ggplot( # <3>
-    data = df,
-    aes( 
-      x = .data[[x_var]], # <4>
-      y = .data[[y_var]], # <4>
-      color = .data[[col_var]] # <4>
-    )
-  ) +
-    geom_point(alpha = alpha_var, size = size_var) # <3>
-  
-}
-```
-1. Add `ggplot2` functions
-2. Add `rlang` functions
-3. Use `ggplot2` functions
-4. Use `rlang` functions
-
-The `app/logic/__init__.R` file exports the two modules above:[^box-init-files]
-
-```{r}
-#| eval: false 
-#| code-fold: false 
-# Logic: application code independent from Shiny.
-# https://go.appsilon.com/rhino-project-structure
-#' @export
-box::use(
-  app / logic / data,
-  app / logic / plot
-)
-```
-
-[^box-init-files]: The `__init__.R` files are covered [on the `rhino` website](https://appsilon.github.io/rhino/articles/explanation/box-modules.html#init-files)
-
-### Unit tests 
-
-The unit tests for the `box` modules in `app/logic/` and `app/view/` are in the `tests/testthat/` folder:
-
-```{bash}
-#| eval: false 
-#| code-fold: false
-tests/testthat/
-        ├── test-data.R
-        ├── test-display.R
-        ├── test-inputs.R
-        └── test-plot.R
-
-1 directory, 4 files
-```
-
-Unit tests with `rhino` applications are similar to unit tests in R packages, with a few important differences: 
-
-1. We don't have access to the `usethis` and `devtools` functions for creating and running test files    
-2. We'll need to import the necessary `testthat` functions with `box::use()`   
-3. The `rhino::test_r()` will run the unit tests in `tests/testthat/`
-
-The first test for `app/logic/data.R` is below: 
-
-```{r}
-#| eval: false 
-#| code-fold: false
-# import testthat 
-box::use(
-  testthat[describe, it, expect_equal, expect_true]
-)
-
-# import data module
-box::use(
-  app / logic / data
-)
-
-describe(description = "Feature: Movies Data Dimensions Verification
-  As a data analyst,
-  I want to ensure the movies data frame has the correct dimensions
-  So that I can rely on its structure for further analysis.", 
-  code = {
-  it(description = "Scenario: Checking the dimensions of the movies data frame
-    Given a function to import movies data
-    When I call the function to retrieve the movies data
-    Then the data frame should have 651 rows and 34 columns
-    And the data frame should be of type 'data.frame'", 
-    code = {
-    # call function to import movies data
-    movies <- data$movies_data()
-    # test dimensions
-    expect_equal(
-      object = dim(movies), 
-      expected = c(651L, 34L))
-    # test class
-    expect_true(object = is.data.frame(movies))
-  })
-})
-```
-
-The test for `app/logic/plot.R` is below. Note this test imports the `app/logic/data` and `app/logic/plot` modules:
-
-```{r}
-#| eval: false 
-#| code-fold: false
-# import testthat and ggplot2 function
-box::use(
-  testthat[describe, it, expect_equal, expect_true],
-  ggplot2[is.ggplot]
-)
-# import data and plot modules
-box::use(
-  app / logic / data,
-  app / logic / plot
-)
-
-
-describe("Feature: Scatter Plot Generation Verification
-  As a data analyst,
-  I want to ensure that scatter_plot() generates a valid scatter plot
-  So that I can use it for visualizing relationships in movies data.", 
-  code = {
-  it("Scenario: Generating a scatter plot with specified parameters
-    Given a function to import movies data
-    And a function scatter_plot() from the plot module
-    When I call scatter_plot() with movies data
-    And specify x_var as 'critics_score'
-    And specify y_var as 'imdb_rating'
-    And specify col_var as 'mpaa_rating'
-    And set alpha_var to 2 / 3
-    And set size_var to 2
-    Then the function should return a ggplot object with a scatter plot",
-    code = {
-    # call function to import movies data
-    movies <- data$movies_data()
-    # test point plot
-    expect_true(
-      is.ggplot(
-          # call scatter_plot() from plot module
-          plot$scatter_plot(
-            df = movies,
-            x_var = 'critics_score', 
-            y_var = 'imdb_rating', 
-            col_var = 'mpaa_rating', 
-            alpha_var = 2 / 3,
-            size_var = 2
-          )
-        )
-      )
-  })
-})
-```
-
-
-## App Modules
+### Modules
 
 Now we're going to convert contents of `app.R` into *Shiny* modules. Shiny modules should be placed in the `app/view/` folder. **`rhino` modules are still broken into `ui` and `server` functions, and `box::use()` is called *within* each function to add the necessary `package[function]`**
 
@@ -1043,6 +844,311 @@ The `app/view/display` module contains the code for collecting and rendering the
 
 After composing the module in `app/view/display.R`, I'll add `testthat` tests for the `app/logic/` and `app/view` modules.
 
+### Utility functions
+
+The `scatter_plot()` utility function is stored in `app/logic/plot.R`. Again, `box::use()` includes the `ggplot2` and `rlang` functions for `scatter_plot()`:
+
+```{r}
+#| eval: false 
+#| code-fold: false 
+# contents of app/logic/plot.R
+
+#' scatter plot function
+#' @export
+scatter_plot <- function(df, x_var, y_var, col_var, alpha_var, size_var) {
+
+box::use(
+  ggplot2[ggplot, aes, geom_point], # <1> 
+  rlang[.data] # <2> 
+)
+  
+  ggplot( # <3>
+    data = df,
+    aes( 
+      x = .data[[x_var]], # <4>
+      y = .data[[y_var]], # <4>
+      color = .data[[col_var]] # <4>
+    )
+  ) +
+    geom_point(alpha = alpha_var, size = size_var) # <3>
+  
+}
+```
+1. Add `ggplot2` functions
+2. Add `rlang` functions
+3. Use `ggplot2` functions
+4. Use `rlang` functions
+
+The `app/logic/__init__.R` file exports the two modules above:[^box-init-files]
+
+```{r}
+#| eval: false 
+#| code-fold: false 
+# Logic: application code independent from Shiny.
+# https://go.appsilon.com/rhino-project-structure
+#' @export
+box::use(
+  app / logic / data,
+  app / logic / plot
+)
+```
+
+[^box-init-files]: The `__init__.R` files are covered [on the `rhino` website](https://appsilon.github.io/rhino/articles/explanation/box-modules.html#init-files)
+
+### Data
+
+Non-Shiny code and functions should be stored in `app/logic/`. We'll include a `box` module for importing the `movies` data in `app/logic/data.R`.[^rhino-logic-folder]
+
+[^rhino-logic-folder]: `rhino` apps come with an `app/logic/` folder, which is used to store code for [*"data manipulation, generating non-interactive plots and graphs, or connecting to an external data source, but outside of definable inputs, it doesn't interact with or rely on shiny in any way."*](https://appsilon.github.io/rhino/articles/explanation/application-structure.html#logic)
+
+```{r}
+#| eval: false 
+#| code-fold: false 
+# contents of app/logic/data.R
+
+#' @export
+box::use(
+  vroom[vroom, cols, col_skip] # <1>
+)
+
+#' import movies data 
+#' @export
+movies_data <- function() {
+  raw_csv_url <- "https://bit.ly/47FPO6t"
+  # from 07_data branch!
+  vroom(raw_csv_url, # <2>
+    col_types = cols(...1 = col_skip())) # <2>
+}
+```
+1. Add `vroom` functions 
+2. Call `vroom` functions
+
+In `app/logic/data.R`, the necessary `vroom` functions are included with `box::use()` to import `movies.csv` from GitHub.
+
+### Launch
+
+After the `app/logic/` and `app/view/` code has been written and tested, the modules and layout functions can be included in `app/main.R`. 
+
+-   `box::use()` is used to import the `shiny` and `shinythemes` functions: 
+
+    ```{r}
+    #| eval: false 
+    #| code-fold: false
+    # app/main.R
+    
+    # shiny functions
+    box::use(
+      shiny[
+        NS, fluidPage, sidebarLayout, sidebarPanel, 
+        mainPanel, fluidRow, column, tags, icon,
+        plotOutput, moduleServer, renderPlot
+      ],
+      shinythemes[shinytheme]
+    )
+    
+    # import modules
+    box::use(
+      # load inputs module ----
+      app / view / inputs,
+      # load display module ----
+      app / view / display
+    )
+    ```
+
+The `ui()` and `server()` functions in `app/main` look very similar to the `movies_ui()` and `movies_server()` functions, except we access the modules using the `$` operator.
+
+-   The `ui()` function includes both `input$ui()` and `display$ui()`.
+
+    ```{r}
+    #| eval: false 
+    #| code-fold: false
+    #' rap ui
+    #' @export
+    ui <- function(id) {
+      ns <- NS(id)
+      fluidPage(
+        theme = shinytheme("spacelab"),
+        sidebarLayout(
+          sidebarPanel(
+            # use inputs module UI ----
+            inputs$ui(ns("vals"))
+          ),
+          mainPanel(
+            fluidRow(
+              column(
+                width = 12,
+                  tags$h3("rap")
+                )
+            ),
+            fluidRow(
+              column(
+                width = 1,
+                offset = 11,
+                # example info button ---
+                tags$button(
+                  id = "help-button",
+                  icon("info"),
+                  # add 'onclick' after rhino::build_sass()
+                  # and rhino::build_js()
+                  onclick = "App.showHelp()"
+                )
+              )
+            ),
+            fluidRow(
+              column(
+                width = 12,
+                # use display module UI ----
+                display$ui(ns("disp"))
+              )
+            )
+          )
+        )
+      )
+    }
+    ```
+    
+
+-   The `server` function in `app/main.R` calls the `inputs$server()`, collects the input values as `selected_vars`, and passed these to `display$server()`:
+
+    ```{r}
+    #| eval: false 
+    #| code-fold: false
+    #' rap server
+    #' @export
+    server <- function(id) {
+      moduleServer(id, function(input, output, session) {
+        # use inputs module server ----
+        selected_vars <- inputs$server(id = "vals")
+        # use display module server ----
+        display$server(
+          id = "disp",
+          var_inputs = selected_vars
+        )
+      })
+    }
+    ```
+    
+After saving all the module files and `app/main.R`, we can run the app using `app.R`: 
+
+::: {#fig-rap_initial_launch}
+![](img/rap_initial_launch.png){#fig-rap_initial_launch height="100%" width="100%" fig-align="center"}
+
+initial `rap` launch
+:::
+
+### Unit tests 
+
+The unit tests for the `box` modules in `app/logic/` and `app/view/` are in the `tests/testthat/` folder:
+
+```{bash}
+#| eval: false 
+#| code-fold: false
+tests/testthat/
+        ├── test-data.R
+        ├── test-display.R
+        ├── test-inputs.R
+        └── test-plot.R
+
+1 directory, 4 files
+```
+
+Unit tests with `rhino` applications are similar to unit tests in R packages, with a few important differences: 
+
+1. We don't have access to the `usethis` and `devtools` functions for creating and running test files    
+2. We'll need to import the necessary `testthat` functions with `box::use()`   
+3. The `rhino::test_r()` will run the unit tests in `tests/testthat/`
+
+The first test for `app/logic/data.R` is below: 
+
+```{r}
+#| eval: false 
+#| code-fold: false
+# import testthat 
+box::use(
+  testthat[describe, it, expect_equal, expect_true]
+)
+
+# import data module
+box::use(
+  app / logic / data
+)
+
+describe(description = "Feature: Movies Data Dimensions Verification
+  As a data analyst,
+  I want to ensure the movies data frame has the correct dimensions
+  So that I can rely on its structure for further analysis.", 
+  code = {
+  it(description = "Scenario: Checking the dimensions of the movies data frame
+    Given a function to import movies data
+    When I call the function to retrieve the movies data
+    Then the data frame should have 651 rows and 34 columns
+    And the data frame should be of type 'data.frame'", 
+    code = {
+    # call function to import movies data
+    movies <- data$movies_data()
+    # test dimensions
+    expect_equal(
+      object = dim(movies), 
+      expected = c(651L, 34L))
+    # test class
+    expect_true(object = is.data.frame(movies))
+  })
+})
+```
+
+The test for `app/logic/plot.R` is below. Note this test imports the `app/logic/data` and `app/logic/plot` modules:
+
+```{r}
+#| eval: false 
+#| code-fold: false
+# import testthat and ggplot2 function
+box::use(
+  testthat[describe, it, expect_equal, expect_true],
+  ggplot2[is.ggplot]
+)
+# import data and plot modules
+box::use(
+  app / logic / data,
+  app / logic / plot
+)
+
+
+describe("Feature: Scatter Plot Generation Verification
+  As a data analyst,
+  I want to ensure that scatter_plot() generates a valid scatter plot
+  So that I can use it for visualizing relationships in movies data.", 
+  code = {
+  it("Scenario: Generating a scatter plot with specified parameters
+    Given a function to import movies data
+    And a function scatter_plot() from the plot module
+    When I call scatter_plot() with movies data
+    And specify x_var as 'critics_score'
+    And specify y_var as 'imdb_rating'
+    And specify col_var as 'mpaa_rating'
+    And set alpha_var to 2 / 3
+    And set size_var to 2
+    Then the function should return a ggplot object with a scatter plot",
+    code = {
+    # call function to import movies data
+    movies <- data$movies_data()
+    # test point plot
+    expect_true(
+      is.ggplot(
+          # call scatter_plot() from plot module
+          plot$scatter_plot(
+            df = movies,
+            x_var = 'critics_score', 
+            y_var = 'imdb_rating', 
+            col_var = 'mpaa_rating', 
+            alpha_var = 2 / 3,
+            size_var = 2
+          )
+        )
+      )
+  })
+})
+```
+
 ### Module tests
 
 We can test the application modules with Shiny's `testServer()` function. First we'll test that the reactive list of inputs is returned from `app/view/inputs`:
@@ -1173,8 +1279,6 @@ describe("Feature: Server Acceptance of Reactive Values
 
 These tests confirm the reactive values are passed between the `app/view/inputs` and the `app/view/display` modules. 
 
-### Running tests
-
 Running the `testthat` tests in `rap` app is *slightly* different than executing tests in an R package. The standard `devtools` functions and keyboard shortcuts aren't available, but `rhino` comes with a [`rhino::test_r()`](https://appsilon.github.io/rhino/reference/test_r.html) helper function to run all the tests in the `testthat/` folder:
 
 ```{bash}
@@ -1212,118 +1316,7 @@ Duration: 3.3 s
 ```
 
 
-## `app/main.R`
-
-After the `app/logic/` and `app/view/` code has been written and tested, the modules and layout functions can be included in `app/main.R`. 
-
--   `box::use()` is used to import the `shiny` and `shinythemes` functions: 
-
-    ```{r}
-    #| eval: false 
-    #| code-fold: false
-    # app/main.R
-    
-    # shiny functions
-    box::use(
-      shiny[
-        NS, fluidPage, sidebarLayout, sidebarPanel, 
-        mainPanel, fluidRow, column, tags, icon,
-        plotOutput, moduleServer, renderPlot
-      ],
-      shinythemes[shinytheme]
-    )
-    
-    # import modules
-    box::use(
-      # load inputs module ----
-      app / view / inputs,
-      # load display module ----
-      app / view / display
-    )
-    ```
-
-The `ui()` and `server()` functions in `app/main` look very similar to the `movies_ui()` and `movies_server()` functions, except we access the modules using the `$` operator.
-
--   The `ui()` function includes both `input$ui()` and `display$ui()`.
-
-    ```{r}
-    #| eval: false 
-    #| code-fold: false
-    #' rap ui
-    #' @export
-    ui <- function(id) {
-      ns <- NS(id)
-      fluidPage(
-        theme = shinytheme("spacelab"),
-        sidebarLayout(
-          sidebarPanel(
-            # use inputs module UI ----
-            inputs$ui(ns("vals"))
-          ),
-          mainPanel(
-            fluidRow(
-              column(
-                width = 12,
-                  tags$h3("rap")
-                )
-            ),
-            fluidRow(
-              column(
-                width = 1,
-                offset = 11,
-                # example info button ---
-                tags$button(
-                  id = "help-button",
-                  icon("info"),
-                  # add 'onclick' after rhino::build_sass()
-                  # and rhino::build_js()
-                  onclick = "App.showHelp()"
-                )
-              )
-            ),
-            fluidRow(
-              column(
-                width = 12,
-                # use display module UI ----
-                display$ui(ns("disp"))
-              )
-            )
-          )
-        )
-      )
-    }
-    ```
-    
-
--   The `server` function in `app/main.R` calls the `inputs$server()`, collects the input values as `selected_vars`, and passed these to `display$server()`:
-
-    ```{r}
-    #| eval: false 
-    #| code-fold: false
-    #' rap server
-    #' @export
-    server <- function(id) {
-      moduleServer(id, function(input, output, session) {
-        # use inputs module server ----
-        selected_vars <- inputs$server(id = "vals")
-        # use display module server ----
-        display$server(
-          id = "disp",
-          var_inputs = selected_vars
-        )
-      })
-    }
-    ```
-    
-After saving all the module files and `app/main.R`, we can run the app using `app.R`: 
-
-::: {#fig-rap_initial_launch}
-![](img/rap_initial_launch.png){#fig-rap_initial_launch height="100%" width="100%" fig-align="center"}
-
-initial `rap` launch
-:::
-
-## Adding non-R code 
+### Adding resources
 
 It's fairly straightforward to add external resources (i.e., JavaScript, CSS, Sass, etc.) to `rhino` apps. I'll use the [example from the website](https://appsilon.github.io/rhino/articles/tutorial/create-your-first-rhino-app.html#add-javascript-code) to demonstrate because it adds *both* CSS and JavaScript to the codebase.
 
@@ -1447,7 +1440,7 @@ Adding `.js` to `app/js/index.js` 'on click'
 
 
 
-## System tests ([`shinytest2`]{style="font-size: 0.83em;"})
+### System tests ([`shinytest2`]{style="font-size: 0.83em;"})
 
 System tests can also be written using [`shinytest2`](https://rstudio.github.io/shinytest2/). The tests below come from *System tests* chapter of Shiny App-Packages.[^system-tests-shinyap]
 
@@ -1505,7 +1498,7 @@ Duration: 11.8 s
 [ FAIL 0 | WARN 2 | SKIP 0 | PASS 1 ]
 ```
 
-### Modules in `rhino`
+#### Modules in `rhino`
 
 ::: {layout="[40,60]"}
 
@@ -1549,7 +1542,7 @@ It's important to keep these differences in mind when writing `shinytest2` tests
 
 [^modules-encapsulation]: This is referenced in the [Cypress tutorial](https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html#test-if-the-button-shows-the-message) when trying to identify the text output from the `app/view/message` module.
 
-### BDD system tests 
+#### BDD system tests 
 
 I've provided a few `shinytest2` example tests for the data visualization user-input features using `testthat`s BDD functions:[^feature-1-system-tests]
 
@@ -1607,7 +1600,7 @@ Note that these tests combine `testthat`'s `describe()` and `it()` functions wit
 
 [^system-tests-shinyap]: These system tests are written for a Shiny app in a [standard R package.](https://mjfrigaard.github.io/shiny-app-pkgs/test_system.html#shinytest2) 
 
-## System tests (Cypress)
+### System tests (Cypress)
 
 `rhino` apps extend the test suite to include the [Cypress test framework](https://www.cypress.io/). The Cypress testing framework relies on [node.js](https://nodejs.org/en). Every machine/setup is a little different, but I use [`homebrew`](https://brew.sh/), so I installed `node` with the following: 
 
@@ -1666,13 +1659,13 @@ npm -v
 ```
 
 
-### Clicks & message modules
+#### Click & message
 
 The Cypress tests below follow the example from the [`rhino` website](https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html). Below are two modules ([`clicks.R` and `message.R`](https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html#test-application)) that have been included in `app/view` (as `app/view/message.R` and `app/view/clicks.R`). 
 
 Both modules contain an `actionButton()` and `textOutput()`. Using `app/view/clicks` or `app/view/message` also requires adding both modules in the `app/main.R` file with `box::use()`:
 
-### [`app/main.R`]{style="font-size: 1.10em; font-weight: bold;"}
+#### Updated [`app/main.R`]{style="font-size: 0.90em; font-weight: bold;"}
 
 The updated `app/main.R` file:
 
@@ -1763,7 +1756,7 @@ The new 'clicks' and 'message' buttons are visible in the `mainPanel()`:
 
 ![](img/clicks_message.png){width="90%" fig-align="center"}
 
-### Running Cypress tests 
+#### Running Cypress tests 
 
 Cypress tests are stored in the `tests/cypress/integration/` folder:[^integration-vs-e2e]
 
@@ -1891,7 +1884,7 @@ tests/cypress
 4 directories, 2 files
 ```
 
-### Writing Cypress tests 
+#### Writing Cypress tests 
 
 I'll include the first test for the `app/view/message` module from the `rhino` cypress tutorial in the `tests/cypress/integration/` folder:
 
@@ -2006,7 +1999,7 @@ If we view the contents of `tests/cypress/videos/message.cy.js.mp4`, we see it o
 Contents of `tests/cypress/videos/message.cy.js.mp4`
 :::
 
-### Interactive tests
+#### Interactive tests
 
 After adding the second test for the `app/view/message` module, we'll run the test using `interactive = TRUE`, which opens the Cypress app window: 
 
