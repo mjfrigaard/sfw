@@ -654,30 +654,115 @@ co_box(color = "b",
 )
 ```
 
-### Data
+### UI
 
--  `movies.RData` was added to `inst/extdata` and loaded into the package with `usethis::use_data_raw()`
+`golem` UI contents are placed in `R/app_ui.R`: 
 
 ```{r}
-#| label: co_box_extdata
-#| eval: true 
-#| results: asis
-#| echo: false
-co_box(color = "b",
-  header = "Adding data to a package",
-  contents = "After calling `usethis::use_data_raw('movies')`, I can use `system.file()` to locate the external data file with the following code in `data-raw/movies.R`:
-  
-\`\`\` r
+#| code-fold: false
+#| eval: false
+#' The application User-Interface
+#'
+#' @param request Internal parameter for `{shiny}`.
+#'     DO NOT REMOVE.
+#'
+#' @keywords internal
+app_ui <- function(request) {
+  tagList(
+    # Leave this function for adding external resources
+    golem_add_external_resources(),
+    # Your application UI logic
+    fluidPage(
+      sidebarLayout(
+        sidebarPanel(
+          mod_var_input_ui("vars")
+        ),
+        mainPanel(
+          fluidRow(
+            br(),
+            p(em("Brought to you by: "),
+              # add golem hex (in www/)
+              img(src = "www/golem-hex.png", width = "5%")
+            )
+          ),
+          mod_scatter_display_ui("plot")
+        )
+      )
+    )
+  )
+}
+```
+
+
+### Server
+
+The module server functions are added to `R/app_server.R`:
+
+```{r}
+#| code-fold: false
+#| eval: false
+#' The application server-side
+#'
+#' @param input,output,session Internal parameters for {shiny}.
+#'     DO NOT REMOVE.
+#'
+#'
+#' @keywords internal
+app_server <- function(input, output, session) {
+  # Your application server logic
+   selected_vars <- mod_var_input_server("vars")
+   
+   mod_scatter_display_server("plot", var_inputs = selected_vars)
+}
+
+```
+
+### Data
+
+`movies.RData` is added to `inst/extdata` and loaded into the package with `data-raw/movies.R`:
+
+```{r}
+#| code-fold: false
+#| eval: false
 ## code to prepare `movies` dataset goes here
 pth <- system.file('extdata/movies.RData', package = 'gap')
 load(pth)
 usethis::use_data(movies, overwrite = TRUE)
-\`\`\`
-  
-This keeps the original data (`extdata/movies.RData`) separate from the package data (`data/movies.rda`).
-  
-")
 ```
+
+After calling `usethis::use_data_raw('movies')`, we use `system.file()` to locate the `inst/extdata/movies.RData` file with the code in `data-raw/movies.R` and save it in the `data/` folder.
+
+### Launch
+
+`golem` has helper functions for adding the root `app.R` file to launch the application: 
+
+-   `golem::add_rstudioconnect_file()`
+
+-   `golem::add_shinyserver_file()`
+
+-   `golem::add_shinyappsio_file()`
+
+The contents of the `app.R` file generated from `golem::add_rstudioconnect_file()` are below: 
+
+```{r}
+#| code-fold: false
+#| eval: false
+# Launch the ShinyApp (Do not remove this comment)
+# To deploy, run: rsconnect::deployApp()
+# Or use the blue button on top of this file
+
+pkgload::load_all(export_all = FALSE, helpers = FALSE, attach_testthat = FALSE)
+options( "golem.app.prod" = TRUE)
+gap::run_app() # add parameters here (if any)
+```
+
+After running `devtools::load_all()`, `devtools::document()`, `devtools::install()`, the application can be launched from the `app.R` file (or by entering `gap::run_app()` in the **Console**).
+
+::: {#fig-golem_app_initial .column}
+![Initial `gap::run_app()`](img/golem_app_initial.png){#fig-golem_app_initial width="100%" fig-align="center"}
+
+The initial application in the `gap` package
+:::
 
 ### Unit tests
 

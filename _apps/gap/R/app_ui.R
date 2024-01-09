@@ -13,16 +13,16 @@ app_ui <- function(request) {
       sidebarLayout(
         sidebarPanel(
           mod_var_input_ui("vars"),
-          h6(
-            img(src = "www/shiny.png", width = "15%"),
-            em(
-              "The data for this application comes from the ",
-              a("Building web applications with Shiny",
-                href = "https://rstudio-education.github.io/shiny-course/"
-              ),
-              "tutorial"
-            )
-          )
+          # h6(
+          #   img(src = "www/shiny.png", width = "15%"),
+          #   em(
+          #     "The data for this application comes from the ",
+          #     a("Building web applications with Shiny",
+          #       href = "https://rstudio-education.github.io/shiny-course/"
+          #     ),
+          #     "tutorial"
+          #   )
+          # )
         ),
         mainPanel(
           fluidRow(

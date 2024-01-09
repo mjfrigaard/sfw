@@ -181,7 +181,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#modules" id="toc-modules" class="nav-link" data-scroll-target="#modules">Modules</a></li>
   <li><a href="#utility-functions" id="toc-utility-functions" class="nav-link" data-scroll-target="#utility-functions">Utility functions</a></li>
+  <li><a href="#ui" id="toc-ui" class="nav-link" data-scroll-target="#ui">UI</a></li>
+  <li><a href="#server" id="toc-server" class="nav-link" data-scroll-target="#server">Server</a></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#launch" id="toc-launch" class="nav-link" data-scroll-target="#launch">Launch</a></li>
   <li><a href="#unit-tests" id="toc-unit-tests" class="nav-link" data-scroll-target="#unit-tests">Unit tests</a></li>
   <li><a href="#system-tests" id="toc-system-tests" class="nav-link" data-scroll-target="#system-tests">System tests</a></li>
   <li><a href="#test-coverage" id="toc-test-coverage" class="nav-link" data-scroll-target="#test-coverage">Test coverage</a></li>
@@ -755,45 +758,113 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
+<section id="ui" class="level3">
+<h3 class="anchored" data-anchor-id="ui">UI</h3>
+<p><code>golem</code> UI contents are placed in <code>R/app_ui.R</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' The application User-Interface</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param request Internal parameter for `{shiny}`.</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co">#'     DO NOT REMOVE.</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="co">#' @keywords internal</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>app_ui <span class="ot">&lt;-</span> <span class="cf">function</span>(request) {</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tagList</span>(</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Leave this function for adding external resources</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">golem_add_external_resources</span>(),</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Your application UI logic</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fluidPage</span>(</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sidebarLayout</span>(</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sidebarPanel</span>(</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mod_var_input_ui</span>(<span class="st">"vars"</span>)</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mainPanel</span>(</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>          <span class="fu">fluidRow</span>(</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>            <span class="fu">br</span>(),</span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>            <span class="fu">p</span>(<span class="fu">em</span>(<span class="st">"Brought to you by: "</span>),</span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>              <span class="co"># add golem hex (in www/)</span></span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>              <span class="fu">img</span>(<span class="at">src =</span> <span class="st">"www/golem-hex.png"</span>, <span class="at">width =</span> <span class="st">"5%"</span>)</span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a>          ),</span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mod_scatter_display_ui</span>(<span class="st">"plot"</span>)</span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb33-30"><a href="#cb33-30" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="server" class="level3">
+<h3 class="anchored" data-anchor-id="server">Server</h3>
+<p>The module server functions are added to <code>R/app_server.R</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' The application server-side</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param input,output,session Internal parameters for {shiny}.</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co">#'     DO NOT REMOVE.</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co">#' @keywords internal</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>app_server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Your application server logic</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>   selected_vars <span class="ot">&lt;-</span> <span class="fu">mod_var_input_server</span>(<span class="st">"vars"</span>)</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mod_scatter_display_server</span>(<span class="st">"plot"</span>, <span class="at">var_inputs =</span> selected_vars)</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
 <section id="data" class="level3">
 <h3 class="anchored" data-anchor-id="data">Data</h3>
+<p><code>movies.RData</code> is added to <code>inst/extdata</code> and loaded into the package with <code>data-raw/movies.R</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="do">## code to prepare `movies` dataset goes here</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>pth <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">'extdata/movies.RData'</span>, <span class="at">package =</span> <span class="st">'gap'</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(pth)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(movies, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>After calling <code>usethis::use_data_raw('movies')</code>, we use <code>system.file()</code> to locate the <code>inst/extdata/movies.RData</code> file with the code in <code>data-raw/movies.R</code> and save it in the <code>data/</code> folder.</p>
+</section>
+<section id="launch" class="level3">
+<h3 class="anchored" data-anchor-id="launch">Launch</h3>
+<p><code>golem</code> has helper functions for adding the root <code>app.R</code> file to launch the application:</p>
 <ul>
-<li><code>movies.RData</code> was added to <code>inst/extdata</code> and loaded into the package with <code>usethis::use_data_raw()</code></li>
+<li><p><code>golem::add_rstudioconnect_file()</code></p></li>
+<li><p><code>golem::add_shinyserver_file()</code></p></li>
+<li><p><code>golem::add_shinyappsio_file()</code></p></li>
 </ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<p>The contents of the <code>app.R</code> file generated from <code>golem::add_rstudioconnect_file()</code> are below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Launch the ShinyApp (Do not remove this comment)</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># To deploy, run: rsconnect::deployApp()</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Or use the blue button on top of this file</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>pkgload<span class="sc">::</span><span class="fu">load_all</span>(<span class="at">export_all =</span> <span class="cn">FALSE</span>, <span class="at">helpers =</span> <span class="cn">FALSE</span>, <span class="at">attach_testthat =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>( <span class="st">"golem.app.prod"</span> <span class="ot">=</span> <span class="cn">TRUE</span>)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>gap<span class="sc">::</span><span class="fu">run_app</span>() <span class="co"># add parameters here (if any)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout-title-container flex-fill">
-<span style="font-weight: bold; font-size: 1.10em;">Adding data to a package</span>
+<p>After running <code>devtools::load_all()</code>, <code>devtools::document()</code>, <code>devtools::install()</code>, the application can be launched from the <code>app.R</code> file (or by entering <code>gap::run_app()</code> in the <strong>Console</strong>).</p>
+<div id="fig-golem_app_initial" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<div id="fig-golem_app_initial" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/golem_app_initial.png" class="img-fluid figure-img" style="width:100.0%" data-ref-parent="fig-golem_app_initial"></p>
+<figcaption class="figure-caption">(a) Initial <code>gap::run_app()</code></figcaption>
+</figure>
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<div style="font-size: 1.05em; color: #282b2d;">
-<p>After calling <code>usethis::use_data_raw('movies')</code>, I can use <code>system.file()</code> to locate the external data file with the following code in <code>data-raw/movies.R</code>:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="do">## code to prepare `movies` dataset goes here</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>pth <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">'extdata/movies.RData'</span>, <span class="at">package =</span> <span class="st">'gap'</span>)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(pth)</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(movies, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This keeps the original data (<code>extdata/movies.RData</code>) separate from the package data (<code>data/movies.rda</code>).</p>
-</div>
-</div>
-</div>
+<figcaption class="figure-caption">Figure&nbsp;3: The initial application in the <code>gap</code> package</figcaption>
+</figure>
 </div>
 </section>
 <section id="unit-tests" class="level3">
 <h3 class="anchored" data-anchor-id="unit-tests">Unit tests</h3>
 <p><code>golem</code> apps come with boilerplate unit tests via <code>use_recommended_tests()</code>, <code>use_utils_ui(with_test = TRUE)</code>, <code>use_utils_server(with_test = TRUE)</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tests/testthat/</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>            <span class="ex">├──</span> test-golem-recommended.R</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>            <span class="ex">├──</span> test-golem_utils_server.R</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>            <span class="ex">└──</span> test-golem_utils_ui.R</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="ex">2</span> directories, 3 files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tests/testthat/</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>            <span class="ex">├──</span> test-golem-recommended.R</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>            <span class="ex">├──</span> test-golem_utils_server.R</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>            <span class="ex">└──</span> test-golem_utils_ui.R</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="ex">2</span> directories, 3 files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>During development, we can include unit tests for new modules and/or functions using the <code>with_test = TRUE</code> argument.</p>
 </section>
@@ -801,78 +872,78 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="system-tests">System tests</h3>
 <p>System tests can be performed with <code>shinytest2</code> (similar to non-package or non-<code>golem</code> apps). Two example <code>shinytest2</code> tests can be found in <code>test-shinytest2.R</code> and <code>test-app-feature-01.R</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tests</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> testthat</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> fixtures</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   ├── make-tidy_ggp2_movies.R</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   └── tidy_ggp2_movies.rds</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> helper.R</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> setup-shinytest2.R</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> test-app-feature-01.R</span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> test-shinytest2.R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tests</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> testthat</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> fixtures</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   ├── make-tidy_ggp2_movies.R</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   └── tidy_ggp2_movies.rds</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> helper.R</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> setup-shinytest2.R</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> test-app-feature-01.R</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> test-shinytest2.R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><p><code>test-shinytest2.R</code> contains the boilerplate test from running <code>shinytest2::record_test()</code>:</p>
 <div class="cell">
 <details>
 <summary>show/hide test-shinytest2.R</summary>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shinytest2)</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">"{shinytest2} recording: feature-01"</span>, {</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  app <span class="ot">&lt;-</span> AppDriver<span class="sc">$</span><span class="fu">new</span>(<span class="at">name =</span> <span class="st">"feature-01"</span>, <span class="at">height =</span> <span class="dv">800</span>, <span class="at">width =</span> <span class="dv">1173</span>)</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-y</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"imdb_num_votes"</span>)</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-x</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"critics_score"</span>)</span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-z</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"genre"</span>)</span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-alpha</span><span class="st">`</span> <span class="ot">=</span> <span class="fl">0.7</span>)</span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-size</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">3</span>)</span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-plot_title</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"New plot title"</span>)</span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>  app<span class="sc">$</span><span class="fu">expect_values</span>()</span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shinytest2)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">"{shinytest2} recording: feature-01"</span>, {</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  app <span class="ot">&lt;-</span> AppDriver<span class="sc">$</span><span class="fu">new</span>(<span class="at">name =</span> <span class="st">"feature-01"</span>, <span class="at">height =</span> <span class="dv">800</span>, <span class="at">width =</span> <span class="dv">1173</span>)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-y</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"imdb_num_votes"</span>)</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-x</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"critics_score"</span>)</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-z</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"genre"</span>)</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-alpha</span><span class="st">`</span> <span class="ot">=</span> <span class="fl">0.7</span>)</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-size</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">3</span>)</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-plot_title</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"New plot title"</span>)</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>  app<span class="sc">$</span><span class="fu">expect_values</span>()</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div></li>
 <li><p><code>test-app-feature-01.R</code> contains <code>testthat</code>s BDD functions describing an app feature and scenario:</p>
 <div class="cell">
 <details>
 <summary>show/hide test-app-feature-01.R</summary>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shinytest2)</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(<span class="st">"Feature 1: Scatter plot data visualization dropdowns</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="st">           As a film data analyst</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="st">           I want to explore variables in the movie review data</span></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="st">           So that I can analyze relationships between movie reivew sources"</span>, {</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">describe</span>(<span class="st">"Scenario A: Change dropdown values for plotting</span></span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="st">             Given the movie review application is loaded</span></span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="st">             When I choose the variable [critics_score] for the x-axis</span></span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="st">             And I choose the variable [imdb_num_votes] for the y-axis</span></span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="st">             And I choose the variable [genre] for the color"</span>, {</span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">it</span>(<span class="st">"Then the scatter plot should show [critics_score] on the x-axis</span></span>
-<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="st">             And the scatter plot should show [imdb_num_votes] on the y-axis</span></span>
-<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="st">             And the points on the scatter plot should be colored by [genre]"</span>, {</span>
-<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>              app <span class="ot">&lt;-</span> AppDriver<span class="sc">$</span><span class="fu">new</span>(<span class="at">name =</span> <span class="st">"feature-01-senario-a"</span>,</span>
-<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">height =</span> <span class="dv">800</span>, <span class="at">width =</span> <span class="dv">1173</span>)</span>
-<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-y</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"imdb_num_votes"</span>)</span>
-<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-x</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"critics_score"</span>)</span>
-<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-z</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"genre"</span>)</span>
-<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">expect_values</span>()</span>
-<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a>       })</span>
-<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a>   })</span>
-<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">describe</span>(<span class="st">"Scenario B: Change dropdown values for plotting</span></span>
-<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a><span class="st">              Given the movie review application is loaded</span></span>
-<span id="cb37-26"><a href="#cb37-26" aria-hidden="true" tabindex="-1"></a><span class="st">              When I choose the size of the points to be [3]</span></span>
-<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a><span class="st">              And I choose the opacity of the points to be [0.7]</span></span>
-<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a><span class="st">              And I enter '[New plot title]' for the plot title"</span>, {</span>
-<span id="cb37-29"><a href="#cb37-29" aria-hidden="true" tabindex="-1"></a>         <span class="fu">it</span>(<span class="st">"Then the size of the points on the scatter plot should be [3]</span></span>
-<span id="cb37-30"><a href="#cb37-30" aria-hidden="true" tabindex="-1"></a><span class="st">              And the opacity of the points on the scatter plot should be [0.7]</span></span>
-<span id="cb37-31"><a href="#cb37-31" aria-hidden="true" tabindex="-1"></a><span class="st">              And the title of the plot should be '[New plot title]'"</span>, {</span>
-<span id="cb37-32"><a href="#cb37-32" aria-hidden="true" tabindex="-1"></a>              app <span class="ot">&lt;-</span> AppDriver<span class="sc">$</span><span class="fu">new</span>(<span class="at">name =</span> <span class="st">"feature-01-senario-b"</span>,</span>
-<span id="cb37-33"><a href="#cb37-33" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">height =</span> <span class="dv">800</span>, <span class="at">width =</span> <span class="dv">1173</span>)</span>
-<span id="cb37-34"><a href="#cb37-34" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-alpha</span><span class="st">`</span> <span class="ot">=</span> <span class="fl">0.7</span>)</span>
-<span id="cb37-35"><a href="#cb37-35" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-size</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">3</span>)</span>
-<span id="cb37-36"><a href="#cb37-36" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-plot_title</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"New plot title"</span>)</span>
-<span id="cb37-37"><a href="#cb37-37" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">expect_values</span>()</span>
-<span id="cb37-38"><a href="#cb37-38" aria-hidden="true" tabindex="-1"></a>        })</span>
-<span id="cb37-39"><a href="#cb37-39" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb37-40"><a href="#cb37-40" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shinytest2)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(<span class="st">"Feature 1: Scatter plot data visualization dropdowns</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="st">           As a film data analyst</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="st">           I want to explore variables in the movie review data</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="st">           So that I can analyze relationships between movie reivew sources"</span>, {</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">describe</span>(<span class="st">"Scenario A: Change dropdown values for plotting</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="st">             Given the movie review application is loaded</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="st">             When I choose the variable [critics_score] for the x-axis</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="st">             And I choose the variable [imdb_num_votes] for the y-axis</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="st">             And I choose the variable [genre] for the color"</span>, {</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">it</span>(<span class="st">"Then the scatter plot should show [critics_score] on the x-axis</span></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a><span class="st">             And the scatter plot should show [imdb_num_votes] on the y-axis</span></span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a><span class="st">             And the points on the scatter plot should be colored by [genre]"</span>, {</span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>              app <span class="ot">&lt;-</span> AppDriver<span class="sc">$</span><span class="fu">new</span>(<span class="at">name =</span> <span class="st">"feature-01-senario-a"</span>,</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">height =</span> <span class="dv">800</span>, <span class="at">width =</span> <span class="dv">1173</span>)</span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-y</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"imdb_num_votes"</span>)</span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-x</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"critics_score"</span>)</span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-z</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"genre"</span>)</span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">expect_values</span>()</span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>       })</span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>   })</span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">describe</span>(<span class="st">"Scenario B: Change dropdown values for plotting</span></span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a><span class="st">              Given the movie review application is loaded</span></span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a><span class="st">              When I choose the size of the points to be [3]</span></span>
+<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a><span class="st">              And I choose the opacity of the points to be [0.7]</span></span>
+<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a><span class="st">              And I enter '[New plot title]' for the plot title"</span>, {</span>
+<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a>         <span class="fu">it</span>(<span class="st">"Then the size of the points on the scatter plot should be [3]</span></span>
+<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a><span class="st">              And the opacity of the points on the scatter plot should be [0.7]</span></span>
+<span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a><span class="st">              And the title of the plot should be '[New plot title]'"</span>, {</span>
+<span id="cb40-32"><a href="#cb40-32" aria-hidden="true" tabindex="-1"></a>              app <span class="ot">&lt;-</span> AppDriver<span class="sc">$</span><span class="fu">new</span>(<span class="at">name =</span> <span class="st">"feature-01-senario-b"</span>,</span>
+<span id="cb40-33"><a href="#cb40-33" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">height =</span> <span class="dv">800</span>, <span class="at">width =</span> <span class="dv">1173</span>)</span>
+<span id="cb40-34"><a href="#cb40-34" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-alpha</span><span class="st">`</span> <span class="ot">=</span> <span class="fl">0.7</span>)</span>
+<span id="cb40-35"><a href="#cb40-35" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-size</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">3</span>)</span>
+<span id="cb40-36"><a href="#cb40-36" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">set_inputs</span>(<span class="st">`</span><span class="at">vars-plot_title</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"New plot title"</span>)</span>
+<span id="cb40-37"><a href="#cb40-37" aria-hidden="true" tabindex="-1"></a>                app<span class="sc">$</span><span class="fu">expect_values</span>()</span>
+<span id="cb40-38"><a href="#cb40-38" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb40-39"><a href="#cb40-39" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb40-40"><a href="#cb40-40" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div></li>
 </ul>
@@ -885,64 +956,64 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="adding-files-and-images">Adding files and images</h3>
 <p>To include other files (like images), add the image file to <code>inst/app/www/</code>, then add the <code>www/</code> to the path (see example UI code below)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add icon</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span>tags<span class="sc">$</span><span class="fu">img</span>(<span class="at">src =</span> <span class="st">"www/shiny.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add icon</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span>tags<span class="sc">$</span><span class="fu">img</span>(<span class="at">src =</span> <span class="st">"www/shiny.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If I wanted to include images in their own folder (like <code>images/</code>), I can use <code>golem::addResourcePath()</code> to add the name of the sub-folder to <code>inst/app/</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add icon</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>golem<span class="sc">::</span><span class="fu">add_resource_path</span>(</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">prefix =</span> <span class="st">'images'</span>, </span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">directoryPath =</span> <span class="fu">system.file</span>(<span class="st">'app/images'</span>, </span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">package =</span> <span class="st">'gap'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add icon</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>golem<span class="sc">::</span><span class="fu">add_resource_path</span>(</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">prefix =</span> <span class="st">'images'</span>, </span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">directoryPath =</span> <span class="fu">system.file</span>(<span class="st">'app/images'</span>, </span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">package =</span> <span class="st">'gap'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now I can add the image file to the <code>inst/app/www/images/</code> folder and include the following code in the UI:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add icon</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span>tags<span class="sc">$</span><span class="fu">img</span>(<span class="at">src =</span> <span class="st">"www/images/golem-hex.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add icon</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span>tags<span class="sc">$</span><span class="fu">img</span>(<span class="at">src =</span> <span class="st">"www/images/golem-hex.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In <code>R/app_ui.R</code>, the <code>app_ui()</code> function contains the UI layout functions (<code>fluidPage()</code>, <code>sidebarLayout()</code>, etc.), and a call to <code>golem_add_external_resources()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' The application User-Interface</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param request Internal parameter for `{shiny}`.</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co">#'     DO NOT REMOVE.</span></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co">#' @import shiny</span></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="co">#' @noRd</span></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>app_ui <span class="ot">&lt;-</span> <span class="cf">function</span>(request) {</span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tagList</span>(</span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Leave this function for adding external resources</span></span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">golem_add_external_resources</span>(),</span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Your application UI logic</span></span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fluidPage</span>(</span>
-<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sidebarLayout</span>(</span>
-<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sidebarPanel</span>(</span>
-<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mod_var_ui</span>(<span class="st">"vars"</span>),</span>
-<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>          <span class="fu">h6</span>(</span>
-<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>            <span class="fu">img</span>(<span class="at">src =</span> <span class="st">"www/images/shiny.png"</span>, <span class="at">width =</span> <span class="st">"15%"</span>),</span>
-<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>            <span class="fu">em</span>(</span>
-<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>              <span class="st">"The data for this application comes from the "</span>,</span>
-<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>              <span class="fu">a</span>(<span class="st">"Building web applications with Shiny"</span>,</span>
-<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>                <span class="at">href =</span> <span class="st">"https://rstudio-education.github.io/shiny-course/"</span></span>
-<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>              ),</span>
-<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>              <span class="st">"tutorial"</span></span>
-<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a>            )</span>
-<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a>          )</span>
-<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a>        ),</span>
-<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mainPanel</span>(</span>
-<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a>          <span class="fu">fluidRow</span>(</span>
-<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a>            <span class="fu">br</span>(),</span>
-<span id="cb41-30"><a href="#cb41-30" aria-hidden="true" tabindex="-1"></a>            <span class="fu">p</span>(<span class="fu">em</span>(<span class="st">"Brought to you by: "</span>),</span>
-<span id="cb41-31"><a href="#cb41-31" aria-hidden="true" tabindex="-1"></a>              <span class="co"># add golem hex (in www/images/)</span></span>
-<span id="cb41-32"><a href="#cb41-32" aria-hidden="true" tabindex="-1"></a>              <span class="fu">img</span>(<span class="at">src =</span> <span class="st">"www/images/golem-hex.png"</span>, <span class="at">width =</span> <span class="st">"5%"</span>)</span>
-<span id="cb41-33"><a href="#cb41-33" aria-hidden="true" tabindex="-1"></a>            )</span>
-<span id="cb41-34"><a href="#cb41-34" aria-hidden="true" tabindex="-1"></a>          ),</span>
-<span id="cb41-35"><a href="#cb41-35" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mod_plot_ui</span>(<span class="st">"plot"</span>)</span>
-<span id="cb41-36"><a href="#cb41-36" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb41-37"><a href="#cb41-37" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb41-38"><a href="#cb41-38" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb41-39"><a href="#cb41-39" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb41-40"><a href="#cb41-40" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' The application User-Interface</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param request Internal parameter for `{shiny}`.</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co">#'     DO NOT REMOVE.</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="co">#' @import shiny</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="co">#' @noRd</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>app_ui <span class="ot">&lt;-</span> <span class="cf">function</span>(request) {</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tagList</span>(</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Leave this function for adding external resources</span></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">golem_add_external_resources</span>(),</span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Your application UI logic</span></span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fluidPage</span>(</span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sidebarLayout</span>(</span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sidebarPanel</span>(</span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mod_var_ui</span>(<span class="st">"vars"</span>),</span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>          <span class="fu">h6</span>(</span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>            <span class="fu">img</span>(<span class="at">src =</span> <span class="st">"www/images/shiny.png"</span>, <span class="at">width =</span> <span class="st">"15%"</span>),</span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a>            <span class="fu">em</span>(</span>
+<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a>              <span class="st">"The data for this application comes from the "</span>,</span>
+<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a>              <span class="fu">a</span>(<span class="st">"Building web applications with Shiny"</span>,</span>
+<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a>                <span class="at">href =</span> <span class="st">"https://rstudio-education.github.io/shiny-course/"</span></span>
+<span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a>              ),</span>
+<span id="cb44-23"><a href="#cb44-23" aria-hidden="true" tabindex="-1"></a>              <span class="st">"tutorial"</span></span>
+<span id="cb44-24"><a href="#cb44-24" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb44-25"><a href="#cb44-25" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="cb44-26"><a href="#cb44-26" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb44-27"><a href="#cb44-27" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mainPanel</span>(</span>
+<span id="cb44-28"><a href="#cb44-28" aria-hidden="true" tabindex="-1"></a>          <span class="fu">fluidRow</span>(</span>
+<span id="cb44-29"><a href="#cb44-29" aria-hidden="true" tabindex="-1"></a>            <span class="fu">br</span>(),</span>
+<span id="cb44-30"><a href="#cb44-30" aria-hidden="true" tabindex="-1"></a>            <span class="fu">p</span>(<span class="fu">em</span>(<span class="st">"Brought to you by: "</span>),</span>
+<span id="cb44-31"><a href="#cb44-31" aria-hidden="true" tabindex="-1"></a>              <span class="co"># add golem hex (in www/images/)</span></span>
+<span id="cb44-32"><a href="#cb44-32" aria-hidden="true" tabindex="-1"></a>              <span class="fu">img</span>(<span class="at">src =</span> <span class="st">"www/images/golem-hex.png"</span>, <span class="at">width =</span> <span class="st">"5%"</span>)</span>
+<span id="cb44-33"><a href="#cb44-33" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb44-34"><a href="#cb44-34" aria-hidden="true" tabindex="-1"></a>          ),</span>
+<span id="cb44-35"><a href="#cb44-35" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mod_plot_ui</span>(<span class="st">"plot"</span>)</span>
+<span id="cb44-36"><a href="#cb44-36" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb44-37"><a href="#cb44-37" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb44-38"><a href="#cb44-38" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb44-39"><a href="#cb44-39" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb44-40"><a href="#cb44-40" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>After running <code>devtools::load_all()</code>, <code>devtools::document()</code>, <code>devtools::install()</code>, the image is properly rendered with the application:</p>
 <div id="fig-run_app_gap" class="quarto-figure quarto-figure-center anchored">
@@ -953,11 +1024,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption class="figure-caption">(a) <code>gap::run_app()</code></figcaption>
 </figure>
 </div>
-<figcaption class="figure-caption">Figure&nbsp;3: Images in <code>gap</code></figcaption>
+<figcaption class="figure-caption">Figure&nbsp;4: Images in <code>gap</code></figcaption>
 </figure>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -966,52 +1037,52 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div style="font-size: 1.05em; color: #282b2d;">
 <p><code>golem</code> takes advantage of the <code>inst/</code> folder and R package structure to allow users to provide additional ‘assets’ to the application.</p>
 <p>For example, if we use <code>system.file()</code> on the local directory (<code>'.'</code>), we see all the folders available to the application <em>at runtime</em></p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="at">path =</span> <span class="fu">system.file</span>(<span class="st">''</span>, <span class="at">package =</span> <span class="st">'gap'</span>))</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="sc">/</span>Library<span class="sc">/</span>Frameworks<span class="sc">/</span>R.framework<span class="sc">/</span>Versions<span class="sc">/</span><span class="fl">4.3</span><span class="sc">-</span>x86_64<span class="sc">/</span>Resources<span class="sc">/</span>library<span class="sc">/</span>gap<span class="sc">/</span>.</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>├── DESCRIPTION</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>├── INDEX</span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>├── LICENSE</span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>├── Meta</span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>│   ├── Rd.rds</span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>│   ├── data.rds</span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>│   ├── features.rds</span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>│   ├── hsearch.rds</span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>│   ├── links.rds</span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>│   ├── nsInfo.rds</span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>│   └── package.rds</span>
-<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>├── NAMESPACE</span>
-<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>├── R</span>
-<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>│   ├── gap</span>
-<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>│   ├── gap.rdb</span>
-<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>│   └── gap.rdx</span>
-<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>├── WORDLIST</span>
-<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>├── app</span>
-<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>│   └── www</span>
-<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>│       ├── favicon.ico</span>
-<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>│       └── images</span>
-<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>│           ├── golem<span class="sc">-</span>hex.png</span>
-<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>│           └── shiny.png</span>
-<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a>├── data</span>
-<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a>│   ├── Rdata.rdb</span>
-<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a>│   ├── Rdata.rds</span>
-<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a>│   └── Rdata.rdx</span>
-<span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a>├── extdata</span>
-<span id="cb42-31"><a href="#cb42-31" aria-hidden="true" tabindex="-1"></a>│   └── movies.RData</span>
-<span id="cb42-32"><a href="#cb42-32" aria-hidden="true" tabindex="-1"></a>├── golem<span class="sc">-</span>config.yml</span>
-<span id="cb42-33"><a href="#cb42-33" aria-hidden="true" tabindex="-1"></a>├── help</span>
-<span id="cb42-34"><a href="#cb42-34" aria-hidden="true" tabindex="-1"></a>│   ├── AnIndex</span>
-<span id="cb42-35"><a href="#cb42-35" aria-hidden="true" tabindex="-1"></a>│   ├── aliases.rds</span>
-<span id="cb42-36"><a href="#cb42-36" aria-hidden="true" tabindex="-1"></a>│   ├── gap.rdb</span>
-<span id="cb42-37"><a href="#cb42-37" aria-hidden="true" tabindex="-1"></a>│   ├── gap.rdx</span>
-<span id="cb42-38"><a href="#cb42-38" aria-hidden="true" tabindex="-1"></a>│   └── paths.rds</span>
-<span id="cb42-39"><a href="#cb42-39" aria-hidden="true" tabindex="-1"></a>└── html</span>
-<span id="cb42-40"><a href="#cb42-40" aria-hidden="true" tabindex="-1"></a>    ├── 00Index.html</span>
-<span id="cb42-41"><a href="#cb42-41" aria-hidden="true" tabindex="-1"></a>    └── R.css</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="at">path =</span> <span class="fu">system.file</span>(<span class="st">''</span>, <span class="at">package =</span> <span class="st">'gap'</span>))</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="sc">/</span>Library<span class="sc">/</span>Frameworks<span class="sc">/</span>R.framework<span class="sc">/</span>Versions<span class="sc">/</span><span class="fl">4.3</span><span class="sc">-</span>x86_64<span class="sc">/</span>Resources<span class="sc">/</span>library<span class="sc">/</span>gap<span class="sc">/</span>.</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>├── DESCRIPTION</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>├── INDEX</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>├── LICENSE</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>├── Meta</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>│   ├── Rd.rds</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>│   ├── data.rds</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>│   ├── features.rds</span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>│   ├── hsearch.rds</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>│   ├── links.rds</span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>│   ├── nsInfo.rds</span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>│   └── package.rds</span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a>├── NAMESPACE</span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>├── R</span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a>│   ├── gap</span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a>│   ├── gap.rdb</span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a>│   └── gap.rdx</span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a>├── WORDLIST</span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>├── app</span>
+<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a>│   └── www</span>
+<span id="cb45-22"><a href="#cb45-22" aria-hidden="true" tabindex="-1"></a>│       ├── favicon.ico</span>
+<span id="cb45-23"><a href="#cb45-23" aria-hidden="true" tabindex="-1"></a>│       └── images</span>
+<span id="cb45-24"><a href="#cb45-24" aria-hidden="true" tabindex="-1"></a>│           ├── golem<span class="sc">-</span>hex.png</span>
+<span id="cb45-25"><a href="#cb45-25" aria-hidden="true" tabindex="-1"></a>│           └── shiny.png</span>
+<span id="cb45-26"><a href="#cb45-26" aria-hidden="true" tabindex="-1"></a>├── data</span>
+<span id="cb45-27"><a href="#cb45-27" aria-hidden="true" tabindex="-1"></a>│   ├── Rdata.rdb</span>
+<span id="cb45-28"><a href="#cb45-28" aria-hidden="true" tabindex="-1"></a>│   ├── Rdata.rds</span>
+<span id="cb45-29"><a href="#cb45-29" aria-hidden="true" tabindex="-1"></a>│   └── Rdata.rdx</span>
+<span id="cb45-30"><a href="#cb45-30" aria-hidden="true" tabindex="-1"></a>├── extdata</span>
+<span id="cb45-31"><a href="#cb45-31" aria-hidden="true" tabindex="-1"></a>│   └── movies.RData</span>
+<span id="cb45-32"><a href="#cb45-32" aria-hidden="true" tabindex="-1"></a>├── golem<span class="sc">-</span>config.yml</span>
+<span id="cb45-33"><a href="#cb45-33" aria-hidden="true" tabindex="-1"></a>├── help</span>
+<span id="cb45-34"><a href="#cb45-34" aria-hidden="true" tabindex="-1"></a>│   ├── AnIndex</span>
+<span id="cb45-35"><a href="#cb45-35" aria-hidden="true" tabindex="-1"></a>│   ├── aliases.rds</span>
+<span id="cb45-36"><a href="#cb45-36" aria-hidden="true" tabindex="-1"></a>│   ├── gap.rdb</span>
+<span id="cb45-37"><a href="#cb45-37" aria-hidden="true" tabindex="-1"></a>│   ├── gap.rdx</span>
+<span id="cb45-38"><a href="#cb45-38" aria-hidden="true" tabindex="-1"></a>│   └── paths.rds</span>
+<span id="cb45-39"><a href="#cb45-39" aria-hidden="true" tabindex="-1"></a>└── html</span>
+<span id="cb45-40"><a href="#cb45-40" aria-hidden="true" tabindex="-1"></a>    ├── 00Index.html</span>
+<span id="cb45-41"><a href="#cb45-41" aria-hidden="true" tabindex="-1"></a>    └── R.css</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -1025,29 +1096,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h4 class="anchored" data-anchor-id="add_dockerfile"><span style="font-size: 0.82em; font-weight: bold;"><code>add_dockerfile</code></span></h4>
 <p><code>add_dockerfile()</code> results in the following <code>Dockerfile</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="ex">FROM</span> rocker/verse:4.3.2</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> apt-get update <span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> install <span class="at">-y</span>  libicu-dev libxml2-dev make pandoc zlib1g-dev <span class="kw">&amp;&amp;</span> <span class="fu">rm</span> <span class="at">-rf</span> /var/lib/apt/lists/<span class="pp">*</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> mkdir <span class="at">-p</span> /usr/local/lib/R/etc/ /usr/lib/R/etc/</span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> echo <span class="st">"options(repos = c(CRAN = 'https://cran.rstudio.com/'), download.file.method = 'libcurl', Ncpus = 4)"</span> <span class="kw">|</span> <span class="fu">tee</span> /usr/local/lib/R/etc/Rprofile.site <span class="kw">|</span> <span class="fu">tee</span> /usr/lib/R/etc/Rprofile.site</span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> R <span class="at">-e</span> <span class="st">'install.packages("remotes")'</span></span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> Rscript <span class="at">-e</span> <span class="st">'remotes::install_version("rlang",upgrade="never", version = "1.1.2")'</span></span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> Rscript <span class="at">-e</span> <span class="st">'remotes::install_version("knitr",upgrade="never", version = "1.45")'</span></span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> Rscript <span class="at">-e</span> <span class="st">'remotes::install_version("stringr",upgrade="never", version = "1.5.1")'</span></span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> Rscript <span class="at">-e</span> <span class="st">'remotes::install_version("shiny",upgrade="never", version = "1.8.0")'</span></span>
-<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> Rscript <span class="at">-e</span> <span class="st">'remotes::install_version("config",upgrade="never", version = "0.3.2")'</span></span>
-<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> Rscript <span class="at">-e</span> <span class="st">'remotes::install_version("spelling",upgrade="never", version = "2.2.1")'</span></span>
-<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> Rscript <span class="at">-e</span> <span class="st">'remotes::install_version("rmarkdown",upgrade="never", version = "2.25")'</span></span>
-<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> Rscript <span class="at">-e</span> <span class="st">'remotes::install_version("golem",upgrade="never", version = "0.4.1")'</span></span>
-<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> Rscript <span class="at">-e</span> <span class="st">'remotes::install_version("ggplot2",upgrade="never", version = "3.4.4")'</span></span>
-<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> Rscript <span class="at">-e</span> <span class="st">'remotes::install_github("rstudio/htmltools@a8a3559edbfd9dda78418251e69273fa9dfeb9bc")'</span></span>
-<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> Rscript <span class="at">-e</span> <span class="st">'remotes::install_github("r-lib/testthat@fe50a222c62cc8733b397690caf3b2a95856f902")'</span></span>
-<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> mkdir /build_zone</span>
-<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a><span class="ex">ADD</span> . /build_zone</span>
-<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a><span class="ex">WORKDIR</span> /build_zone</span>
-<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> R <span class="at">-e</span> <span class="st">'remotes::install_local(upgrade="never")'</span></span>
-<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> rm <span class="at">-rf</span> /build_zone</span>
-<span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a><span class="ex">EXPOSE</span> 80</span>
-<span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a><span class="ex">CMD</span> R <span class="at">-e</span> <span class="st">"options('shiny.port'=80,shiny.host='0.0.0.0');library(gap);gap::run_app()"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="ex">FROM</span> rocker/verse:4.3.2</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> apt-get update <span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> install <span class="at">-y</span>  libicu-dev libxml2-dev make pandoc zlib1g-dev <span class="kw">&amp;&amp;</span> <span class="fu">rm</span> <span class="at">-rf</span> /var/lib/apt/lists/<span class="pp">*</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> mkdir <span class="at">-p</span> /usr/local/lib/R/etc/ /usr/lib/R/etc/</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> echo <span class="st">"options(repos = c(CRAN = 'https://cran.rstudio.com/'), download.file.method = 'libcurl', Ncpus = 4)"</span> <span class="kw">|</span> <span class="fu">tee</span> /usr/local/lib/R/etc/Rprofile.site <span class="kw">|</span> <span class="fu">tee</span> /usr/lib/R/etc/Rprofile.site</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> R <span class="at">-e</span> <span class="st">'install.packages("remotes")'</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> Rscript <span class="at">-e</span> <span class="st">'remotes::install_version("rlang",upgrade="never", version = "1.1.2")'</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> Rscript <span class="at">-e</span> <span class="st">'remotes::install_version("knitr",upgrade="never", version = "1.45")'</span></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> Rscript <span class="at">-e</span> <span class="st">'remotes::install_version("stringr",upgrade="never", version = "1.5.1")'</span></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> Rscript <span class="at">-e</span> <span class="st">'remotes::install_version("shiny",upgrade="never", version = "1.8.0")'</span></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> Rscript <span class="at">-e</span> <span class="st">'remotes::install_version("config",upgrade="never", version = "0.3.2")'</span></span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> Rscript <span class="at">-e</span> <span class="st">'remotes::install_version("spelling",upgrade="never", version = "2.2.1")'</span></span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> Rscript <span class="at">-e</span> <span class="st">'remotes::install_version("rmarkdown",upgrade="never", version = "2.25")'</span></span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> Rscript <span class="at">-e</span> <span class="st">'remotes::install_version("golem",upgrade="never", version = "0.4.1")'</span></span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> Rscript <span class="at">-e</span> <span class="st">'remotes::install_version("ggplot2",upgrade="never", version = "3.4.4")'</span></span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> Rscript <span class="at">-e</span> <span class="st">'remotes::install_github("rstudio/htmltools@a8a3559edbfd9dda78418251e69273fa9dfeb9bc")'</span></span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> Rscript <span class="at">-e</span> <span class="st">'remotes::install_github("r-lib/testthat@fe50a222c62cc8733b397690caf3b2a95856f902")'</span></span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> mkdir /build_zone</span>
+<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a><span class="ex">ADD</span> . /build_zone</span>
+<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a><span class="ex">WORKDIR</span> /build_zone</span>
+<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> R <span class="at">-e</span> <span class="st">'remotes::install_local(upgrade="never")'</span></span>
+<span id="cb46-21"><a href="#cb46-21" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> rm <span class="at">-rf</span> /build_zone</span>
+<span id="cb46-22"><a href="#cb46-22" aria-hidden="true" tabindex="-1"></a><span class="ex">EXPOSE</span> 80</span>
+<span id="cb46-23"><a href="#cb46-23" aria-hidden="true" tabindex="-1"></a><span class="ex">CMD</span> R <span class="at">-e</span> <span class="st">"options('shiny.port'=80,shiny.host='0.0.0.0');library(gap);gap::run_app()"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This <code>Dockerfile</code> sets up a Docker image with specific R/Linux packages, adds and installs the gap app-package from the current directory, and configures the container to run the Shiny app on port 80.</p>
 <ol type="1">
@@ -1081,24 +1152,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h4 class="anchored" data-anchor-id="add_dockerfile_with_renv"><span style="font-size: 0.82em; font-weight: bold;"><code>add_dockerfile_with_renv</code></span></h4>
 <p><code>add_dockerfile_with_renv()</code> creates a <code>tmp/deploy</code> folder and adds the following files:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="ex">deploy/</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> Dockerfile</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> Dockerfile_base</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> README</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> gap_0.0.0.9000.tar.gz</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">└──</span> renv.lock.prod</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="ex">deploy/</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> Dockerfile</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> Dockerfile_base</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> README</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> gap_0.0.0.9000.tar.gz</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">└──</span> renv.lock.prod</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <p><span style="font-size: 1.01em; font-weight: bold; font-style: italic;"><code>Dockerfile_base</code></span> is used to create a base image with necessary dependencies and configurations</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="ex">FROM</span> rocker/verse:4.3.2</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> apt-get update <span class="at">-y</span> <span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> install <span class="at">-y</span>  make zlib1g-dev git libicu-dev <span class="kw">&amp;&amp;</span> <span class="fu">rm</span> <span class="at">-rf</span> /var/lib/apt/lists/<span class="pp">*</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> mkdir <span class="at">-p</span> /usr/local/lib/R/etc/ /usr/lib/R/etc/</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> echo <span class="st">"options(renv.config.pak.enabled = FALSE, repos = c(CRAN = 'https://cran.rstudio.com/'), download.file.method = 'libcurl', Ncpus = 4)"</span> <span class="kw">|</span> <span class="fu">tee</span> /usr/local/lib/R/etc/Rprofile.site <span class="kw">|</span> <span class="fu">tee</span> /usr/lib/R/etc/Rprofile.site</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> R <span class="at">-e</span> <span class="st">'install.packages("remotes")'</span></span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> R <span class="at">-e</span> <span class="st">'remotes::install_version("renv", version = "1.0.3")'</span></span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="ex">COPY</span> renv.lock.prod renv.lock</span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> R <span class="at">-e</span> <span class="st">'renv::restore()'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="ex">FROM</span> rocker/verse:4.3.2</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> apt-get update <span class="at">-y</span> <span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> install <span class="at">-y</span>  make zlib1g-dev git libicu-dev <span class="kw">&amp;&amp;</span> <span class="fu">rm</span> <span class="at">-rf</span> /var/lib/apt/lists/<span class="pp">*</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> mkdir <span class="at">-p</span> /usr/local/lib/R/etc/ /usr/lib/R/etc/</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> echo <span class="st">"options(renv.config.pak.enabled = FALSE, repos = c(CRAN = 'https://cran.rstudio.com/'), download.file.method = 'libcurl', Ncpus = 4)"</span> <span class="kw">|</span> <span class="fu">tee</span> /usr/local/lib/R/etc/Rprofile.site <span class="kw">|</span> <span class="fu">tee</span> /usr/lib/R/etc/Rprofile.site</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> R <span class="at">-e</span> <span class="st">'install.packages("remotes")'</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> R <span class="at">-e</span> <span class="st">'remotes::install_version("renv", version = "1.0.3")'</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="ex">COPY</span> renv.lock.prod renv.lock</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> R <span class="at">-e</span> <span class="st">'renv::restore()'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><p>Each instruction does the following:</p>
@@ -1112,14 +1183,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p><span style="font-size: 1.01em; font-weight: bold; font-style: italic;"><code>Dockerfile</code></span> builds on this base image to set up the <code>gap</code> app-package and its dependencies.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="ex">FROM</span> gap_base</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="ex">COPY</span> renv.lock.prod renv.lock</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> R <span class="at">-e</span> <span class="st">'renv::restore()'</span></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="ex">COPY</span> gap_<span class="pp">*</span>.tar.gz /app.tar.gz</span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> R <span class="at">-e</span> <span class="st">'remotes::install_local("/app.tar.gz",upgrade="never")'</span></span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> rm /app.tar.gz</span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="ex">EXPOSE</span> 80</span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="ex">CMD</span> R <span class="at">-e</span> <span class="st">"options('shiny.port'=80,shiny.host='0.0.0.0');library(gap);gap::run_app()"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="ex">FROM</span> gap_base</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="ex">COPY</span> renv.lock.prod renv.lock</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> R <span class="at">-e</span> <span class="st">'renv::restore()'</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="ex">COPY</span> gap_<span class="pp">*</span>.tar.gz /app.tar.gz</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> R <span class="at">-e</span> <span class="st">'remotes::install_local("/app.tar.gz",upgrade="never")'</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="ex">RUN</span> rm /app.tar.gz</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="ex">EXPOSE</span> 80</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="ex">CMD</span> R <span class="at">-e</span> <span class="st">"options('shiny.port'=80,shiny.host='0.0.0.0');library(gap);gap::run_app()"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>These instructions perform the following:
@@ -1135,10 +1206,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>The <code>docker build</code> and <code>docker run</code> commands in the <span style="font-size: 1.01em; font-weight: bold; font-style: italic;"><code>README</code></span> create the base image from <code>Dockerfile_base</code>, start the container from the <code>Dockerfile</code> image, and launche the <code>gap</code> application on port <code>80</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-f</span> Dockerfile_base <span class="at">--progress</span><span class="op">=</span>plain <span class="at">-t</span> gap_base .</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-f</span> Dockerfile <span class="at">--progress</span><span class="op">=</span>plain <span class="at">-t</span> gap:latest .</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-p</span> 80:80 gap:latest</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co"># then go to 127.0.0.1:80</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-f</span> Dockerfile_base <span class="at">--progress</span><span class="op">=</span>plain <span class="at">-t</span> gap_base .</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-f</span> Dockerfile <span class="at">--progress</span><span class="op">=</span>plain <span class="at">-t</span> gap:latest .</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-p</span> 80:80 gap:latest</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="co"># then go to 127.0.0.1:80</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><span style="font-size: 1.01em; font-weight: bold; font-style: italic;"><code>gap_0.0.0.9000.tar.gz</code></span> is the app-package to deploy in the Docker container.</p>
 </section>
@@ -1150,33 +1221,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="namespace" class="level3">
 <h3 class="anchored" data-anchor-id="namespace">NAMESPACE</h3>
 <p>The namespace file for <code>gap</code> is importing <code>shiny</code> (and the <code>.data</code> operator from <code>rlang</code>).</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a># Generated by roxygen2: do not edit by hand</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>export(run_app)</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>import(shiny)</span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>importFrom(rlang,.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a># Generated by roxygen2: do not edit by hand</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>export(run_app)</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>import(shiny)</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>importFrom(rlang,.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>As you can see, we’re only exporting the <code>run_app()</code> function from <code>gap</code>.</p>
 </section>
 <section id="imports" class="level3">
 <h3 class="anchored" data-anchor-id="imports">Imports</h3>
 <p>The <code>Imports</code> field in the <code>DESCRIPTION</code> file lists the following:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>Imports: </span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>    config (&gt;= 0.3.1),</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    ggplot2,</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>    golem (&gt;= 0.3.5),</span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>    rlang,</span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>    shiny (&gt;= 1.7.4),</span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    stringr,</span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>    tools</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>Imports: </span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>    config (&gt;= 0.3.1),</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    ggplot2,</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>    golem (&gt;= 0.3.5),</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>    rlang,</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>    shiny (&gt;= 1.7.4),</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>    stringr,</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>    tools</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>As we can see, <code>golem</code> apps add <code>golem</code> as a dependency:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">local_deps_explain</span>(</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">deps =</span> <span class="st">'golem'</span>, </span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">root =</span> <span class="st">"_apps/gap"</span>)</span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>ℹ Loading metadata database</span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>✔ Loading metadata database ... done</span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>gap <span class="ot">-&gt;</span> golem</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">local_deps_explain</span>(</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">deps =</span> <span class="st">'golem'</span>, </span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">root =</span> <span class="st">"_apps/gap"</span>)</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>ℹ Loading metadata database</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>✔ Loading metadata database ... done</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>gap <span class="ot">-&gt;</span> golem</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!--
 The `pak::local_deps_tree()` function can tell us what the dependencies look like for an application built with `golem`:
