@@ -136,6 +136,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">leprechaun</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="./charpente.html"> 
+<span class="menu-text">charpente</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="./rhino.html"> 
 <span class="menu-text">rhino</span></a>
   </li>  
@@ -1278,14 +1282,12 @@ The `pak::local_deps_tree()` function can tell us what the dependencies look lik
 
 
 
-
 ::: {.cell}
 
 ```{.r .cell-code  code-summary="show/hide gap dependency tree"}
 pak::local_deps_tree(root = "_apps/gap")
 ```
 :::
-
 
 
 
@@ -1490,7 +1492,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/mjfrigaard\.github\.io\/sfw\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
