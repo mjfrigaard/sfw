@@ -1,0 +1,2542 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.28">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Shiny Frameworks – The charpente framework</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Shiny Frameworks</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./golem.html"> 
+<span class="menu-text">golem</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./leprechaun.html"> 
+<span class="menu-text">leprechaun</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./charpente.html" aria-current="page"> 
+<span class="menu-text">charpente</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./rhino.html"> 
+<span class="menu-text">rhino</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/mjfrigaard/sfw">
+            Source Code
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/mjfrigaard/sfw/issues">
+            Report an issue
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link active" data-scroll-target="#getting-started">Getting started</a></li>
+  <li><a href="#package-files" id="toc-package-files" class="nav-link" data-scroll-target="#package-files">Package files</a></li>
+  <li><a href="#building-charpente-apps" id="toc-building-charpente-apps" class="nav-link" data-scroll-target="#building-charpente-apps">Building charpente apps</a></li>
+  <li><a href="#dependencies" id="toc-dependencies" class="nav-link" data-scroll-target="#dependencies">Dependencies</a></li>
+  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap">Recap</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/mjfrigaard/sfw/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">The <code>charpente</code> framework</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><a href="https://rinterface.github.io/charpente/"><code>charpente</code></a> apps use similar to standard R packages (i.e., they use <code>devtools</code> and <code>usethis</code>), but they’re designed to ‘<em>significantly reduce the complexity of creating new HTML templates for Shiny</em>’:<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<section id="getting-started" class="level2">
+<h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
+</section>
+<section id="package-files" class="level2">
+<h2 class="anchored" data-anchor-id="package-files">Package files</h2>
+</section>
+<section id="building-charpente-apps" class="level2">
+<h2 class="anchored" data-anchor-id="building-charpente-apps">Building charpente apps</h2>
+</section>
+<section id="dependencies" class="level2">
+<h2 class="anchored" data-anchor-id="dependencies">Dependencies</h2>
+</section>
+<section id="recap" class="level2">
+<h2 class="anchored" data-anchor-id="recap">Recap</h2>
+<!--
+
+> *"it generates code and does not make itself a dependency of the application you build; this means applications are leaner, and smaller"*
+
+[^view-lap]: Download the code used to build the `leprechaun` app [here](https://github.com/mjfrigaard/sfw/raw/main/_apps/lap.tar.gz)
+
+## Getting started
+
+Create a `leprechaun` app just like you would a new R package:
+
+
+
+
+::: {.cell}
+
+```{.r .cell-code  code-fold="false"}
+usethis::create_package("lap")
+```
+:::
+
+::: {.cell}
+
+```{.bash .cell-code  code-fold="false"}
+✔ Creating '../projects/lap/'
+✔ Setting active project to '/Users/mjfrigaard/projects/lap'
+✔ Creating 'R/'
+✔ Writing 'DESCRIPTION'
+✔ Writing 'NAMESPACE'
+✔ Writing 'lap.Rproj'
+✔ Adding '^lap\\.Rproj$' to '.Rbuildignore'
+✔ Adding '.Rproj.user' to '.gitignore'
+✔ Adding '^\\.Rproj\\.user$' to '.Rbuildignore'
+✔ Opening '/Users/mjfrigaard/projects/lap/' in new RStudio session
+```
+:::
+
+
+
+
+After the new project opens, install and load the `leprechaun` package, then run `leprechaun::scaffold()`:[^leprechaun-scaffold]
+
+[^leprechaun-scaffold]: The [`leprechaun::scaffold()`](https://leprechaun.opifex.org/#/reference/scaffold) defaults to a `navbarPage()`, but I've switched to a `fluidPage()` for this example. 
+
+
+
+
+::: {.cell}
+
+```{.r .cell-code  code-fold="false"}
+install.packages("leprechaun")
+library(leprechaun)
+leprechaun::scaffold(ui = "fluidPage")
+```
+:::
+
+
+
+
+## Package files 
+
+`leprechaun::scaffold()` results in the following folder tree:
+
+
+
+
+::: {.cell}
+
+```{.bash .cell-code  code-fold="false"}
+├── DESCRIPTION
+├── NAMESPACE
+├── R/
+│   ├── _disable_autoload.R
+│   ├── assets.R
+│   ├── hello.R
+│   ├── input-handlers.R
+│   ├── leprechaun-utils.R
+│   ├── run.R
+│   ├── server.R
+│   ├── ui.R
+│   └── zzz.R
+├── inst/
+│   ├── assets
+│   ├── dev
+│   ├── img
+│   └── run
+│       └── app.R
+├── lap.Rproj
+└── man
+    └── hello.Rd
+
+8 directories, 14 files
+```
+:::
+
+
+
+
+The standard R package files and folders (`DESCRIPTION`, `NAMESPACE`, `R/`, and `lap.Rproj`) are accompanied by multiple sub-folders in `inst/` (recall that `inst/` contents are available in the package when the package is installed).[^remove-initial-pkg-files]
+
+[^remove-initial-pkg-files]: We can remove `R/hello.R` and `man/hello.Rd` files. These are just examples from `usethis::create_package()`.
+
+### `leprechaun` files
+
+The initial application files are created using [`leprechaun::scaffold()`](https://leprechaun.opifex.org/#/reference/scaffold), which takes the following options as function arguments:
+
+  -   `ui` controls the application layout (can be `"fluidPage"` or `"navbarPage"`, defaults to `"navbarPage"`)
+  -   `bs_version` Bootstrap version ("*If shiny \> 1.6 is installed defaults to version 5, otherwise version 4"* )
+  -   `overwrite`: Overwrite all files?\
+  
+The output from `leprechaun::scaffold()` is below:
+
+
+
+
+::: {.cell}
+
+```{.bash .cell-code  code-fold="false"}
+── Scaffolding leprechaun app ─────────────────────────────────────────
+
+── Creating lock file ──
+
+✔ Creating .leprechaun
+```
+:::
+
+
+
+
+The `.leprechaun` lock file contains the package name, version, as well as versions of bootstrap and accompanying R files:
+
+
+
+
+::: {.cell}
+
+```{.bash .cell-code  code-fold="false"}
+{
+  "package": "lap",
+  "version": "1.0.0",
+  "bs_version": 5,
+  "r": {
+    "ui": "1.0.0",
+    "assets": "1.0.0",
+    "run": "1.0.0",
+    "server": "1.0.0",
+    "leprechaun-utils": "1.0.0",
+    "zzz": "1.0.0",
+    "inputs": "1.0.0"
+  }
+}
+
+```
+:::
+
+
+
+
+`leprechaun::scaffold()` will automatically add `shiny`, `bslib`, `htmltools` and `pkgload` to the `DESCRIPTION` file:
+
+
+
+
+::: {.cell}
+
+```{.bash .cell-code  code-fold="false"}
+── Adding dependencies ──
+
+✔ Adding 'shiny' to Imports in DESCRIPTION
+✔ Adding 'bslib' to Imports in DESCRIPTION
+✔ Adding 'htmltools' to Imports in DESCRIPTION
+✔ Adding 'pkgload' to Suggests in DESCRIPTION
+```
+:::
+
+
+
+
+The remaining `DESCRIPTION` fields need to be entered manually (or with the [`desc` package](https://desc.r-lib.org/)). See example below:
+
+
+
+
+::: {.cell}
+
+```{.bash .cell-code  code-fold="false"}
+Package: lap
+Title: leprechaun app-package 
+Version: 0.0.0.9000
+Author: John Smith <John.Smith@email.io> [aut, cre]
+Maintainer: John Smith <John.Smith@email.io>
+Description: A movie-review leprechaun shiny application.
+License: GPL-3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+LazyData: true
+Imports: 
+    bslib,
+    htmltools,
+    shiny
+Suggests: 
+    pkgload
+# <1>
+```
+:::
+
+
+
+1. Leave an empty line in the `DESCRIPTION` file
+
+### App code 
+
+The application code files are created in the `R/` folder:
+
+
+
+
+::: {.cell}
+
+```{.bash .cell-code  code-fold="false"}
+── Generating code ──
+
+✔ Creating R/ui.R
+✔ Creating R/assets.R
+✔ Creating R/run.R
+✔ Creating R/server.R
+✔ Creating R/leprechaun-utils.R
+✔ Creating R/_disable_autoload.R
+✔ Creating R/zzz.R
+✔ Creating R/input-handlers.R
+```
+:::
+
+
+
+
+-   `ui.R` holds the `ui()` and `assets()` functions. `assets()` loads the resources called in the `R/assets.R` file (see `serveAssets()` function above).
+
+-   `assets.R`: contains the `serveAssets()` function, which will identify the modules using CSS or JavaScript and create `dependencies`, a list of metadata on the app
+
+-   `run.R` contains functions for running the production (`run()`) and development version of the application (`run_dev()`): 
+
+-   `server.R` by default creates `send_message` with `make_send_message(session)` (see `R/leprechaun-utils.R` above).
+
+-   `leprechaun-utils.R` initially contains the `make_send_message()` function (which is used in the `R/server.R` below)
+
+-   `_disable_autoload.R` disables Shiny's  [`loadSupport()`](https://shiny.posit.co/r/reference/shiny/1.7.1/loadsupport). By default, Shiny will load *"any top-level supporting `.R` files in the `R/` directory adjacent to the `app.R`/`server.R`/`ui.R` files."*
+
+-   `zzz.R` contains `.onLoad()`, a wrapper for `system.file()` and Shiny's [`addResourcePath()`](https://shiny.rstudio.com/reference/shiny/1.0.1/addresourcepath) and function (used for adding images to the application in `inst/img/`).
+
+-   `input-handlers.R`: contains `leprechaun_handler_df()` and `leprechaun_handler_list()` for *"converting the input received from the WebSocket to a data.frame/list"*
+
+-   `.onAttach()` registers the two input handlers above 
+
+    -   [`registerInputHandler()`](https://shiny.posit.co/r/reference/shiny/0.11/registerinputhandler): *"When called, Shiny will use the function provided to refine the data passed back from the client (after being deserialized by `jsonlite`) before making it available in the input variable of the `server.R` file"*)
+    
+The initical call to `devtools::document()` will create documentation for the following files and includes `RoxygenNote 7.2.3` in the `DESCRIPTION`:
+
+
+
+
+::: {.cell}
+
+```{.bash .cell-code  code-fold="false"}
+ℹ Updating lap documentation
+First time using roxygen2. Upgrading automatically...
+Setting `RoxygenNote` to "7.2.3"
+ℹ Loading lap
+Warning: Skipping NAMESPACE # <1>
+✖ It already exists and was not generated by roxygen2. # <1>
+Writing serveAssets.Rd
+Writing js-modules.Rd
+Writing leprechaun_handler_df.Rd
+Writing leprechaun_handler_list.Rd
+Writing run.Rd
+Writing run_dev.Rd
+Writing ui.Rd
+Writing assets.Rd
+Warning: Skipping NAMESPACE 
+✖ It already exists and was not generated by roxygen2. 
+Documentation completed
+```
+:::
+
+
+
+1. The `NAMESPACE` file was initially with `exportPattern("^[[:alpha:]]+")`. To override this pattern and have the NAMESPACE file generated by `roxygen2`, delete the `NAMESPACE` and re-run `devtools::document()`.
+
+
+
+
+
+
+
+
+
+### The `inst/` folder
+
+The `inst/` folder contains the initial `leprechaun` scaffolding folders and `inst/run/app.R` file:
+
+
+
+
+::: {.cell}
+
+```{.bash .cell-code  code-fold="false"}
+✔ Creating inst/dev
+✔ Creating inst/assets
+✔ Creating inst/img
+✔ Creating inst/run/app.R
+```
+:::
+
+
+
+
+-   The `inst/run/app.R` contains calls to `leprechaun::build()` and `pkgload::load_all()` before running the app with `run()`
+
+
+
+
+    ::: {.cell}
+    
+    ```{.r .cell-code  code-fold="show" code-summary="show/hide inst/run/app.R"}
+    # do not deploy from this file
+    # see leprechaun::add_app_file()
+    leprechaun::build()
+    
+    pkgload::load_all(
+        path = "../../",
+        reset = TRUE,
+        helpers = FALSE
+    )
+    
+    run()
+    ```
+    :::
+
+
+
+    
+    -   `inst/run/app.R` is not run directly. The `leprechaun::add_app_file()` will create an `app.R` file for your app-package.
+
+-   `assets`, `dev`, and `img` will initially contain `.gitkeep` files (a convention used by developers to force Git to include an otherwise empty directory in a repository). Each of these files will be demonstrated in the sections below. 
+
+The `.leprechaun` lock file is also added to the `.Rbuildignore` 
+
+
+
+
+::: {.cell}
+
+```{.bash .cell-code  code-fold="false"}
+── Ignoring files ──
+
+✔ Adding '^\\.leprechaun$' to '.Rbuildignore'
+```
+:::
+
+
+
+
+## Building `leprechaun` apps
+
+Building `leprechaun` apps is similar to developing an R package. New code is placed in the `R/` folder, and application resources (CSS, SASS, JavaScript files) are added using one of the `leprechaun::use_*` functions:
+
+  -   [`use_sass()`](https://leprechaun.opifex.org/#/reference/use_sass) 
+  -   [`use_html_utils()`](https://leprechaun.opifex.org/#/reference/use_html_utils)  
+  -   [`use_endpoints_utils()`](https://leprechaun.opifex.org/#/reference/use_endpoints_utils)
+  -   [`use_js_utils()`](https://leprechaun.opifex.org/#/reference/use_js_utils)
+  
+More assets can be added using the [`leprechaun::use_packer()`](https://leprechaun.opifex.org/#/examples/basic#javascript) function. 
+
+### Modules 
+
+leprechaun has an [`add_module()`](https://leprechaun.opifex.org/#/reference/add_module) helper function for creating modules:
+
+-   To create the initial `var_input` module we'll run:
+
+
+
+
+    ::: {.cell}
+    
+    ```{.r .cell-code  code-fold="false"}
+    leprechaun::add_module("var_input")
+    ```
+    :::
+
+
+
+    
+    -   This creates `R/module_var_input.R` with functions for the UI and server portions of the Shiny module:
+    
+
+
+
+    ::: {.cell}
+    
+    ```{.r .cell-code  code-fold="false"}
+    #' var_input UI
+    #' 
+    #' @param id Unique id for module instance.
+    #' 
+    #' @keywords internal
+    var_inputUI <- function(id){
+        ns <- NS(id)
+    
+        tagList(
+            h2("var_input")
+        )
+    }
+    
+    #' var_input Server
+    #' 
+    #' @param id Unique id for module instance.
+    #' 
+    #' @keywords internal
+    var_input_server <- function(id){
+        moduleServer(
+            id,
+            function(
+                input, 
+                output, 
+                session
+                ){
+                    
+                    ns <- session$ns
+                    send_message <- make_send_message(session)
+    
+                    # your code here
+            }
+        )
+    }
+    
+    # UI
+    # var_inputUI('id')
+    
+    # server
+    # var_input_server('id')
+    
+    ```
+    :::
+
+
+
+    
+Note the `send_message <- make_send_message(session)` in `var_input_server()`. We'll cover how this is used in the JavaScript section below.
+
+
+
+
+
+:::: {.callout-tip collapse='false' appearance='default'}
+
+## [Tip: `@keywords internal`]{style='font-weight: bold; font-size: 1.10em;'}
+
+::: {style='font-size: 1.05em; color: #282b2d;'}
+
+
+
+The module contents are similar to `golem`, but instead of using the `@noRd` tag, these functions include `@keywords internal` (which can be used to [document your package](https://roxygen2.r-lib.org/articles/rd-other.html?q=@keywords#packages)).
+
+
+::: 
+
+::::
+
+
+
+
+The code for the `var_input` and `plot_display` modules are below. 
+
+-  The `R/module_var_input.R` file: `plot_dispay` collects the data from `var_input` and creates the plot with the custom `scatter_plot()` function:
+
+
+
+
+::: {.cell}
+
+```{.r .cell-code  code-fold="false"}
+var_inputUI <- function(id) {
+  ns <- NS(id)
+  tagList(
+    selectInput(
+      inputId = ns("y"),
+      label = "Y-axis:",
+      choices = c(
+        "IMDB rating" = "imdb_rating",
+        "IMDB number of votes" = "imdb_num_votes",
+        "Critics Score" = "critics_score",
+        "Audience Score" = "audience_score",
+        "Runtime" = "runtime"
+      ),
+      selected = "audience_score"
+    ),
+    selectInput(
+      inputId = ns("x"),
+      label = "X-axis:",
+      choices = c(
+        "IMDB rating" = "imdb_rating",
+        "IMDB number of votes" = "imdb_num_votes",
+        "Critics Score" = "critics_score",
+        "Audience Score" = "audience_score",
+        "Runtime" = "runtime"
+      ),
+      selected = "imdb_rating"
+    ),
+    selectInput(
+      inputId = ns("z"),
+      label = "Color by:",
+      choices = c(
+        "Title Type" = "title_type",
+        "Genre" = "genre",
+        "MPAA Rating" = "mpaa_rating",
+        "Critics Rating" = "critics_rating",
+        "Audience Rating" = "audience_rating"
+      ),
+      selected = "mpaa_rating"
+    ),
+    sliderInput(
+      inputId = ns("alpha"),
+      label = "Alpha:",
+      min = 0, max = 1, step = 0.1,
+      value = 0.5
+    ),
+    sliderInput(
+      inputId = ns("size"),
+      label = "Size:",
+      min = 0, max = 5,
+      value = 2
+    ),
+    textInput(
+      inputId = ns("plot_title"),
+      label = "Plot title",
+      placeholder = "Enter plot title"
+    )
+  )
+}
+
+var_input_server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+      ns <- session$ns
+      send_message <- make_send_message(session)
+
+      # your code here
+      return(
+        reactive({
+          list(
+            "y" = input$y,
+            "x" = input$x,
+            "z" = input$z,
+            "alpha" = input$alpha,
+            "size" = input$size,
+            "plot_title" = input$plot_title
+          )
+        })
+      )
+    }
+  )
+}
+```
+:::
+
+
+
+
+-  The `R/module_plot_display.R` file 
+
+
+
+
+::: {.cell}
+
+```{.r .cell-code  code-fold="false"}
+plot_displayUI <- function(id) {
+  ns <- NS(id)
+  tagList(
+    tags$br(),
+    tags$blockquote(
+      tags$em(
+        tags$h6(
+          "The code for this application comes from the ",
+          tags$a("Building web applications with Shiny",
+            href = "https://rstudio-education.github.io/shiny-course/"
+          ),
+          "tutorial"
+        )
+      )
+    ),
+    plotOutput(outputId = ns("scatterplot"))
+  )
+}
+plot_display_server <- function(id, var_inputs) {
+  moduleServer(id, function(input, output, session) {
+
+      ns <- session$ns
+      send_message <- make_send_message(session)
+
+      inputs <- reactive({
+        plot_title <- tools::toTitleCase(var_inputs()$plot_title)
+        list(
+          x = var_inputs()$x,
+          y = var_inputs()$y,
+          z = var_inputs()$z,
+          alpha = var_inputs()$alpha,
+          size = var_inputs()$size,
+          plot_title = plot_title
+        )
+      })
+      output$scatterplot <- renderPlot({
+        plot <- scatter_plot(
+          # data --------------------
+          df = movies,
+          x_var = inputs()$x,
+          y_var = inputs()$y,
+          col_var = inputs()$z,
+          alpha_var = inputs()$alpha,
+          size_var = inputs()$size
+        )
+        plot +
+          ggplot2::labs(
+            title = inputs()$plot_title,
+            x = stringr::str_replace_all(
+                  tools::toTitleCase(inputs()$x), "_", " "),
+            y = stringr::str_replace_all(
+                  tools::toTitleCase(inputs()$y), "_", " ")) +
+          ggplot2::theme_minimal() +
+          ggplot2::theme(legend.position = "bottom")
+      })
+    }
+  )
+}
+```
+:::
+
+
+
+
+The other components of `lap` were created using the standard `usethis` package development functions.
+
+### Utility functions
+
+`usethis::use_r()` was used to create the `R/plot_display-utils.R` file that holds the `scatter_plot()` function:
+
+
+
+
+::: {.cell}
+
+```{.r .cell-code  code-fold="false"}
+scatter_plot <- function(df, x_var, y_var, col_var, alpha_var, size_var) {
+    ggplot2::ggplot(data = df,
+      ggplot2::aes(x = .data[[x_var]],
+          y = .data[[y_var]],
+          color = .data[[col_var]])) +
+      ggplot2::geom_point(alpha = alpha_var, size = size_var)
+
+}
+```
+:::
+
+
+
+
+After creating the modules and utility function, adding these to the UI (`R/ui.R`) and server (`R/server.R`) is straightforward.
+
+### UI 
+
+The `R/ui.R` file will contain the `fluidPage()` layout functions and module UI server functions: 
+
+
+
+
+::: {.cell}
+
+```{.r .cell-code  code-fold="false"}
+#' Shiny UI
+#'
+#' Core UI of package.
+#'
+#' @param req The request object.
+#'
+#'
+#' @keywords internal
+ui <- function(req) {
+  fluidPage(
+    theme = bslib::bs_theme(version = 5),
+    assets(),
+    h1("lap"),
+    ## New code 
+        sidebarLayout(
+          sidebarPanel(
+            var_inputUI("vars")
+          ),
+          mainPanel(
+          # new image
+          tags$img(
+            src = "img/leprechaun.jpg",
+            height = "25%",
+            width = "25%"),
+          plot_displayUI("plot")
+          )
+        )
+    ## New code 
+  )
+}
+```
+:::
+
+
+
+
+### Server
+
+The `R/server.R` file contains the module server functions. 
+
+
+
+
+::: {.cell}
+
+```{.r .cell-code}
+#' Server
+#'
+#' Core server function.
+#'
+#' @param input,output Input and output list objects
+#' containing said registered inputs and outputs.
+#' @param session Shiny session.
+#'
+#' @noRd
+#' @keywords internal
+server <- function(input, output, session){
+
+    send_message <- make_send_message(session)
+
+  ## New code 
+   selected_vars <- var_input_server("vars")
+
+   plot_display_server("plot", var_inputs = selected_vars)
+
+   ## New code 
+
+}
+```
+:::
+
+
+
+
+By default, the `R/server.R` file contains the `make_send_message()` function (which will be demonstrated below).[^no-export-server]
+
+[^no-export-server]: Note the `R/server.R` function is not exported from the package by default (i.e., the `@noRd` tag is included with `@keywords internal`).
+
+### Data
+
+After calling `usethis::use_data_raw('movies')`, I can use `system.file()` to locate the `movies.RData` file with the following code in `data-raw/movies.R`:
+
+
+
+
+::: {.cell}
+
+```{.r .cell-code  code-fold="false"}
+## code to prepare `movies` dataset goes here
+pth <- system.file('extdata/movies.RData', package = 'lap')
+load(pth)
+usethis::use_data(movies, overwrite = TRUE)
+```
+:::
+
+
+
+
+### Launch
+
+To launch the application in `lap` with an `app.R` file, `leprechaun` has a `add_app_file()` function. This creates a file similar to `inst/run/app.R`:
+
+
+
+
+::: {.cell}
+
+```{.r .cell-code  code-fold="false"}
+# Launch the ShinyApp 
+# do not remove to keep push deploy button
+# from RStudio
+pkgload::load_all(
+    reset = TRUE,
+    helpers = FALSE
+)
+
+run()
+
+```
+:::
+
+
+
+
+
+Now I can run `devtools::load_all()`, `devtools::document()`, restart and load the package, then `run()`
+
+::: {#fig-full-run .column}
+
+![](img/initial_lap_run.png){height="100%" width="100%" fig-align="center"}
+
+run `lap`
+:::
+
+
+### Unit tests 
+
+The unit tests for the `scatter_plot()` utility function and the module server functions are in the `tests/testthat/` folder: 
+
+
+
+
+::: {.cell}
+
+```{.bash .cell-code  code-fold="false"}
+tests
+├── testthat
+│   ├── test-module_plot_display.R
+│   ├── test-module_var_input.R
+│   └── test-utils_scatter_plot.R
+└── testthat.R
+
+2 directories, 4 files
+```
+:::
+
+
+
+
+`leprechaun` relies on the `testthat` framework for testing.[^includes-testserver] I've included the BDD functions (`describe()` and `it()`) to make each behavior and test clear.
+
+[^includes-testserver]: `testthat` can be used for testing utility functions and module functions (as shown [here](https://mjfrigaard.github.io/shiny-app-pkgs/test_modules.html)).
+
+### System tests 
+
+System tests can also be included with [`shinytest2`](https://rstudio.github.io/shinytest2/). The examples in `lap` are similar to those in the `golem` application. 
+
+
+
+
+::: {.cell}
+
+```{.bash .cell-code  code-fold="false"}
+tests/
+├── testthat/
+│   ├── _snaps/
+│   │   ├── app-feature-01
+│   │   └── shinytest2
+│   ├── setup-shinytest2.R
+│   ├── test-app-feature-01.R
+│   └── test-shinytest2.R
+└── testthat.R
+
+5 directories, 13 files
+```
+:::
+
+
+
+
+### Adding files and images
+
+We'll demonstrate how the `inst/` folder works by adding an image to the application. Lets assume I want to add `leprechaun.jpg` to my UI:
+
+-   Start by adding the file to `inst/img/`:
+
+    
+
+
+
+    ::: {.cell}
+    
+    ```{.bash .cell-code  code-fold="false"}
+    inst/
+      └── img/
+           └── leprechaun.jpg <- new image file!
+    ```
+    :::
+
+
+
+
+-   Then add the `img/` path to the code to UI: 
+    
+
+
+
+    ::: {.cell}
+    
+    ```{.r .cell-code  code-fold="false"}
+    tags$img(
+      src = "img/leprechaun.jpg",
+      height = "25%",
+      width = "25%")
+    ```
+    :::
+
+
+
+    
+Once again, run `devtools::load_all()` and `devtools::document()`, restarting and loading the package, then run the application with `run()`:
+
+::: {#fig-leprechaun_img .column}
+![](img/leprechaun_img.png){#fig-leprechaun_img width="100%" fig-align="center"}
+
+Adding images to `inst/img/`
+:::
+
+### Adding resources 
+
+`leprechaun` stores external code files the `inst/` folder (similar to the `golem` framework), but uses a combination of `use_*` and `build()` functions to add functionality to you app.  
+
+#### Using `packer`
+
+To demonstrate how [`packer`](https://packer.john-coene.com/#/) and `leprechaun` work together, we'll walk through the JavaScript example from the [package website](https://leprechaun.opifex.org/#/examples/basic#javascript) step-by-step:
+
+First we have to build the scaffolding for `packer` by running [`packer::scaffold_leprechaun()`](https://packer.john-coene.com/#/references/scaffold_leprechaun):
+    
+
+
+
+::: {.cell}
+
+```{.r .cell-code  code-fold="false"}
+packer::scaffold_leprechaun()
+```
+:::
+
+
+
+
+-   [`packer::scaffold_leprechaun()`](https://packer.john-coene.com/#/references/scaffold_leprechaun) initializes the `npm` package manager for JavaScript, installs `webpack`, and adds the necessary JavaScript files and folders:
+
+
+
+
+    ::: {.cell}
+    
+    ```{.bash .cell-code  code-fold="false"}
+    ── Scaffolding leprechaun ──────────────────────────────────────
+    ✔ Initialiased npm
+    ✔ webpack, webpack-cli, webpack-merge installed with scope "dev" 
+    ✔ Added npm scripts
+    ✔ Created srcjs directory
+    ✔ Created srcjs/config directory
+    ✔ Created webpack config files
+    
+    ── Adding files to .gitignore and .Rbuildignore ──
+    
+    ✔ Setting active project to '/projects/apps/sfw/_apps/lap'
+    ✔ Adding '^srcjs$' to '.Rbuildignore'
+    ✔ Adding '^node_modules$' to '.Rbuildignore'
+    ✔ Adding '^package\\.json$' to '.Rbuildignore'
+    ✔ Adding '^package-lock\\.json$' to '.Rbuildignore'
+    ✔ Adding '^webpack\\.dev\\.js$' to '.Rbuildignore'
+    ✔ Adding '^webpack\\.prod\\.js$' to '.Rbuildignore'
+    ✔ Adding '^webpack\\.common\\.js$' to '.Rbuildignore'
+    ✔ Adding 'node_modules' to '.gitignore'
+    
+    ── Scaffold built ──
+    
+    ℹ Run `bundle` to build the JavaScript files
+    ℹ Run `leprechaun::use_packer()`
+    ```
+    :::
+
+
+
+    
+    -   The following files and folders will be added to the lap root folder: 
+    
+
+
+
+    ::: {.cell}
+    
+    ```{.bash .cell-code  code-fold="true" code-summary="show/hide packer::scaffold_leprechaun() files"}
+    ├── node_modules/
+    │   ├── @discoveryjs
+    │   ├── @jridgewell
+    │   ├── @types
+    │   ├── @webassemblyjs
+    │   ├── @webpack-cli
+    │   ├── @xtuc
+    │   ├── acorn
+    │   ├── acorn-import-assertions
+    │   ├── ajv
+    │   ├── ajv-keywords
+    │   ├── browserslist
+    │   ├── buffer-from
+    │   ├── caniuse-lite
+    │   ├── chrome-trace-event
+    │   ├── clone-deep
+    │   ├── colorette
+    │   ├── commander
+    │   ├── cross-spawn
+    │   ├── electron-to-chromium
+    │   ├── enhanced-resolve
+    │   ├── envinfo
+    │   ├── es-module-lexer
+    │   ├── escalade
+    │   ├── eslint-scope
+    │   ├── esrecurse
+    │   ├── estraverse
+    │   ├── events
+    │   ├── fast-deep-equal
+    │   ├── fast-json-stable-stringify
+    │   ├── fastest-levenshtein
+    │   ├── find-up
+    │   ├── flat
+    │   ├── function-bind
+    │   ├── glob-to-regexp
+    │   ├── graceful-fs
+    │   ├── has-flag
+    │   ├── hasown
+    │   ├── import-local
+    │   ├── interpret
+    │   ├── is-core-module
+    │   ├── is-plain-object
+    │   ├── isexe
+    │   ├── isobject
+    │   ├── jest-worker
+    │   ├── json-parse-even-better-errors
+    │   ├── json-schema-traverse
+    │   ├── kind-of
+    │   ├── loader-runner
+    │   ├── locate-path
+    │   ├── merge-stream
+    │   ├── mime-db
+    │   ├── mime-types
+    │   ├── neo-async
+    │   ├── node-releases
+    │   ├── p-limit
+    │   ├── p-locate
+    │   ├── p-try
+    │   ├── path-exists
+    │   ├── path-key
+    │   ├── path-parse
+    │   ├── picocolors
+    │   ├── pkg-dir
+    │   ├── punycode
+    │   ├── randombytes
+    │   ├── rechoir
+    │   ├── resolve
+    │   ├── resolve-cwd
+    │   ├── resolve-from
+    │   ├── safe-buffer
+    │   ├── schema-utils
+    │   ├── serialize-javascript
+    │   ├── shallow-clone
+    │   ├── shebang-command
+    │   ├── shebang-regex
+    │   ├── source-map
+    │   ├── source-map-support
+    │   ├── supports-color
+    │   ├── supports-preserve-symlinks-flag
+    │   ├── tapable
+    │   ├── terser
+    │   ├── terser-webpack-plugin
+    │   ├── undici-types
+    │   ├── update-browserslist-db
+    │   ├── uri-js
+    │   ├── watchpack
+    │   ├── webpack
+    │   ├── webpack-cli
+    │   ├── webpack-merge
+    │   ├── webpack-sources
+    │   ├── which
+    │   └── wildcard
+    ├── package-lock.json
+    ├── package.json
+    ├── srcjs/
+    │   ├── config
+    │   ├── index.js
+    │   └── modules
+    ├── webpack.common.js
+    ├── webpack.dev.js
+    └── webpack.prod.js
+    
+    106 directories, 36 files
+    ```
+    :::
+
+
+
+
+Now that the scaffolding is in place, run `leprechaun::use_packer()`:
+    
+
+
+
+::: {.cell}
+
+```{.r .cell-code  code-fold="false"}
+leprechaun::use_packer()
+```
+:::
+
+
+
+
+-   `leprechaun::use_packer()` creates the `inst/dev/packer.R` and adds `packer` to the `DESCRIPTION`. The `inst/dev/packer.R` file contains the following: 
+
+
+
+
+    ::: {.cell}
+    
+    ```{.r .cell-code  code-fold="false" code-summary="show/hide inst/dev/packer.R"}
+    #' Bundle for Prod
+    #' 
+    #' Bundles packer using packer.
+    packer_bundle <- function(){
+        has_packer <- requireNamespace("packer", quietly = TRUE)
+    
+        if (!has_packer) {
+            warning(
+                "Requires `packer` package: `install.packages('packer')`\n", 
+                "Skipping.",
+                call. = FALSE
+            )
+            return()
+        }
+    
+        packer::bundle()
+    }
+    
+    packer_bundle()
+    ```
+    :::
+
+
+
+    
+The final step is to build or 'bundle' the JavaScript files with `leprechaun::build()`
+    
+
+
+
+::: {.cell}
+
+```{.r .cell-code  code-fold="false"}
+leprechaun::build()
+```
+:::
+
+
+
+
+-   `leprechaun::build()` runs the contents of `inst/dev/packer.R` to bundle the JavaScript code:
+
+
+
+
+    ::: {.cell}
+    
+    ```{.bash .cell-code  code-fold="false"}
+    ✔ Running packer.R
+    ✔ Bundled       
+    ```
+    :::
+
+
+
+    
+Lets review the new files that have been added to the `lap`: 
+
+-   In the `inst/dev/` folder, the `packer.R` file has been added, which calls `packer::bundle()`
+    
+
+
+
+    ::: {.cell}
+    
+    ```{.bash .cell-code  code-fold="false"}
+    inst/dev/
+          └── packer.R
+    
+    1 directory, 1 file
+    ```
+    :::
+
+
+
+
+-   In the `srcjs/` folder, the `modules/message.js` and `index.js` create the alert with `Shiny.addCustomMessageHandler` 
+    
+
+
+
+    ::: {.cell}
+    
+    ```{.bash .cell-code  code-fold="false"}
+    srcjs/
+        ├── config
+        │   ├── entry_points.json
+        │   ├── externals.json
+        │   ├── loaders.json
+        │   ├── misc.json
+        │   └── output_path.json
+        ├── index.js
+        └── modules
+            └── message.js
+    ```
+    :::
+
+
+
+    
+    ``` js
+    // srcjs/modules/message.js
+    export const message = (msg) => {
+      alert(msg);
+    }
+    // srcjs/index.js
+    import { message } from './modules/message.js';
+    import 'shiny';
+    
+    // In shiny server use:
+    // session$sendCustomMessage('show-packer', 'hello packer!')
+    Shiny.addCustomMessageHandler('show-packer', (msg) => {
+      message(msg.text);
+    })
+    ```
+
+To use the JS message scripts in `srcjs/`, I add the following to `R/server.R`: 
+    
+
+
+
+::: {.cell}
+
+```{.r .cell-code  code-fold="false"}
+    send_message <- make_send_message(session)
+    send_message("show-packer",
+                  text = "this message is from your R/server.R file")
+```
+:::
+
+
+
+
+After running `devtools::load_all()` and `devtools::document()`, the application loads with an alert: 
+
+::: {#fig-leprechaun_message .column}
+![`send_message()` from `R/server.R`](img/leprechaun_message.png){#fig-leprechaun_message width="40%" fig-align="center"}
+
+`send_message()`
+:::
+
+We can also include messages from modules. 
+
+-   In `R/module_plot_display.R`
+
+
+
+
+::: {.cell}
+
+```{.r .cell-code  code-fold="false"}
+send_message <- make_send_message(session)
+send_message("show-packer",
+  text = "this is a message from your plot_display module")
+```
+:::
+
+
+
+
+Read more about sending JavaScript messages [here on the shiny website.](https://shiny.rstudio.com/articles/js-send-message.html)
+
+
+#### Using `Sass`
+
+We can add Sass styling to our `leprechaun` app using the [`use_sass()`](https://leprechaun.opifex.org/#/reference/use_sass) helper function (this Sass example is from the [package  website](https://leprechaun.opifex.org/#/examples/basic#sass)). 
+  
+-  Run `leprechaun::use_sass()`:
+
+
+
+
+::: {.cell}
+
+```{.r .cell-code  code-fold="false"}
+leprechaun::use_sass()
+```
+:::
+
+
+
+    
+-   This will add files to `assets/` and `dev/` and we see the following messages:  
+  
+
+
+
+::: {.cell}
+
+```{.bash .cell-code  code-fold="false"}
+✔ Creating scss
+✔ Creating inst/dev/sass.R
+✔ Adding 'sass' to Suggests in DESCRIPTION
+✔ Adding '^scss$' to '.Rbuildignore'
+! This requires `leprechaun::build()` or the `leprechaun::build_roclet`
+```
+:::
+
+
+
+    
+-   Below are the new files in `scss/`:
+    
+
+
+
+::: {.cell}
+
+```{.bash .cell-code  code-fold="false"}
+scss
+├── _core.scss
+└── main.scss
+
+1 directory, 2 files
+```
+:::
+
+
+
+    
+The `scss/` folder created by  [`leprechaun::use_sass()`](https://leprechaun.opifex.org/#/reference/use_sass) includes `_core.scss` and `main.scss`.
+
+-   `_core.scss`: the original file is below
+    
+
+
+
+::: {.cell}
+
+```{.scss .cell-code}
+html{
+    .error {
+        color: red
+    }
+}
+```
+:::
+
+
+
+
+-  We'll change the `color:` from `red` to green (`#38B44A`) using `$accent: #38B44A;`
+    
+
+
+
+::: {.cell}
+
+```{.scss .cell-code}
+$accent: #38B44A;
+
+html{
+    h1 {
+        color: $accent;
+    }
+}
+```
+:::
+
+
+
+
+-  Then run [`leprechaun::build()`](https://leprechaun.opifex.org/#/reference/build)
+    
+
+
+
+::: {.cell}
+
+```{.r .cell-code  code-fold="false"}
+leprechaun::build()
+```
+:::
+
+::: {.cell}
+
+```{.bash .cell-code  code-fold="false"}
+✔ Running packer.R
+✔ Bundled       
+✔ Running sass.R
+```
+:::
+
+
+
+
+-   The `inst/dev/sass.R` file contains a `sass_build()` function
+  
+    -   `sass_build()` looks in the `scss/` folder for `main.scss` and creates the `inst/assets/style.min.css` file.
+
+
+
+
+    ::: {.cell}
+    
+    ```{.r .cell-code  code-fold="false"}
+    #' Build CSS
+    #'
+    #' Build the sass
+    sass_build <- function() {
+      has_sass <- requireNamespace("sass", quietly = TRUE)
+    
+      if (!has_sass) {
+        warning(
+          "Requires `sass` package: `install.packages('sass')`\n",
+          "Skipping.",
+          call. = FALSE
+        )
+        return()
+      }
+    
+      output <- sass::sass(
+        sass::sass_file(
+          "scss/main.scss"
+        ),
+        cache = NULL,
+        options = sass::sass_options(
+          output_style = "compressed"
+        ),
+        output = "inst/assets/style.min.css"
+      )
+      invisible(output)
+    }
+    
+    sass_build()
+    ```
+    :::
+
+
+
+    
+Once again, I run `devtools::load_all()`, `devtools::document()`, install and restart, then load the package and `run()`
+
+::: {#fig-leprechaun_css .column}
+![](img/leprechaun_css.png){#fig-leprechaun_css width="100%" fig-align="center"}
+
+run `lap` with new Sass
+:::
+
+#### [`leprechaun::build()`]{style="font-size: 0.90em; font-weight: bold;"}
+
+The `assets/` folder contains the files generated by the `.R` scripts in the `dev/` folder.
+
+> *"Do not call this function from within the app. It helps build things, not run them."* - [`build.md` guide](https://github.com/devOpifex/leprechaun/blob/1c8ef853d2fadc476926dd31424965fc19582d2f/docs/guide/build.md)
+
+-   Contents of `inst/assets/`:
+    
+
+
+
+    ::: {.cell}
+    
+    ```{.bash .cell-code}
+    inst/assets/
+            ├── index.js
+            └── style.min.css
+    
+    1 directory, 2 files
+    ```
+    :::
+
+
+
+
+-   Contents of `inst/dev/`:
+    
+
+
+
+    ::: {.cell}
+    
+    ```{.bash .cell-code}
+    inst/dev/
+          ├── packer.R
+          └── sass.R
+    
+    1 directory, 2 files
+    ```
+    :::
+
+
+
+
+-   `inst/dev/sass.R` creates `inst/assets/style.min.css` and `inst/dev/packer.R` creates `inst/assets/index.js`
+
+#### [`serveAssets()`]{style="font-size: 0.90em; font-weight: bold;"}
+
+After running `leprechaun::use_sass()` and `leprechaun::build()`, we'll check the `serveAssets()` function:
+
+
+
+
+::: {.cell}
+
+```{.r .cell-code  code-fold="false"}
+lap:::serveAssets()
+```
+:::
+
+::: {.cell}
+
+```{.bash .cell-code  code-fold="false"}
+[[1]]
+List of 10
+ $ name      : chr "lap"
+ $ version   : chr "0.0.0.9000"
+ $ src       :List of 1
+  ..$ file: chr "."
+ $ meta      : NULL
+ $ script    : Named chr "assets/index.js"
+  ..- attr(*, "names")= chr "file"
+ $ stylesheet: Named chr [1:2] "assets/style.min.css" "html/R.css"
+  ..- attr(*, "names")= chr [1:2] "file" "file"
+ $ head      : NULL
+ $ attachment: NULL
+ $ package   : chr "lap"
+ $ all_files : logi TRUE
+ - attr(*, "class")= chr "html_dependency"
+```
+:::
+
+
+
+
+This shows that `stylesheet` has been updated with `"assets/style.min.css"` and `script` has been updated with `"assets/index.js"` (these files are loaded into the application when it runs). 
+
+### Configure
+
+`leprechaun` app configuration files use the [config](https://rstudio.github.io/config/articles/introduction.html) package (similar to `golem`). `leprechaun` doesn't assume I'll be using a `config.yml` file, but we can easily add one with [`leprechaun::use_config()`](https://leprechaun.opifex.org/#/guide/use#config).
+
+-   `use_config()` adds a `inst/config.yml` and `R/config.R`
+
+-   The default value in the `config.yml` files is `production: true`, which can be read using `config_read()` in `R/config.R`.
+    
+
+
+
+    ::: {.cell}
+    
+    ```{.r .cell-code  code-fold="false"}
+    config_read()
+    ```
+    :::
+
+    ::: {.cell}
+    
+    ```{.bash .cell-code}
+    $production
+    [1] TRUE
+    ```
+    :::
+
+
+
+
+    -   Values can be added to `inst/config.yml` using the [config file format](https://biostat.app.vumc.org/wiki/Main/YamlR), then the `CONFIG_FILE` can be set as [an environmental variable](https://rstudio.github.io/config/articles/introduction.html#configurations)
+
+## Dependencies 
+
+
+
+
+
+:::: {.callout-warning collapse='false' appearance='minimal'}
+
+## [**Is my leprechaun app _'leaner and smaller'_ than my golem app?**]{style='font-weight: bold; font-size: 1.10em;'}
+
+::: {style='font-size: 1.05em; color: #282b2d;'}
+
+
+
+
+`leprechaun` doesn't add itself as a dependency (i.e., no need to add `leprechaun` to the list of `Imports` in the `DESCRIPTION` or `NAMESPACE`). 
+  
+The section titled, 'the `golem` in the room' on the [package website](https://leprechaun.opifex.org/#/#the-golem-in-the-room) is worth reading because it covers the differences between the two packages (and why you might choose one over the other).
+
+::: 
+
+::::
+
+
+
+
+`lap` depends on `shiny`, but not `leprechaun`. 
+
+
+
+
+::: {.cell}
+
+```{.r .cell-code  code-fold="false"}
+pak::local_dev_deps_explain(
+  deps = "shiny", 
+  root = "_apps/lap")
+
+ lap -> shiny
+
+ lap -> shinytest2 -> shiny
+```
+:::
+
+::: {.cell}
+
+```{.r .cell-code  code-fold="false"}
+pak::local_dev_deps_explain(
+  deps = "leprechaun", 
+  root = "_apps/lap")
+
+ x leprechaun
+```
+:::
+
+
+
+
+However, adding functionality and features with `packer` and the `use_*` functions can add dependencies to your `leprechaun` app:  
+
+
+
+
+::: {.cell}
+
+```{.r .cell-code  code-fold="false"}
+pak::local_dev_deps_explain(
+  deps = "packer", 
+  root = "_apps/lap")
+
+ lap -> packer
+```
+:::
+
+::: {.cell}
+
+```{.r .cell-code  code-fold="false"}
+pak::local_dev_deps_explain(
+  deps = "sass", 
+  root = "_apps/lap")
+
+ lap -> bslib -> sass
+
+ lap -> shiny -> bslib -> sass
+
+ lap -> packer -> htmlwidgets -> rmarkdown ->
+
+   bslib -> sass
+
+ lap -> sass
+
+ lap -> shinytest2 -> rmarkdown -> bslib ->
+
+   sass
+
+ lap -> shinytest2 -> shiny -> bslib -> sass
+```
+:::
+
+
+
+
+The final folder tree for `lap` (a `leprechaun` app-package) is below. 
+
+
+
+
+::: {.cell}
+
+```{.bash .cell-code  code-fold="false"}
+├── DESCRIPTION
+├── NAMESPACE
+├── R/
+│   ├── _disable_autoload.R
+│   ├── assets.R
+│   ├── config.R
+│   ├── endpoint-utils.R
+│   ├── html-utils.R
+│   ├── input-handlers.R
+│   ├── leprechaun-utils.R
+│   ├── module_plot_display.R
+│   ├── module_var_input.R
+│   ├── run.R
+│   ├── server.R
+│   ├── ui.R
+│   ├── utils-js.R
+│   ├── utils_scatter_plot.R
+│   └── zzz.R
+├── README.md
+├── app.R
+├── data/
+│   └── movies.rda
+├── data-raw/
+│   └── movies.R
+├── inst/ # <1>
+│   ├── assets
+│   ├── config.yml
+│   ├── dev
+│   ├── extdata
+│   ├── img
+│   └── run # <1>
+├── lap.Rproj
+├── node_modules/ # <2>
+├── package-lock.json # <2>
+├── package.json # <2>
+├── scss/ # <2>
+│   ├── _core.scss # <2>
+│   └── main.scss # <2>
+├── srcjs/ # <2>
+│   ├── config # <2>
+│   ├── index.js # <2>
+│   ├── leprechaun-utils.js # <2>
+│   └── modules
+├── tests/
+│   ├── testthat
+│   └── testthat.R
+├── webpack.common.js # <2>
+├── webpack.dev.js # <2>
+└── webpack.prod.js # <2>
+
+109 directories, 63 files
+```
+:::
+
+
+
+1. `leprechaun` apps are packages, so the `inst/` folders are available to the application at runtime.
+2. Files and folders created with `packer::scaffold_leprechaun()`
+    
+The output from `system.file(".", package = "lap")` has been passed to `fs::dir_tree()` below:
+    
+
+
+
+::: {.cell}
+
+```{.bash .cell-code  code-fold="false"}
+├── DESCRIPTION
+├── INDEX
+├── Meta/
+│   ├── Rd.rds
+│   ├── data.rds
+│   ├── features.rds
+│   ├── hsearch.rds
+│   ├── links.rds
+│   ├── nsInfo.rds
+│   └── package.rds
+├── NAMESPACE
+├── R/
+│   ├── lap
+│   ├── lap.rdb
+│   └── lap.rdx
+├── assets/
+│   ├── index.js
+│   └── style.min.css
+├── data/
+│   ├── Rdata.rdb
+│   ├── Rdata.rds
+│   └── Rdata.rdx
+├── dev/
+│   ├── packer.R
+│   └── sass.R
+├── extdata/
+│   └── movies.RData
+├── help/
+│   ├── AnIndex
+│   ├── aliases.rds
+│   ├── lap.rdb
+│   ├── lap.rdx
+│   └── paths.rds
+├── html/
+│   ├── 00Index.html
+│   └── R.css
+├── img/
+│   └── leprechaun.jpg
+└── run/
+    └── app.R
+```
+:::
+
+
+
+
+As we can see, the files and folders created with `packer::scaffold_leprechaun()` won't be installed with the source code.
+
+## Recap
+
+`leprechaun` delivers on its promise to be a 'leaner and smaller' version of `golem.` Most of the features in `golem` are also accessible in `leprechaun`:
+
+-    Adding modules: `leprechaun`'s `add_module()` function doesn't have the consistent naming or prefixes found in `golem::add_module()`, but still reduces a lot of typing if you are creating these files manually. 
+
+-   Adding functions: leprechaun relies on `usethis::use_r()` for adding new functionality to your application
+
+-   `leprechaun` doesn't come with any testing functions, although this can be done using [`testthat`](https://testthat.r-lib.org/) and [`shinytest2`](https://rstudio.github.io/shinytest2/) (just as we would with a standard R package).
+
+Multiple `inst/` sub-folders makes adding assets to the application easier, and `leprechaun` has a long list of `use_*` functions for including Sass, CSS, HTML, and JavaScript. The package website has examples for getting started and adding multiple resources, but unfortunately the function reference had limited documentation. 
+
+Below is an overview of the features/functions in the `leprechaun` framework:
+
+
+::: {style="font-size: 0.85em;"}
++-----------------------------------------+------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+| Feature                                 | Arguments/Options                                                                              | Description/Comments                                                                                                                         |
++=========================================+================================================================================================+==============================================================================================================================================+
+| `scaffold()`                            | `ui`: can be one of `"navbarPage"` or `"fluidPage"`                                            | The initial 'setup' function that builds the leprechaun files in `R/` and `inst/`                                                            |
+|                                         |                                                                                                |                                                                                                                                              |
+|                                         | `bs_version`: Bootstrap version                                                                |                                                                                                                                              |
+|                                         |                                                                                                |                                                                                                                                              |
+|                                         | `overwrite` : recreate folder structure                                                        |                                                                                                                                              |
++-----------------------------------------+------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+| `scaffold_leprechaun()` (from `packer`) | `react` : include React?                                                                       | This function comes from [the `packer` package](https://packer.john-coene.com/#/references/scaffold_leprechaun) for integrating JS with R.   |
+|                                         |                                                                                                |                                                                                                                                              |
+|                                         | `vue` : include Vue?                                                                           | This creates the following non-standard R package folders and files:                                                                         |
+|                                         |                                                                                                |                                                                                                                                              |
+|                                         | `use_cdn` : use the CDN for react or vue dependencies?                                         | -   `srcjs/` and `node_modules/`                                                                                                             |
+|                                         |                                                                                                | -   `package-lock.json`, `package.json`, `webpack.common.js,` `webpack.dev.js`, and `webpack.prod.js` files                                  |
+|                                         | `edit` : open pertinent files                                                                  |                                                                                                                                              |
+|                                         |                                                                                                | *These non-standard folders are added to the `.Rbuildignore` and `.gitignore`* (but it would be nice to know more about what they do).       |
++-----------------------------------------+------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+| `use_packer()`                          | Assumes `scaffold_leprechaun()` from packer has been run                                       | Sets up application to use `packer` utilities for bundling JavaScript.                                                                       |
+|                                         |                                                                                                |                                                                                                                                              |
+|                                         |                                                                                                | -   Creates `inst/dev/packer.R`                                                                                                              |
+|                                         |                                                                                                | -   Adds `packer` to `Suggests` in `DESCRIPTION`                                                                                             |
++-----------------------------------------+------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+| `build()`                               | Returns `TRUE`/`FALSE` if build was successful.                                                | Used to 'bundle' various resources (i.e., from `packer` and the other `use_` functions)                                                      |
++-----------------------------------------+------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+| `use_sass()`                            |                                                                                                | Creates `inst/dev/sass.R`                                                                                                                    |
+|                                         |                                                                                                |                                                                                                                                              |
+|                                         |                                                                                                | Adds `sass` to `DESCRIPTION` under `Suggests`                                                                                                |
++-----------------------------------------+------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+| `use_html_utils()`                      | Adds `R/html-utils.R`                                                                          | Adds `htmltools` to `Imports` field in `DESCRIPTION`                                                                                         |
+|                                         |                                                                                                |                                                                                                                                              |
+|                                         |                                                                                                | `R/html-utils.R` contains a variety of utility functions using HTML tags (i.e., `span()`, `div()`, etc.)                                     |
++-----------------------------------------+------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+| `use_endpoints_utils()`                 | Adds `R/endpoint-utils.R`                                                                      | Adds `jsonlite` to `Imports` field in `DESCRIPTION`                                                                                          |
+|                                         |                                                                                                |                                                                                                                                              |
+|                                         |                                                                                                | `R/endpoint-utils.R` contains utility functions for creating an HTTP response object and the `LEPRECHAUN_SERIALISER` environmental variable. |
++-----------------------------------------+------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+| `use_js_utils()`                        | Adds `srcjs/leprechaun-utils.js` and `R/utils-js.R`                                            | Requires running `leprechaun::build()` to bundle .js                                                                                         |
+|                                         |                                                                                                |                                                                                                                                              |
+|                                         | Adds import statement to `srcjs/index.js`                                                      |                                                                                                                                              |
++-----------------------------------------+------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+| `use_config()`                          | Adds `R/config.R` and `inst/config.yml`                                                        | Adds `yml` to `Imports` field in `DESCRIPTION`                                                                                               |
+|                                         |                                                                                                |                                                                                                                                              |
+|                                         | `inst/config.yml` initially contains `production: true`                                        | `R/config.R` contains functions for reading and getting configuration values.                                                                |
++-----------------------------------------+------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+| `add_module()`                          | Using `add_module("name")` :                                                                   | *It would be nice if the modules had consistent naming (the UI function uses `camelCase()` and the server function is `snake_case()`).*      |
+|                                         |                                                                                                |                                                                                                                                              |
+|                                         | 1.  Creates `R/module_name.R`                                                                  | By default, modules aren't exported (i.e., with `@export`), but are included in the package index (i.e., with `@keywords internal`)          |
+|                                         | 2.  UI function: `nameUI()`                                                                    |                                                                                                                                              |
+|                                         | 3.  Server function: `name_server()`                                                           | Each module automatically includes:                                                                                                          |
+|                                         |                                                                                                |                                                                                                                                              |
+|                                         |                                                                                                | `send_message <- make_send_message(session)`                                                                                                 |
++-----------------------------------------+------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+| `add_app_file()`                        | Adds `app.R` file to root directory.                                                           | Handy for quickly launching the app during development (and deployment).                                                                     |
+|                                         |                                                                                                |                                                                                                                                              |
+|                                         | Includes call to `pkgload::load_all()` with `reset` set to `TRUE` and `helpers` set to `FALSE` |                                                                                                                                              |
++-----------------------------------------+------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+| `.onLoad()`                             | Used to add external files to app (images, html, etc.)                                         | Combines Shiny's `addResourcePath()` and `system.file()`.                                                                                    |
++-----------------------------------------+------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+| `serveAssets()`                         | `modules` argument can be used to include JavaScript modules                                   | Adds dependencies for JavaScript, CSS, and HTML.                                                                                             |
++-----------------------------------------+------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
+:::
+
+
+
+-->
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Download the code used to build the <code>charpente</code> app <a href="https://github.com/mjfrigaard/sfw/raw/main/_apps/cap.tar.gz">here</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+      for (let i=0; i<annoteTargets.length; i++) {
+        const annoteTarget = annoteTargets[i];
+        const targetCell = annoteTarget.getAttribute("data-target-cell");
+        const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+        const contentFn = () => {
+          const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          if (content) {
+            const tipContent = content.cloneNode(true);
+            tipContent.classList.add("code-annotation-tip-content");
+            return tipContent.outerHTML;
+          }
+        }
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          onShow: (instance) => {
+            selectCodeLines(instance.reference);
+            instance.reference.classList.add('code-annotation-active');
+            window.tippy.hideAll();
+          },
+          onHide: (instance) => {
+            unselectCodeLines();
+            instance.reference.classList.remove('code-annotation-active');
+          },
+          maxWidth: 300,
+          delay: [50, 0],
+          duration: [200, 0],
+          offset: [5, 10],
+          arrow: true,
+          appendTo: function(el) {
+            return el.parentElement.parentElement.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto',
+          placement: 'right',
+          popperOptions: {
+            modifiers: [
+            {
+              name: 'flip',
+              options: {
+                flipVariations: false, // true by default
+                allowedAutoPlacements: ['right'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
+              },
+            },
+            {
+              name: 'preventOverflow',
+              options: {
+                mainAxis: false,
+                altAxis: false
+              }
+            }
+            ]        
+          }      
+        };
+        window.tippy(annoteTarget, config); 
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/mjfrigaard/sfw/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

@@ -1054,9 +1054,8 @@ tests/testthat/
 
 Unit tests with `rhino` applications are similar to unit tests in R packages, with a few important differences: 
 
-1. We don't have access to the `usethis` and `devtools` functions for creating and running test files    
-2. We'll need to import the necessary `testthat` functions with `box::use()`   
-3. The `rhino::test_r()` will run the unit tests in `tests/testthat/`
+1. We don't have access to the `usethis` and `devtools` functions for creating or running test files, so we'll need to import the necessary `testthat` functions with `box::use()`   
+2. To run the tests in `rap`, we can use the `rhino::test_r()` function (`test_r()` will run the unit tests in `tests/testthat/`)
 
 The first test for `app/logic/data.R` is below: 
 

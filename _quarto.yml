@@ -22,6 +22,8 @@ website:
         text: golem
       - href: leprechaun.qmd
         text: leprechaun
+      - href: charpente.qmd
+        text: charpente
       - href: rhino.qmd
         text: rhino
 
