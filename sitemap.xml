@@ -2,18 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://mjfrigaard.github.io/sfw/golem.html</loc>
-    <lastmod>2024-01-09T16:16:28.533Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mjfrigaard.github.io/sfw/rhino.html</loc>
-    <lastmod>2024-01-09T16:15:41.778Z</lastmod>
-  </url>
-  <url>
-    <loc>https://mjfrigaard.github.io/sfw/leprechaun.html</loc>
-    <lastmod>2024-01-09T16:15:35.262Z</lastmod>
+    <lastmod>2024-01-09T15:55:18.303Z</lastmod>
   </url>
   <url>
     <loc>https://mjfrigaard.github.io/sfw/index.html</loc>
-    <lastmod>2024-01-09T16:16:14.445Z</lastmod>
+    <lastmod>2024-06-06T18:20:03.077Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mjfrigaard.github.io/sfw/leprechaun.html</loc>
+    <lastmod>2024-01-09T15:37:08.092Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mjfrigaard.github.io/sfw/rhino.html</loc>
+    <lastmod>2024-01-09T16:42:56.800Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mjfrigaard.github.io/sfw/charpente.html</loc>
+    <lastmod>2024-06-06T18:24:45.380Z</lastmod>
   </url>
 </urlset>
