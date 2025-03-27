@@ -1,3 +1,3 @@
 # cap (development version)
 
-* Initial Git push.
+* Initial CRAN submission.

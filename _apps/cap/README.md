@@ -1,4 +1,3 @@
-
 # cap
 
 <!-- badges: start -->
@@ -6,23 +5,22 @@
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-The goal of cap is to demonstrate the [`charpente` package](https://rinterface.github.io/charpente/).
+The goal of cap is to ...
 
 ## Installation
 
-You can install the development version of cap from [GitHub](https://github.com/) with:
+You can install the development version of cap like so:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("mjfrigaard/cap")
+# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
 ```
 
-## Launch app
+## Example
 
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(cap)
-launchApp()
+## basic example code
 ```
 

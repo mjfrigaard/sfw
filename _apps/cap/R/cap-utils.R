@@ -10,9 +10,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' library(htmltools)
-#' findDependencies(add_dependencies(div()))
-#' findDependencies(add_dependencies(div(), deps = "bulma"))
+#'  library(htmltools)
+#'  findDependencies(add_dependencies(div()))
+#'  findDependencies(add_dependencies(div(), deps = "bulma"))
 #' }
 add_dependencies <- function(tag, deps = NULL) {
   if (is.null(deps)) {
@@ -39,7 +39,7 @@ add_dependencies <- function(tag, deps = NULL) {
 
 
 # Remove NULL list elements
-dropNulls <- function(x) {
+dropNulls <- function (x) {
   x[!vapply(x, is.null, FUN.VALUE = logical(1))]
 }
 
@@ -59,9 +59,8 @@ validate_width <- function(width) {
 
 # Return TRUE if a shiny.tag object has a CSS class, FALSE otherwise.
 hasCssClass <- function(tag, class) {
-  if (is.null(tag$attribs) || is.null(tag$attribs$class)) {
+  if (is.null(tag$attribs) || is.null(tag$attribs$class))
     return(FALSE)
-  }
 
   classes <- strsplit(tag$attribs$class, " +")[[1]]
   return(class %in% classes)
@@ -83,11 +82,11 @@ hasCssClass <- function(tag, class) {
 #'
 #' @examples
 #' \dontrun{
-#' library(shiny)
-#' myTag <- div(class = "bg-blue")
-#' tagAssert(myTag, type = "div")
-#' tagAssert(myTag, type = "li") # will fail
-#' tagAssert(myTag, class = "bg-blue")
+#'  library(shiny)
+#'  myTag <- div(class = "bg-blue")
+#'  tagAssert(myTag, type = "div")
+#'  tagAssert(myTag, type = "li") # will fail
+#'  tagAssert(myTag, class = "bg-blue")
 #' }
 tagAssert <- function(tag, type = NULL, class = NULL, allowUI = TRUE) {
   if (!inherits(tag, "shiny.tag")) {
@@ -97,8 +96,8 @@ tagAssert <- function(tag, type = NULL, class = NULL, allowUI = TRUE) {
 
   # Skip dynamic output elements
   if (allowUI &&
-    (hasCssClass(tag, "shiny-html-output") ||
-      hasCssClass(tag, "shinydashboard-menu-output"))) {
+      (hasCssClass(tag, "shiny-html-output") ||
+       hasCssClass(tag, "shinydashboard-menu-output"))) {
     return()
   }
 
@@ -109,6 +108,7 @@ tagAssert <- function(tag, type = NULL, class = NULL, allowUI = TRUE) {
   if (!is.null(class)) {
     if (is.null(tag$attribs$class)) {
       stop("Expected tag to have class '", class, "'")
+
     } else {
       tagClasses <- strsplit(tag$attribs$class, " ")[[1]]
       if (!(class %in% tagClasses)) {
@@ -130,13 +130,13 @@ tagAssert <- function(tag, type = NULL, class = NULL, allowUI = TRUE) {
 equals <- function(a, b) {
   alen <- length(a)
   blen <- length(b)
-  if (alen == 0 && blen == 0) {
+  if (alen==0 && blen==0) {
     return(TRUE)
   }
   if (alen > 1 || blen > 1) {
     stop("Can only compare objects of length 0 or 1")
   }
-  if (alen == 0 || blen == 0) {
+  if (alen==0 || blen==0) {
     return(FALSE)
   }
 
@@ -161,10 +161,10 @@ equals <- function(a, b) {
 #'
 #' @examples
 #' \dontrun{
-#' library(shiny)
-#' myTag <- div(class = "bg-blue")
-#' tagMatches(myTag, id = "d")
-#' tagMatches(myTag, class = "bg-blue")
+#'  library(shiny)
+#'  myTag <- div(class = "bg-blue")
+#'  tagMatches(myTag, id = "d")
+#'  tagMatches(myTag, class = "bg-blue")
 #' }
 tagMatches <- function(item, ..., id = NULL, name = NULL, class = NULL) {
   dots <- list(...)
@@ -182,13 +182,13 @@ tagMatches <- function(item, ..., id = NULL, name = NULL, class = NULL) {
       return(FALSE)
     }
     classes <- strsplit(item$attribs$class, " ")[[1]]
-    if (!class %in% classes) {
+    if (! class %in% classes) {
       return(FALSE)
     }
   }
 
   for (i in seq_along(dots)) {
-    arg <- dots[[i]]
+    arg     <- dots[[i]]
     argName <- names(dots)[[i]]
     if (!equals(item$attribs[[argName]], arg)) {
       return(FALSE)
@@ -216,16 +216,11 @@ tagMatches <- function(item, ..., id = NULL, name = NULL, class = NULL) {
 #' @return TRUE or FALSE, depending on the search result
 #' @export
 findAttribute <- function(x, attr, val) {
-  if (is.atomic(x)) {
-    return(FALSE)
-  } # exhausted this branch of the tree
+  if (is.atomic(x)) return(FALSE) # exhausted this branch of the tree
 
   if (!is.null(x$attribs[[attr]])) { # found attribute called `attr`
-    if (identical(x$attribs[[attr]], val)) {
-      return(TRUE)
-    } else {
-      return(FALSE)
-    }
+    if (identical(x$attribs[[attr]], val)) return(TRUE)
+    else return(FALSE)
   }
 
   if (length(x$children) > 0) { # recursion

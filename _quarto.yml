@@ -22,8 +22,8 @@ website:
         text: golem
       - href: leprechaun.qmd
         text: leprechaun
-      - href: charpente.qmd
-        text: charpente
+      #- href: charpente.qmd
+      #  text: charpente
       - href: rhino.qmd
         text: rhino
 
@@ -31,7 +31,7 @@ format:
   html:
     #code-fold: show
     code-summary: 'show/hide'
-    # code-overflow: 
+    # code-overflow:
     #code-link: false
     #code-overflow: wrap
     #code-annotations: true
@@ -46,13 +46,13 @@ format:
     dpi: 320
     fig-format: retina
     fig-asp: 0.618
-    fontsize: 1.075em
-    linestretch: 1.25
+    fontsize: 1.015em
+    linestretch: 1.30
     theme: [yeti, custom.scss]
     highlight-style: arrow
     number-sections: false
-    
+
 execute:
-  echo: true 
+  echo: true
   eval: true
 

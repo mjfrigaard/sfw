@@ -1,9 +1,5 @@
-
-options(width = 50L,
-  pillar.width = 50L)
-
 co_box <- function(color, header, contents = "Your text", size = "1.05", hsize = "1.10", fold = FALSE, look = "default") {
-  
+
   if (look == "simple") {
     look <- "simple"
   } else if (look == "minimal") {
@@ -11,10 +7,10 @@ co_box <- function(color, header, contents = "Your text", size = "1.05", hsize =
   } else {
     look <- "default"
   }
-  
+
   fold <- tolower(as.character(fold))
   size <- as.character(size)
-  
+
   class <- switch(color,
     b = "note",
     g = "tip",

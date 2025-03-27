@@ -1,0 +1,144 @@
+---
+title: "The `charpente` framework"
+knitr:
+  opts_chunk: 
+    collapse: true
+    comment: ""
+
+editor: 
+  render-on-save: true
+    
+execute:
+  echo: true
+  warning: false
+  eval: false
+---
+
+```{r}
+#| label: utils
+#| eval: true 
+#| echo: false 
+#| include: false
+source("_common.R")
+```
+
+[`charpente`](https://rinterface.github.io/charpente/) apps use similar to standard R packages (i.e., they use `devtools` and `usethis`), but they're designed to '*significantly reduce the complexity of creating new HTML templates for Shiny*':[^view-cap]
+
+[^view-cap]: Download the code used to build the `charpente` app [here](https://github.com/mjfrigaard/sfw/raw/main/_apps/cap.tar.gz)
+
+## Getting started
+
+For a more complete introduction to the `charpente` package, I recommend [chapter 21](https://unleash-shiny.rinterface.com/workflow-charpente#workflow-charpente) of [Outstanding User Interfaces with Shiny](https://www.routledge.com/Outstanding-User-Interfaces-with-Shiny/Granjon/p/book/9780367643652) by David Granjon. 
+
+Create a `charpente` using the `create_charpente()`:
+
+```{r}
+#| label: create_charpente
+#| code-fold: false
+#| eval: false
+create_charpente(getwd(), license = "mit")
+```
+
+```{bash}
+#| label: create_charpente-cap-desc
+#| eval: false
+#| code-fold: false
+✔ Setting active project to '/Users/username/apps/cap'
+✔ Creating 'R/'
+✔ Writing 'DESCRIPTION'
+Package: cap
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R (parsed):
+    * Martin Frigaard <mjfrigaard@pm.me> [aut, cre]
+Description: What the package does (one paragraph).
+License: `use_mit_license()`, `use_gpl3_license()` or friends to
+    pick a license
+Imports:
+    htmltools,
+    shiny,
+    utils
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+```
+
+```{bash}
+#| label: create_charpente-files
+#| eval: false
+#| code-fold: false
+✔ Writing 'NAMESPACE'
+✔ Writing 'cap.Rproj'
+✔ Adding '^cap\\.Rproj$' to '.Rbuildignore'
+✔ Adding '.Rproj.user' to '.gitignore'
+✔ Adding '^\\.Rproj\\.user$' to '.Rbuildignore'
+✔ Setting active project to '<no active project>'
+✔ Package 'cap' successfuly created!
+✔ Setting active project to '/Users/username/apps/cap'
+✔ Adding 'MIT + file LICENSE' to License
+✔ Writing 'LICENSE'
+✔ Writing 'LICENSE.md'
+✔ Adding '^LICENSE\\.md$' to '.Rbuildignore'
+✔ Writing 'cran-comments.md'
+✔ Adding '^cran-comments\\.md$' to '.Rbuildignore'
+✔ Writing 'README.md'
+• Update 'README.md' to include installation instructions.
+✔ Writing 'CODE_OF_CONDUCT.md'
+✔ Adding '^CODE_OF_CONDUCT\\.md$' to '.Rbuildignore'
+• You may also want to describe the code of conduct in your README:
+  ## Code of Conduct
+  
+  Please note that the dev project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+  [Copied to clipboard]
+✔ Writing 'NEWS.md'
+✔ Adding CRAN status badge to 'README.md'
+✔ Adding Lifecycle: experimental badge to 'README.md'
+✔ Adding 'testthat' to Suggests field in DESCRIPTION
+✔ Adding '3' to Config/testthat/edition
+✔ Creating 'tests/testthat/'
+✔ Writing 'tests/testthat.R'
+• Call `use_test()` to initialize a basic test file and open it for editing.
+✔ Writing 'tests/testthat/test-dummy-test.R'
+• Edit 'tests/testthat/test-dummy-test.R'
+✔ Installed "`esbuild`", "`esbuild-sass-plugin`", "`postcss`", "`autoprefixer`" 
+✔ Adding '^srcjs$', '^node_modules$', '^package\\.json$', '^package-lock\\.json$', '^styles$', '^esbuild\\.cap\\.js$', '^esbuild\\.prod\\.js$' to '.Rbuildignore'
+✔ Adding 'node_modules' to '.gitignore'
+✔ Installed "`mocha`" 
+✔ Initialising Git repo
+✔ Adding '.Rhistory', '.Rdata', '.httr-oauth', '.DS_Store', '.quarto' to '.gitignore'
+```
+
+```{bash}
+#| label: create_charpente-git-commit
+#| eval: false
+#| code-fold: false
+There are 17 uncommitted files:
+* '.gitignore'
+* '.Rbuildignore'
+* 'CODE_OF_CONDUCT.md'
+* 'cran-comments.md'
+* 'DESCRIPTION'
+* 'cap.Rproj'
+* 'LICENSE'
+* 'LICENSE.md'
+* 'NAMESPACE'
+* 'NEWS.md'
+* ...
+Is it ok to commit them?
+
+1: Absolutely not
+2: No way
+3: Yeah
+
+Selection: 2
+Warning: Opening new project in a new session ...
+```
+
+## Package files 
+
+## Building charpente apps
+
+## Dependencies 
+
+## Recap
+

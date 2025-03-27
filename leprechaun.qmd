@@ -25,6 +25,33 @@ source("_common.R")
 
 [^view-lap]: Download the code used to build the `leprechaun` app [here](https://github.com/mjfrigaard/sfw/raw/main/_apps/lap.tar.gz)
 
+```{r}
+#| label: co_box_dev_env
+#| eval: true 
+#| results: asis
+#| echo: false
+co_box(color = "r",
+  header = "IMPORTANT: Development Environment",
+  contents = "
+
+This page covers developing a new `leprechaun` application using Positron, the new IDE from Posit. The current version information is below: 
+
+\`\`\`sh
+Positron Version: 2025.03.0 (Universal) build 116
+Code - OSS Version: 1.96.0
+Commit: 7f0f93873e8b24c9f393bb3586724f4783c5e72c
+Date: 2025-03-01T18:51:44.014Z
+Electron: 32.2.6
+Chromium: 128.0.6613.186
+Node.js: 20.18.1
+V8: 12.8.374.38-electron.0
+OS: Darwin x64 24.3.0
+\`\`\`
+
+")
+```
+
+
 ## Getting started
 
 Create a `leprechaun` app just like you would a new R package:
@@ -53,14 +80,13 @@ usethis::create_package("lap")
 
 After the new project opens, install and load the `leprechaun` package, then run `leprechaun::scaffold()`:[^leprechaun-scaffold]
 
-[^leprechaun-scaffold]: The [`leprechaun::scaffold()`](https://leprechaun.opifex.org/#/reference/scaffold) defaults to a `navbarPage()`, but I've switched to a `fluidPage()` for this example. 
+[^leprechaun-scaffold]: The [`leprechaun::scaffold()`](https://leprechaun.opifex.org/#/reference/scaffold) defaults to a `navbarPage()`, but you can switch to a `fluidPage()` or change the Bootstrap version ("*If shiny \> 1.6 is installed defaults to version 5, otherwise version 4"* ). 
 
 ```{r}
 #| label: install.packages-scaffold
 #| code-fold: false
 install.packages("leprechaun")
-library(leprechaun)
-leprechaun::scaffold(ui = "fluidPage")
+leprechaun::scaffold()
 ```
 
 ## Package files 
@@ -95,70 +121,35 @@ leprechaun::scaffold(ui = "fluidPage")
 8 directories, 14 files
 ```
 
-The standard R package files and folders (`DESCRIPTION`, `NAMESPACE`, `R/`, and `lap.Rproj`) are accompanied by multiple sub-folders in `inst/` (recall that `inst/` contents are available in the package when the package is installed).[^remove-initial-pkg-files]
+The standard R package files and folders (`DESCRIPTION`, `NAMESPACE`, `R/`, etc.) are accompanied by multiple sub-folders in `inst/` (recall that `inst/` contents are available in the package when the package is installed).[^remove-initial-pkg-files]
 
 [^remove-initial-pkg-files]: We can remove `R/hello.R` and `man/hello.Rd` files. These are just examples from `usethis::create_package()`.
 
-### `leprechaun` files
+## Getting Started
 
-The initial application files are created using [`leprechaun::scaffold()`](https://leprechaun.opifex.org/#/reference/scaffold), which takes the following options as function arguments:
+The following files are part of our initial application created with [`leprechaun::scaffold()`](https://leprechaun.opifex.org/#/reference/scaffold).
 
-  -   `ui` controls the application layout (can be `"fluidPage"` or `"navbarPage"`, defaults to `"navbarPage"`)
-  -   `bs_version` Bootstrap version ("*If shiny \> 1.6 is installed defaults to version 5, otherwise version 4"* )
-  -   `overwrite`: Overwrite all files?\
-  
-The output from `leprechaun::scaffold()` is below:
+:::{layout="[30,70]" layout-valign="top"}
 
-```{bash}
-#| eval: false
-#| code-fold: false
-── Scaffolding leprechaun app ─────────────────────────────────────────
+**.leprechaun**
 
-── Creating lock file ──
 
-✔ Creating .leprechaun
-```
+The `.leprechaun` lock file contains the package name, version, as well as versions of bootstrap and accompanying R files.
 
-The `.leprechaun` lock file contains the package name, version, as well as versions of bootstrap and accompanying R files:
+:::
 
-```{bash}
-#| eval: false
-#| code-fold: false
-{
-  "package": "lap",
-  "version": "1.0.0",
-  "bs_version": 5,
-  "r": {
-    "ui": "1.0.0",
-    "assets": "1.0.0",
-    "run": "1.0.0",
-    "server": "1.0.0",
-    "leprechaun-utils": "1.0.0",
-    "zzz": "1.0.0",
-    "inputs": "1.0.0"
-  }
-}
 
-```
+:::{layout="[30,70]" layout-valign="top"}
 
-`leprechaun::scaffold()` will automatically add `shiny`, `bslib`, `htmltools` and `pkgload` to the `DESCRIPTION` file:
+**DESCRIPTION**
 
-```{bash}
-#| eval: false
-#| code-fold: false
-── Adding dependencies ──
+- `shiny`, `bslib`, `htmltools` and `pkgload` will automatically be added to the `DESCRIPTION` file
 
-✔ Adding 'shiny' to Imports in DESCRIPTION
-✔ Adding 'bslib' to Imports in DESCRIPTION
-✔ Adding 'htmltools' to Imports in DESCRIPTION
-✔ Adding 'pkgload' to Suggests in DESCRIPTION
-```
+    - The remaining `DESCRIPTION` fields need to be entered manually (or with the [`desc` package](https://desc.r-lib.org/)). See example below:
 
-The remaining `DESCRIPTION` fields need to be entered manually (or with the [`desc` package](https://desc.r-lib.org/)). See example below:
+:::
 
-```{bash}
-#| eval: false
-#| code-fold: false
+```{verbatim}
 Package: lap
 Title: leprechaun app-package 
 Version: 0.0.0.9000
@@ -175,11 +166,23 @@ Imports:
     shiny
 Suggests: 
     pkgload
-# <1>
-```
-1. Leave an empty line in the `DESCRIPTION` file
 
-### App code 
+```
+
+:::{.column-margin}
+
+Leave an empty final line in the `DESCRIPTION` file.
+
+:::
+
+
+As promised, `leprechaun` app-packages can be spun up quickly with minimal commands. After loading and documenting `lap`, we can use the standalone app function `run()` to launch the app. 
+
+## Development
+
+
+
+### [Application code]{style="font-weight: bold; font-size: 1.02em;"}
 
 The application code files are created in the `R/` folder:
 
@@ -303,7 +306,6 @@ The `.leprechaun` lock file is also added to the `.Rbuildignore`
 ✔ Adding '^\\.leprechaun$' to '.Rbuildignore'
 ```
 
-## Building `leprechaun` apps
 
 Building `leprechaun` apps is similar to developing an R package. New code is placed in the `R/` folder, and application resources (CSS, SASS, JavaScript files) are added using one of the `leprechaun::use_*` functions:
 
@@ -773,7 +775,7 @@ packer::scaffold_leprechaun()
 
     ```{bash}
     #| code-fold: false
-    ── Scaffolding leprechaun ──────────────────────────────────────
+    ── Scaffolding leprechaun ─────────────────────────────────────────
     ✔ Initialiased npm
     ✔ webpack, webpack-cli, webpack-merge installed with scope "dev" 
     ✔ Added npm scripts
@@ -783,15 +785,16 @@ packer::scaffold_leprechaun()
     
     ── Adding files to .gitignore and .Rbuildignore ──
     
-    ✔ Setting active project to '/projects/apps/sfw/_apps/lap'
-    ✔ Adding '^srcjs$' to '.Rbuildignore'
-    ✔ Adding '^node_modules$' to '.Rbuildignore'
-    ✔ Adding '^package\\.json$' to '.Rbuildignore'
-    ✔ Adding '^package-lock\\.json$' to '.Rbuildignore'
-    ✔ Adding '^webpack\\.dev\\.js$' to '.Rbuildignore'
-    ✔ Adding '^webpack\\.prod\\.js$' to '.Rbuildignore'
-    ✔ Adding '^webpack\\.common\\.js$' to '.Rbuildignore'
-    ✔ Adding 'node_modules' to '.gitignore'
+    ✔ Setting active project to "/Users/mjfrigaard/projects/dev/lap".
+    ✔ Adding "^srcjs$" to .Rbuildignore.
+    ✔ Adding "^node_modules$" to .Rbuildignore.
+    ✔ Adding "^package\\.json$" to .Rbuildignore.
+    ✔ Adding "^package-lock\\.json$" to .Rbuildignore.
+    ✔ Adding "^webpack\\.dev\\.js$" to .Rbuildignore.
+    ✔ Adding "^webpack\\.prod\\.js$" to .Rbuildignore.
+    ✔ Adding "^webpack\\.common\\.js$" to .Rbuildignore.
+    ✔ Adding "node_modules" to .gitignore.
+    
     
     ── Scaffold built ──
     

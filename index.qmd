@@ -39,7 +39,7 @@ library(pak)
 
 ### Shiny frameworks
 
-This website is a resource for developers to get an 'under the hood' view of four popular Shiny frameworks. 
+This website is a resource for developers to get an 'under the hood' view of three popular Shiny frameworks. 
 
 ::: {layout="[20, 80]"}
 
@@ -60,6 +60,8 @@ This website is a resource for developers to get an 'under the hood' view of fou
 
 :::
 
+<!--
+
 ::: {layout="[20, 80]"}
 
 ![](img/charpente.png){fig-align="left" width="250"}
@@ -69,6 +71,8 @@ This website is a resource for developers to get an 'under the hood' view of fou
 [`cap`](charpente.qmd): a [`charpente`](https://rinterface.github.io/charpente/index.html) app-package ([download cap](https://github.com/mjfrigaard/sfw/raw/main/_apps/cap.tar.gz))
 
 :::
+
+-->
 
 ::: {layout="[20, 80]"}
 
