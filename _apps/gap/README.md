@@ -1,50 +1,86 @@
+25 March, 2025 14:46:03
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# gap
-
-## *(**`g`** olem **`a`** pp- **`p`** ackage)*
+# `{gap}`: a golem app package
 
 <!-- badges: start -->
 
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![Codecov test
-coverage](https://codecov.io/gh/mjfrigaard/gap/branch/main/graph/badge.svg)](https://app.codecov.io/gh/mjfrigaard/gap?branch=main)
-
+coverage](https://codecov.io/gh/mjfrigaard/sap/graph/badge.svg)](https://app.codecov.io/gh/mjfrigaard/sap)
+[![Coveralls test
+coverage](https://coveralls.io/repos/github/mjfrigaard/sap/badge.svg)](https://coveralls.io/r/mjfrigaard/sap?branch=02.1_shiny-app)
 <!-- badges: end -->
-
-The goal of `gap` is to demonstrate the `golem` framework.
 
 ## Installation
 
-You can install the development version of `gap` from
-[GitHub](https://github.com/) with:
+You can install the development version of `{gap}` like so:
 
 ``` r
-install.packages("devtools")
-devtools::install_github("mjfrigaard/gap")
+remotes::install_github(repo = "mjfrigaard/sap", ref = "23_golem")
 ```
 
 ## Run
 
-You can run the application with the following:
+You can launch the application by running:
 
 ``` r
-library(gap)
 gap::run_app()
 ```
 
-## Docker
+## About
 
-Run the following commands in the Terminal.
+You are reading the doc about version : 0.0.0.9230
 
-``` bash
-docker build -t gap-docker-demo .
-docker run -p 80:80 gap-docker-demo
+This README has been compiled on the
+
+``` r
+Sys.time()
+#> [1] "2025-03-25 14:46:03 MST"
 ```
 
-## Code of Conduct
+Here are the tests results and package coverage:
 
-Please note that the `gap` project is released with a [Contributor Code
-of
-Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
-By contributing to this project, you agree to abide by its terms.
+``` r
+devtools::check(quiet = TRUE)
+#> ℹ Loading gap
+#> ── R CMD check results ───────────────────────────────────── gap 0.0.0.9230 ────
+#> Duration: 41.6s
+#> 
+#> ❯ checking for future file timestamps ... NOTE
+#>   unable to verify current time
+#> 
+#> ❯ checking top-level files ... NOTE
+#>   Non-standard file/directory found at top level:
+#>     ‘deploy’
+#> 
+#> ❯ checking package subdirectories ... NOTE
+#>   Problems with news in ‘NEWS.md’:
+#>   No news entries found.
+#> 
+#> ❯ checking R code for possible problems ... NOTE
+#>   mod_scatter_display_server : <anonymous>: no visible binding for global
+#>     variable ‘movies’
+#>   Undefined global functions or variables:
+#>     movies
+#> 
+#> 0 errors ✔ | 0 warnings ✔ | 4 notes ✖
+```
+
+``` r
+covr::package_coverage()
+#> gap Coverage: 87.18%
+#> R/run_app.R: 0.00%
+#> R/utils_tests.R: 53.85%
+#> R/golem_utils_server.R: 77.78%
+#> R/mod_scatter_display.R: 78.38%
+#> R/golem_utils_ui.R: 87.94%
+#> R/app_config.R: 100.00%
+#> R/app_server.R: 100.00%
+#> R/app_ui.R: 100.00%
+#> R/mod_aes_inputs.R: 100.00%
+#> R/mod_var_inputs.R: 100.00%
+#> R/utils_scatter_display.R: 100.00%
+```

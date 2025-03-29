@@ -1,60 +1,63 @@
 ---
 output: github_document
+date: "`r format(Sys.time(), '%d %B, %Y %H:%M:%S')`"
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
+  knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>",
+    fig.path = "man/figures/README-",
+    out.width = "100%"
 )
-options(repos = 'http://cran.us.r-project.org')
 ```
 
-# gap 
-
-## *(**`g`** olem **`a`** pp- **`p`** ackage)*
+# `{gap}`: a golem app package
 
 <!-- badges: start -->
-
-[![Codecov test coverage](https://codecov.io/gh/mjfrigaard/gap/branch/main/graph/badge.svg)](https://app.codecov.io/gh/mjfrigaard/gap?branch=main)
-
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Codecov test coverage](https://codecov.io/gh/mjfrigaard/sap/graph/badge.svg)](https://app.codecov.io/gh/mjfrigaard/sap)
+[![Coveralls test coverage](https://coveralls.io/repos/github/mjfrigaard/sap/badge.svg)](https://coveralls.io/r/mjfrigaard/sap?branch=02.1_shiny-app)
 <!-- badges: end -->
-
-The goal of `gap` is to demonstrate the `golem` framework.
 
 ## Installation
 
-You can install the development version of `gap` from [GitHub](https://github.com/) with:
+You can install the development version of `{gap}` like so:
 
-```{r inst_pkg, eval=FALSE, message=FALSE, warning=FALSE}
-install.packages("devtools")
-devtools::install_github("mjfrigaard/gap")
+```{r eval=FALSE}
+remotes::install_github(repo = "mjfrigaard/sap", ref = "23_golem")
 ```
 
+## Run
 
-## Run 
+You can launch the application by running:
 
-You can run the application with the following: 
-
-```{r example, eval=FALSE}
-library(gap)
+```{r, eval = FALSE}
 gap::run_app()
 ```
 
-## Docker
+## About
 
-Run the following commands in the Terminal.
+You are reading the doc about version : `r golem::pkg_version()`
 
-```{bash, eval=FALSE}
-docker build -t gap-docker-demo .
-docker run -p 80:80 gap-docker-demo
+This README has been compiled on the
+
+```{r}
+Sys.time()
 ```
 
+Here are the tests results and package coverage:
 
-## Code of Conduct
+```{r, error = TRUE}
+devtools::check(quiet = TRUE)
+```
 
-Please note that the `gap` project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+```{r echo = FALSE}
+unloadNamespace("gap")
+```
+
+```{r, error = TRUE}
+covr::package_coverage()
+```

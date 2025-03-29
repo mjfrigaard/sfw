@@ -2,21 +2,20 @@
 % Please edit documentation in R/utils_tests.R
 \name{test_logger}
 \alias{test_logger}
-\title{Test logger (test utility)}
+\title{tests}
 \usage{
 test_logger(start = NULL, end = NULL, msg)
 }
 \arguments{
-\item{start}{test start message}
+\item{start}{A character string indicating the start tag. Default is \code{NULL}.}
 
-\item{end}{test end message}
+\item{end}{A character string indicating the end tag. Default is \code{NULL}.}
 
-\item{msg}{test message}
+\item{msg}{A character string containing the log message.}
 }
 \value{
-message to test output
+The return value, if any, from executing the utility.
 }
 \description{
-Test logger (test utility)
+A test utility function
 }
-\keyword{internal}
