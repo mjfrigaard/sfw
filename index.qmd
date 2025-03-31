@@ -1,5 +1,5 @@
 ---
-title: "shiny-app-frameworks"
+title: "Shiny frameworks"
 format:
   html: 
     toc: true
@@ -37,18 +37,23 @@ if (isFALSE("pak" %in% loadedNamespaces())) {
 library(pak)
 ```
 
-### Shiny frameworks
+This website is a resource for Shiny developers to get an 'under the hood' view of three popular frameworks. 
 
-This website is a resource for developers to get an 'under the hood' view of three popular Shiny frameworks. 
+## Golem
 
 ::: {layout="[20, 80]"}
 
 ![](img/goelm_hex.png){fig-align="left" width="250"}
 
-[`gap`](golem.qmd): a [`golem`](https://thinkr-open.github.io/golem/) app-package ([download gap](https://github.com/mjfrigaard/sfw/raw/main/_apps/gap.tar.gz))
+[`gap`](golem.qmd): a [`golem`](https://thinkr-open.github.io/golem/) app-package
 
 
 :::
+
+[Download the `gap` source code](https://github.com/mjfrigaard/sfw/raw/main/_apps/gap.tar.gz).
+
+
+## Leprechaun
 
 ::: {layout="[20, 80]"}
 
@@ -56,9 +61,11 @@ This website is a resource for developers to get an 'under the hood' view of thr
 
 
 
-[`lap`](leprechaun.qmd): a [`leprechaun`](https://leprechaun.opifex.org/#/) app-package ([download lap](https://github.com/mjfrigaard/sfw/raw/main/_apps/lap.tar.gz))
+[`lap`](leprechaun.qmd): a [`leprechaun`](https://leprechaun.opifex.org/#/) app-package
 
 :::
+
+[Download the `lap` source code.](https://github.com/mjfrigaard/sfw/raw/main/_apps/lap.tar.gz).
 
 <!--
 
@@ -74,15 +81,19 @@ This website is a resource for developers to get an 'under the hood' view of thr
 
 -->
 
+## Rhino
+
 ::: {layout="[20, 80]"}
 
 ![](img/rhino_hex.png){fig-align="left" width="250"}
 
- [`rap`](rhino.qmd): a [`rhino`](https://appsilon.github.io/rhino/) app (pseudo-package)[^rhino-non-pkg] ([download rap](https://github.com/mjfrigaard/sfw/raw/main/_apps/rap.tar.gz))
+ [`rap`](rhino.qmd): a [`rhino`](https://appsilon.github.io/rhino/) app (pseudo-package)[^rhino-non-pkg]
  
  [^rhino-non-pkg]: `rhino` apps aren't R packages--they're dependencies are managed with a `dependencies.R` file and [`box`](https://klmr.me/box/) modules.
 
 :::
+
+[Download the `rap` source code](https://github.com/mjfrigaard/sfw/raw/main/_apps/rap.tar.gz).
 
 ### Source application
 

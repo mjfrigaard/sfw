@@ -35,6 +35,7 @@ format:
     #code-link: false
     #code-overflow: wrap
     #code-annotations: true
+    lightbox: true
     code-block-bg: "#f8f8f8"
     code-block-border-left: "#99bbc9"
     toc: true
