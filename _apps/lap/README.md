@@ -1,21 +1,29 @@
-<h1 align="center"> <code>lap</code> </h1>
-<h3 align="center"> A `leprechaun` app-package </h3>
 
-<hr>
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # lap
 
+<!-- badges: start -->
+
+<!-- badges: end -->
+
 The goal of `lap` is to demonstrate the `leprechaun` framework.
 
-## Download
+## Installation
 
-You can download [here](https://github.com/mjfrigaard/sfw/raw/main/_apps/lap.tar.gz).
+You can install the development version of lap from
+[GitHub](https://github.com/) with:
 
-## Run
+``` r
+# install.packages("remotes")
+remotes::install_github(repo = "mjfrigaard/sap", ref = "24_leprechaun")
+```
 
-You can run the application with the following:
+## App
+
+Run the app using:
 
 ``` r
 library(lap)
-lap::run()
+run()
 ```

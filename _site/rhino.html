@@ -173,7 +173,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link active" data-scroll-target="#getting-started">Getting started</a></li>
+  <li><a href="#package-versions" id="toc-package-versions" class="nav-link active" data-scroll-target="#package-versions">Package versions</a></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting started</a></li>
   <li><a href="#rhino-files" id="toc-rhino-files" class="nav-link" data-scroll-target="#rhino-files"><code>rhino</code> files</a>
   <ul>
   <li><a href="#app-code" id="toc-app-code" class="nav-link" data-scroll-target="#app-code">App code</a>
@@ -182,7 +183,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#dependencies.r" id="toc-dependencies.r" class="nav-link" data-scroll-target="#dependencies.r"><span style="font-size: 0.90em; font-weight: bold;"><code>dependencies.R</code></span></a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#building-a-rhino-app" id="toc-building-a-rhino-app" class="nav-link" data-scroll-target="#building-a-rhino-app">Building a <code>rhino</code> app</a>
+  <li><a href="#development" id="toc-development" class="nav-link" data-scroll-target="#development">Development</a>
   <ul>
   <li><a href="#box-modules" id="toc-box-modules" class="nav-link" data-scroll-target="#box-modules"><code>box</code> modules</a>
   <ul>
@@ -241,6 +242,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><code>rhino</code> apps are unique because unlike <code>golem</code> and <code>leprechaun</code>, they aren’t R packages. <code>rhino</code> uses <a href="https://klmr.me/box/"><code>box</code></a> modules to manage add-on package functions, which minimizes dependencies and separates the application’s code into a clear ‘division of labor.’<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<section id="package-versions" class="level2">
+<h2 class="anchored" data-anchor-id="package-versions">Package versions</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 18%">
+<col style="width: 75%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Package</th>
+<th style="text-align: left;">Version</th>
+<th style="text-align: left;">Title</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">rhino</td>
+<td style="text-align: left;">1.10.1</td>
+<td style="text-align: left;">A Framework for Enterprise Shiny Applications</td>
+<td style="text-align: left;">A framework that supports creating and extending enterprise Shiny applications using best practices.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">box</td>
+<td style="text-align: left;">1.2.0</td>
+<td style="text-align: left;">Write Reusable, Composable and Modular R Code</td>
+<td style="text-align: left;">A modern module system for R. Organise code into hierarchical, composable, reusable modules, and use it effortlessly across projects via a flexible, declarative dependency loading syntax.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
 <section id="getting-started" class="level2">
 <h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
 <p>To create a new <code>rhino</code> application, select <strong>Project</strong> &gt; <strong>New Project</strong> &gt; <strong>New Directory</strong>, and <strong>Shiny Application using rhino</strong>. The <strong>New Project Wizard</strong> will require a <em>Directory name</em> and <em>subdirectory</em> and <em>Github Actions CI</em> (selected by default)</p>
@@ -376,13 +414,13 @@ Figure&nbsp;1: New <code>rhino</code> app
 </div></li>
 </ul>
 <p><br></p>
-<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span style="font-weight: bold; font-size: 1.10em;">box::use()?</span>
+<span style="font-weight: bold; font-size: 1.05em;">box::use()?</span>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -476,8 +514,8 @@ Figure&nbsp;1: New <code>rhino</code> app
 </section>
 </section>
 </section>
-<section id="building-a-rhino-app" class="level2">
-<h2 class="anchored" data-anchor-id="building-a-rhino-app">Building a <code>rhino</code> app</h2>
+<section id="development" class="level2">
+<h2 class="anchored" data-anchor-id="development">Development</h2>
 <p>Now that we’ve covered the initial file and folder structure of a new <code>rhino</code> application, we’re going to cover how to convert the ‘vanilla’ Shiny app below into the <code>rhino</code> structure. We’ll have to 1) load the <code>movies</code> data, and 2) create/call the <code>scatter_plot()</code> utility function, and 3) convert the contents of <code>app.R</code> into modules.</p>
 <div class="cell">
 <details class="code-fold">

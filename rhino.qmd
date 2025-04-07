@@ -46,6 +46,16 @@ box_use_df <- data.frame(
 
 [^view-rap]: The code used to build the `rhino` app is available [here](https://github.com/mjfrigaard/sfw/raw/main/_apps/rap.tar.gz).
 
+## Package versions
+
+```{r}
+#| echo: false
+#| eval: true
+knitr::kable(
+  pkg_info(pkgs = c("rhino","box"))
+)
+```
+
 ## Getting started
 
 To create a new `rhino` application, select **Project** \> **New Project** \> **New Directory**, and **Shiny Application using rhino**. The **New Project Wizard** will require a *Directory name* and *subdirectory* and *Github Actions CI* (selected by default)
@@ -312,7 +322,7 @@ tests/
     
 [^rhino-unit-tests]: Read more about `rhino` [unit tests](https://appsilon.github.io/rhino/reference/test_r.html)
 
-## Building a `rhino` app
+## Development
 
 Now that we've covered the initial file and folder structure of a new `rhino` application, we're going to cover how to convert the 'vanilla' Shiny app below into the `rhino` structure. We'll have to 1) load the `movies` data, and 2) create/call the `scatter_plot()` utility function, and 3) convert the contents of `app.R` into modules.
 

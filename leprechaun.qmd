@@ -23,18 +23,30 @@ source("_common.R")
 
 > *"it generates code and does not make itself a dependency of the application you build; this means applications are leaner, and smaller"*
 
+
+## Package versions
+
+```{r}
+#| echo: false
+#| eval: true
+knitr::kable(
+  pkg_info(pkgs = c("leprechaun","packer"))
+)
+```
+
+
 [^view-lap]: Download the code used to build the `leprechaun` app [here](https://github.com/mjfrigaard/sfw/raw/main/_apps/lap.tar.gz)
 
 ```{r}
 #| label: co_box_dev_env
-#| eval: true 
+#| eval: false 
 #| results: asis
 #| echo: false
 co_box(color = "r",
   header = "IMPORTANT: Development Environment",
   contents = "
 
-This page covers developing a new `leprechaun` application using Positron, the new IDE from Posit. The current version information is below: 
+This page covers developing a new `leprechaun` application using Positron ![](img/positron.png){height=30}, the new IDE from Posit. The current version information is below: 
 
 \`\`\`sh
 Positron Version: 2025.03.0 (Universal) build 116
@@ -190,7 +202,7 @@ Leave an empty final line in the `DESCRIPTION` file.
 :::
 
 
-As promised, `leprechaun` app-packages can be spun up quickly with minimal commands. After loading and documenting `lap`, we can use the standalone app function `run()` to launch the app.
+As promised, `leprechaun` app-packages can be spun up quickly with minimal commands. After loading and documenting `lap`, we can use the standalone app function `run()` to launch the app in Positron ![](img/positron.png){height=30}
 
 ![Initial leprechaun app](img/lap_initial_app.png){width='100%' fig-align='center'}
 
@@ -1088,7 +1100,15 @@ The other components of `lap` were created using the standard `usethis` package 
 
 #### Utility functions
 
-Use `usethis::use_r()` or create a new file in the `R/` folder to add utility functions to `lap`. Expland the code chunks below to view our plotting utility function and `bslib` theme:
+```{r}
+#| label: dev_box_g2r
+#| eval: true 
+#| results: asis
+#| echo: false
+dev_box(text = "Include update for https://g2r.opifex.org/ graphic!", TRUE, TRUE)
+```
+
+Use `usethis::use_r()` or create a new file in the `R/` folder to add utility functions to `lap`. Expand the code chunks below to view our plotting utility function and `bslib` theme:
 
 ```{r}
 #| eval: false
@@ -1169,6 +1189,7 @@ The `R/ui.R` file will contain a `navbarPage()` layout by default, but we'll upd
 ui <- function(req){
   tagList(
       bslib::page_fillable(
+        list(assets()),
         title = "Movie Reviews (lap)",
         theme = lap_theme,
         bslib::layout_sidebar(
@@ -1295,38 +1316,39 @@ pak::pak("JohnCoene/packer")
 ```
 
 
+Build the `packer` scaffolding:[^packer-scaffold]
+
 :::{layout="[30,70]" layout-valign="top"}
 
-**[`packer::scaffold_leprechaun()`](https://packer.john-coene.com/#/references/scaffold_leprechaun)** builds the scaffolding for `packer`:[^packer-scaffold]
+**[`packer::scaffold_leprechaun()`](https://packer.john-coene.com/#/references/scaffold_leprechaun)** 
 
 ```r
-packer::scaffold_leprechaun()
-  ── Scaffolding leprechaun ─────────────────────────
-  ✔ Initialiased npm
-  ✔ webpack, webpack-cli, webpack-merge installed with
-    scope "dev" 
-  ✔ Added npm scripts
-  ✔ Created srcjs directory
-  ✔ Created srcjs/config directory
-  ✔ Created webpack config files
-  
-  ── Adding files to .gitignore and .Rbuildignore ──
-  
-  ✔ Setting active project to "/path/to/lap".
-  ✔ Adding "^srcjs$" to .Rbuildignore.
-  ✔ Adding "^node_modules$" to .Rbuildignore.
-  ✔ Adding "^package\\.json$" to .Rbuildignore.
-  ✔ Adding "^package-lock\\.json$" to .Rbuildignore.
-  ✔ Adding "^webpack\\.dev\\.js$" to .Rbuildignore.
-  ✔ Adding "^webpack\\.prod\\.js$" to .Rbuildignore.
-  ✔ Adding "^webpack\\.common\\.js$" to .Rbuildignore.
-  ✔ Adding "node_modules" to .gitignore.
-  
-  
-  ── Scaffold built ──
-  
-  ℹ Run `bundle` to build the JavaScript files
-  ℹ Run `leprechaun::use_packer()`
+── Scaffolding leprechaun ──────────────────────────
+✔ Initialiased npm
+✔ webpack, webpack-cli, webpack-merge installed 
+  with scope "dev" 
+✔ Added npm scripts
+✔ Created srcjs directory
+✔ Created srcjs/config directory
+✔ Created webpack config files
+
+── Adding files to .gitignore and .Rbuildignore ──
+
+✔ Setting active project to "/path/to/lap".
+✔ Adding "^srcjs$" to .Rbuildignore.
+✔ Adding "^node_modules$" to .Rbuildignore.
+✔ Adding "^package\\.json$" to .Rbuildignore.
+✔ Adding "^package-lock\\.json$" to .Rbuildignore.
+✔ Adding "^webpack\\.dev\\.js$" to .Rbuildignore.
+✔ Adding "^webpack\\.prod\\.js$" to .Rbuildignore.
+✔ Adding "^webpack\\.common\\.js$" to .Rbuildignore.
+✔ Adding "node_modules" to .gitignore.
+
+
+── Scaffold built ──
+
+ℹ Run `bundle` to build the JavaScript files
+ℹ Run `leprechaun::use_packer()`
 ```
 
 [^packer-scaffold]: [`packer::scaffold_leprechaun()`](https://packer.john-coene.com/#/references/scaffold_leprechaun) initializes the `npm` package manager for JavaScript, installs `webpack`, and adds the necessary JavaScript files and folders
@@ -1445,295 +1467,297 @@ The following files and folders will be added to the lap root folder:
 ```
 
 
-Now that the scaffolding is in place, run `leprechaun::use_packer()`:
-    
-```{r}
-#| label: use_packer
-#| code-fold: false
-leprechaun::use_packer()
+Now that the `packer` scaffolding is in place, we can run `leprechaun::use_packer()`, which creates the `inst/dev/packer.R` and adds `packer` to the `DESCRIPTION`.
+
+:::{layout="[50,50]" layout-valign="top"}
+
+**`leprechaun::use_packer()`**
+
+```{verbatim}
+✔ Creating inst/dev/packer.R
+✔ Adding 'packer' to Suggests in DESCRIPTION
+! This requires `leprechaun::build()` or the
+! `leprechaun::build_roclet`
 ```
-
--   `leprechaun::use_packer()` creates the `inst/dev/packer.R` and adds `packer` to the `DESCRIPTION`. The `inst/dev/packer.R` file contains the following: 
-
-    ```{r}
-    #| eval: false
-    #| code-fold: false
-    #| code-summary: 'show/hide inst/dev/packer.R'
-    #' Bundle for Prod
-    #' 
-    #' Bundles packer using packer.
-    packer_bundle <- function(){
-    	has_packer <- requireNamespace("packer", quietly = TRUE)
-    
-    	if (!has_packer) {
-    		warning(
-    			"Requires `packer` package: `install.packages('packer')`\n", 
-    			"Skipping.",
-    			call. = FALSE
-    		)
-    		return()
-    	}
-    
-    	packer::bundle()
-    }
-    
-    packer_bundle()
-    ```
-    
-The final step is to build or 'bundle' the JavaScript files with `leprechaun::build()`
-    
-```{r}
-#| label: leprechaun_build_js
-#| code-fold: false
-leprechaun::build()
-```
-
-::: {style='font-size: 1.05em; font-weight: bold; color: #ff0000;'}
-
-**[Issue:](https://github.com/JohnCoene/packer/issues/31)** Issue with packer::scaffold_leprechaun() (or maybe leprechaun::build()?
-
 
 :::
 
--   `leprechaun::build()` runs the contents of `inst/dev/packer.R` to bundle the JavaScript code:
 
-    ```{bash}
-    #| label: leprechaun_build_js-output
-    #| code-fold: false
-    ✔ Running packer.R
-    ✔ Bundled       
-    ```
-    
-Lets review the new files that have been added to the `lap`: 
+The `inst/dev/packer.R` file contains the following: 
 
--   In the `inst/dev/` folder, the `packer.R` file has been added, which calls `packer::bundle()`
-    
-    ```{bash}
-    #| label: packer-dev-tree
-    #| code-fold: false
-    inst/dev/
-          └── packer.R
-    
-    1 directory, 1 file
-    ```
-
--   In the `srcjs/` folder, the `modules/message.js` and `index.js` create the alert with `Shiny.addCustomMessageHandler`:   
-    
-    ```{bash}
-    #| label: packer-srcjs-tree
-    #| code-fold: false
-    srcjs/
-        ├── config
-        │   ├── entry_points.json
-        │   ├── externals.json
-        │   ├── loaders.json
-        │   ├── misc.json
-        │   └── output_path.json
-        ├── index.js
-        └── modules
-            └── message.js
-    ```
-    
-    ``` js
-    // srcjs/modules/message.js
-    export const message = (msg) => {
-      alert(msg);
-    }
-    // srcjs/index.js
-    import { message } from './modules/message.js';
-    import 'shiny';
-    
-    // In shiny server use:
-    // session$sendCustomMessage('show-packer', 'hello packer!')
-    Shiny.addCustomMessageHandler('show-packer', (msg) => {
-      message(msg.text);
-    })
-    ```
-
-To use the JS message scripts in `srcjs/`, I add the following to `R/server.R`: 
-    
 ```{r}
-#| label: send_message_server
-#| code-fold: false
-	send_message <- make_send_message(session)
-	send_message("show-packer",
-				  text = "this message is from your R/server.R file")
+#| eval: false
+#| code-fold: true
+#| code-summary: 'show/hide inst/dev/packer.R'
+#' Bundle for Prod
+#' 
+#' Bundles packer using packer.
+packer_bundle <- function(){
+	has_packer <- requireNamespace("packer", quietly = TRUE)
+
+	if (!has_packer) {
+		warning(
+			"Requires `packer` package: `install.packages('packer')`\n", 
+			"Skipping.",
+			call. = FALSE
+		)
+		return()
+	}
+
+	packer::bundle()
+}
+
+packer_bundle()
+```
+    
+The final step is to build or 'bundle' the JavaScript files.
+
+:::{layout="[50,50]" layout-valign="top"}
+    
+```r
+leprechaun::build()
 ```
 
-After running `devtools::load_all()` and `devtools::document()`, the application loads with an alert: 
+```{verbatim}
+✔ Running packer.R
+✔ Bundled  
+```
 
+:::
 
-![`send_message()` from `R/server.R`](img/leprechaun_message.png){width="70%" fig-align="center"}
+`leprechaun::build()` runs the contents of `inst/dev/packer.R` to bundle the JavaScript code. 
 
+> *"Do not call this function from within the app. It helps build things, not run them."* - [`build.md` guide](https://github.com/devOpifex/leprechaun/blob/1c8ef853d2fadc476926dd31424965fc19582d2f/docs/guide/build.md)
+
+Lets review the new files that have been added to `lap`: 
+
+:::{layout="[50,50]" layout-valign="top"}
+
+In the `inst/dev/` folder, the `packer.R` file has been added, which calls `packer::bundle()`:
+    
+```{verbatim}
+inst/dev/
+      └── packer.R
+
+1 directory, 1 file
+```
+
+:::
+
+:::{layout="[50,50]" layout-valign="top"}
+
+In the `srcjs/` folder, `index.js` and `modules/message.js` create the alert with `Shiny.addCustomMessageHandler`:   
+    
+```{verbatim}
+srcjs/
+    ├── config
+    │   ├── entry_points.json
+    │   ├── externals.json
+    │   ├── loaders.json
+    │   ├── misc.json
+    │   └── output_path.json
+    ├── index.js
+    └── modules
+        └── message.js
+```
+
+:::
+    
+
+:::{layout="[50,50]" layout-valign="top"}
+
+Add the following to **`R/server.R`** 
+    
+```r
+send_message <- make_send_message(session)
+send_message("show-packer",
+			  text = "a message from R/server.R")
+```
+
+:::
 
 We can also include messages from modules. 
 
--   In `R/module_plot_display.R`
+:::{layout="[50,50]" layout-valign="top"}
 
-```{r}
-#| label: send_message_module
-#| code-fold: false
+**`R/module_plot_display.R`**
+
+```r
 send_message <- make_send_message(session)
 send_message("show-packer",
-  text = "this is a message from your plot_display module")
+  text = "a message from R/module_plot_display.R")
+```
+
+:::
+
+After running `devtools::load_all()` and `devtools::document()`, the application loads with an alert. 
+
+![JavaScript alert](img/positron_js_alert.png){width='100%' fig-align='center'}
+
+```{r}
+#| label: co_box_alert
+#| eval: true 
+#| results: asis
+#| echo: false
+co_box(color = "b", 
+  size = "1.10",  
+  hsize = "1.15", 
+  look = "default",
+  fold = FALSE, 
+  header = "JS Alerts in Positron",
+  contents = "If you're using Positron ![](img/positron.png){height=30}, you'll have to display the application in the browser to view the alert.")
 ```
 
 Read more about sending JavaScript messages [here on the shiny website.](https://shiny.rstudio.com/articles/js-send-message.html)
 
-
 #### Assets (Sass)
 
-We can add Sass styling to our `leprechaun` app using the [`use_sass()`](https://leprechaun.opifex.org/#/reference/use_sass) helper function (this Sass example is from the [package  website](https://leprechaun.opifex.org/#/examples/basic#sass)).
+We can add Sass styling to our `leprechaun` app using the [`use_sass()`](https://leprechaun.opifex.org/#/reference/use_sass) helper function.[^sass-example] 
 
-<!--
-  
--  Run `leprechaun::use_sass()`:
+[^sass-example]: This Sass example is from the [package  website](https://leprechaun.opifex.org/#/examples/basic#sass).
 
-```{r}
-#| label: use_sass-leprechaun
-#| code-fold: false
-leprechaun::use_sass()
-```
-    
--   This will add files to `assets/` and `dev/` and we see the following messages:  
-  
-```{bash}
-#| label: use_sass-warning
-#| code-fold: false
+:::{layout="[50,50]" layout-valign="top"}
+
+**`leprechaun::use_sass()`**
+
+```{verbatim}
 ✔ Creating scss
 ✔ Creating inst/dev/sass.R
 ✔ Adding 'sass' to Suggests in DESCRIPTION
-✔ Adding '^scss$' to '.Rbuildignore'
-! This requires `leprechaun::build()` or the `leprechaun::build_roclet`
+✔ Adding "^scss$" to .Rbuildignore.
+! This requires `leprechaun::build()` or the 
+! `leprechaun::build_roclet`
 ```
+
+:::
+  
+:::{layout="[50,50]" layout-valign="top"}
     
--   Below are the new files in `scss/`:
+New files in `scss/`:
     
-```{bash}
-#| label: use_sass-dev
-#| code-fold: false
+```{verbatim}
 scss
 ├── _core.scss
 └── main.scss
 
 1 directory, 2 files
 ```
-    
-The `scss/` folder created by  [`leprechaun::use_sass()`](https://leprechaun.opifex.org/#/reference/use_sass) includes `_core.scss` and `main.scss`.
 
--   `_core.scss`: the original file is below
+:::
     
-```{scss}
+The `scss/` folder created by  [`leprechaun::use_sass()`](https://leprechaun.opifex.org/#/reference/use_sass) includes `_core.scss` and `main.scss`.  We'll change the original `.error` in `_core.scss` from `red` to green level-four-headers (`h4`) using `$accent: #38B44A;`:
+ 
+:::{layout="[50,50]" layout-valign="top"}
+    
+```scss
+/* original file */
 html{
 	.error {
 		color: red
 	}
 }
 ```
-
--  We'll change the `color:` from `red` to green (`#38B44A`) using `$accent: #38B44A;`
     
-```{scss}
+```scss
+/* updated file */
 $accent: #38B44A;
 
 html{
-    h1 {
+    h4 {
         color: $accent;
     }
 }
 ```
 
--  Then run [`leprechaun::build()`](https://leprechaun.opifex.org/#/reference/build)
+:::
+
+Then run [`leprechaun::build()`](https://leprechaun.opifex.org/#/reference/build) to bunlde the SCSS files.
+
+:::{layout="[50,50]" layout-valign="top"}
+
+**`leprechaun::build()`**
+
     
-```{r}
-#| label: build-leprechaun
-#| code-fold: false
-leprechaun::build()
-```
-    
-```{bash}
-#| label: build-running-sass-leprechaun
-#| code-fold: false
+```{verbatim}
 ✔ Running packer.R
 ✔ Bundled       
 ✔ Running sass.R
 ```
 
--   The `inst/dev/sass.R` file contains a `sass_build()` function
-  
-    -   `sass_build()` looks in the `scss/` folder for `main.scss` and creates the `inst/assets/style.min.css` file.
-
-    ```{r}
-    #| label: sass_build-leprechaun
-    #| code-fold: false
-    #' Build CSS
-    #'
-    #' Build the sass
-    sass_build <- function() {
-      has_sass <- requireNamespace("sass", quietly = TRUE)
-    
-      if (!has_sass) {
-        warning(
-          "Requires `sass` package: `install.packages('sass')`\n",
-          "Skipping.",
-          call. = FALSE
-        )
-        return()
-      }
-    
-      output <- sass::sass(
-        sass::sass_file(
-          "scss/main.scss"
-        ),
-        cache = NULL,
-        options = sass::sass_options(
-          output_style = "compressed"
-        ),
-        output = "inst/assets/style.min.css"
-      )
-      invisible(output)
-    }
-    
-    sass_build()
-    ```
-    
-Once again, I run `devtools::load_all()`, `devtools::document()`, install and restart, then load the package and `run()`
-
-::: {#fig-leprechaun_css .column}
-![](img/leprechaun_css.png){#fig-leprechaun_css width="100%" fig-align="center"}
-
-run `lap` with new Sass
 :::
 
-#### [`leprechaun::build()`]{style="font-size: 0.90em; font-weight: bold;"}
+The `inst/dev/sass.R` file contains a `sass_build()` function. `sass_build()` looks in the `scss/` folder for `main.scss` and creates the `inst/assets/style.min.css` file:
+
+```{r}
+#| label: sass_build-leprechaun
+#| code-fold: false
+#' Build CSS
+#' 
+#' Build the sass
+sass_build <- function(){
+	has_sass <- requireNamespace("sass", quietly = TRUE)
+
+	if(!has_sass){
+		warning(
+			"Requires `sass` package: `install.packages('sass')`\n", 
+			"Skipping.",
+			call. = FALSE
+		)
+		return()
+	}
+
+	output <- sass::sass(
+		sass::sass_file(
+			'scss/main.scss'
+		),
+		cache = NULL,
+		options = sass::sass_options(
+			output_style='compressed'
+		),
+		output = 'inst/assets/style.min.css'
+	)
+	invisible(output)
+}
+
+sass_build()
+```
+    
+Once again, I run `devtools::load_all()`, `devtools::document()`, and `devtools::install()`, then `run()`:
+
+![Updates to `h4()` in `lap`](img/positron_scss_change.png){width='100%' fig-align='center'}
 
 The `assets/` folder contains the files generated by the `.R` scripts in the `dev/` folder.
 
-> *"Do not call this function from within the app. It helps build things, not run them."* - [`build.md` guide](https://github.com/devOpifex/leprechaun/blob/1c8ef853d2fadc476926dd31424965fc19582d2f/docs/guide/build.md)
+:::{layout="[50,50]" layout-valign="top"}
 
--   Contents of `inst/assets/`:
-    
-    ```{bash}
-    inst/assets/
-            ├── index.js
-            └── style.min.css
-    
-    1 directory, 2 files
-    ```
+**`inst/assets/`**
 
--   Contents of `inst/dev/`:
-    
-    ```{bash}
-    inst/dev/
-          ├── packer.R
-          └── sass.R
-    
-    1 directory, 2 files
-    ```
+```{verbatim}
+inst/assets/
+    ├── index.js
+    └── style.min.css
 
--   `inst/dev/sass.R` creates `inst/assets/style.min.css` and `inst/dev/packer.R` creates `inst/assets/index.js`
+1 directory, 2 files
+```
 
-#### [`serveAssets()`]{style="font-size: 0.90em; font-weight: bold;"}
+:::
+
+
+:::{layout="[50,50]" layout-valign="top"}
+
+**`inst/dev/`**
+    
+```{verbatim}
+inst/dev
+    ├── packer.R
+    └── sass.R
+
+1 directory, 2 files
+```
+
+:::
+
+`inst/dev/sass.R` creates `inst/assets/style.min.css` and `inst/dev/packer.R` creates `inst/assets/index.js`. 
 
 After running `leprechaun::use_sass()` and `leprechaun::build()`, we'll check the `serveAssets()` function:
 
@@ -1743,9 +1767,7 @@ After running `leprechaun::use_sass()` and `leprechaun::build()`, we'll check th
 lap:::serveAssets()
 ```
 
-```{bash}
-#| eval: false
-#| code-fold: false
+```{verbatim}
 [[1]]
 List of 10
  $ name      : chr "lap"
@@ -1755,8 +1777,8 @@ List of 10
  $ meta      : NULL
  $ script    : Named chr "assets/index.js"
   ..- attr(*, "names")= chr "file"
- $ stylesheet: Named chr [1:2] "assets/style.min.css" "html/R.css"
-  ..- attr(*, "names")= chr [1:2] "file" "file"
+ $ stylesheet: Named chr "assets/style.min.css"
+  ..- attr(*, "names")= chr "file"
  $ head      : NULL
  $ attachment: NULL
  $ package   : chr "lap"
@@ -1764,18 +1786,37 @@ List of 10
  - attr(*, "class")= chr "html_dependency"
 ```
 
-This shows that `stylesheet` has been updated with `"assets/style.min.css"` and `script` has been updated with `"assets/index.js"` (these files are loaded into the application when it runs). 
+The output shows that `stylesheet` has been updated with `"assets/style.min.css"` and `script` has been updated with `"assets/index.js"` (these files are loaded into the application when it runs). 
 
-More application resources (CSS, SASS, JavaScript files) are added using one of the `leprechaun::use_*` functions:
 
-  -   [`use_html_utils()`](https://leprechaun.opifex.org/#/reference/use_html_utils)  
-  -   [`use_endpoints_utils()`](https://leprechaun.opifex.org/#/reference/use_endpoints_utils)
-  -   [`use_js_utils()`](https://leprechaun.opifex.org/#/reference/use_js_utils)
-  
 
 #### [Writing code recap]{style="font-weight: bold; font-size: 1.02em;"}
 
--->
+`leprechaun` app-packages have a flexible and lightweight structure, and they are less opinionated than `golem`.   
+
+:::{layout="[30,70]" layout-valign="top"}
+
+**Adding modules**
+
+The `add_module()` function can be used to create new module files. The naming convention is less standardized than `golem`s helper function, but the functionality is the same.
+
+:::
+
+:::{layout="[30,70]" layout-valign="top"}
+
+**Adding utility functions**
+
+`leprechaun` comes with utilities (`_utils`) helpers  ([`use_html_utils()`](https://leprechaun.opifex.org/#/reference/use_html_utils), [`use_endpoints_utils()`](https://leprechaun.opifex.org/#/reference/use_endpoints_utils), [`use_js_utils()`](https://leprechaun.opifex.org/#/reference/use_js_utils)), and additional functions can be created using the `usethis` package. 
+
+:::
+
+:::{layout="[30,70]" layout-valign="top"}
+
+**Adding non-R files**
+
+Non-R files (JavaScript, SCSS, etc.) are included in the respective `inst/assets/` folder, which an accompanying helper function in `inst/dev`. 
+
+:::
 
 ### Data
 
@@ -1792,7 +1833,20 @@ usethis::use_data(movies, overwrite = TRUE)
 
 ### Launch
 
-<!--
+Include the call to [`thematic::thematic_shiny()`](https://rstudio.github.io/thematic/articles/auto.html) in the `R/run.R` file (above the call to `shinyApp()`).
+
+```{r}
+#| eval: false 
+#| code-fold: false
+run <- function(...){
+  thematic::thematic_shiny()
+	shinyApp(
+		ui = ui,
+		server = server,
+		...
+	)
+}
+```
 
 To launch the application in `lap` with an `app.R` file, `leprechaun` has a `add_app_file()` function. This creates a file similar to `inst/run/app.R`:
 
@@ -1811,107 +1865,97 @@ run()
 
 ```
 
-
-Now I can run `devtools::load_all()`, `devtools::document()`, restart and load the package, then `run()`
-
-
-![run `lap`](img/initial_lap_run.png){width="100%" fig-align="center"}
-
--->
-
 ### Unit tests 
 
-<!--
+The unit tests for the utility function and the module server functions are in the `tests/testthat/` folder: 
 
-The unit tests for the `scatter_plot()` utility function and the module server functions are in the `tests/testthat/` folder: 
+```{r}
+#| label: dev_box_unit_tests
+#| eval: false 
+#| results: asis
+#| echo: false
+dev_box(text = "Include unit tests from `golem` app")
+```
 
-```{bash}
-#| code-fold: false
-#| eval: false
+```{verbatim}
 tests
 ├── testthat
-│   ├── test-module_plot_display.R
-│   ├── test-module_var_input.R
+│   ├── helper.R
+│   ├── test-module_aes.R
+│   ├── test-module_scatter_display.R
+│   ├── test-module_vars.R
 │   └── test-utils_scatter_plot.R
 └── testthat.R
 
-2 directories, 4 files
+2 directories, 6 files
 ```
+
 
 `leprechaun` relies on the `testthat` framework for testing.[^includes-testserver] I've included the BDD functions (`describe()` and `it()`) to make each behavior and test clear.
 
 [^includes-testserver]: `testthat` can be used for testing utility functions and module functions (as shown [here](https://mjfrigaard.github.io/shiny-app-pkgs/test_modules.html)).
 
--->
-
 ### System tests 
 
-<!--
+System tests can also be included with [`shinytest2`](https://rstudio.github.io/shinytest2/) in `lap` similar to those in `golem`: 
 
-System tests can also be included with [`shinytest2`](https://rstudio.github.io/shinytest2/). The examples in `lap` are similar to those in the `golem` application. 
-
-```{bash}
+```{r}
 #| code-fold: false
 #| eval: false
-tests/
-├── testthat/
-│   ├── _snaps/
-│   │   ├── app-feature-01
-│   │   └── shinytest2
-│   ├── setup-shinytest2.R
-│   ├── test-app-feature-01.R
-│   └── test-shinytest2.R
-└── testthat.R
-
-5 directories, 13 files
+library(shinytest2)
+test_that("{shinytest2} recording: leprechaun app", {
+  app <- AppDriver$new(name = "lap-01", height = 800, width = 1173)
+  app$set_inputs(`vars-y` = "imdb_num_votes")
+  app$set_inputs(`vars-x` = "critics_score")
+  app$set_inputs(`vars-z` = "genre")
+  app$set_inputs(`aes-alpha` = 0.7)
+  app$set_inputs(`aes-size` = 3)
+  app$set_inputs(`aes-plot_title` = "New plot title")
+  app$expect_values()
+})
 ```
-
-
--->
 
 ### Configure
 
-<!--
-
 `leprechaun` app configuration files use the [config](https://rstudio.github.io/config/articles/introduction.html) package (similar to `golem`). `leprechaun` doesn't assume I'll be using a `config.yml` file, but we can easily add one with [`leprechaun::use_config()`](https://leprechaun.opifex.org/#/guide/use#config).
 
--   `use_config()` adds a `inst/config.yml` and `R/config.R`
 
--   The default value in the `config.yml` files is `production: true`, which can be read using `config_read()` in `R/config.R`.
-    
-    ```{r}
-    #| label: config_read-leprechaun
-    #| code-fold: false
-    config_read()
-    ```
+:::{layout="[50,50]" layout-valign="top"}
 
-    ```{bash}
-    $production
-    [1] TRUE
-    ```
+**`leprechaun::use_config()`**
 
-    -   Values can be added to `inst/config.yml` using the [config file format](https://biostat.app.vumc.org/wiki/Main/YamlR), then the `CONFIG_FILE` can be set as [an environmental variable](https://rstudio.github.io/config/articles/introduction.html#configurations)
-    
--->
+Adds `inst/config.yml` and `R/config.R` and includes `yaml` to the `Imports` field in our `DESCRIPTION`.
+
+:::
+
+:::{layout="[50,50]" layout-valign="top"}
+
+**`inst/config.yml`**
+
+Defaults to `production: true`, which can be read using `config_read()` in `R/config.R`.
+
+:::
+
+
+:::{layout="[50,50]" layout-valign="top"}
+
+**`lap:::config_read()`**
+
+```{verbatim}
+$production
+[1] TRUE
+```
+
+:::
+
+Values can be added to `inst/config.yml` using the [config file format](https://rstudio.github.io/config/articles/config.html#configurations), then the `CONFIG_FILE` can be set as [an environmental variable](https://rstudio.github.io/config/articles/introduction.html#configurations)
+
 
 ## Dependencies 
 
-```{r}
-#| label: co_box_leaner_smaller
-#| eval: true 
-#| results: asis
-#| echo: false
-co_box(
-  color = "o", fold = FALSE, look = 'minimal',
-  header = "**Is my leprechaun app _'leaner and smaller'_ than my golem app?**", 
-  contents = "
+Is our `leprechaun` app _'leaner and smaller'_ than a `golem` app? Well, `leprechaun` doesn't add itself as a dependency (i.e., no need to add `leprechaun` to the list of `Imports` in the `DESCRIPTION` or `NAMESPACE`).
 
-`leprechaun` doesn't add itself as a dependency (i.e., no need to add `leprechaun` to the list of `Imports` in the `DESCRIPTION` or `NAMESPACE`). 
-  
-The section titled, 'the `golem` in the room' on the [package website](https://leprechaun.opifex.org/#/#the-golem-in-the-room) is worth reading because it covers the differences between the two packages (and why you might choose one over the other).")
-```
-
-`lap` depends on `shiny`, but not `leprechaun`. 
+For example, `lap` depends on `shiny`, but not `leprechaun`. 
 
 ```{r}
 #| eval: true
@@ -1955,29 +1999,32 @@ pak::local_dev_deps_explain(
   root = "_apps/lap")
 ```
 
+The section titled, 'the `golem` in the room' on the [package website](https://leprechaun.opifex.org/#/#the-golem-in-the-room) is worth reading because it covers the differences between the two packages (and why you might choose one over the other)."
+
+
 The final folder tree for `lap` (a `leprechaun` app-package) is below. 
 
-```{bash}
-#| eval: false
-#| code-fold: false 
+```{verbatim}
 ├── DESCRIPTION
 ├── NAMESPACE
 ├── R/
 │   ├── _disable_autoload.R
 │   ├── assets.R
 │   ├── config.R
-│   ├── endpoint-utils.R
-│   ├── html-utils.R
+│   ├── data.R
 │   ├── input-handlers.R
+│   ├── lap_theme.R
 │   ├── leprechaun-utils.R
-│   ├── module_plot_display.R
-│   ├── module_var_input.R
+│   ├── module_aes.R
+│   ├── module_scatter_display.R
+│   ├── module_vars.R
 │   ├── run.R
 │   ├── server.R
 │   ├── ui.R
-│   ├── utils-js.R
-│   ├── utils_scatter_plot.R
+│   ├── utils-scatter_plot.R
+│   ├── utils-tests.R
 │   └── zzz.R
+├── README.Rmd
 ├── README.md
 ├── app.R
 ├── data/
@@ -1995,25 +2042,26 @@ The final folder tree for `lap` (a `leprechaun` app-package) is below.
 ├── node_modules/ # <2>
 ├── package-lock.json # <2>
 ├── package.json # <2>
-├── scss/ # <2>
-│   ├── _core.scss # <2>
-│   └── main.scss # <2>
 ├── srcjs/ # <2>
 │   ├── config # <2>
 │   ├── index.js # <2>
 │   ├── leprechaun-utils.js # <2>
-│   └── modules
-├── tests/
-│   ├── testthat
-│   └── testthat.R
+│   └── modules # <2>
 ├── webpack.common.js # <2>
 ├── webpack.dev.js # <2>
-└── webpack.prod.js # <2>
+├── webpack.prod.js # <2>
+├── scss/ # <3>
+│   ├── _core.scss # <3>
+│   └── main.scss # <3>
+└── tests/
+    ├── testthat
+    └── testthat.R
 
 109 directories, 63 files
 ```
 1. `leprechaun` apps are packages, so the `inst/` folders are available to the application at runtime.
-2. Files and folders created with `packer::scaffold_leprechaun()`
+2. Files and folders created with `packer::scaffold_leprechaun()`   
+3. Files and folders created with `leprechaun::use_sass()`    
     
 The output from `system.file(".", package = "lap")` has been passed to `fs::dir_tree()` below:
     
@@ -2022,7 +2070,7 @@ The output from `system.file(".", package = "lap")` has been passed to `fs::dir_
 #| code-fold: false
 ├── DESCRIPTION
 ├── INDEX
-├── Meta/
+├── Meta
 │   ├── Rd.rds
 │   ├── data.rds
 │   ├── features.rds
@@ -2031,50 +2079,48 @@ The output from `system.file(".", package = "lap")` has been passed to `fs::dir_
 │   ├── nsInfo.rds
 │   └── package.rds
 ├── NAMESPACE
-├── R/
+├── R
 │   ├── lap
 │   ├── lap.rdb
 │   └── lap.rdx
-├── assets/
+├── assets
 │   ├── index.js
 │   └── style.min.css
-├── data/
+├── config.yml
+├── data
 │   ├── Rdata.rdb
 │   ├── Rdata.rds
 │   └── Rdata.rdx
-├── dev/
+├── dev
 │   ├── packer.R
 │   └── sass.R
-├── extdata/
+├── extdata
 │   └── movies.RData
-├── help/
+├── help
 │   ├── AnIndex
 │   ├── aliases.rds
 │   ├── lap.rdb
 │   ├── lap.rdx
 │   └── paths.rds
-├── html/
+├── html
 │   ├── 00Index.html
 │   └── R.css
-├── img/
-│   └── leprechaun.jpg
-└── run/
+├── img
+│   └── leprechaun-logo.png
+└── run
     └── app.R
 ```
 
-As we can see, the files and folders created with `packer::scaffold_leprechaun()` won't be installed with the source code.
+As we can see, none of the additional files and folders created with `leprechaun` are installed from the source code.
 
 ## Recap
 
-`leprechaun` delivers on its promise to be a 'leaner and smaller' version of `golem.` Most of the features in `golem` are also accessible in `leprechaun`:
+`leprechaun` delivers on its promise to be a 'leaner and smaller' version of `golem.` 
 
--    Adding modules: `leprechaun`'s `add_module()` function doesn't have the consistent naming or prefixes found in `golem::add_module()`, but still reduces a lot of typing if you are creating these files manually. 
-
--   Adding functions: leprechaun relies on `usethis::use_r()` for adding new functionality to your application
-
--   `leprechaun` doesn't come with any testing functions, although this can be done using [`testthat`](https://testthat.r-lib.org/) and [`shinytest2`](https://rstudio.github.io/shinytest2/) (just as we would with a standard R package).
-
-Multiple `inst/` sub-folders makes adding assets to the application easier, and `leprechaun` has a long list of `use_*` functions for including Sass, CSS, HTML, and JavaScript. The package website has examples for getting started and adding multiple resources, but unfortunately the function reference had limited documentation. 
+-   Tailored for developers who want to use modern JavaScript, HTML, and CSS workflows.      
+    -   Multiple `inst/` sub-folders makes adding assets to the application easier, and `leprechaun` has a long list of `use_*` functions for including Sass, CSS, HTML, and JavaScript.  
+-   `leprechaun` doesn't offer much help with testing, although this can be done using [`testthat`](https://testthat.r-lib.org/) and [`shinytest2`](https://rstudio.github.io/shinytest2/) (just as we would with a standard R package), and `leprechaun` leaves many of the architectural decisions to the developer.   
+    -   The [package website](https://leprechaun.opifex.org/#/) has examples for getting started and adding multiple resources, but unfortunately the function reference had limited documentation.    
 
 Below is an overview of the features/functions in the `leprechaun` framework:
 
