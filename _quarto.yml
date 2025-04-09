@@ -31,9 +31,8 @@ format:
   html:
     #code-fold: show
     code-summary: 'show/hide'
-    # code-overflow:
     #code-link: false
-    #code-overflow: wrap
+    #code-overflow: scroll
     #code-annotations: true
     lightbox: true
     code-block-bg: "#f8f8f8"

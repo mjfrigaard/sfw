@@ -44,5 +44,3 @@ describe("Feature: Scatter Plot Generation Verification
       )
   })
 })
-
-

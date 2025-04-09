@@ -1,10 +1,11 @@
 ---
 title: "the `rhino` framework"
+    
 knitr:
   opts_chunk: 
     collapse: true
     comment: "# "
-    
+
 execute: 
   eval: false
 ---
@@ -42,7 +43,7 @@ box_use_df <- data.frame(
 )
 ```
 
-`rhino` apps are unique because unlike `golem` and `leprechaun`, they aren't R packages. `rhino` uses [`box`](https://klmr.me/box/) modules to manage add-on package functions, which minimizes dependencies and separates the application's code into a clear 'division of labor.'[^view-rap]
+`rhino` takes a completely novel approach to Shiny applications. Unlike `golem` and `leprechaun`, `rhino` apps aren't R packages. Instead, `rhino` structures the application into [`box`](https://klmr.me/box/) modules, which minimizes dependencies and separates the code into a clear 'division of labor.' `rhino` has utilities for easily adding JavaScript and SCSS, and comes with end-to-end testing.[^view-rap]
 
 [^view-rap]: The code used to build the `rhino` app is available [here](https://github.com/mjfrigaard/sfw/raw/main/_apps/rap.tar.gz).
 
@@ -58,38 +59,132 @@ knitr::kable(
 
 ## Getting started
 
-To create a new `rhino` application, select **Project** \> **New Project** \> **New Directory**, and **Shiny Application using rhino**. The **New Project Wizard** will require a *Directory name* and *subdirectory* and *Github Actions CI* (selected by default)
-
-:::{#fig-new_rhino}
-
-![New Project Wizard](img/new_rhino.png){#fig-new_rhino fig-align="center" width="80%"}
+To create a new `rhino` application in RStudio ![](img/rstudio.png){height=30}, select **Project** \> **New Project** \> **New Directory**, and **Shiny Application using rhino**. 
 
 
-New `rhino` app
+![New `rhino` app](img/rhino_new_project.png){fig-align="center" width="80%"}
+
+The **New Project Wizard** will require a *Directory name* and *subdirectory* and *Github Actions CI* (selected by default)
+
+![New Project Wizard](img/new_rhino.png){fig-align="center" width="80%"}
+
+
+After clicking **Create Project**, rhino will set up our new app (and you should see something like the following output in the **Console**):
+
+:::{layout="[20,80]" layout-valign="top"}
+
+**Installing dependencies:**
+
+```{verbatim}
+- Linking packages into the project library ... Done!
+- Resolving missing dependencies ... 
+# Installing packages -------------------------------
+- Installing treesitter ...     OK [linked from cache]
+- Installing treesitter.r ...   OK [linked from cache]
+```
+
 :::
 
-After clicking **Create Project**, you'll see the following output in the **Console*:**
+:::{layout="[20,80]" layout-valign="top"}
 
-```{bash}
-#| label: startup-rhino
-#| code-fold: false
+**Updating `renv` lockfile:**
+
+```{verbatim}
 The following package(s) will be updated in the lockfile:
 
-# CRAN ------------------------------------------------------
-- renv           [* -> 1.0.3]
+# CRAN --------------------------------------------------
+- backports      [* -> 1.5.0]
+- box            [* -> 1.2.0]
+- box.linters    [* -> 0.10.5]
+- box.lsp        [* -> 0.1.3]
+- codetools      [* -> 0.2-20]
+- config         [* -> 0.3.2]
+- lintr          [* -> 3.2.0]
+- R.cache        [* -> 0.16.0]
+- R.methodsS3    [* -> 1.8.2]
+- rex            [* -> 1.2.1]
+- styler         [* -> 1.10.3]
+- xmlparsedata   [* -> 1.0.5]
 
-# GitHub ----------------------------------------------------
-- testthat       [* -> r-lib/testthat@HEAD]
+# RSPM --------------------------------------------------
+- jsonlite       [* -> 1.9.1]
+- logger         [* -> 0.4.0]
+- R.oo           [* -> 1.27.0]
+- R.utils        [* -> 2.13.0]
+- renv           [* -> 1.1.4]
+- rhino          [* -> 1.10.1]
+- stringi        [* -> 1.8.4]
+- xfun           [* -> 0.51]
 
-# RSPM ------------------------------------------------------
-  
-      < < < < < < < OMITTED > > > > > > > >
-  
+# pm ----------------------------------------------------
+- base64enc      [* -> 0.1-3]
+- brio           [* -> 1.1.5]
+- bslib          [* -> 0.9.0]
+- cachem         [* -> 1.1.0]
+- callr          [* -> 3.7.6]
+- cli            [* -> 3.6.4]
+- commonmark     [* -> 1.9.5]
+- crayon         [* -> 1.5.3]
+- desc           [* -> 1.4.3]
+- diffobj        [* -> 0.3.5]
+- digest         [* -> 0.6.37]
+- evaluate       [* -> 1.0.3]
+- fastmap        [* -> 1.2.0]
+- fontawesome    [* -> 0.5.3]
+- fs             [* -> 1.6.5]
+- glue           [* -> 1.8.0]
+- highr          [* -> 0.11]
+- htmltools      [* -> 0.5.8.1]
+- httpuv         [* -> 1.6.15]
+- jquerylib      [* -> 0.1.4]
+- knitr          [* -> 1.50]
+- later          [* -> 1.4.1]
+- lazyeval       [* -> 0.2.2]
+- lifecycle      [* -> 1.0.4]
+- magrittr       [* -> 2.0.3]
+- memoise        [* -> 2.0.1]
+- mime           [* -> 0.13]
+- pkgbuild       [* -> 1.4.7]
+- pkgload        [* -> 1.4.0]
+- praise         [* -> 1.0.0]
+- processx       [* -> 3.8.6]
+- promises       [* -> 1.3.2]
+- ps             [* -> 1.9.0]
+- purrr          [* -> 1.0.4]
+- R6             [* -> 2.6.1]
+- rappdirs       [* -> 0.3.3]
+- Rcpp           [* -> 1.0.14]
+- rlang          [* -> 1.1.5]
+- rprojroot      [* -> 2.0.4]
+- rstudioapi     [* -> 0.17.1]
+- sass           [* -> 0.4.9]
+- shiny          [* -> 1.10.0]
+- sourcetools    [* -> 0.1.7-1]
+- stringr        [* -> 1.5.1]
+- testthat       [* -> 3.2.3]
+- treesitter     [* -> 0.1.0]
+- treesitter.r   [* -> 1.1.0]
+- vctrs          [* -> 0.6.5]
+- waldo          [* -> 0.6.1]
+- withr          [* -> 3.0.2]
+- xml2           [* -> 1.3.8]
+- xtable         [* -> 1.8-4]
+- yaml           [* -> 2.3.10]
+
 The version of R recorded in the lockfile will be updated:
-- R              [* -> 4.3.1]
+- R              [* -> 4.4.2]
 
-- Lockfile written to "~/projects/pkgs/rap/renv.lock".
-- Project '~/projects/pkgs/rap' loaded. [renv 1.0.3]
+- Lockfile written to "~/projects/dev/rap/renv.lock".
+- Project '~/projects/dev/rap' loaded. [renv 1.1.4]
+```
+
+:::
+
+:::{layout="[20,80]" layout-valign="top"}
+
+**Application structure, tests, and CI/CD**:
+
+```{verbatim}
 ✔ Initialized renv.
 ✔ Application structure created.
 ✔ Unit tests structure created.
@@ -97,7 +192,9 @@ The version of R recorded in the lockfile will be updated:
 ✔ Github Actions CI added.
 ```
 
-This initializes the new `rhino` app by opening the `.Rproj` file in RStudio. To create a `rhino` application from the console, use the following:
+:::
+
+This initializes the new `rhino` app by opening the `.Rproj` file in RStudio ![](img/rstudio.png){height=30}. If you're using Positron ![](img/positron.png){height=30} To create a `rhino` application from the console, use the following:
 
 ```{r}
 #| label: init-rhino
@@ -111,35 +208,41 @@ rhino::init("/path/to/rhino/app")
 
 The initial folder structure for a new `rhino` app is below:
 
-```{bash}
-#| code-fold: false
+```{verbatim}
 rap/
 ├── app
-│   ├── js
-│   ├── logic
+│   ├── js/
+│   │   └── index.js
+│   ├── logic/
+│   │   └── __init__.R
 │   ├── main.R
-│   ├── static
-│   ├── styles
-│   └── view
+│   ├── static/
+│   │   └── favicon.ico
+│   ├── styles/
+│   │   └── main.scss
+│   └── view/
+│       └── __init__.R
 ├── app.R
-├── brap.Rproj
 ├── config.yml
 ├── dependencies.R
+├── rap.Rproj
 ├── renv
 │   ├── activate.R
-│   ├── library
+│   ├── library/
 │   └── settings.json
 ├── renv.lock
 ├── rhino.yml
-└── tests
-    ├── cypress
-    ├── cypress.json
-    └── testthat
+└── tests/
+    ├── cypress/
+    │   └── e2e/
+    ├── cypress.config.js
+    └── testthat/
+        └── test-main.R
 
-12 directories, 10 files
+14 directories, 16 files
 ```
 
-The `rhino` package website has [excellent documentation on their app structure philosophy](https://appsilon.github.io/rhino/articles/explanation/application-structure.html), and it's worth reading through this before getting started. I'll do my best to summarize the application's files below:
+The `rhino` package website has [excellent documentation](https://appsilon.github.io/rhino/articles/explanation/what-is-rhino.html) on their approach and philosophy to app development, and it's worth reading through this before getting started. I'll do my best to summarize the application's files below:
 
 ### App code 
 
@@ -147,60 +250,136 @@ The `app/` folder contains the primary folder and files:
 
 ```{bash}
 #| code-fold: false
-app/
-  ├── js/
-  ├── logic/
-  ├── main.R
-  ├── static/
-  ├── styles/
-  └── view/
+app
+├── js
+│   └── index.js
+├── logic
+│   └── __init__.R
+├── main.R
+├── static
+│   └── favicon.ico
+├── styles
+│   └── main.scss
+└── view
+    └── __init__.R
 
-6 directories, 1 file
+6 directories, 6 files
 ```
 
 The subfolders in `app/` contain the following files:
 
--   **`app/js/`**: initially contains a blank `index.js` script
+:::{layout="[50,50]" layout-valign="top"}
 
--   **`app/logic/`**: contains utility functions and [*code independent from Shiny*](https://appsilon.github.io/rhino/articles/explanation/application-structure.html#logic) 
+**`app/js/`** initially contains a blank `index.js` script.
 
--   **`app/static/`**: stores external resources (like JavaScript files) and is similar to the sub-folders in `inst/` from `golem` and `leprechaun`
+```{verbatim}
+app/js
+└── index.js
 
--   **`app/styles/`**: holds custom styles (CSS and HTML) in the `app/styles/main.css` file (which is initially blank)
+1 directory, 1 file
+```
 
--   **`app/view/`**: will hold all the code used to build the application and [*relies upon the reactive capabilities of Shiny.*](https://appsilon.github.io/rhino/articles/explanation/application-structure.html#view)
+:::
 
--   **`app/main.R`**: contains the primary `ui` and `server` code (similar to `app_ui` and `app_server` in a `golem` application)
+:::{layout="[50,50]" layout-valign="top"}
 
-    -   The initial **`main.R`** file contains the following code:
+**`app/logic/`** contains utility functions and [*code independent from Shiny*](https://appsilon.github.io/rhino/articles/explanation/application-structure.html#logic).
 
-    ```{r}
-    #| label: rhino-initial-main
-    #| code-fold: true
-    #| code-summary: 'show/hide initial app/main.R'
-    box::use(
-      shiny[bootstrapPage, moduleServer, NS, renderText, tags, textOutput],
-    )
-    
-    #' @export
-    ui <- function(id) {
-      ns <- NS(id)
-      bootstrapPage(
-        tags$h3(
-          textOutput(ns("message"))
+```{verbatim}
+app/logic/
+└── __init__.R
+
+1 directory, 1 file
+```
+
+:::
+
+
+:::{layout="[50,50]" layout-valign="top"}
+
+**`app/static/`** stores external resources (like JavaScript files) and is similar to the sub-folders in `inst/` from `golem` and `leprechaun`.
+
+```{verbatim}
+app/static/
+└── favicon.ico
+
+1 directory, 1 file
+```
+
+:::
+
+
+:::{layout="[50,50]" layout-valign="top"}
+
+**`app/styles/`** holds custom styles (CSS and HTML) in the `app/styles/main.css` file (which is initially blank).
+
+```{verbatim}
+app/styles/
+└── main.scss
+
+1 directory, 1 file
+```
+
+:::
+
+:::{layout="[50,50]" layout-valign="top"}
+
+**`app/view/`** will hold all the code used to build the application and [*relies upon the reactive capabilities of Shiny.*](https://appsilon.github.io/rhino/articles/explanation/application-structure.html#view)
+
+```{verbatim}
+app/view/
+└── __init__.R
+
+1 directory, 1 file
+```
+
+:::
+
+:::{layout="[50,50]" layout-valign="top"}
+
+**`app/main.R`** contains the primary `ui` and `server` code (similar to `app_ui` and `app_server` in a `golem` application).
+
+```{verbatim}
+app/
+  └── main.R
+
+1 directory, 1 file
+```
+
+:::
+
+The initial **`main.R`** file contains the following code:
+
+```{r}
+#| label: rhino-initial-main
+#| code-fold: true
+#| code-summary: 'show/hide initial app/main.R'
+box::use(
+  shiny[bootstrapPage, div, moduleServer, NS, renderUI, tags, uiOutput],
+)
+
+#' @export
+ui <- function(id) {
+  ns <- NS(id)
+  bootstrapPage(
+    uiOutput(ns("message"))
+  )
+}
+
+#' @export
+server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    output$message <- renderUI({
+      div(
+        style = "display: flex; justify-content: center; align-items: center; height: 100vh;",
+        tags$h1(
+          tags$a("Check out Rhino docs!", href = "https://appsilon.github.io/rhino/")
         )
       )
-    }
-    
-    #' @export
-    server <- function(id) {
-      moduleServer(id, function(input, output, session) {
-        output$message <- renderText("Hello!")
-      })
-    }
-    ```
-
-<br>
+    })
+  })
+}
+```
 
 ```{r}
 #| label: box_co_box
@@ -220,111 +399,141 @@ co_box(color = "r",
 rhino::app()
 ```
 
+![Initial `rhino` app](img/rhino_initial_launch.png){width='100%' fig-align='center'}
+
 [^minimal-app-dot-r]: `rhino` has a 'minimal `app.R`' [philosophy](https://appsilon.github.io/rhino/articles/explanation/application-structure.html#minimal-app-r), and the call to `rhino::app()` [performs multiple operations](https://appsilon.github.io/rhino/reference/app.html) beyond `shiny::runApp()`
 
 #### YAML files
 
 New `rhino` apps begin with two `.yml` configuration files:
 
--   `config.yml` is a YAML file that follows the [`config` package](https://rstudio.github.io/config/) format. 
-
-    -   This file initially contains two calls to `rhino`s environment variables:[^config-pkg]
-
-    ``` yaml
-    default:
-      rhino_log_level: !expr Sys.getenv("RHINO_LOG_LEVEL", "INFO")
-      rhino_log_file: !expr Sys.getenv("RHINO_LOG_FILE", NA)
-    ```
+`config.yml` is a YAML file that follows the [`config` package](https://rstudio.github.io/config/) format and initially contains two calls to `rhino`s environment variables:[^config-pkg]
 
 [^config-pkg]: Read more about how to use `config.yml` in the **Environments** section of the [How to: Manage secrets and environments](https://appsilon.github.io/rhino/articles/how-to/manage-secrets-and-environments.html?#environments) vignette.
 
--   `rhino.yml` is a configuration file that contains options for 1) Sass build settings, and 3) import a legacy application structure to `rhino`.[^rhino-yml]
 
-    -   the code below showcases the optional arguments (and is not included in the application)
 
-    ``` yaml
-    sass: string               # required | one of: "node", "r"
-    legacy_entrypoint: string  # optional | one of: "app_dir", "source", "box_top_level"
-    ```
-    
-[^rhino-yml]: Read more about `rhino.yml` in the [Explanation: Configuring Rhino - rhino.yml](https://appsilon.github.io/rhino/articles/explanation/rhino-yml.html) vignette.
+```yaml
+default:
+  rhino_log_level: !expr Sys.getenv("RHINO_LOG_LEVEL", "INFO")
+  rhino_log_file: !expr Sys.getenv("RHINO_LOG_FILE", NA)
+```
+
+`rhino.yml` is a configuration file that contains options for 1) Sass build settings, and 3) import a legacy application structure to `rhino`.[^rhino-yml]
+
+[^rhino-yml]: Read more about `rhino.yml` in the [Explanation: Configuring Rhino - rhino.yml](https://appsilon.github.io/rhino/articles/explanation/rhino-yml.html) vignette. The code below showcases the optional arguments (and is not included in the application).
+
+```yaml
+sass: string               # required | one of: "node", "r"
+legacy_entrypoint: string  # optional | one of: "app_dir", "source", "box_top_level"
+```
 
 #### [`dependencies.R`]{style="font-size: 0.90em; font-weight: bold;"}
 
 `rhino` apps manage dependencies with the `dependencies.R` file and [`renv`](https://rstudio.github.io/renv/articles/renv.html) package.
 
--   `dependencies.R` contains any add-on packages used in the application. As we can see from the note in the comments, dependencies are tracked using `packrat` in `rsconnect`.[^depends] 
+:::{layout="[50,50]" layout-valign="top"}
 
-    ```{r}
-    #| label: rhino-depends
-    #| code-fold: false
-    # This file allows packrat (used by rsconnect during deployment)
-    # to pick up dependencies.
-    library(rhino)
-    ```
+`dependencies.R` is used during deployment (as we can see from the comments) and contains any add-on packages used in the application.[^depends] 
 
 [^depends]: `dependencies.R` is covered in the [Manage Dependencies vignette](https://appsilon.github.io/rhino/articles/how-to/manage-r-dependencies.html) on the package website.
 
--   The `renv/` folder stores the R package versions used in the application. `renv.lock` contains the packages and R version used in our application.[^renv]
+```r
+# This file allows packrat (used by rsconnect
+# during deployment) to pick up dependencies.
+library(rhino)
+library(treesitter)
+library(treesitter.r)
+```
 
-    ```{bash}
-    #| label: rhino-renv
-    #| code-fold: false
-    rap/
-      ├── renv/
-      │    ├── activate.R
-      │    ├── library/
-      │    ├── sandbox/
-      │    └── settings.dcf
-      └── renv.lock
-    ```
-    
-    - We know we'll be using `ggplot2`, `stringr`, and `rlang` in the app, so we'll load these packages here:
-    
-    ```{r}
-    #| label: snapshot-renv-depends
-    #| code-fold: false
-    rhino::pkg_install(c("ggplot2", "stringr", "rlang"))
-    ```
-    
-    -   Adding packages with `rhino::pkg_install()` will automatically update `dependencies.R` and `renv`
+:::
+
+:::{layout="[50,50]" layout-valign="top"}
+
+The `renv/` folder stores the R package versions used in the application. `renv.lock` contains the packages and R version used in our application.[^renv]
+
+```{verbatim}
+rap/
+  ├── renv/
+  │    ├── activate.R
+  │    ├── library/
+  │    ├── sandbox/
+  │    └── settings.dcf
+  └── renv.lock
+```
+
+:::
 
 [^renv]: Read more about [getting started with `renv`](https://rstudio.github.io/renv/articles/renv.html).
+    
+We know we'll be using `ggplot2`, `stringr`, and `rlang` in the app, so we'll load these packages here:
+    
+```{r}
+#| label: snapshot-renv-depends
+#| code-fold: false
+rhino::pkg_install(c("ggplot2", "stringr", "rlang"))
+```
+    
+Adding packages with `rhino::pkg_install()` will automatically update `dependencies.R` and `renv`.
+
+#### Tests
 
 The `tests/` folder initially contains two sub-folders, `cypress/` and `testthat/`, and the `cypress.json` file.
 
-```{bash}
-tests/
-    ├── cypress/
-    ├── cypress.json
-    └── testthat/
+```{verbatim}
+tests
+├── cypress
+│   └── e2e
+│       └── app.cy.js
+├── cypress.config.js
+└── testthat
+    └── test-main.R
+
+4 directories, 3 files
 ```
 
-  - `tests/cypress/` holds folders for using the Cypress web and component [testing framework](https://www.cypress.io/).[^cypress]
+:::{layout="[50,50]" layout-valign="top"}
 
-    ``` bash
-    tests/
-        ├── cypress/
-        │    └── integration/
-        │        └── app.spec.js
-        └── cypress.json
-    ```
+`tests/cypress/` holds folders for using the Cypress web and component [testing framework](https://www.cypress.io/).[^cypress]
+
+```{verbatim}
+tests/cypress
+        └── e2e
+              └── app.cy.js
+
+2 directories, 1 file
+```
+
+:::
 
 [^cypress]: Testing with Cypress is also covered in the ['Use `shinttest2` vignette'](https://appsilon.github.io/rhino/articles/how-to/use-shinytest2.html).
 
-  - `tests/testthat/` contains the architecture for writing unit tests with [testthat](https://testthat.r-lib.org/), which can be run with the `rhino::test_r()` helper function:[^rhino-unit-tests]
+:::{layout="[50,50]" layout-valign="top"}
 
-    ``` bash
-    tests/
-        └── testthat/
-                └── test-main.R
-    ```
+`tests/testthat/` contains the architecture for writing unit tests with [testthat](https://testthat.r-lib.org/), which can be run with the `rhino::test_r()` helper function:[^rhino-unit-tests]
+
+```{verbatim}
+tests/testthat/
+          └── test-main.R
+
+1 directory, 1 file
+```
+
+:::
     
 [^rhino-unit-tests]: Read more about `rhino` [unit tests](https://appsilon.github.io/rhino/reference/test_r.html)
 
 ## Development
 
-Now that we've covered the initial file and folder structure of a new `rhino` application, we're going to cover how to convert the 'vanilla' Shiny app below into the `rhino` structure. We'll have to 1) load the `movies` data, and 2) create/call the `scatter_plot()` utility function, and 3) convert the contents of `app.R` into modules.
+Now that we've covered the initial file and folder structure of a new `rhino` application, we're going to cover how to convert our [movie review Shiny app](https://rstudio-education.github.io/shiny-course/) into the `rhino` structure. 
+
+We'll have to 1) load the `movies` data, and 2) create/call the `scatter_plot()` utility function, and 3) convert the contents of `app.R` into modules.
+
+::: {.callout-note collapse="true"}
+
+### Application files 
+
+I've included the original application files below:
 
 ```{r}
 #| eval: false 
@@ -463,11 +672,18 @@ scatter_plot <- function(df, x_var, y_var, col_var, alpha_var, size_var) {
 
 Download the [`movies`](https://github.com/mjfrigaard/sfw/raw/main/movies.RData) dataset.
 
+:::
+
+
+
+
+:::{layout="[85,15]" layout-valign="top"}
+
+<div>
 ### `box` modules
+</div>
 
-::: {layout-ncol="1"}
-
-![](img/box-logo.png){width="0.75in" fig-align="right"}
+![](img/box-logo.png){width="0.75in" fig-align="left"}
 
 :::
 
@@ -526,43 +742,35 @@ This is expected, because even if `tidyverse` has been installed, it hasn't been
 
 Below is a quick demonstration of how they work:
 
-::: {layout="[33, 33, 33]"}
+:::{layout="[50,50]" layout-valign="top"}
 
-### 1) Create folder
+**Create folder**: Create a new `box` module named `tidy` (which again, is just a folder named `tidy`)
 
-Create a new `box` module named `tidy` (which again, is just a folder named `tidy`)
-
-### 2) Import 
-
-Import the `tidyverse_logo()` from `tidyverse` by creating a `logo.R` file with the following code
-
-### 3) Use module
-
-Call `box::use(tidy/logo)` to access the `logo` object from the `tidy` module
-
-:::
-
-::: {layout="[33, 33, 33]"}
-
-```{bash}
-#| eval: false 
-#| code-fold: false
+```{verbatim}
 └──tidy/
     └─logo.R 
 ```
 
-```{r}
-#| eval: false 
-#| code-fold: false
+:::
+
+:::{layout="[50,50]" layout-valign="top"}
+
+**Import**: import the `tidyverse_logo()` from `tidyverse` by creating a `logo.R` file with the following code
+
+```r
 #' @export
 box::use(
   tidyverse[tidyverse_logo]
 )
 ```
 
-```{r}
-#| eval: false 
-#| code-fold: false
+:::
+
+:::{layout="[50,50]" layout-valign="top"}
+
+**Use module**: call `box::use(tidy/logo)` to access the `logo` object from the `tidy` module
+
+```r
 box::use(
   tidy/logo
 )
@@ -570,20 +778,21 @@ box::use(
 
 :::
 
+
 **`box::use()` creates *and* accesses `box` modules.** The first call to `box::use()` in `tidy/logo.R` places `tidyverse_logo()` in a `tidy` module, and the second call to `box::use()` allows us to use the `logo` object.
 
--   Use `ls()` on `logo` to return the object(s) it imports:
+Use `ls()` on `logo` to return the object(s) it imports:
 
-    ```{r}
-    #| label: ls_logo
-    #| eval: false
-    #| code-fold: false
-    ls(logo)
-    ```
+```{r}
+#| label: ls_logo
+#| eval: false
+#| code-fold: false
+ls(logo)
+```
 
-    ```bash
-    [1] "tidyverse_logo"
-    ```
+```{verbatim}
+[1] "tidyverse_logo"
+```
     
 **To access the objects within a `box` module, use the `$` operator.**
 
@@ -593,7 +802,7 @@ box::use(
 logo$tidyverse_logo()
 ```
 
-```bash
+```{verbatim}
 ⬢ __  _    __   .    ⬡           ⬢  . 
  / /_(_)__/ /_ ___  _____ _______ ___ 
 / __/ / _  / // / |/ / -_) __(_-</ -_)
@@ -605,258 +814,50 @@ logo$tidyverse_logo()
     
 `box` modules are self-contained, meaning the `tidyverse_logo()` function only exists *inside* the `logo` module. Explicitly listing the packages and functions we intend to use with `box::use()` means we no longer need to include calls to  `install.packages()` and `library()` or `require()`. 
 
--   Note what happens when I try to access the `tidyverse_logo()` function by itself:
+Note what happens when I try to access the `tidyverse_logo()` function by itself:
 
-    ```{r}
-    #| label: tidyverse_logo_retest
-    #| eval: false
-    #| error: true
-    #| code-fold: false
-    tidyverse_logo()
-    ```
+```{r}
+#| label: tidyverse_logo_retest
+#| eval: false
+#| error: true
+#| code-fold: false
+tidyverse_logo()
+```
         
-    ```{verbatim}
-    #| eval: false
-    #| code-fold: false
-    Error in tidyverse_logo(): could not find function "tidyverse_logo"
-    ```
+```{verbatim}
+Error in tidyverse_logo(): could not find function "tidyverse_logo"
+```
 
 <br>
 
-This was a very brief overview of `box`, so I *highly recommend* consulting the [`box` website](https://klmr.me/box/index.html) and vignettes. The `rhino` website also has a great overview on using [`box` with Shiny apps](https://appsilon.github.io/rhino/articles/explanation/box-modules.html).[^rbox]
+This was a very brief overview of `box`, and I **highly recommend consulting the [`box` website](https://klmr.me/box/index.html) and vignettes**. The `rhino` website also has a great overview on using [`box` with Shiny apps](https://appsilon.github.io/rhino/articles/explanation/box-modules.html).[^rbox]
 
 
 [^rbox]: I'd start with ["the hierarchy of module environments"](https://klmr.me/box/articles/mod-env-hierarchy.html) vignette. I've also created a collection of `box` module examples in the [`rbox` repo](https://github.com/mjfrigaard/rbox/blob/main/boxes.md).
 
 [^rhino-explicit-namespaces]: This is how `box` "*completely replaces the base R `library` and `require` functions*" - [`box` documentation](https://klmr.me/box/index.html).
 
-### Modules
-
-Now we're going to convert contents of `app.R` into *Shiny* modules. Shiny modules should be placed in the `app/view/` folder. **`rhino` modules are still broken into `ui` and `server` functions, and `box::use()` is called *within* each function to add the necessary `package[function]`**
-
--   The first module we'll create is the `app/view/inputs.R` module for collecting the user inputs:
-
-    ```{r}
-    #| eval: false 
-    #| code-fold: false 
-    # app/view/inputs.R
-    
-    # define module functions
-    
-    #' input values ui
-    #' @export
-    ui <- function(id) {
-      box::use(
-        shiny[
-          NS, tagList, selectInput, h3,
-          sliderInput, textInput
-        ],
-      )
-      ns <- NS(id)
-      tagList(
-        selectInput(
-          inputId = ns("y"),
-          label = "Y-axis:",
-          choices = c(
-            "IMDB rating" = "imdb_rating",
-            "IMDB number of votes" = "imdb_num_votes",
-            "Critics Score" = "critics_score",
-            "Audience Score" = "audience_score",
-            "Runtime" = "runtime"
-          ),
-          selected = "audience_score"
-        ),
-        selectInput(
-          inputId = ns("x"),
-          label = "X-axis:",
-          choices = c(
-            "IMDB rating" = "imdb_rating",
-            "IMDB number of votes" = "imdb_num_votes",
-            "Critics Score" = "critics_score",
-            "Audience Score" = "audience_score",
-            "Runtime" = "runtime"
-          ),
-          selected = "imdb_rating"
-        ),
-        selectInput(
-          inputId = ns("z"),
-          label = "Color by:",
-          choices = c(
-            "Title Type" = "title_type",
-            "Genre" = "genre",
-            "MPAA Rating" = "mpaa_rating",
-            "Critics Rating" = "critics_rating",
-            "Audience Rating" = "audience_rating"
-          ),
-          selected = "mpaa_rating"
-        ),
-        sliderInput(
-          inputId = ns("alpha"),
-          label = "Alpha:",
-          min = 0, max = 1, step = 0.1,
-          value = 0.5
-        ),
-        sliderInput(
-          inputId = ns("size"),
-          label = "Size:",
-          min = 0, max = 5,
-          value = 2
-        ),
-        textInput(
-          inputId = ns("plot_title"),
-          label = "Plot title",
-          placeholder = "Enter plot title"
-        )
-      )
-    }
-    
-    #' input values server
-    #' @export
-    server <- function(id) {
-      box::use(
-        shiny[moduleServer, reactive],
-      )
-    
-      moduleServer(id, function(input, output, session) {
-        return(
-          reactive({
-            list(
-              "x" = input$x,
-              "y" = input$y,
-              "z" = input$z,
-              "alpha" = input$alpha,
-              "size" = input$size,
-              "plot_title" = input$plot_title
-            )
-          })
-        )
-      })
-    }
-    
-    ```
-
-    -   The `server` function in `app/view/inputs` returns the same reactive list of inputs from the UI.
-    
-The `app/view/display` module contains the code for collecting and rendering the graph.
-
--   The `app/logic/data` and `app/logic/plot` modules are added to `app/view/display` with `box::use()`:
-
-    ```{r}
-    #| eval: false 
-    #| code-fold: false
-    # app/view/display.R
-    
-    # import data and plot modules
-    box::use(
-      app / logic / data,
-      app / logic / plot
-    )
-    ```
-
--   The `ui` in `app/view/display` includes the necessary `shiny` functions with `box::use()`:
-
-    ```{r}
-    #| eval: false 
-    #| code-fold: false
-    #' display ui
-    #' @export
-    ui <- function(id) {
-      box::use(
-        shiny[NS, tagList, tags, plotOutput]
-      )
-      ns <- NS(id)
-      # use data$movies_data() ----
-      tagList(
-        tags$br(),
-        tags$p(
-          "These data were obtained from",
-          tags$a("IMBD", href = "http://www.imbd.com/"), "and",
-          tags$a("Rotten Tomatoes", href = "https://www.rottentomatoes.com/"), 
-          ". The data represent 651 randomly sampled movies released between 
-          1972 to 2014 in the United States."
-        ),
-        tags$hr(),
-        plotOutput(outputId = ns("scatterplot")),
-        tags$hr(),
-        tags$blockquote(
-          tags$em(
-            tags$h6(
-              "The code for this application comes from the ",
-              tags$a("Building web applications with Shiny",
-                href = "https://rstudio-education.github.io/shiny-course/"
-              ),
-              "tutorial"
-            )
-          )
-        )
-      )
-    }
-    ```
-    
--   The `server` function adds the `ggplot2`, `shiny`, `tools`, and `stringr` functions with `box::use()` for creating the plot output, and imports the `movies` data with `data$movies_data()`:
-
-    ```{r}
-    #| eval: false 
-    #| code-fold: false
-    #' display server
-    #' @export
-    server <- function(id, var_inputs) {
-      
-      # load 
-      box::use(
-        ggplot2[labs, theme_minimal, theme],
-        shiny[NS, moduleServer, plotOutput, reactive, renderPlot],
-        tools[toTitleCase],
-        stringr[str_replace_all]
-      )
-    
-      moduleServer(id, function(input, output, session) {
-        
-        # use data$movies_data() ----
-        movies <- data$movies_data()
-    
-        inputs <- reactive({
-          plot_title <- toTitleCase(var_inputs()$plot_title)
-          list(
-            x = var_inputs()$x,
-            y = var_inputs()$y,
-            z = var_inputs()$z,
-            alpha = var_inputs()$alpha,
-            size = var_inputs()$size,
-            plot_title = plot_title
-          )
-        })
-    
-        output$scatterplot <- renderPlot({
-          # use plot$scatter_plot() ----
-          plot <- plot$scatter_plot(
-            df = movies,
-            x_var = inputs()$x,
-            y_var = inputs()$y,
-            col_var = inputs()$z,
-            alpha_var = inputs()$alpha,
-            size_var = inputs()$size
-          )
-          plot +
-            labs(
-              title = inputs()$plot_title,
-              x = str_replace_all(
-                toTitleCase(inputs()$x ), "_", " " ),
-              y = str_replace_all(
-                toTitleCase(inputs()$y), "_", " " )
-            ) +
-            theme_minimal() +
-            theme(legend.position = "bottom")
-        })
-      })
-    }
-    ```
-
-After composing the module in `app/view/display.R`, I'll add `testthat` tests for the `app/logic/` and `app/view` modules.
-
 ### Utility functions
 
-The `scatter_plot()` utility function is stored in `app/logic/plot.R`. Again, `box::use()` includes the `ggplot2` and `rlang` functions for `scatter_plot()`:
+We'll start developing `rap` by creating a `box` module for our plotting utility function, `scatter_plot()`. Recall that the `app/logic` folder contains the non-Shiny code and functions:[^rhino-logic-folder]
+
+[^rhino-logic-folder]: `rhino` apps come with an `app/logic/` folder, which is used to store code for [*"data manipulation, generating non-interactive plots and graphs, or connecting to an external data source, but outside of definable inputs, it doesn't interact with or rely on shiny in any way."*](https://appsilon.github.io/rhino/articles/explanation/application-structure.html#logic)
+
+:::{layout="[50,50]" layout-valign="top"}
+
+**`app/logic/plot.R`**
+
+```{verbatim}
+app/logic/
+├── __init__.R
+└── plot.R
+
+1 directory, 2 files
+```
+
+:::
+
+In `app/logic/plot.R`, we'll include the `ggplot2` and `rlang` functions used in `scatter_plot()` with `box::use()` :
 
 ```{r}
 #| eval: false 
@@ -889,27 +890,12 @@ box::use(
 3. Use `ggplot2` functions
 4. Use `rlang` functions
 
-The `app/logic/__init__.R` file exports the two modules above:[^box-init-files]
-
-```{r}
-#| eval: false 
-#| code-fold: false 
-# Logic: application code independent from Shiny.
-# https://go.appsilon.com/rhino-project-structure
-#' @export
-box::use(
-  app / logic / data,
-  app / logic / plot
-)
-```
-
-[^box-init-files]: The `__init__.R` files are covered [on the `rhino` website](https://appsilon.github.io/rhino/articles/explanation/box-modules.html#init-files)
-
 ### Data
 
-Non-Shiny code and functions should be stored in `app/logic/`. We'll include a `box` module for importing the `movies` data in `app/logic/data.R`.[^rhino-logic-folder]
+We'll also include a `box` module for importing the `movies` data in `app/logic/data.R`. This module will read the movies data from a `.csv` file stored in a previous branch of the `sap` package.[^data-branch]
 
-[^rhino-logic-folder]: `rhino` apps come with an `app/logic/` folder, which is used to store code for [*"data manipulation, generating non-interactive plots and graphs, or connecting to an external data source, but outside of definable inputs, it doesn't interact with or rely on shiny in any way."*](https://appsilon.github.io/rhino/articles/explanation/application-structure.html#logic)
+[^data-branch]: The `movies.csv` file comes from the [`07_data` branch of sap](https://github.com/mjfrigaard/sap/tree/07_data/data-raw).
+
 
 ```{r}
 #| eval: false 
@@ -924,8 +910,7 @@ box::use(
 #' import movies data 
 #' @export
 movies_data <- function() {
-  raw_csv_url <- "https://bit.ly/47FPO6t"
-  # from 07_data branch!
+  raw_csv_url <- "https://tinyurl.com/5cdmpuzy"
   vroom(raw_csv_url, # <2>
     col_types = cols(...1 = col_skip())) # <2>
 }
@@ -935,136 +920,469 @@ movies_data <- function() {
 
 In `app/logic/data.R`, the necessary `vroom` functions are included with `box::use()` to import `movies.csv` from GitHub.
 
-### Launch
+Now that we have modules for our utility function and data, we want to make them available to our Shiny (`box`) modules. We can do this in the `app/logic/__init__.R` file: 
 
-After the `app/logic/` and `app/view/` code has been written and tested, the modules and layout functions can be included in `app/main.R`. 
+```{r}
+#| eval: false 
+#| code-fold: false 
+# Logic: application code independent from Shiny.
+# https://go.appsilon.com/rhino-project-structure
+#' @export
+box::use(
+  app / logic / data,
+  app / logic / plot
+)
+```
 
--   `box::use()` is used to import the `shiny` and `shinythemes` functions: 
+Including the folder paths in `box::use()` in  `app/logic/__init__.R` will export the `plot` and `data` modules we created above:[^box-init-files]
 
-    ```{r}
-    #| eval: false 
-    #| code-fold: false
-    # app/main.R
-    
-    # shiny functions
-    box::use(
-      shiny[
-        NS, fluidPage, sidebarLayout, sidebarPanel, 
-        mainPanel, fluidRow, column, tags, icon,
-        plotOutput, moduleServer, renderPlot
-      ],
-      shinythemes[shinytheme]
+
+[^box-init-files]: The `__init__.R` files are covered [on the `rhino` website](https://appsilon.github.io/rhino/articles/explanation/box-modules.html#init-files)
+
+Now we can use use `app/logic/data` and `app/logic/plot` in our Shiny (box) modules below.
+
+### Modules
+
+To convert contents of our monolithic `app.R` file into Shiny (`box`) modules, we'll start by creating files for each module in the `app/view/` folder. 
+
+First we'll create the `app/view/var_inputs` module for collecting the user variable inputs: 
+
+:::{layout="[50,50]" layout-valign="top"}
+
+**`app/view/var_inputs.R`**
+
+```{verbatim}
+app/view/
+├── __init__.R
+└── var_inputs.R
+
+1 directory, 2 files
+```
+
+:::
+
+**`rhino` modules are still broken into `ui` and `server` functions, and `box::use()` is called *within* each function to add the necessary `package[function]`**
+
+```{r}
+#| eval: false 
+#| code-fold: show
+#| code-summary: 'show/hide app/view/var_inputs.R'  
+## app/view/var_inputs.R
+
+# define module functions
+
+#' variable input values ui
+#' @export
+ui <- function(id) {
+  box::use(
+    shiny[
+      NS, tagList, selectInput
+    ],
+  )
+  ns <- NS(id)
+  tagList(
+    selectInput(
+      inputId = ns("y"),
+      label = "Y-axis:",
+      choices = c(
+        "IMDB rating" = "imdb_rating",
+        "IMDB number of votes" = "imdb_num_votes",
+        "Critics Score" = "critics_score",
+        "Audience Score" = "audience_score",
+        "Runtime" = "runtime"
+      ),
+      selected = "audience_score"
+    ),
+    selectInput(
+      inputId = ns("x"),
+      label = "X-axis:",
+      choices = c(
+        "IMDB rating" = "imdb_rating",
+        "IMDB number of votes" = "imdb_num_votes",
+        "Critics Score" = "critics_score",
+        "Audience Score" = "audience_score",
+        "Runtime" = "runtime"
+      ),
+      selected = "imdb_rating"
+    ),
+    selectInput(
+      inputId = ns("z"),
+      label = "Color by:",
+      choices = c(
+        "Title Type" = "title_type",
+        "Genre" = "genre",
+        "MPAA Rating" = "mpaa_rating",
+        "Critics Rating" = "critics_rating",
+        "Audience Rating" = "audience_rating"
+      ),
+      selected = "mpaa_rating"
     )
-    
-    # import modules
-    box::use(
-      # load inputs module ----
-      app / view / inputs,
-      # load display module ----
-      app / view / display
-    )
-    ```
+  )
+}
 
-The `ui()` and `server()` functions in `app/main` look very similar to the `movies_ui()` and `movies_server()` functions, except we access the modules using the `$` operator.
+#' variable input values server
+#' @export
+server <- function(id) {
+  box::use(
+    shiny[moduleServer, reactive],
+  )
 
--   The `ui()` function includes both `input$ui()` and `display$ui()`.
-
-    ```{r}
-    #| eval: false 
-    #| code-fold: false
-    #' rap ui
-    #' @export
-    ui <- function(id) {
-      ns <- NS(id)
-      fluidPage(
-        theme = shinytheme("spacelab"),
-        sidebarLayout(
-          sidebarPanel(
-            # use inputs module UI ----
-            inputs$ui(ns("vals"))
-          ),
-          mainPanel(
-            fluidRow(
-              column(
-                width = 12,
-                  tags$h3("rap")
-                )
-            ),
-            fluidRow(
-              column(
-                width = 1,
-                offset = 11,
-                # example info button ---
-                tags$button(
-                  id = "help-button",
-                  icon("info"),
-                  # add 'onclick' after rhino::build_sass()
-                  # and rhino::build_js()
-                  onclick = "App.showHelp()"
-                )
-              )
-            ),
-            fluidRow(
-              column(
-                width = 12,
-                # use display module UI ----
-                display$ui(ns("disp"))
-              )
-            )
-          )
-        )
-      )
-    }
-    ```
-    
-
--   The `server` function in `app/main.R` calls the `inputs$server()`, collects the input values as `selected_vars`, and passed these to `display$server()`:
-
-    ```{r}
-    #| eval: false 
-    #| code-fold: false
-    #' rap server
-    #' @export
-    server <- function(id) {
-      moduleServer(id, function(input, output, session) {
-        # use inputs module server ----
-        selected_vars <- inputs$server(id = "vals")
-        # use display module server ----
-        display$server(
-          id = "disp",
-          var_inputs = selected_vars
+  moduleServer(id, function(input, output, session) {
+    return(
+      reactive({
+        list(
+          "x" = input$x,
+          "y" = input$y,
+          "z" = input$z
         )
       })
-    }
-    ```
-    
-After saving all the module files and `app/main.R`, we can run the app using `app.R`: 
+    )
+  })
+}
+```
 
-::: {#fig-rap_initial_launch}
-![](img/rap_initial_launch.png){#fig-rap_initial_launch height="100%" width="100%" fig-align="center"}
+The `server` function in `app/view/var_inputs` returns a reactive list of column names from the UI.
 
-initial `rap` launch
+We'll also create `aes_inputs` module for collecting the graph 'aesthetics' inputs:
+
+:::{layout="[50,50]" layout-valign="top"}
+
+**`app/view/aes_inputs.R`**
+
+```{verbatim}
+app/view/
+├── __init__.R
+├── aes_inputs.R
+└── var_inputs.R
+
+1 directory, 3 files
+```
+
 :::
+
+Note that each module explicitly lists the functions it uses in the `box::use()` section:  
+
+```{r}
+#| eval: false 
+#| code-fold: true 
+#| code-summary: 'show/hide app/view/aes_inputs.R' 
+# app/view/aes_inputs.R
+
+# define module functions
+
+#' aesthetic input values ui
+#' @export
+ui <- function(id) {
+  box::use(
+    shiny[
+      NS, tagList, 
+      sliderInput, textInput
+    ],
+  )
+  ns <- NS(id)
+  tagList(
+    sliderInput(
+      inputId = ns("alpha"),
+      label = "Alpha:",
+      min = 0, max = 1, step = 0.1,
+      value = 0.5
+    ),
+    sliderInput(
+      inputId = ns("size"),
+      label = "Size:",
+      min = 0, max = 5,
+      value = 2
+    ),
+    textInput(
+      inputId = ns("plot_title"),
+      label = "Plot title",
+      placeholder = "Enter plot title"
+    )
+  )
+}
+
+#' aesthetic input values server
+#' @export
+server <- function(id) {
+  box::use(
+    shiny[moduleServer, reactive],
+  )
+
+  moduleServer(id, function(input, output, session) {
+    return(
+      reactive({
+        list(
+          "alpha" = input$alpha,
+          "size" = input$size,
+          "plot_title" = input$plot_title
+        )
+      })
+    )
+  })
+}
+```
+
+
+
+```{r}
+#| eval: false 
+#| include: false
+#| code-fold: false 
+# app/view/inputs.R
+
+# define module functions
+
+#' input values ui
+#' @export
+ui <- function(id) {
+  box::use(
+    shiny[
+      NS, tagList, selectInput, h3,
+      sliderInput, textInput
+    ],
+  )
+  ns <- NS(id)
+  tagList(
+    selectInput(
+      inputId = ns("y"),
+      label = "Y-axis:",
+      choices = c(
+        "IMDB rating" = "imdb_rating",
+        "IMDB number of votes" = "imdb_num_votes",
+        "Critics Score" = "critics_score",
+        "Audience Score" = "audience_score",
+        "Runtime" = "runtime"
+      ),
+      selected = "audience_score"
+    ),
+    selectInput(
+      inputId = ns("x"),
+      label = "X-axis:",
+      choices = c(
+        "IMDB rating" = "imdb_rating",
+        "IMDB number of votes" = "imdb_num_votes",
+        "Critics Score" = "critics_score",
+        "Audience Score" = "audience_score",
+        "Runtime" = "runtime"
+      ),
+      selected = "imdb_rating"
+    ),
+    selectInput(
+      inputId = ns("z"),
+      label = "Color by:",
+      choices = c(
+        "Title Type" = "title_type",
+        "Genre" = "genre",
+        "MPAA Rating" = "mpaa_rating",
+        "Critics Rating" = "critics_rating",
+        "Audience Rating" = "audience_rating"
+      ),
+      selected = "mpaa_rating"
+    ),
+    sliderInput(
+      inputId = ns("alpha"),
+      label = "Alpha:",
+      min = 0, max = 1, step = 0.1,
+      value = 0.5
+    ),
+    sliderInput(
+      inputId = ns("size"),
+      label = "Size:",
+      min = 0, max = 5,
+      value = 2
+    ),
+    textInput(
+      inputId = ns("plot_title"),
+      label = "Plot title",
+      placeholder = "Enter plot title"
+    )
+  )
+}
+
+#' input values server
+#' @export
+server <- function(id) {
+  box::use(
+    shiny[moduleServer, reactive],
+  )
+
+  moduleServer(id, function(input, output, session) {
+    return(
+      reactive({
+        list(
+          "x" = input$x,
+          "y" = input$y,
+          "z" = input$z,
+          "alpha" = input$alpha,
+          "size" = input$size,
+          "plot_title" = input$plot_title
+        )
+      })
+    )
+  })
+}
+
+```
+    
+The final `display` module contains the code for collecting the variable and aesthetic inputs and rendering the graph.
+
+
+:::{layout="[50,50]" layout-valign="top"}
+
+**`app/view/display`**
+
+```{verbatim}
+├── __init__.R
+├── aes_inputs.R
+├── display
+└── var_inputs.R
+
+1 directory, 4 files
+```
+
+:::
+
+
+The `app/logic/data` and `app/logic/plot` modules are added to `app/view/display` with `box::use()`:
+
+```{r}
+#| label: display_module_use
+#| eval: false 
+#| code-fold: false
+# app/view/display.R
+
+# import data and plot modules
+box::use(
+  app / logic / data,
+  app / logic / plot
+)
+```
+
+The `ui` in `app/view/display` includes the necessary `shiny` functions with `box::use()`:
+
+```{r}
+#| label: display_module_ui
+#| eval: false 
+#| code-fold: false
+#' display ui
+#' @export
+ui <- function(id) {
+  box::use(
+    shiny[NS, tagList, tags, plotOutput]
+  )
+  ns <- NS(id)
+  # use data$movies_data() ----
+  tagList(
+    tags$br(),
+    tags$p(
+      "These data were obtained from",
+      tags$a("IMBD", href = "http://www.imbd.com/"), "and",
+      tags$a("Rotten Tomatoes", href = "https://www.rottentomatoes.com/"), 
+      ". The data represent 651 randomly sampled movies released between 
+      1972 to 2014 in the United States."
+    ),
+    tags$hr(),
+    plotOutput(outputId = ns("scatterplot")),
+    tags$hr(),
+    tags$blockquote(
+      tags$em(
+        tags$h6(
+          "The code for this application comes from the ",
+          tags$a("Building web applications with Shiny",
+            href = "https://rstudio-education.github.io/shiny-course/"
+          ),
+          "tutorial"
+        )
+      )
+    )
+  )
+}
+```
+    
+The `server` function adds the `ggplot2`, `shiny`, `tools`, and `stringr` functions with `box::use()` for creating the plot output, and imports the `movies` data with `data$movies_data()`:
+
+```{r}
+#| label: display_module_server
+#| eval: false 
+#| code-fold: false
+#' display server
+#' @export
+server <- function(id, var_inputs) {
+  
+  # load 
+  box::use(
+    ggplot2[labs, theme_minimal, theme],
+    shiny[NS, moduleServer, plotOutput, reactive, renderPlot],
+    tools[toTitleCase],
+    stringr[str_replace_all]
+  )
+
+  moduleServer(id, function(input, output, session) {
+    
+    # use data$movies_data() ----
+    movies <- data$movies_data()
+
+    inputs <- reactive({
+      plot_title <- toTitleCase(var_inputs()$plot_title)
+      list(
+        x = var_inputs()$x,
+        y = var_inputs()$y,
+        z = var_inputs()$z,
+        alpha = var_inputs()$alpha,
+        size = var_inputs()$size,
+        plot_title = plot_title
+      )
+    })
+
+    output$scatterplot <- renderPlot({
+      # use plot$scatter_plot() ----
+      plot <- plot$scatter_plot(
+        df = movies,
+        x_var = inputs()$x,
+        y_var = inputs()$y,
+        col_var = inputs()$z,
+        alpha_var = inputs()$alpha,
+        size_var = inputs()$size
+      )
+      plot +
+        labs(
+          title = inputs()$plot_title,
+          x = str_replace_all(
+            toTitleCase(inputs()$x ), "_", " " ),
+          y = str_replace_all(
+            toTitleCase(inputs()$y), "_", " " )
+        ) +
+        theme_minimal() +
+        theme(legend.position = "bottom")
+    })
+  })
+}
+```
+
+After creating the `app/view/display.R` module, I'll add `testthat` tests for the `app/logic/` and `app/view` modules.
 
 ### Unit tests 
 
 The unit tests for the `box` modules in `app/logic/` and `app/view/` are in the `tests/testthat/` folder:
 
-```{bash}
-#| eval: false 
-#| code-fold: false
+:::{layout="[50,50]" layout-valign="top"}
+
+**`tests/testthat/`**
+
+```{verbatim}
 tests/testthat/
         ├── test-data.R
-        ├── test-display.R
-        ├── test-inputs.R
         └── test-plot.R
 
-1 directory, 4 files
+1 directory, 2 files
 ```
+
+:::
 
 Unit tests with `rhino` applications are similar to unit tests in R packages, with a few important differences: 
 
-1. We don't have access to the `usethis` and `devtools` functions for creating or running test files, so we'll need to import the necessary `testthat` functions with `box::use()`   
+1. We don't have access to the `usethis` and `devtools` functions for creating or running test files, so we'll need to import the necessary `testthat` functions with `box::use()` 
+
 2. To run the tests in `rap`, we can use the `rhino::test_r()` function (`test_r()` will run the unit tests in `tests/testthat/`)
 
 The first test for `app/logic/data.R` is below: 
@@ -1082,12 +1400,12 @@ box::use(
   app / logic / data
 )
 
-describe(description = "Feature: Movies Data Dimensions Verification
+describe("Feature: Movies Data Dimensions Verification
   As a data analyst,
   I want to ensure the movies data frame has the correct dimensions
   So that I can rely on its structure for further analysis.", 
   code = {
-  it(description = "Scenario: Checking the dimensions of the movies data frame
+  it("Scenario: Checking the dimensions of the movies data frame
     Given a function to import movies data
     When I call the function to retrieve the movies data
     Then the data frame should have 651 rows and 34 columns
@@ -1158,14 +1476,38 @@ describe("Feature: Scatter Plot Generation Verification
 })
 ```
 
+Running the `testthat` tests in `rap` app is *slightly* different than executing tests in an R package. The standard `devtools` functions and keyboard shortcuts aren't available, but `rhino` comes with a [`rhino::test_r()`](https://appsilon.github.io/rhino/reference/test_r.html) helper function to run all the tests in the `testthat/` folder:
+
+:::{layout="[50,50]" layout-valign="top"}
+
+```r
+rhino::test_r()
+```
+
+```{verbatim}
+══ Results ════════════════════════════
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 4 ]
+> rhino::test_r()
+✔ | F W  S  OK | Context
+✔ |          2 | data                 
+✔ |          1 | main                 
+✔ |          1 | plot                 
+
+══ Results ════════════════════════════
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 4 ]
+```
+
+:::
+
 ### Module tests
 
-We can test the application modules with Shiny's `testServer()` function. First we'll test that the reactive list of inputs is returned from `app/view/inputs`:
+We can test the application modules with Shiny's `testServer()` function. We'll test that the reactive list of inputs is returned from `app/view/var_inputs` and `app/view/aes_inputs`:
 
 ```{r}
 #| eval: false 
-#| code-fold: false
-# import testthat and shiny::testServer()
+#| code-fold: true
+#| code-summary: 'show/hide tests/testthat/test-var_inputs.R'
+# import testthat and shiny's testServer()
 box::use(
   testthat[describe, it, expect_equal],
   shiny[testServer]
@@ -1173,51 +1515,93 @@ box::use(
 
 # import inputs module
 box::use(
-  app / view / inputs
+  app / view / var_inputs
 )
 
 describe("Feature: Server Reactive Values Verification
   As a Shiny app developer,
-  I want to ensure that the server function returns a list of reactive values 
+  I want to ensure the var_inputs module returns a list of reactive values 
   So that I can confirm the server's responsiveness to input changes.", 
   code = {
   it("Scenario: Checking the return values of the server function
-    Given a server function inputs$server for handling reactive inputs
+    Given a server function var_inputs$server for handling reactive inputs
     When I create a server object and set reactive input values as:
       | input       | value            |
       | x           | audience_score   |
       | y           | imdb_rating      |
       | z           | mpaa_rating      |
-      | alpha       | 0.75             |
-      | size        | 3                |
-      | plot_title  | Example title    |
     And I compare the returned values from the server
     Then the returned values should match the following list:
       | key        | value            |
       | x          | audience_score   |
       | y          | imdb_rating      |
-      | z          | mpaa_rating      |
-      | alpha      | 0.75             |
-      | size       | 3                |
-      | plot_title | Example title    |", 
+      | z          | mpaa_rating      |", 
     code = {
     # create server object
-    testServer(app = inputs$server, expr = {
+    testServer(app = var_inputs$server, expr = {
       # create list of output vals
       test_vals <- list(
         x = "audience_score",
         y = "imdb_rating",
-        z = "mpaa_rating",
-        alpha = 0.75,
-        size = 3,
-        plot_title = "Example title")
+        z = "mpaa_rating")
       # change inputs
       session$setInputs(x = "audience_score",
                         y = "imdb_rating",
-                        z = "mpaa_rating",
-                        alpha = 0.75,
-                        size = 3,
-                        plot_title = "Example title")
+                        z = "mpaa_rating")
+      # test class
+      expect_equal(
+        object = session$returned(),
+        expected = test_vals
+      )
+   })
+  })
+})
+```
+
+
+```{r}
+#| eval: false 
+#| code-fold: true
+#| code-summary: 'show/hide tests/testthat/test-aes_inputs.R'
+# import testthat and shiny's testServer()
+box::use(
+  testthat[describe, it, expect_equal],
+  shiny[testServer]
+)
+
+# import inputs module
+box::use(
+  app / view / aes_inputs
+)
+
+describe("Feature: Server Reactive Values Verification
+  As a Shiny app developer,
+  I want to ensure the aes_inputs module returns a list of reactive values 
+  So that I can confirm the server's responsiveness to input changes.", 
+  code = {
+  it("Scenario: Checking the return values of the server function
+    Given a server function aes_inputs$server for handling reactive inputs
+    When I create a server object and set reactive input values as:
+      | alpha      | 0.5              |
+      | size       | 2                |
+      | plot_title | Enter Plot Title |
+    And I compare the returned values from the server
+    Then the returned values should match the following list:
+      | alpha      | 0.5              |
+      | size       | 2                |
+      | plot_title | Enter Plot Title |", 
+    code = {
+    # create server object
+    testServer(app = aes_inputs$server, expr = {
+      # create list of output vals
+      test_vals <- list(
+        alpha = 0.5,
+        size = 2,
+        plot_title = "Enter Plot Title")
+      # change inputs
+      session$setInputs(alpha = 0.5,
+                        size = 2,
+                        plot_title = "Enter Plot Title")
       # test class
       expect_equal(
         object = session$returned(),
@@ -1233,6 +1617,19 @@ We'll also want to make sure the reactive inputs are passed from the `app/view/i
 ```{r}
 #| eval: false 
 #| code-fold: false
+# import testthat and shiny's testServer()
+box::use(
+  testthat[describe, it, expect_equal],
+  shiny[testServer]
+)
+
+# import inputs module
+box::use(
+  app / view / display,
+  app / view / var_inputs,
+  app / view / aes_inputs
+)
+
 describe("Feature: Server Acceptance of Reactive Values
   As a Shiny app developer,
   I want to verify that the display server can accept a list of reactive values
@@ -1247,7 +1644,7 @@ describe("Feature: Server Acceptance of Reactive Values
       | z          | mpaa_rating      |
       | alpha      | 0.5              |
       | size       | 2                |
-      | plot_title | Enter Plot Title |
+      | plot_title | 'Plot Title'     |
     Then the server should correctly receive and process the reactive inputs
     And the inputs received by the server should match the specified values",
     code = {
@@ -1255,18 +1652,22 @@ describe("Feature: Server Acceptance of Reactive Values
     testServer(
       app = display$server,
       args = list(
-        # include list of reactive inputs
         var_inputs =
           reactive(
-            list(
-                 x = "critics_score",
-                 y = "imdb_rating",
-                 z = "mpaa_rating",
-                 alpha = 0.5,
-                 size = 2,
-                 plot_title = "Enter Plot Title"
+            list( 
+                x = "critics_score",
+                y = "imdb_rating",
+                z = "mpaa_rating"
+              )
+            ),
+          aes_inputs =
+            reactive(
+              list( 
+                alpha = 0.5,
+                size = 2,
+                plot_title = "plot title"
                 )
-            )
+              )
       ),
       expr = {
         expect_equal(
@@ -1278,7 +1679,7 @@ describe("Feature: Server Acceptance of Reactive Values
             z = "mpaa_rating",
             alpha = 0.5,
             size = 2,
-            plot_title = "Enter Plot Title"
+            plot_title = "Plot Title"
           )
         )
     })
@@ -1286,13 +1687,11 @@ describe("Feature: Server Acceptance of Reactive Values
 })
 ```
 
-These tests confirm the reactive values are passed between the `app/view/inputs` and the `app/view/display` modules. 
+:::{layout="[50,50]" layout-valign="top"}
 
-Running the `testthat` tests in `rap` app is *slightly* different than executing tests in an R package. The standard `devtools` functions and keyboard shortcuts aren't available, but `rhino` comes with a [`rhino::test_r()`](https://appsilon.github.io/rhino/reference/test_r.html) helper function to run all the tests in the `testthat/` folder:
+**`tests/testthat/`**
 
-```{bash}
-#| eval: false 
-#| code-fold: false
+```{verbatim}
 tests/testthat/
 ├── test-data.R
 ├── test-display.R
@@ -1303,151 +1702,332 @@ tests/testthat/
 1 directory, 5 files
 ```
 
-```{r}
-#| eval: false 
-#| code-fold: false
+:::
+
+:::{layout="[50,50]" layout-valign="top"}
+
+```r
 rhino::test_r()
 ```
 
 ```{verbatim}
+✔ | F W  S  OK | Context
+✔ |          1 | aes_inputs
+✔ |          2 | data      
+✔ |          1 | display   
+✔ |          1 | plot      
+✔ |          1 | var_inputs
+
+══ Results ═══════════════════════════
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 6 ]
+```
+
+:::
+
+These tests confirm the reactive values are passed between the `app/view/inputs` and the `app/view/display` modules. 
+
+### Launch
+
+After the `app/logic/` and `app/view/` code has been written and tested, we can add the modules and layout functions to `app/main.R`:
+
+```{r}
 #| eval: false 
 #| code-fold: false
-✔ | F W  S  OK | Context
-✔ |          4 | data [1.3s]                                                                                                               
-✔ |          5 | display [1.2s]                                                                                                            
-✔ |          2 | inputs                                                                                                                    
-✔ |          1 | plot                                                                                                                      
+# app/main.R
 
-══ Results ═════════════════════════════════════════════════════════════════════
-Duration: 3.3 s
+# shiny functions
+box::use(
+  shiny[
+    NS, tags, icon, moduleServer
+  ],
+  # bslib functions
+  bslib[
+    page_fillable, layout_sidebar, sidebar, 
+    card, card_header, card_body, bs_theme
+  ]
+)
 
-[ FAIL 0 | WARN 0 | SKIP 0 | PASS 12 ]
+# import modules ----
+box::use(
+  ## load inputs module
+  app / view / var_inputs,
+  app / view / aes_inputs,
+  ## load display module 
+  app / view / display
+)
 ```
+
+The `ui()` and `server()` functions in `app/main` look very similar to `golem` and `leprechaun` UI and server functions, except we access the modules using the `$` operator.
+
+The `ui()` function includes `var_inputs$ui()`,  `aes_inputs$ui()` and `display$ui()`.
+
+```{r}
+#| eval: false 
+#| code-fold: false
+#' rap ui
+#' @export
+ui <- function(id) {
+  ns <- NS(id)
+  page_fillable(
+    # theme
+    theme = bs_theme(
+        bg = "#202123", 
+        fg = "#B8BCC2",
+        primary = "#EA80FC", 
+        secondary = "#48DAC6",
+        base_font = c("Proxima Nova", "sans-serif"),
+        code_font = c("Hack", "monospace"),
+        heading_font = c("Optima", "sans-serif")
+    ),
+    layout_sidebar(
+      sidebar = sidebar(
+        var_inputs$ui(ns("vals")),
+        aes_inputs$ui(ns("aes"))
+        ),
+        card(
+          full_screen = TRUE,
+        card_body(
+            display$ui(ns("disp"))
+          )
+        )
+      )
+    )
+}
+```
+
+The `help-button` will be covered below in the `rhino::build_sass()` and `rhino::build_js()`.
+
+The `server` function in `app/main.R` calls the `var_inputs$server()` and `aes_inputs$server()`, collects the input values as `selected_vars` and `selected_aes`, then passes these to `display$server()`:
+
+```{r}
+#| eval: false 
+#| code-fold: false
+#' rap server
+#' @export
+server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    
+    # collect variable inputs module server ----
+    selected_vars <- var_inputs$server(id = "vals")
+    # collect aesthetic inputs module server ----
+    selected_aes <- aes_inputs$server(id = "aes")
+    
+    # pass to display module server ----
+    display$server(
+      id = "disp",
+      var_inputs = selected_vars,
+      aes_inputs = selected_aes
+    )
+  })
+}
+```
+    
+After saving all the module files and `app/main.R`, we can run the app using `app.R`: 
+
+![Initial `rap` app](img/rap_initial_launch.png){width="100%" fig-align="center"}
 
 
 ### Adding resources
 
-It's fairly straightforward to add external resources (i.e., JavaScript, CSS, Sass, etc.) to `rhino` apps. I'll use the [example from the website](https://appsilon.github.io/rhino/articles/tutorial/create-your-first-rhino-app.html#add-javascript-code) to demonstrate because it adds *both* CSS and JavaScript to the codebase.
+It's fairly straightforward to add external resources (i.e., JavaScript, CSS, Sass, etc.) to `rhino` apps. We'll cover the [examples from the website](https://appsilon.github.io/rhino/articles/tutorial/create-your-first-rhino-app.html#add-javascript-code) to demonstrate adding *both* CSS and JavaScript to the `rap` codebase. Be sure to download and install [Node.js](https://nodejs.org/en/download/).
 
--   Update the `mainPanel()` to include the title, info button, and display module in `app/main.R`:
+```{r}
+#| label: node_js_co_box
+#| echo: false
+#| eval: true
+#| results: asis
+co_box(color = "r", size = "1.05", hsize = "1.10",
+  fold = TRUE,
+  header = "Node.js in Positron ![](img/positron.png){height=30}", 
+  contents = "
+While developing in Positron, I kept getting the following error when trying to execute `build_sass()` and `build_js()`:
 
-    ```{r}
-    #| label: js-main-ui
-    #| eval: false
-    #| code-fold: false
-    tags$button(
-      id = "help-button",
-      icon("info"),
-      # add 'onclick' after rhino::build_sass()
-      # and rhino::build_js()
-      onclick = "App.showHelp()"
-    )
-    ```
+\`\`\`sh
+Error in `value[[3L]]()`:
+! Do you have Node.js installed?
+Check https://go.appsilon.com/rhino-system-dependencies for details.
+ℹ If you can't use Node.js, try using sass: 'r' configuration.
+\`\`\`
 
-    -   The following CSS is added to `app/styles/main.css` in the `container` for the button.
+Both functions worked in RStudio, so I was able to add both SASS and JavaScript to the app. 
 
-    ``` css
-    // app/styles/main.scss
+The path for my `nvm`/`node` versions are below:
 
-    .components-container {
-      display: inline-grid;
-      grid-template-columns: 1fr 1fr;
-      width: 100%;
+**In RStudio ![](img/rstudio.png){height=25}**
 
-      .component-box {
-        padding: 10px;
-        margin: 10px;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-      }
-    }
+\`\`\`sh
+Bash@MacBook rap$ which npm
+/Users/mjfrigaard/.nvm/versions/node/v22.14.0/bin/npm
+Bash@MacBook rap$ which node
+/Users/mjfrigaard/.nvm/versions/node/v22.14.0/bin/node
+\`\`\`
 
-    h1 {
-      text-align: center;
-      font-weight: 900;
-    }
 
-    #help-button {
-      position: fixed;
-      top: 0;
-      right: 0;
+**In Positron ![](img/positron.png){height=25}**
+
+\`\`\`sh
+(3.9.15) Bash@MacBook rap$ which npm
+/Users/mjfrigaard/.nvm/versions/node/v22.14.0/bin/npm
+(3.9.15) Bash@MacBook rap$ which node
+/Users/mjfrigaard/.nvm/versions/node/v22.14.0/bin/node
+\`\`\`
+  
+  ")
+```
+
+Update the `card_header()` to include the title, info button, and display module in `app/main.R`:
+
+:::{layout="[30,70]" layout-valign="top"}
+
+**Help button**
+
+```r
+card_header(
+  tags$button(id = "help-button",
+    icon("info"),
+    # add 'onclick' after 
+    # rhino::build_sass() and 
+    # rhino::build_js()
+    onclick = "App.showHelp()")
+)
+```
+
+:::
+
+The following CSS is added to `app/styles/main.css` in the `container` for the button.
+
+:::{layout="[30,70]" layout-valign="top"}
+
+**`app/styles/main.css`**
+
+```css
+// app/styles/main.scss
+
+.components-container {
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+  
+    .component-box {
+      padding: 10px;
       margin: 10px;
+      box-shadow: 
+        0 4px 8px 0 #00000033,   
+        0 6px 20px 0 #00000030;
     }
-    ```
+  }
+  
+  h1 {
+    text-align: center;
+    font-weight: 900;
+  }
+  
+  #help-button {
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 10px;
+  }
+```
 
-    -   Run `rhino::build_sass()` to create the `app/static/css/app.min.css` file (**requires [node.js](https://nodejs.org/en/)**)
+:::
 
-    ```{r}
-    #| label: rhino_build_sass
-    #| eval: false
-    #| code-fold: false
-    rhino::build_sass()
-    ```
+Run `rhino::build_sass()` to create the `app/static/css/app.min.css` file (**requires [node.js](https://nodejs.org/en/)**)
 
-    ``` bash
-    added 748 packages in 49s
-    build-sass
-    sass --no-source-map --style=compressed 
-      ../app/styles/main.scss:../app/static/css/app.min.css
-    ```
 
-    -   This tells me `app.min.css` has been added to in `app/static/css/`
+:::{layout="[40,60]" layout-valign="top"}
 
-    ``` bash
-    app/static/
-          └── css
-               └── app.min.css
-    ```
+```r
+rhino::build_sass()
+```
 
-    -   Add the following to `app/js/index.js`:
+```{verbatim}
+ℹ Initializing Node.js directory...
+ℹ Installing Node.js packages with npm...
 
-    ``` js
-    export function showHelp() {
-    alert('Learn more about shiny frameworks: https://mjfrigaard.github.io/posts/my-rhino-app/');
-    }
-    ```
+added 761 packages in 23s
 
-    -   Run `rhino::build_js()` to build the `app/static/js/app.min.js` (**requires [node.js](https://nodejs.org/en/)**)
+> build-sass
+> sass --no-source-map --style=compressed
+  ../app/styles/main.scss:
+  ../app/static/css/app.min.css
+```
 
-    ```{r}
-    #| label: rhino_build_js
-    #| eval: false
-    #| code-fold: false
-    rhino::build_js()
-    ```
+:::
 
-    ``` bash
-    build-js
-    webpack
+This tells me `app.min.css` has been added to in `app/static/css/`
 
-    asset app.min.js 502 bytes [emitted] [minimized] (name: main)
-    runtime modules 670 bytes 3 modules
-    ../app/js/index.js 126 bytes [built] [code generated]
-    webpack 5.69.0 compiled successfully in 1300 ms
-    ```
+```{verbatim}
+app/static/
+      └── css
+           └── app.min.css
+```
 
-    -   The output tells me the `app.min.js` has been created in `app/static/js`
+Add the following to `app/js/index.js`:
 
-    ``` bash
-    app/static/
-          └── js
-              └── app.min.js
-    ```
+```js
+export function showHelp() {
+alert('Learn more about shiny frameworks: https://mjfrigaard.github.io/posts/my-rhino-app/');
+}
+```
+
+Run `rhino::build_js()` to build the `app/static/js/app.min.js` (**requires [node.js](https://nodejs.org/en/)**)
+
+:::{layout="[40,60]" layout-valign="top"}
+
+```r
+rhino::build_js()
+```
+
+```{verbatim}
+build-js
+webpack
+
+asset app.min.js 502 bytes [emitted]
+[minimized] (name: main)
+runtime modules 670 bytes 3 modules
+../app/js/index.js 126 bytes [built] [code generated]
+webpack 5.69.0 compiled successfully in 1300 ms
+```
+
+:::
+
+The output tells me the `app.min.js` has been created in `app/static/js`
+
+```{verbatim}
+app/static/
+      └── js
+          └── app.min.js
+```
 
 Now when I save everything and click '**Run App**' in `app.R` I should see the info button (and message):
 
-::: {#fig-js-button .column}
-![](img/rap_info_button.png){height="100%" width="100%" fig-align="center"}
 
-Adding `.js` to `app/js/index.js`
-:::
+![Adding `.js` to `app/js/index.js`](img/rap_info_button.png){height="100%" width="100%" fig-align="center"}
 
-::: {#fig-js-button-onclick .column}
-![](img/rap_info_button_click.png){height="100%" width="100%" fig-align="center"}
+#### Update `main.R` test 
 
-Adding `.js` to `app/js/index.js` 'on click'
-:::
+The message from our info-button has changed, so we'll want to update the test to include the correct string match: 
 
+```{r}
+#| eval: false 
+#| code-fold: false
+box::use(
+  shiny[testServer],
+  testthat[expect_true, test_that],
+)
+box::use(
+  app/main[server],
+)
 
+test_that("main server works", {
+  testServer(server, {
+    expect_true(
+      grepl(x = output$message$html, 
+            pattern = "Learn more about shiny frameworks: https://mjfrigaard.github.io/posts/my-rhino-app/"))
+  })
+})
+```
 
 ### System tests ([`shinytest2`]{style="font-size: 0.83em;"})
 
@@ -1455,94 +2035,75 @@ System tests can also be written using [`shinytest2`](https://rstudio.github.io/
 
 Start by installing `shinytest2` and `shinyvalidate`:[^how-to-use-shinytest2]
 
--   This will update the `dependencies.R` file (and might require a call to `renv::snapshot()`)
+```{r}
+#| eval: false 
+#| code-fold: false
+rhino::pkg_install(c("shinytest2", "shinyvalidate"))
+```
 
-    ```{r}
-    #| eval: false 
-    #| code-fold: false
-    rhino::pkg_install(c("shinytest2", "shinyvalidate"))
-    ```
+Create new tests with `shinytest2::record_test()` the same way you would for a standard Shiny app:
 
--   Create new tests with `shinytest2::record_test()` the same way you would for a standard Shiny app:
+```{r}
+#| eval: false 
+#| code-fold: false
+shinytest2::record_test()
+```
 
-    ```{r}
-    #| eval: false 
-    #| code-fold: false
-    shinytest2::record_test()
-    ```
-
-::: {#fig-shinytest2_rhino.png .column}
-![](img/shinytest2_rhino.png){#fig-shinytest2_rhino.png height="80%" width="80%" fig-align="center"}
-
-Test recorder
-:::
+![Test recorder](img/shinytest2_rhino.png){width="100%" fig-align="center"}
 
 This produces the following in the **Console**:
 
-```{bash}
-#| eval: false 
-#| code-fold: false
+```{verbatim}
+Loading required package: shiny
+
+Listening on http://127.0.0.1:5800
 {shiny} R stderr ----------- Loading required package: shiny
 {shiny} R stderr ----------- Running application in test mode.
-{shiny} R stderr ----------- Listening on http://127.0.0.1:5391
+{shiny} R stderr ----------- 
+{shiny} R stderr ----------- Listening on http://127.0.0.1:6435
 • Saving test runner: tests/testthat.R
 • Saving test file: tests/testthat/test-shinytest2.R
-✔ Adding 'shinytest2::load_app_env()' to 'tests/testthat/setup-shinytest2.R'
-• Modify '/rap/tests/testthat/test-shinytest2.R'
+• Adding shinytest2::load_app_env() to tests/testthat/setup-shinytest2.R
 • Running recorded test: tests/testthat/test-shinytest2.R
+Loading required package: testthat
 ✔ | F W  S  OK | Context
-✔ |   2      1 | shinytest2 [11.4s]                                           
+✔ |   2      1 | shinytest2 [11.9s]                                                         
+────────────────────────────────────────────────────────────────────────────────
+Warning (test-shinytest2.R:11:3): {shinytest2} recording: rap
+Adding new file snapshot: 'tests/testthat/_snaps/rap-001_.png'
 
-─────────────────────────────────────────────────────────────────────────────
-Warning (test-shinytest2.R:13:3): {shinytest2} recording: feature-01
-Adding new file snapshot: 'tests/testthat/_snaps/feature-01-001_.png'
+Warning (test-shinytest2.R:11:3): {shinytest2} recording: rap
+Adding new file snapshot: 'tests/testthat/_snaps/rap-001.json'
+────────────────────────────────────────────────────────────────────────────────
 
-Warning (test-shinytest2.R:13:3): {shinytest2} recording: feature-01
-Adding new file snapshot: 'tests/testthat/_snaps/feature-01-001.json'
-─────────────────────────────────────────────────────────────────────────────
-
-══ Results ══════════════════════════════════════════════════════════════════
-Duration: 11.8 s
+══ Results ═════════════════════════════════════════════════════════════════════
+Duration: 12.0 s
 
 [ FAIL 0 | WARN 2 | SKIP 0 | PASS 1 ]
 ```
 
-#### Modules in `rhino`
+#### `rhino` Shiny modules
 
-::: {layout="[40,60]"}
+::: {layout="[50,50]"}
 
-##### 
+When setting inputs with `app$set_inputs()` in  `sap`, the variable `inputId`s are nested inside the module namespaces:
 
-The `shinytest2` tests for `moviesApp` are below. Note how the nested modules are called from the app Driver (`app$set_inputs()`):
-
-```{r}
-#| eval: false 
-#| code-fold: false
+```r
 app$set_inputs(`vars-y` = "imdb_num_votes")
 app$set_inputs(`vars-x` = "critics_score")
 app$set_inputs(`vars-z` = "genre")
-app$set_inputs(`vars-alpha` = 0.7)
-app$set_inputs(`vars-size` = 3)
-app$set_inputs(`vars-plot_title` = "New plot title")
 ```
 
 :::
 
-::: {layout="[40,60]"}
-
-##### 
+::: {layout="[50,50]"}
 
 In `rap`, the `box` modules have another level of encapsulation (i.e., `vars-y` becomes `app-vals-y`):
 
-```{r}
-#| eval: false 
-#| code-fold: false
+```r
 app$set_inputs(`app-vals-y` = "imdb_num_votes")
 app$set_inputs(`app-vals-x` = "critics_score")
 app$set_inputs(`app-vals-z` = "genre")
-app$set_inputs(`app-vals-alpha` = 0.7)
-app$set_inputs(`app-vals-size` = 3)
-app$set_inputs(`app-vals-plot_title` = "New plot title")
 ```
 
 :::
@@ -1558,7 +2119,7 @@ I've provided a few `shinytest2` example tests for the data visualization user-i
 ```{r}
 #| eval: false 
 #| code-fold: show 
-#| code-summary: 'show/hide contents of tests/testthat/test-app-feature-01.R'
+#| code-summary: 'show/hide contents of tests/testthat/test-rap-feature-01.R'
 library(shinytest2)
 describe("Feature 1: Scatter plot data visualization dropdowns
            As a film data analyst
@@ -1656,7 +2217,7 @@ node --version
 ```
 
 ```bash
-v21.5.0
+v22.14.0
 ```
 
 ```bash
@@ -1664,7 +2225,7 @@ npm -v
 ```
 
 ```bash
-10.2.4
+10.9.2
 ```
 
 
@@ -1672,11 +2233,80 @@ npm -v
 
 The Cypress tests below follow the example from the [`rhino` website](https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html). Below are two modules ([`clicks.R` and `message.R`](https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html#test-application)) that have been included in `app/view` (as `app/view/message.R` and `app/view/clicks.R`). 
 
-Both modules contain an `actionButton()` and `textOutput()`. Using `app/view/clicks` or `app/view/message` also requires adding both modules in the `app/main.R` file with `box::use()`:
+Both modules contain an `actionButton()` and `textOutput()`:
+
+```{r}
+#| eval: false 
+#| code-fold: true
+#| code-summary: 'show/hide app/view/message.R'
+# app/view/message.R
+
+box::use(
+  shiny[actionButton, div, 
+    moduleServer, NS, renderText, 
+    req, textOutput],
+)
+
+#' @export
+ui <- function(id) {
+  ns <- NS(id)
+  div(
+    class = "message",
+    actionButton(
+      ns("show_message"),
+      "Show message"
+    ),
+    textOutput(ns("message_text"))
+  )
+}
+
+#' @export
+server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    output$message_text <- renderText({
+      req(input$show_message)
+      "This is a message"
+    })
+  })
+}
+```
+
+```{r}
+#| eval: false 
+#| code-fold: true
+#| code-summary: 'show/hide app/view/clicks.R'
+# app/view/clicks.R
+
+box::use(
+  shiny[actionButton, div,
+    moduleServer, NS, 
+    renderText, textOutput]
+)
+
+#' @export
+ui <- function(id) {
+  ns <- NS(id)
+  div(
+    class = "clicks",
+    actionButton(
+      ns("click"),
+      "Click me!"
+    ),
+    textOutput(ns("counter"))
+  )
+}
+
+#' @export
+server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    output$counter <- renderText(input$click)
+  })
+}
+```
 
 #### Updated [`app/main.R`]{style="font-size: 0.90em; font-weight: bold;"}
 
-The updated `app/main.R` file:
+Using `app/view/clicks` and `app/view/message` also requires adding the modules to the `app/main.R` file with `box::use()`:
 
 ```{r}
 #| eval: false 
@@ -1687,53 +2317,70 @@ The updated `app/main.R` file:
 # shiny functions
 box::use(
   shiny[
-    NS, fluidPage, sidebarLayout, sidebarPanel, 
-    mainPanel, fluidRow, column, tags, icon,
-    plotOutput, moduleServer, renderPlot,
-    br, hr
+    NS, span, tags, icon, moduleServer
   ],
-  shinythemes[shinytheme]
+  # bslib functions
+  bslib[
+    page_fillable, layout_sidebar, sidebar, 
+    card, card_header, card_body, bs_theme
+  ]
 )
 
 # import modules ----
 box::use(
-  app / view / inputs,
+  ## load inputs module
+  app / view / var_inputs,
+  app / view / aes_inputs,
+  ## load display module 
   app / view / display,
+  ## load clicks module 
   app / view / clicks,
-  app / view / message,
+  ## load message module 
+  app / view / message
 )
 
 #' rap ui
 #' @export
 ui <- function(id) {
   ns <- NS(id)
-  fluidPage(theme = shinytheme("spacelab"),
-    sidebarLayout(
-      sidebarPanel(
-        inputs$ui(ns("vals"))
+  page_fillable(
+    # theme
+    theme = bs_theme(
+        bg = "#202123", 
+        fg = "#B8BCC2",
+        # accent colors (e.g., hyperlink, button, etc)
+        primary = "#EA80FC", 
+        secondary = "#48DAC6",
+        # fonts
+        base_font = c("Proxima Nova", "sans-serif"),
+        code_font = c("Hack", "monospace"),
+        heading_font = c("Optima", "sans-serif")
+    ),
+    layout_sidebar(
+      sidebar = sidebar(
+        # input modules 
+        var_inputs$ui(ns("vals")),
+        aes_inputs$ui(ns("aes"))
         ),
-      mainPanel(
-        fluidRow(
-              clicks$ui(ns("clicks")), # <1>
-              message$ui(ns("message")) # <1>
-          ),
-        fluidRow(
-          column(
-            width = 1,
-            offset = 11,
+        card(
+          full_screen = TRUE,
+          card_header(
             tags$button(id = "help-button",
               icon("info"),
               # add 'onclick' after rhino::build_sass()
               # and rhino::build_js()
-              onclick = "App.showHelp()")
-          )
+              onclick = "App.showHelp()"),
+              
+              
         ),
-        fluidRow(
-            column(
-              width = 12,
-              tags$h3("rap"),
+        card_body(
+            span(
+              # use clicks 
+              clicks$ui(ns("clicks")), # <1>
+              # use message 
+              message$ui(ns("message")), # <1>
+            ),
             display$ui(ns("disp"))
-            )
           )
         )
       )
@@ -1743,49 +2390,240 @@ ui <- function(id) {
 #' rap server
 #' @export
 server <- function(id) {
+  
   moduleServer(id, function(input, output, session) {
-    selected_vars <- inputs$server(id = "vals")
+    
+    # collect variable inputs module server ----
+    selected_vars <- var_inputs$server(id = "vals")
+    # collect aesthetic inputs module server ----
+    selected_aes <- aes_inputs$server(id = "aes")
+    
+    # pass to display module server ----
     display$server(
       id = "disp",
-      var_inputs = selected_vars
+      var_inputs = selected_vars,
+      aes_inputs = selected_aes
     )
   })
   
-  moduleServer(id, function(input, output, session) {
-    clicks$server("clicks") # <2>
-    message$server("message") # <2>
-  })
+  moduleServer(id, function(input, output, session) { # <2>
+    clicks$server("clicks")
+    message$server("message")
+  }) # <2>
   
 }
+
 ```
 1. include `app/view/clicks.R` and `app/view/message.R` modules in UI  
 2. include `app/view/clicks.R` and `app/view/message.R` modules in server 
 
-The new 'clicks' and 'message' buttons are visible in the `mainPanel()`: 
+The new 'clicks' and 'message' buttons are visible when we launch our app: 
 
 ![](img/clicks_message.png){width="90%" fig-align="center"}
 
 #### Running Cypress tests 
 
-Cypress tests are stored in the `tests/cypress/integration/` folder:[^integration-vs-e2e]
+Cypress tests are stored in the `tests/cypress/e2e/` folder:
 
-```bash
-tests/cypress
-└── integration
-    └── app.spec.js
-
-2 directories, 1 file
+```{verbatim}
+tests
+ └── cypress
+        └── e2e
+             └── app.cy.js
 ```
 
-[^integration-vs-e2e]: The folder names are slightly different in the [Cypress tutorial](https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html#how-to-run-cypress-tests), but if you replace `e2e` with integration in the file paths, everything works!
+<!--
+
+```js
+// tests/cypress/cypress.config.js
+module.exports = {
+  e2e: {
+    setupNodeEvents(on, config) {},
+    baseUrl: 'http://localhost:3333',
+    supportFile: false,
+  }
+}
+```
+
+-->
 
 The initial call to `rhino::test_e2e()` should note if it is your first time using cypress (and might include an update or two).[^cypress-docs-initial-test_e2e]
 
 [^cypress-docs-initial-test_e2e]: The [`rhino` documentation](https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html#how-to-run-cypress-tests) also mentions updates, '*since this is the first time you use one of the functionalities that depend on Node.js, it needs to install all the required libraries. Don’t worry, this is just a one-time step and is done automatically.*' 
 
-```{bash}
-#| eval: false 
+```{r}
+#| eval: false
 #| code-fold: false
+rhino::test_e2e()
+```
+
+```{verbatim}
+> test-e2e
+> start-server-and-test run-app http://localhost:3333 run-cypress
+
+1: starting server using command "npm run run-app"
+and when url "[ 'http://localhost:3333' ]" is responding with HTTP status code 200
+running tests using command "npm run run-cypress"
+
+
+> run-app
+> cd .. && Rscript -e "shiny::runApp(port = 3333)"
+
+Loading required package: shiny
+
+Listening on http://127.0.0.1:3333
+```
+
+
+```{verbatim}
+> run-cypress
+> cypress run --project ../tests
+
+It looks like this is your first time using Cypress: 13.6.2
+
+[STARTED] Task without title.
+[TITLE]  Verified Cypress!       /Users/mjfrigaard/Library/Caches/Cypress/13.6.2/Cypress.app
+[SUCCESS]  Verified Cypress!       /Users/mjfrigaard/Library/Caches/Cypress/13.6.2/Cypress.app
+
+Opening Cypress...
+
+DevTools listening on ws://127.0.0.1:51925/devtools/browser/a47246ab-14bd-4c51-ad24-fec911eeb2d8
+
+Opening `/dev/tty` failed (6): Device not configured
+resize:  can't open terminal /dev/tty
+================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        13.6.2                                                                         │
+  │ Browser:        Electron 114 (headless)                                                        │
+  │ Node Version:   v23.11.0 (/usr/local/Cellar/node/23.11.0/bin/node)                             │
+  │ Specs:          1 found (app.cy.js)                                                            │
+  │ Searched:       cypress/e2e/**/*.cy.{js,jsx,ts,tsx}                                            │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  app.cy.js                                                                       (1 of 1)
+
+
+  app
+    ✓ starts (855ms)
+
+
+  1 passing (900ms)
+
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        1                                                                                │
+  │ Passing:      1                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     0 seconds                                                                        │
+  │ Spec Ran:     app.cy.js                                                                        │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+Opening `/dev/tty` failed (6): Device not configured
+resize:  can't open terminal /dev/tty
+================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped  
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ ✔  app.cy.js                                903ms        1        1        -        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    ✔  All specs passed!                        903ms        1        1        -        -        -  
+
+```
+
+The Cypress output lists the test file name as `Spec` or `Specs`, and gives us a detailed report of the test result and any artifacts (like videos or images).
+
+#### Writing Cypress tests 
+
+I'll include the first test for the `app/view/message` module from the `rhino` cypress tutorial in the `tests/cypress/e2e/` folder:
+
+```js
+// tests/cypress/integration/message.cy.js
+
+describe("Show message", () => {
+  beforeEach(() => {
+    cy.visit("/");
+  });
+
+  it("'Show message' button exists", () => {
+    cy.get(".message button").should("have.text", "Show message");
+  });
+
+});
+```
+
+I love the use of testthat's BDD functions with cypress, because we can see the feature and scenario described in the test itself. 
+
+```{r}
+#| label: kill_port_co_box
+#| echo: false
+#| eval: true
+#| results: asis
+co_box(color = "r", size = "1.05", hsize = "1.10",
+  fold = TRUE,
+  header = "**createTcpServer: address already in use**", 
+  contents = "
+
+While running Cypress tests, you might see the following error: 
+
+\`\`\`sh
+Listening on http://127.0.0.1:3333
+createTcpServer: address already in use
+Error in initialize(...) : Failed to create server
+Calls: <Anonymous> ... startApp -> startServer -> <Anonymous> -> initialize
+Execution halted
+\`\`\`
+
+This is likely caused by a previously run instance of the `rhino` app that wasn’t shut down properly. 
+
+Run the following command in the Terminal to figure out what is using that specific port: 
+
+\`\`\`sh
+lsof -i :3333
+\`\`\`
+
+Use the `PID` to kill the process: 
+
+\`\`\`sh
+kill -9 <PID>
+\`\`\`
+
+You can also change the default port used in Cypress tests in `package.json`:
+
+\`\`\`json
+\"scripts\": {
+  \"run-app\": \"cd .. && Rscript -e \\\"shiny::runApp(port = 3334)\\\"\",
+  \"run-cypress\": \"cypress run\"
+}
+\`\`\`
+
+And the `baseUrl` in `tests/cypress/cypress.config.js`:
+
+\`\`\`js
+baseUrl: 'http://localhost:3334',
+\`\`\`
+  
+  ")
+```
+
+After adding the test to `tests/cypress/` and running the test with `rhino::test_e2e()`, we see the following output:
+
+```{verbatim}
 > test-e2e
 > start-server-and-test run-app http://localhost:3333 run-cypress
 
@@ -1804,42 +2642,35 @@ Listening on http://127.0.0.1:3333
 > run-cypress
 > cypress run --project ../tests
 
-It looks like this is your first time using Cypress: 7.7.0
 
-[STARTED] Task without title.
-[TITLE]  Verified Cypress!       /Users/mjfrigaard/Library/Caches/Cypress/7.7.0/Cypress.app
-[SUCCESS]  Verified Cypress!       /Users/mjfrigaard/Library/Caches/Cypress/7.7.0/Cypress.app
+DevTools listening on ws://127.0.0.1:54091/devtools/browser/d35cc929-720b-4c07-aaa9-b49eb4af56f9
 
-Opening Cypress...
-```
+Opening `/dev/tty` failed (6): Device not configured
+resize:  can't open terminal /dev/tty
+================================================================================
 
-The initial test run output (from the test stored in `tests/cypress/integration/app.spec.js`) is below:
-
-```{bash}
-#| eval: false 
-#| code-fold: show
-#| code-summary: 'hide/view initial tests/cypress/integration/app.spec.js test'
   (Run Starting)
 
   ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
-  │ Cypress:    7.7.0                                                                              │
-  │ Browser:    Electron 89 (headless)                                                             │
-  │ Specs:      1 found (app.spec.js)                                                              │
+  │ Cypress:        13.6.2                                                                         │
+  │ Browser:        Electron 114 (headless)                                                        │
+  │ Node Version:   v23.11.0 (/usr/local/Cellar/node/23.11.0/bin/node)                             │
+  │ Specs:          2 found (app.cy.js, message.cy.js)                                             │
+  │ Searched:       cypress/e2e/**/*.cy.{js,jsx,ts,tsx}                                            │
   └────────────────────────────────────────────────────────────────────────────────────────────────┘
 
 
 ────────────────────────────────────────────────────────────────────────────────────────────────────
                                                                                                     
-  Running:  app.spec.js                                                                     (1 of 1)
+  Running:  app.cy.js                                                                       (1 of 2)
+
 
   app
-    ✓ starts (691ms)
+    ✓ starts (865ms)
 
 
-  1 passing (716ms)
+  1 passing (912ms)
 
-New names:
-• `` -> `...1`
 
   (Results)
 
@@ -1850,82 +2681,9 @@ New names:
   │ Pending:      0                                                                                │
   │ Skipped:      0                                                                                │
   │ Screenshots:  0                                                                                │
-  │ Video:        true                                                                             │
+  │ Video:        false                                                                            │
   │ Duration:     0 seconds                                                                        │
-  │ Spec Ran:     app.spec.js                                                                      │
-  └────────────────────────────────────────────────────────────────────────────────────────────────┘
-
-
-  (Video)
-
-  -  Started processing:  Compressing to 32 CRF                                                     
-  -  Finished processing: /Users/mjfrigaard/projects/apps/sfw/_apps/rap/tests/cypress     (1 second)
-                          /videos/app.spec.js.mp4                                                   
-
-
-Opening `/dev/tty` failed (6): Device not configured
-resize:  can`t open terminal /dev/tty
-================================================================================
-
-  (Run Finished)
-
-
-       Spec                                              Tests  Passing  Failing  Pending  Skipped  
-  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
-  │ ✔  app.spec.js                              714ms        1        1        -        -        - │
-  └────────────────────────────────────────────────────────────────────────────────────────────────┘
-    ✔  All specs passed!                        714ms        1        1        -        -        -  
-
-```
-
-The Cypress output lists the test file name as `Spec` or `Specs`, and gives us a detailed report of the test result and any artifacts (like videos or images).
-
-```{bash}
-#| eval: false 
-#| code-fold: false
-tests/cypress
-├── integration
-│   └── app.spec.js
-├── screenshots
-└── videos
-    └── app.spec.js.mp4
-
-4 directories, 2 files
-```
-
-#### Writing Cypress tests 
-
-I'll include the first test for the `app/view/message` module from the `rhino` cypress tutorial in the `tests/cypress/integration/` folder:
-
-```JavaScript
-// tests/cypress/integration/message.cy.js
-
-describe("Show message", () => {
-  beforeEach(() => {
-    cy.visit("/");
-  });
-
-  it("'Show message' button exists", () => {
-    cy.get(".message button").should("have.text", "Show message");
-  });
-
-});
-```
-
-I love the use of testthat's BDD functions with cypress, because we can see the feature and scenario described in the test itself. 
-
-After running the test with `rhino::test_e2e()`, we see the output now includes two videos (one for each test): 
-
-```{bash}
-#| eval: false 
-#| code-fold: show
-#| code-summary: 'hide/view tests/cypress/integration/message.cy.js test'
-  (Run Starting)
-
-  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
-  │ Cypress:    7.7.0                                                                              │
-  │ Browser:    Electron 89 (headless)                                                             │
-  │ Specs:      2 found (app.spec.js, message.cy.js)                                               │
+  │ Spec Ran:     app.cy.js                                                                        │
   └────────────────────────────────────────────────────────────────────────────────────────────────┘
 
 
@@ -1935,38 +2693,30 @@ After running the test with `rhino::test_e2e()`, we see the output now includes 
 
 
   Show message
-    ✓ 'Show message' button exists (546ms)
+    ✓ 'Show message' button exists (990ms)
+    ✓ 'Show message' button shows the message' (1112ms)
 
 
-  1 passing (612ms)
+  2 passing (2s)
 
-New names:
-• `` -> `...1`
 
   (Results)
 
   ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
-  │ Tests:        1                                                                                │
-  │ Passing:      1                                                                                │
+  │ Tests:        2                                                                                │
+  │ Passing:      2                                                                                │
   │ Failing:      0                                                                                │
   │ Pending:      0                                                                                │
   │ Skipped:      0                                                                                │
   │ Screenshots:  0                                                                                │
-  │ Video:        true                                                                             │
-  │ Duration:     0 seconds                                                                        │
+  │ Video:        false                                                                            │
+  │ Duration:     2 seconds                                                                        │
   │ Spec Ran:     message.cy.js                                                                    │
   └────────────────────────────────────────────────────────────────────────────────────────────────┘
 
 
-  (Video)
-
-  -  Started processing:  Compressing to 32 CRF                                                     
-  -  Finished processing: /Users/mjfrigaard/projects/apps/sfw/_apps/rap/tests/cypress     (1 second)
-                          /videos/message.cy.js.mp4                                                 
-
-
 Opening `/dev/tty` failed (6): Device not configured
-resize:  can`t open terminal /dev/tty
+resize:  can't open terminal /dev/tty
 ================================================================================
 
   (Run Finished)
@@ -1974,105 +2724,44 @@ resize:  can`t open terminal /dev/tty
 
        Spec                                              Tests  Passing  Failing  Pending  Skipped  
   ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
-  │ ✔  app.spec.js                              776ms        1        1        -        -        - │
+  │ ✔  app.cy.js                                914ms        1        1        -        -        - │
   ├────────────────────────────────────────────────────────────────────────────────────────────────┤
-  │ ✔  message.cy.js                            596ms        1        1        -        -        - │
+  │ ✔  message.cy.js                            00:02        2        2        -        -        - │
   └────────────────────────────────────────────────────────────────────────────────────────────────┘
-    ✔  All specs passed!                        00:01        2        2        -        -        -  
+    ✔  All specs passed!                        00:03        3        3        -        -        -  
 
+
+Execution halted
 ```
-
-
-```{bash}
-#| eval: false 
-#| code-fold: false
-tests/cypress
-├── integration
-│   ├── app.spec.js
-│   └── message.cy.js
-├── screenshots
-└── videos
-    ├── app.spec.js.mp4
-    └── message.cy.js.mp4
-
-4 directories, 4 files
-```
-
-If we view the contents of `tests/cypress/videos/message.cy.js.mp4`, we see it opens our app and verifies the message button: 
-
-:::{#fig-cypress_message_01}
-
-![Cypress test recording](img/cypress_message_01.gif){#fig-cypress_message_01 fig-align="center" width="100%"}
-
-
-Contents of `tests/cypress/videos/message.cy.js.mp4`
-:::
 
 #### Interactive tests
 
 After adding the second test for the `app/view/message` module, we'll run the test using `interactive = TRUE`, which opens the Cypress app window: 
 
-
-:::{#fig-cypress_open}
-
-![Cypress app](img/cypress_open.gif){#fig-cypress_open fig-align="center" width="100%"}
-
-
-The Cypress appliction 
-:::
-
-After the application opens, you'll be able to select the browser (I have Chrome selected)
+```{r}
+#| eval: false
+#| code-fold: false
+rhino::test_e2e(interactive = TRUE)
+```
 
 
-:::{#fig-cypress_open_finally}
-
-![Run cypress tests](img/cypress_open_finally.gif){#fig-cypress_open_finally fig-align="center" width="100%"}
+![Cypress app](img/rhino_cypress_welcome.png){fig-align="center" width="100%"}
 
 
-Run the tests in `tests/cypress/integration/`
-:::
+After the application opens, you'll be able to select the browser (I have Chrome selected).
 
-Clicking on **Run 2 integration specs** will launch the application in Chrome. You'll see the tests loading in the sidebar before they are run.
-
-
-:::{#fig-cypress_open_chrome}
-
-![Chrome from cypress](img/cypress_open_chrome.gif){#fig-cypress_open_chrome fig-align="center" width="100%"}
+![Choose cypress browser](img/rhino_cypress_browser.png){fig-align="center" width="100%"}
 
 
-Open application in Chrome from cypress
-:::
+After clicking on **Start E2E Testing in Chromium**, Cypress will launch the application in Chromium. You'll see the tests in the sidebar:
 
-Below is a screenshot of our tests listed in the sidebar:
-
-:::{#fig-cypress_chrome_tests}
-
-![Chrome tests](img/cypress_chrome_tests.png){#fig-cypress_chrome_tests fig-align="center" width="100%"}
+![Chrome tests](img/cypress_chrome_tests.png){fig-align="center" width="100%"}
 
 
-Tests list
-:::
-
-
-Cypress quickly runs through each test:
-
-:::{#fig-cypress_chrome_run_tests}
+Select a test to open it and click on **Run All Tests**:
 
 ![Running tests](img/cypress_chrome_run_tests.gif){#fig-cypress_chrome_run_tests fig-align="center" width="100%"}
 
-
-Running tests in Chrome
-:::
-
-
-And we can see the final result at the menu bar: 
-
-:::{#fig-cypress_chrome_test_result}
-
-![Test results](img/cypress_chrome_test_result.png){#fig-cypress_chrome_test_result fig-align="center" width="100%"}
-
-Test results in Chrome
-:::
 
 The [Cypress documentation](https://docs.cypress.io/guides/getting-started/opening-the-app) is worth reading through, because there are other features I haven't covered here.
 

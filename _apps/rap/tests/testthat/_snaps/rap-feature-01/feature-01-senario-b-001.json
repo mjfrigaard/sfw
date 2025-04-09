@@ -1,20 +1,17 @@
 {
   "input": {
-    "app-clicks-click": 0,
-    "app-message-show_message": 0,
-    "app-vals-alpha": 0.5,
-    "app-vals-plot_title": "",
-    "app-vals-size": 2,
+    "app-aes-alpha": 0.7,
+    "app-aes-plot_title": "New plot title",
+    "app-aes-size": 3,
     "app-vals-x": "imdb_rating",
     "app-vals-y": "audience_score",
     "app-vals-z": "mpaa_rating"
   },
   "output": {
-    "app-clicks-counter": "0",
     "app-disp-scatterplot": {
-      "src": "[image data hash: ba019a096cbfccb53609ee27db558551]",
-      "width": 752,
-      "height": 400,
+      "src": "[image data hash: a76a50fedd990502f993061adabe8130]",
+      "width": 791,
+      "height": 478,
       "alt": "Plot object",
       "coordmap": {
         "panels": [
@@ -41,26 +38,18 @@
               "colour": ".data[[\"mpaa_rating\"]]"
             },
             "range": {
-              "left": 76.64511986301372,
-              "right": 1493.041095890411,
-              "bottom": 623.7373298620405,
-              "top": 45.92633397406263
+              "left": 76.04414482639265,
+              "right": 1571.041095890411,
+              "bottom": 769.1038357981972,
+              "top": 46.37132349083431
             }
           }
         ],
         "dims": {
-          "width": 1504,
-          "height": 800
+          "width": 1582,
+          "height": 956
         }
       }
-    },
-    "app-message-message_text": {
-      "message": "",
-      "call": "NULL",
-      "type": [
-        "shiny.silent.error",
-        "validation"
-      ]
     }
   },
   "export": {

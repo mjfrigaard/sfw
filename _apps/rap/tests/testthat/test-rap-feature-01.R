@@ -1,5 +1,4 @@
 library(shinytest2)
-
 describe("Feature 1: Scatter plot data visualization dropdowns
            As a film data analyst
            I want to explore variables in the movie review data
@@ -20,7 +19,7 @@ describe("Feature 1: Scatter plot data visualization dropdowns
                 app$set_inputs(`app-vars-z` = "genre")
                 app$expect_values()
        })
-     })
+   })
              
   describe("Scenario B: Change dropdown values for plotting
               Given the movie review application is loaded
@@ -32,10 +31,10 @@ describe("Feature 1: Scatter plot data visualization dropdowns
               And the title of the plot should be '[New Plot Title]'", {
               app <- AppDriver$new(name = "feature-01-senario-b", 
                                      height = 800, width = 1173)
-                app$set_inputs(`app-vars-alpha` = 0.7)
-                app$set_inputs(`app-vars-size` = 3)
-                app$set_inputs(`app-vars-plot_title` = "New plot title")
+                app$set_inputs(`app-aes-alpha` = 0.7)
+                app$set_inputs(`app-aes-size` = 3)
+                app$set_inputs(`app-aes-plot_title` = "New plot title")
                 app$expect_values()
         })
-      })
+    })
 })

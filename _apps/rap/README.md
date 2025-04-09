@@ -1,15 +1,9 @@
-<h1 align="center"> <code>rap</code> </h1>
-<h3 align="center"> A `rhino` pseudo-app package </h3>
+`rhino` app pseudo-package
+================
 
-<hr>
-
-# rap
+# `rap`
 
 The goal of `rap` is to demonstrate the `rhino` framework.
-
-## Download
-
-You can download [here](https://github.com/mjfrigaard/sfw/raw/main/_apps/rap.tar.gz).
 
 ## Run
 

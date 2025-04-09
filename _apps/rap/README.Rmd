@@ -1,0 +1,22 @@
+---
+title: "`rhino` app pseudo-package"
+output: github_document
+---
+
+```{r}
+#| label: setup
+#| include: false
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# `rap`
+
+The goal of `rap` is to demonstrate the `rhino` framework.
+
+## Run
+
+You can run the application with the following:
+
+``` r
+rhino::app()
+```
