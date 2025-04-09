@@ -39,7 +39,7 @@ library(pak)
 
 This website is a resource for Shiny developers to get an 'under the hood' view of three popular frameworks. 
 
-## Golem
+## [Golem](golem.qmd)
 
 ::: {layout="[20, 80]"}
 
@@ -53,7 +53,7 @@ This website is a resource for Shiny developers to get an 'under the hood' view 
 [Download the `gap` source code](https://github.com/mjfrigaard/sfw/raw/main/_apps/gap.tar.gz).
 
 
-## Leprechaun
+## [Leprechaun](leprechaun.qmd)
 
 ::: {layout="[20, 80]"}
 
@@ -67,7 +67,7 @@ This website is a resource for Shiny developers to get an 'under the hood' view 
 
 [Download the `lap` source code.](https://github.com/mjfrigaard/sfw/raw/main/_apps/lap.tar.gz).
 
-## Rhino
+## [Rhino](rhino.qmd)
 
 ::: {layout="[20, 80]"}
 
