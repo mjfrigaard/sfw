@@ -25,7 +25,21 @@ The [`golem` package](https://thinkr-open.github.io/golem/) provides many option
 
 [^view-gap]: The code used to build the golem app is [here](https://github.com/mjfrigaard/sfw/raw/main/_apps/gap.tar.gz).
 
+## Package versions
+
+Below are descriptions and versions of the `golem` development dependencies used in this example: 
+
+```{r}
+#| echo: false
+#| eval: true
+knitr::kable(
+  pkg_info(pkgs = c("usethis", "pkgload", "dockerfiler", "devtools", "roxygen2", "attachment", "rstudioapi", "here", "fs", "desc", "pkgbuild", "processx", "rsconnect", "testthat", "rstudioapi"))
+)
+```
+
 ## Getting started
+
+`golem` app development is tightly coupled with RStudio ![](img/rstudio.png){height=25} so this framework doesn't include examples in Positron ![](img/positron.png){height=25}.
 
 To create a new `golem` app from the console, enter the following:
 
@@ -37,7 +51,7 @@ library(golem)
 golem::create_golem(path = "gap")
 ```
 
-If creating a `golem` app from RStudio's **New Project Wizard**, the following defaults are available:
+If creating a `golem` app from RStudio's ![](img/rstudio.png){height=25} **New Project Wizard**, the following defaults are available:
 
 ![Creating a new `golem` shiny app](img/golem-setup.png){width="80%" fig-align="center"}
 
@@ -1224,12 +1238,21 @@ run_app <- function(
 }
 ```
 
-This ensures the application will use our `bslib` theme with thematic.
+This ensures the application will use our `bslib` theme with `thematic`.
 
 
 #### [Writing code recap]{style="font-weight: bold; font-size: 1.02em;"}
 
-<br>
+After loading, documenting, and installing `gap`, we can view the app with `run_app()`.
+
+```{r}
+#| eval: false
+#| code-fold: false
+library(gap)
+gap::run_app()
+```
+
+![After loading, documenting, and installing `gap`, launch the app with `run_app()`](img/golem_updated_app.png){width='100%' align='center'}
 
 `golem` development enforces a standardized file structure and workflow, helping maintain consistent development practices. The helper functions encourage breaking the application into testable, reusable modules. 
 
