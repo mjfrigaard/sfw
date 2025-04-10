@@ -232,14 +232,15 @@ rap/
 │   └── settings.json
 ├── renv.lock
 ├── rhino.yml
-└── tests/
-    ├── cypress/
-    │   └── e2e/
+└── tests
+    ├── cypress
+    │   └── e2e
+    │       └── app.cy.js
     ├── cypress.config.js
-    └── testthat/
-        └── test-main.R
+    ├── testthat
+    │   └──  test-main.R
+    └── testthat.R
 
-14 directories, 16 files
 ```
 
 The `rhino` package website has [excellent documentation](https://appsilon.github.io/rhino/articles/explanation/what-is-rhino.html) on their approach and philosophy to app development, and it's worth reading through this before getting started. I'll do my best to summarize the application's files below:

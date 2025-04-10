@@ -85,7 +85,7 @@ This website is a resource for Shiny developers to get an 'under the hood' view 
 
 The original data and code for each application comes from [Building Web Applications With Shiny](https://rstudio-education.github.io/shiny-course/),[^bwas] and I've made some small changes to provide a basic (but realistic) example of a monolithic `app.R` file.
 
-You can download the application `movies` dataset [here.](https://github.com/mjfrigaard/sfw/raw/main/movies.RData)).
+You can download the application `movies` dataset [here](https://github.com/mjfrigaard/sfw/raw/main/movies.RData).
 
 ```{r}
 #| eval: false
