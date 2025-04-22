@@ -1,5 +1,5 @@
 ---
-title: "the `rhino` framework"
+title: "The `rhino` framework"
     
 knitr:
   opts_chunk: 
