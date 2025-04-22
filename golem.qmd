@@ -27,13 +27,13 @@ The [`golem` package](https://thinkr-open.github.io/golem/) provides many option
 
 ## Package versions
 
-Below are descriptions and versions of the `golem` development dependencies used in this example: 
+The golem version and description used in this example is below:
 
 ```{r}
 #| echo: false
 #| eval: true
 knitr::kable(
-  pkg_info(pkgs = c("usethis", "pkgload", "dockerfiler", "devtools", "roxygen2", "attachment", "rstudioapi", "here", "fs", "desc", "pkgbuild", "processx", "rsconnect", "testthat", "rstudioapi"))
+  pkg_info(pkgs = c("golem"))
 )
 ```
 
@@ -1699,7 +1699,15 @@ docker run -p 80:80 gap:latest
 
 ## Dependencies
 
-Below is a quick overview of the dependencies in `gap`.
+Below are descriptions and versions of the `golem` development dependencies used in this example: 
+
+```{r}
+#| echo: false
+#| eval: true
+knitr::kable(
+  pkg_info(pkgs = c("usethis", "pkgload", "dockerfiler", "devtools", "roxygen2", "attachment", "rstudioapi", "here", "fs", "desc", "pkgbuild", "processx", "rsconnect", "testthat", "rstudioapi"))
+)
+```
 
 ### NAMESPACE
 

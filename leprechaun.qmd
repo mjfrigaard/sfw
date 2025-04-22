@@ -26,6 +26,8 @@ source("_common.R")
 
 ## Package versions
 
+The versions of `leprechaun` and `packer` used in this example are below:
+
 ```{r}
 #| echo: false
 #| eval: true

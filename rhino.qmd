@@ -49,6 +49,8 @@ box_use_df <- data.frame(
 
 ## Package versions
 
+The versions of `rhino` and `box` used in this example are below:
+
 ```{r}
 #| echo: false
 #| eval: true
