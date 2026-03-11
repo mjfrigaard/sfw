@@ -23,6 +23,7 @@ knitr:
 #| echo: false 
 #| include: false
 options(repos = "http://cran.us.r-project.org")
+source("_common.R")
 ```
 
 ```{r}
@@ -39,6 +40,25 @@ library(pak)
 
 This website is a resource for Shiny developers to get an 'under the hood' view of three popular frameworks. 
 
+```{r}
+#| label: co_box_new
+#| echo: false
+#| results: asis
+#| eval: true
+co_box(
+  color = "g", 
+  look = "default",
+  hsize = "1.25", 
+  size = "1.05",
+  header = "UPDATES",
+  fold = FALSE,
+  contents = "
+I've recently updated this website and rebuilt each app-package so they reflect the current features and dependencies for each framework. 
+  "
+)
+```
+
+
 ## [Golem](golem.qmd)
 
 ::: {layout="[20, 80]"}
@@ -50,8 +70,22 @@ This website is a resource for Shiny developers to get an 'under the hood' view 
 
 :::
 
-[Download the `gap` source code](https://github.com/mjfrigaard/sfw/raw/main/_apps/gap.tar.gz).
+Install the `gap` package using the code below: 
 
+```{r}
+#| eval: false 
+#| code-fold: false 
+install.packages('remotes')
+remotes::install_github(repo = "mjfrigaard/gap")
+```
+
+Launch the application using: 
+
+```{r}
+#| eval: false 
+#| code-fold: false 
+gap::run_app()
+```
 
 ## [Leprechaun](leprechaun.qmd)
 
@@ -65,7 +99,24 @@ This website is a resource for Shiny developers to get an 'under the hood' view 
 
 :::
 
-[Download the `lap` source code.](https://github.com/mjfrigaard/sfw/raw/main/_apps/lap.tar.gz).
+Install the `lap` package using the code below: 
+
+```{r}
+#| eval: false 
+#| code-fold: false 
+install.packages('remotes')
+remotes::install_github(repo = "mjfrigaard/lap")
+```
+
+Launch the application using: 
+
+```{r}
+#| eval: false 
+#| code-fold: false 
+lap::run()
+```
+
+
 
 ## [Rhino](rhino.qmd)
 
@@ -79,7 +130,7 @@ This website is a resource for Shiny developers to get an 'under the hood' view 
 
 :::
 
-[Download the `rap` source code](https://github.com/mjfrigaard/sfw/raw/main/_apps/rap.tar.gz).
+[Download the `rap` source code](https://github.com/mjfrigaard/sfw/raw/main/_apps/rap.zip).
 
 ### Source application
 
