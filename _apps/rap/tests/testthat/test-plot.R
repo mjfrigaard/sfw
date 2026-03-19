@@ -1,7 +1,7 @@
 # import testthat and ggplot2 function
 box::use(
   testthat[describe, it, expect_equal, expect_true],
-  ggplot2[is.ggplot]
+  ggplot2[is_ggplot]
 )
 # import data and plot modules
 box::use(
@@ -30,7 +30,7 @@ describe("Feature: Scatter Plot Generation Verification
     movies <- data$movies_data()
     # test point plot
     expect_true(
-      is.ggplot(
+      is_ggplot(
           # call scatter_plot() from plot module
           plot$scatter_plot(
             df = movies,
