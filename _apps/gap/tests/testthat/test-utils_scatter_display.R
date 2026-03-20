@@ -36,7 +36,7 @@ describe(
               alpha_var = scatter_inputs$alpha,
               size_var = scatter_inputs$size
             )
-            expect_true(ggplot2::is.ggplot(app_graph))
+            expect_true(ggplot2::is_ggplot(app_graph))
 
             test_logger(end = "data", msg = "movies.rda")
         })

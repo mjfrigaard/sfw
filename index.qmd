@@ -130,7 +130,7 @@ lap::run()
 
 :::
 
-[Download the `rap` source code](https://github.com/mjfrigaard/sfw/raw/main/_apps/rap.zip).
+[Download the `rap` source code](https://github.com/mjfrigaard/sfw/raw/main/_apps/rap.tar.gz).
 
 ### Source application
 
@@ -140,7 +140,7 @@ You can download the application `movies` dataset [here](https://github.com/mjfr
 
 ```{r}
 #| eval: false
-#| code-fold: show 
+#| code-fold: true 
 #| code-summary: 'show/hide movies app'
 # source: https://rstudio-education.github.io/shiny-course/
 
